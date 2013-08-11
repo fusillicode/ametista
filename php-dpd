@@ -1,0 +1,120 @@
+<?php
+
+include_once __DIR__ . '/vendor/autoload.php';
+include_once __DIR__ . '/utilities.php';
+
+class TreeBuilder
+{
+  public function __construct()
+  {
+    $this->tree = new Judy(Judy::STRING_TO_MIXED);
+  }
+
+  public function buildTree(array $statements)
+  {
+    $currentTreeRoot =& $this->tree;
+    foreach ($statements as $key => $nodeObject)
+      $this->growTree($nodeObject, $currentTreeRoot);
+    return $this->tree;
+  }
+
+  private function growTree(PHPParser_Node $nodeObject, $currentTreeRoot)
+  {
+    $this->insertNode($nodeObject);
+    if (!empty($nodeObject->stmts))
+      $this->tree = $this->buildTree($nodeObject->stmts);
+    $this->tree =& $currentTreeRoot;
+  }
+
+  private function insertNode(PHPParser_Node $nodeObject)
+  {
+    switch (get_class($nodeObject)) {
+      case 'PHPParser_Node_Stmt_Namespace':
+        $this->insertNamespace($nodeObject);
+        break;
+      case 'PHPParser_Node_Stmt_Class':
+        $this->insertClass($nodeObject);
+        break;
+      case 'PHPParser_Node_Stmt_Function':
+        $this->insertFunction($nodeObject);
+        break;
+      case 'PHPParser_Node_Stmt_ClassMethod':
+        $this->insertClassMethod($nodeObject);
+        break;
+      case 'PHPParser_Node_Expr_Assign':
+        $this->insertAssignement($nodeObject);
+        break;
+    }
+  }
+
+  private function insertNamespace(PHPParser_Node_Stmt_Namespace $nodeObject)
+  {
+    foreach ($nodeObject->name->parts as $key => $subNamespaceName)
+      $this->insert("namespace $subNamespaceName");
+  }
+
+  private function insertClass(PHPParser_Node_Stmt_Class $nodeObject)
+  {
+    $this->insert("class {$nodeObject->name}");
+  }
+
+  private function insertFunction(PHPParser_Node_Stmt_Function $nodeObject)
+  {
+    $this->insert("function {$nodeObject->name}");
+  }
+
+  private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $nodeObject)
+  {
+    $this->insert("classMethod {$nodeObject->name}");
+  }
+
+  private function insertAssignement(PHPParser_Node_Expr_Assign $nodeObject)
+  {
+    if ($nodeObject->var instanceof PHPParser_Node_Expr_Variable)
+      $this->insertVariable($nodeObject->var);
+    elseif ($nodeObject->var->name instanceof PHPParser_Node_Expr_Variable)
+      $this->insertVariable($nodeObject->var->name);
+    elseif ($nodeObject->var->name instanceof String)
+      $this->insert("variable {$nodeObject->var->name}");
+  }
+
+  private function insertVariable(PHPParser_Node_Expr_Variable $nodeObject)
+  {
+    if ($nodeObject->name instanceof PHPParser_Node_Expr_Variable)
+      $this->insertVariable($nodeObject->name);
+    else
+      $this->insert("variable {$nodeObject->name}");
+  }
+
+  private function insert($newParent)
+  {
+    $this->tree[$newParent] = new Judy(Judy::STRING_TO_MIXED);
+    $this->tree =& $this->tree[$newParent];
+  }
+
+}
+
+$parser = new PHPParser_Parser(new PHPParser_Lexer);
+$node_dumper = new PHPParser_NodeDumper;
+$files = getFiles('./front');
+$treeBuilder = new TreeBuilder();
+
+foreach ($files as $file){
+  try {
+    echo "{$file}\n";
+    $code = file_get_contents($file);
+    // if ($file !== './front/AddressController.php')
+    //   continue;
+    $statements = $parser->parse($code);
+    // $dump = $node_dumper->dump($statements);
+    // file_put_contents(replaceExtension($file,'ast'), $dump);
+    // $codeBase = buildTree($statements, $tree);
+    $codeBase = $treeBuilder->buildTree($statements);
+  } catch (PHPParser_Error $e) {
+    echo 'Parse Error: ', $e->getMessage();
+  }
+}
+
+printJudyObject($codeBase);
+
+?>
