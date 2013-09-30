@@ -8,8 +8,7 @@ function getFilesAlternative($rootDirectory)
     $currentDirectory = array_pop($stack);
     $handle = opendir($currentDirectory);
     while ($content = readdir($handle)) {
-      if ($content === '.' || $content === '..')
-        continue;
+      if ($content === '.' || $content === '..') continue;
       $currentElement = "{$currentDirectory}/{$content}";
       $extension = pathinfo($currentElement, PATHINFO_EXTENSION);
       if (is_file($currentElement) && is_readable($currentElement) && $extension === 'php')
@@ -58,10 +57,8 @@ function printJudyObject(Judy $judyObject, $level = 0)
 
 function checkJudyExtension()
 {
-  if (extension_loaded('judy'))
-    return true;
-  if (!dl('judy.so'))
-    return false;
+  if (extension_loaded('judy')) return true;
+  if (!dl('judy.so')) return false;
   return true;
 }
 
