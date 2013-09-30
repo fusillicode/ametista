@@ -96,7 +96,7 @@ class TreeBuilder
 
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $node_dumper = new PHPParser_NodeDumper;
-$files = getFiles('./front');
+$files = getFiles('./test');
 $treeBuilder = new TreeBuilder();
 
 foreach ($files as $file){
