@@ -14,7 +14,7 @@ array(
     )
     1: Expr_Assign(
         var: Expr_Variable(
-            name: b
+            name: a
         )
         expr: Expr_Plus(
             left: Scalar_String(
@@ -27,7 +27,7 @@ array(
     )
     2: Expr_Assign(
         var: Expr_Variable(
-            name: c
+            name: a
         )
         expr: Expr_Plus(
             left: Scalar_String(
@@ -48,10 +48,31 @@ array(
     )
     3: Expr_Assign(
         var: Expr_Variable(
-            name: c
+            name: a
         )
         expr: Expr_Plus(
             left: Scalar_LNumber(
+                value: 1
+            )
+            right: Expr_Array(
+                items: array(
+                    0: Expr_ArrayItem(
+                        key: null
+                        value: Scalar_LNumber(
+                            value: 1
+                        )
+                        byRef: false
+                    )
+                )
+            )
+        )
+    )
+    4: Expr_Assign(
+        var: Expr_Variable(
+            name: a
+        )
+        expr: Expr_Plus(
+            left: Scalar_String(
                 value: 1
             )
             right: Expr_Array(
