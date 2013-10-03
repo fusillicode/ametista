@@ -4,22 +4,18 @@ include_once __DIR__ . '/vendor/autoload.php';
 include_once __DIR__ . '/utilities.php';
 
 try {
-
   $redis = new Predis\Client();
   echo "Successfully connected to Redis";
-
 } catch (Exception $e) {
-
   echo "Couldn't connected to Redis";
   echo $e->getMessage();
-
 }
 
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $node_dumper = new PHPParser_NodeDumper;
 $files = getFiles('./test_codebase');
 
-foreach ($files as $file){
+foreach ($files as $file) {
   try {
     echo "{$file}\n";
     $code = file_get_contents($file);
@@ -27,17 +23,11 @@ foreach ($files as $file){
     $dump = $node_dumper->dump($statements);
     $redis->set("{$file}", $dump);
     // file_put_contents('./test/'.replaceExtension($file,'ast'), $dump);
-    // $code_base = $tree_builder->buildTree($statements);
   } catch (PHPParser_Error $e) {
     echo 'Parse Error: ', $e->getMessage();
   }
 }
 
 $redis->keys('*');
-
-var_dump();
-
-die();
-printJudyObject($code_base);
 
 ?>
