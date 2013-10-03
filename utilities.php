@@ -64,7 +64,7 @@ function checkJudyExtension()
 function replaceExtension($file_name, $new_extension)
 {
   $path_information = pathinfo($file_name);
-  return "{$path_information['file_name']}.{$new_extension}";
+  return "{$path_information['filename']}.{$new_extension}";
 }
 
 ?>

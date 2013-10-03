@@ -104,10 +104,10 @@ foreach ($files as $file){
     echo "{$file}\n";
     $code = file_get_contents($file);
     $statements = $parser->parse($code);
-    // $dump = $node_dumper->dump($statements);
-    // file_put_contents(replaceExtension($file,'ast'), $dump);
-    // $code_base = buildTree($statements, $tree);
+    $dump = $node_dumper->dump($statements);
+    file_put_contents(replaceExtension($file,'ast'), $dump);
     $code_base = $tree_builder->buildTree($statements);
+    die();
   } catch (PHPParser_Error $e) {
     echo 'Parse Error: ', $e->getMessage();
   }
