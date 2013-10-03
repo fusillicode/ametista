@@ -28,6 +28,9 @@ foreach ($files as $file) {
   }
 }
 
-$redis->keys('*');
+$keys = $redis->keys('*');
+foreach ($keys as $key) {
+  var_dump($redis->get($key));
+}
 
 ?>
