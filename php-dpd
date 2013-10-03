@@ -108,7 +108,7 @@ foreach ($files as $file){
     $code = file_get_contents($file);
     $statements = $parser->parse($code);
     $dump = $node_dumper->dump($statements);
-    file_put_contents(replaceExtension($file,'ast'), $dump);
+    file_put_contents('./test/'.replaceExtension($file,'ast'), $dump);
     $code_base = $tree_builder->buildTree($statements);
     die();
   } catch (PHPParser_Error $e) {
