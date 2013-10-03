@@ -7,8 +7,8 @@ array(
             left: Scalar_String(
                 value: ciao
             )
-            right: Scalar_LNumber(
-                value: 1
+            right: Scalar_String(
+                value: 1.2
             )
         )
     )

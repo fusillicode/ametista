@@ -94,6 +94,9 @@ class TreeBuilder
 
 }
 
+$redis = new Predis\Client();
+die();
+
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $node_dumper = new PHPParser_NodeDumper;
 $files = getFiles('./test');
