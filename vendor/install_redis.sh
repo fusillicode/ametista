@@ -1,5 +1,5 @@
 
-# Install the stable release of Redi
+# Install Redis in vendor subdirectory
 cd vendor
 wget http://download.redis.io/releases/redis-2.6.16.tar.gz
 tar xzf redis-2.6.16.tar.gz
