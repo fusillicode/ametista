@@ -2,6 +2,9 @@
 # Install Composer
 php -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
 
+# Remove already present vendor directory to cleanly install Predis package
+rm vendor
+
 # Update Composer to install/update PHP-Parser and Predis packages
 composer update
 
