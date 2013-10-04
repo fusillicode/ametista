@@ -2,6 +2,10 @@
 
 function getFilesAlternative($root_directory)
 {
+  if (!file_exists($root_directory) && !is_dir($root_directory)) {
+    echo "No {$root_directory} found\n";
+    return array();
+  }
   $files = array();
   $stack[] = $root_directory;
   while ($stack) {
@@ -23,6 +27,10 @@ function getFilesAlternative($root_directory)
 
 function getFiles($root_directory)
 {
+  if (!file_exists($root_directory) && !is_dir($root_directory)) {
+    echo "Directory \"{$root_directory}\" not found\n";
+    return array();
+  }
   $files = array();
   $stack[] = $root_directory;
   while ($stack) {
@@ -61,9 +69,9 @@ function checkJudyExtension()
   return true;
 }
 
-function replaceExtension($file_name, $new_extension)
+function replaceExtension($file_path, $new_extension)
 {
-  $path_information = pathinfo($file_name);
+  $path_information = pathinfo($file_path);
   return "{$path_information['filename']}.{$new_extension}";
 }
 
