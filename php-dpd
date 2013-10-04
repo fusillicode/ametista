@@ -32,14 +32,12 @@ foreach ($files as $file) {
   }
 }
 
+$keys = $redis->keys('*');
+foreach ($keys as $key)
+  unserialize($redis->get($key));
+
 $end = microtime(true);
 $time = $end - $start;
 echo "{$time}\n";
-die();
-
-$keys = $redis->keys('*');
-foreach ($keys as $key) {
-  var_dump(unserialize($redis->get($key)));
-}
 
 ?>
