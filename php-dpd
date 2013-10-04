@@ -9,12 +9,15 @@ try {
   $redis = new Predis\Client();
   $redis->connect();
   echo "Successfully connected to Redis server\n";
-} catch (Exception $e)
+} catch (Exception $e) {
   exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
+}
 
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $node_dumper = new PHPParser_NodeDumper;
 $files = getFiles('./test_codebase');
+
+$start = microtime(true);
 
 foreach ($files as $file) {
   try {
@@ -28,6 +31,11 @@ foreach ($files as $file) {
     echo 'Parse Error: ', $e->getMessage();
   }
 }
+
+$end = microtime(true);
+$time = $end - $start;
+echo "{$time}\n";
+die();
 
 $keys = $redis->keys('*');
 foreach ($keys as $key) {
