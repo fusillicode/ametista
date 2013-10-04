@@ -7,11 +7,10 @@ include_once __DIR__ . '/utilities.php';
 
 try {
   $redis = new Predis\Client();
+  $redis->connect();
   echo "Successfully connected to Redis server\n";
-} catch (Exception $e) {
-  echo "Couldn't connected to Redis server\n";
-  echo $e->getMessage();
-}
+} catch (Exception $e)
+  exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
 
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $node_dumper = new PHPParser_NodeDumper;
