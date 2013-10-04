@@ -3,13 +3,13 @@
 include_once __DIR__ . '/vendor/autoload.php';
 include_once __DIR__ . '/utilities.php';
 
-
+// $start_redis_server = `./vendor/redis-2.6.16/src/redis-server`;
 
 try {
   $redis = new Predis\Client();
-  echo "Successfully connected to Redis";
+  echo "Successfully connected to Redis server\n";
 } catch (Exception $e) {
-  echo "Couldn't connected to Redis";
+  echo "Couldn't connected to Redis server\n";
   echo $e->getMessage();
 }
 
@@ -22,8 +22,8 @@ foreach ($files as $file) {
     echo "{$file}\n";
     $code = file_get_contents($file);
     $statements = $parser->parse($code);
-    $dump = $node_dumper->dump($statements);
     $redis->set("{$file}", serialize($statements));
+    // $dump = $node_dumper->dump($statements);
     // file_put_contents('./test/'.replaceExtension($file,'ast'), $dump);
   } catch (PHPParser_Error $e) {
     echo 'Parse Error: ', $e->getMessage();
