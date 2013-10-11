@@ -1,5 +1,7 @@
 <?php
 
+namespace Ciao;
+
 $a = "ciao" + "1.2";
 $a = 'ciao1' + 1;
 $a = 'ciao1' + array(1);

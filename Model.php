@@ -2,22 +2,18 @@
 
 class Model
 {
-  $_redis = null;
-  $_current_namespace = null;
-  $_current_class = null;
-  $_current_procedure = null;
-
   public function __construct()
   {
     try {
       $this->_redis = new Predis\Client();
       $this->_redis->connect();
-      $this->_current_namespace = 'global';
-      echo "Successfully connected to Redis server\n"
+      $this->_current_namespace = 'n:global';
+      $this->_current_class = null;
+      $this->_current_procedure = null;
+      echo "Successfully connected to Redis server\n";
       return true;
     } catch (Exception $e) {
-      echo "Couldn't connected to Redis server\n{$e->getMessage()}\n";
-      return false;
+      exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
     }
   }
 
@@ -25,7 +21,7 @@ class Model
   {
     foreach ($statements as $key => $node_object) {
       $this->insertNode($node_object);
-      if (!empty($statements)) $this->populateModel($node_object->stmts);
+      if (!empty($node_object->stmts)) $this->populate($node_object->stmts);
     }
     return $this->_redis;
   }
@@ -36,26 +32,27 @@ class Model
       case 'PHPParser_Node_Stmt_Namespace':
         $this->insertNamespace($node_object);
         break;
-      case 'PHPParser_Node_Stmt_Class':
-        $this->insertClass($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_Function':
-        $this->insertFunction($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_ClassMethod':
-        $this->insertClassMethod($node_object);
-        break;
-      case 'PHPParser_Node_Expr_Assign':
-        $this->insertAssignement($node_object);
-        break;
+      // case 'PHPParser_Node_Stmt_Class':
+      //   $this->insertClass($node_object);
+      //   break;
+      // case 'PHPParser_Node_Stmt_Function':
+      //   $this->insertFunction($node_object);
+      //   break;
+      // case 'PHPParser_Node_Stmt_ClassMethod':
+      //   $this->insertClassMethod($node_object);
+      //   break;
+      // case 'PHPParser_Node_Expr_Assign':
+      //   $this->insertAssignement($node_object);
+      //   break;
     }
   }
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
   {
     foreach ($node_object->name->parts as $key => $sub_namespace_name) {
-      $this->_current_namespace .= "\{$sub_namespace_name}";
-      $this->insert("n:{$this->_current_namespace}");
+      $parent_namespace = $this->_current_namespace;
+      $this->_current_namespace .= "\\{$sub_namespace_name}";
+      $this->_redis->sadd($parent_namespace, $this->_current_namespace);
     }
   }
 
@@ -90,12 +87,6 @@ class Model
       $this->insertVariable($node_object->name);
     else
       $this->insert("variable {$node_object->name}");
-  }
-
-  private function insert($new_parent)
-  {
-    $this->tree[$new_parent] = new Judy(Judy::STRING_TO_MIXED);
-    $this->tree =& $this->tree[$new_parent];
   }
 
 }
