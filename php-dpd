@@ -5,14 +5,7 @@ include_once __DIR__ . '/utilities.php';
 
 // $start_redis_server = `./vendor/redis-2.6.16/src/redis-server`;
 
-try {
-  $redis = new Predis\Client();
-  $redis->connect();
-  echo "Successfully connected to Redis server\n";
-} catch (Exception $e) {
-  exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
-}
-
+$model = new Model();
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $node_dumper = new PHPParser_NodeDumper;
 $files = getFiles('./test_codebase');
@@ -24,7 +17,8 @@ foreach ($files as $file) {
     echo "{$file}\n";
     $code = file_get_contents($file);
     $statements = $parser->parse($code);
-    $redis->set("{$file}", serialize($statements));
+    $model->populate($statements);
+    // $redis->set("{$file}", serialize($statements));
     // $dump = $node_dumper->dump($statements);
     // file_put_contents('./test/'.replaceExtension($file,'ast'), $dump);
   } catch (PHPParser_Error $e) {

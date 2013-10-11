@@ -3,15 +3,16 @@
 class Model
 {
   $_redis = null;
-  $_current_namespace = '';
-  $_current_class = '';
-  $_current_procedure = '';
+  $_current_namespace = null;
+  $_current_class = null;
+  $_current_procedure = null;
 
   public function __construct()
   {
     try {
       $this->_redis = new Predis\Client();
       $this->_redis->connect();
+      $this->_current_namespace = 'global';
       echo "Successfully connected to Redis server\n"
       return true;
     } catch (Exception $e) {
@@ -20,7 +21,7 @@ class Model
     }
   }
 
-  public function populateModel(array $statements)
+  public function populate(array $statements)
   {
     foreach ($statements as $key => $node_object) {
       $this->insertNode($node_object);
@@ -52,8 +53,10 @@ class Model
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
   {
-    foreach ($node_object->name->parts as $key => $sub_namespace_name)
-      $this->insert("namespace $sub_namespace_name");
+    foreach ($node_object->name->parts as $key => $sub_namespace_name) {
+      $this->_current_namespace .= "\{$sub_namespace_name}";
+      $this->insert("n:{$this->_current_namespace}");
+    }
   }
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
