@@ -2,6 +2,7 @@
 
 class Model
 {
+  $_redis = null;
   $_current_namespace = '';
   $_current_class = '';
   $_current_procedure = '';
@@ -9,8 +10,8 @@ class Model
   public function __construct()
   {
     try {
-      $redis = new Predis\Client();
-      $redis->connect();
+      $this->_redis = new Predis\Client();
+      $this->_redis->connect();
       echo "Successfully connected to Redis server\n"
       return true;
     } catch (Exception $e) {
@@ -25,7 +26,7 @@ class Model
       $this->insertNode($node_object);
       if (!empty($statements)) $this->populateModel($node_object->stmts);
     }
-    return $this->redis;
+    return $this->_redis;
   }
 
   private function insertNode(PHPParser_Node $node_object)
