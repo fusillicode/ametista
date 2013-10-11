@@ -2,6 +2,10 @@
 
 class Model
 {
+  $_current_namespace = '';
+  $_current_class = '';
+  $_current_procedure = '';
+
   public function __construct()
   {
     try {
@@ -13,6 +17,15 @@ class Model
       echo "Couldn't connected to Redis server\n{$e->getMessage()}\n";
       return false;
     }
+  }
+
+  public function populateModel(array $statements)
+  {
+    foreach ($statements as $key => $node_object) {
+      $this->insertNode($node_object);
+      if (!empty($statements)) $this->populateModel($node_object->stmts);
+    }
+    return $this->redis;
   }
 
   private function insertNode(PHPParser_Node $node_object)
