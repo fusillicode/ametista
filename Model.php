@@ -52,13 +52,34 @@ class Model
     foreach ($node_object->name->parts as $key => $sub_namespace_name) {
       $parent_namespace = $this->_current_namespace;
       $this->_current_namespace .= "\\{$sub_namespace_name}";
-      $this->_redis->sadd($parent_namespace, $this->_current_namespace);
+      $this->_redis->sadd("{$parent_namespace}:contain", $this->_current_namespace);
+      $this->_redis->sadd("{$this->_current_namespace}:containedIn", $parent_namespace);
     }
   }
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
-    $this->insert("class {$node_object->name}");
+    $this->_current_class = $node_object->name;
+    $this->updateAlreadyInsertedClassReferences($this->_current_class);
+    if ($parent_class = $node_object->extends) {
+      $parent_class = $this->_redis->keys($parent_class);
+      $parent_class = $parent_class ? $parent_class : ;
+      $this->_redis->sadd("{$this->_current_namespace}c:{$_current_class}:subclassOf", $parent_class);
+      $this->_redis->sadd($parent_class, "{$this->_current_namespace}c:{$_current_class}:parentClassOf");
+    }
+    $this->_redis->sadd($this->_current_namespace, "{$this->_current_namespace}c:{$_current_class}");
+  }
+
+  private function updateAlreadyInsertedClassReferences($class_name)
+  {
+    if (!$class_references = $this->_redis->keys($class_name)) return false;
+    foreach ($class_references as $key => $class_reference) {
+      $this->_redis->sadd(str_replace($class_reference,
+                                      "{$this->_current_namespace}c:{$class_name}",
+                                      $class_reference),
+                          $this->_redis->smembers($class_reference));
+      $this->_redis->del($class_reference);
+    }
   }
 
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
