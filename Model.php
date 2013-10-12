@@ -17,6 +17,8 @@ class Model
     }
   }
 
+  public function buildModel() {}
+
   public function populate(array $statements)
   {
     foreach ($statements as $key => $node_object) {
@@ -32,9 +34,9 @@ class Model
       case 'PHPParser_Node_Stmt_Namespace':
         $this->insertNamespace($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_Class':
-      //   $this->insertClass($node_object);
-      //   break;
+      case 'PHPParser_Node_Stmt_Class':
+        $this->insertClass($node_object);
+        break;
       // case 'PHPParser_Node_Stmt_Function':
       //   $this->insertFunction($node_object);
       //   break;
@@ -53,21 +55,20 @@ class Model
       $parent_namespace = $this->_current_namespace;
       $this->_current_namespace .= "\\{$sub_namespace_name}";
       $this->_redis->sadd("{$parent_namespace}:contain", $this->_current_namespace);
-      $this->_redis->sadd("{$this->_current_namespace}:containedIn", $parent_namespace);
+      $this->_redis->sadd("{$this->_current_namespace}:contained", $parent_namespace);
     }
   }
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
     $this->_current_class = $node_object->name;
-    $this->updateAlreadyInsertedClassReferences($this->_current_class);
-    if ($parent_class = $node_object->extends) {
-      $parent_class = $this->_redis->keys($parent_class);
-      $parent_class = $parent_class ? $parent_class : ;
-      $this->_redis->sadd("{$this->_current_namespace}c:{$_current_class}:subclassOf", $parent_class);
-      $this->_redis->sadd($parent_class, "{$this->_current_namespace}c:{$_current_class}:parentClassOf");
+    // $this->updateAlreadyInsertedClassReferences($this->_current_class);
+    if ($super_class = $node_object->extends) {
+      $current_class_key = "{$this->_current_namespace}:c:{$this->_current_class}";
+      $this->_redis->sadd("{$current_class_key}:subclass", $super_class->parts[0]);
+      $this->_redis->sadd("{$super_class->parts[0]}:superclass", "{$current_class_key}");
     }
-    $this->_redis->sadd($this->_current_namespace, "{$this->_current_namespace}c:{$_current_class}");
+    $this->_redis->sadd("{$this->_current_namespace}:contain", "{$this->_current_namespace}:c:{$this->_current_class}");
   }
 
   private function updateAlreadyInsertedClassReferences($class_name)
@@ -75,7 +76,7 @@ class Model
     if (!$class_references = $this->_redis->keys($class_name)) return false;
     foreach ($class_references as $key => $class_reference) {
       $this->_redis->sadd(str_replace($class_reference,
-                                      "{$this->_current_namespace}c:{$class_name}",
+                                      "{$this->_current_namespace}:c:{$class_name}",
                                       $class_reference),
                           $this->_redis->smembers($class_reference));
       $this->_redis->del($class_reference);
