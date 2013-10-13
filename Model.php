@@ -11,7 +11,7 @@ class Model
       $this->_current_class = null;
       $this->_current_procedure = null;
       echo "Successfully connected to Redis server\n";
-      $this->_redis->sadd('basetypes', array('boolean', 'int', 'double', 'string', 'array'));
+      $this->_redis->sadd('types', array('boolean', 'int', 'double', 'string', 'array', 'stdClass'));
       return true;
     } catch (Exception $e) {
       exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
