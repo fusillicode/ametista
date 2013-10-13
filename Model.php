@@ -7,15 +7,15 @@ class Model
     try {
       $this->_redis = new Predis\Client();
       $this->_redis->connect();
-      $this->_current_namespace = 'n:global';
-      $this->_current_class = null;
-      $this->_current_procedure = null;
       echo "Successfully connected to Redis server\n";
-      $this->_redis->sadd('types', array('boolean', 'int', 'double', 'string', 'array', 'stdClass'));
-      return true;
     } catch (Exception $e) {
       exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
     }
+    $this->_current_namespace = 'n:global';
+    $this->_current_class = null;
+    $this->_current_procedure = null;
+    $this->_redis->sadd('types', array('boolean', 'int', 'double', 'string', 'array', 'stdClass'));
+    return true;
   }
 
   public function buildModel() {}
@@ -55,8 +55,8 @@ class Model
     foreach ($node_object->name->parts as $key => $sub_namespace_name) {
       $parent_namespace = $this->_current_namespace;
       $this->_current_namespace .= "\\{$sub_namespace_name}";
-      $this->_redis->sadd("{$parent_namespace}:contain", $this->_current_namespace);
-      $this->_redis->sadd("{$this->_current_namespace}:contained", $parent_namespace);
+      $this->_redis->sadd("{$parent_namespace}:[N", $this->_current_namespace);
+      $this->_redis->sadd("{$this->_current_namespace}:]N", $parent_namespace);
     }
   }
 
@@ -66,11 +66,11 @@ class Model
     $current_class_key = "{$this->_current_namespace}:c:{$this->_current_class}";
     // $this->updateAlreadyInsertedClassKeys($this->_current_class, $current_class_key);
     if ($superclass = $node_object->extends) {
-      $this->_redis->sadd("{$current_class_key}:subclass", $superclass->parts[0]);
-      $this->_redis->sadd("{$superclass->parts[0]}:superclass", "{$current_class_key}");
+      $this->_redis->sadd("{$current_class_key}:<", $superclass->parts[0]);
+      $this->_redis->sadd("{$superclass->parts[0]}:>", "{$current_class_key}");
     }
     $this->_redis->sadd("classes", $current_class_key);
-    $this->_redis->sadd("{$this->_current_namespace}:contain", $current_class_key);
+    $this->_redis->sadd("{$this->_current_namespace}:[C", $current_class_key);
   }
 
   private function updateAlreadyInsertedClassKeys($class_name, $class_key)
