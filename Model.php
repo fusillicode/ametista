@@ -62,21 +62,28 @@ class Model
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
     $this->_current_class = $node_object->name;
-    // $this->updateAlreadyInsertedClassReferences($this->_current_class);
-    if ($super_class = $node_object->extends) {
-      $current_class_key = "{$this->_current_namespace}:c:{$this->_current_class}";
-      $this->_redis->sadd("{$current_class_key}:subclass", $super_class->parts[0]);
-      $this->_redis->sadd("{$super_class->parts[0]}:superclass", "{$current_class_key}");
+    $current_class_key = "{$this->_current_namespace}:c:{$this->_current_class}";
+    // $this->updateAlreadyInsertedClassReferences($this->_current_class, $current_class_key);
+    if ($superclass = $node_object->extends) {
+      $this->_redis->sadd("{$current_class_key}:subclass", $superclass->parts[0]);
+      $this->_redis->sadd("{$superclass->parts[0]}:superclass", "{$current_class_key}");
     }
-    $this->_redis->sadd("{$this->_current_namespace}:contain", "{$this->_current_namespace}:c:{$this->_current_class}");
+    if ($superclasses = $node_object->implements) {
+      foreach ($superclasses as $superclass) {
+        $this->_redis->sadd("{$current_class_key}:subclass", $superclass);
+        $this->_redis->sadd("{$superclass}:superclass", "{$current_class_key}");
+      }
+    }
+    $this->_redis->sadd("types", $current_class_key);
+    $this->_redis->sadd("{$this->_current_namespace}:contain", $current_class_key);
   }
 
-  private function updateAlreadyInsertedClassReferences($class_name)
+  private function updateAlreadyInsertedClassReferences($class_name, $class_key)
   {
     if (!$class_references = $this->_redis->keys($class_name)) return false;
     foreach ($class_references as $key => $class_reference) {
       $this->_redis->sadd(str_replace($class_reference,
-                                      "{$this->_current_namespace}:c:{$class_name}",
+                                      $class_key,
                                       $class_reference),
                           $this->_redis->smembers($class_reference));
       $this->_redis->del($class_reference);
