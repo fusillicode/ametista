@@ -11,6 +11,7 @@ class Model
       $this->_current_class = null;
       $this->_current_procedure = null;
       echo "Successfully connected to Redis server\n";
+      $this->_redis->sadd('basetypes', array('boolean', 'int', 'double', 'string', 'array'));
       return true;
     } catch (Exception $e) {
       exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
@@ -63,22 +64,16 @@ class Model
   {
     $this->_current_class = $node_object->name;
     $current_class_key = "{$this->_current_namespace}:c:{$this->_current_class}";
-    // $this->updateAlreadyInsertedClassReferences($this->_current_class, $current_class_key);
+    // $this->updateAlreadyInsertedClassKeys($this->_current_class, $current_class_key);
     if ($superclass = $node_object->extends) {
       $this->_redis->sadd("{$current_class_key}:subclass", $superclass->parts[0]);
       $this->_redis->sadd("{$superclass->parts[0]}:superclass", "{$current_class_key}");
     }
-    if ($superclasses = $node_object->implements) {
-      foreach ($superclasses as $superclass) {
-        $this->_redis->sadd("{$current_class_key}:subclass", $superclass);
-        $this->_redis->sadd("{$superclass}:superclass", "{$current_class_key}");
-      }
-    }
-    $this->_redis->sadd("types", $current_class_key);
+    $this->_redis->sadd("classes", $current_class_key);
     $this->_redis->sadd("{$this->_current_namespace}:contain", $current_class_key);
   }
 
-  private function updateAlreadyInsertedClassReferences($class_name, $class_key)
+  private function updateAlreadyInsertedClassKeys($class_name, $class_key)
   {
     if (!$class_references = $this->_redis->keys($class_name)) return false;
     foreach ($class_references as $key => $class_reference) {
