@@ -18,7 +18,7 @@ class topo
 
 }
 
-class Pluto extends topo implements Pape
+class FrontController extends topo implements Pape
 {
 	public function leggi ()
 	{

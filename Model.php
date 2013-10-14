@@ -30,6 +30,10 @@ class Model
     return $this->_redis->flushall();
   }
 
+  public function get() {
+    return $this->_redis;
+  }
+
   public function populate(array $statements)
   {
     foreach ($statements as $key => $node_object) {
