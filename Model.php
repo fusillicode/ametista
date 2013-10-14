@@ -14,7 +14,12 @@ class Model
     $this->_current_namespace = 'N:global';
     $this->_current_class = null;
     $this->_current_procedure = null;
-    $this->_redis->sadd('types', array('boolean', 'int', 'double', 'string', 'array', 'stdClass'));
+    $this->_redis->sadd('types', array('boolean',
+                                        'int',
+                                        'double',
+                                        'string',
+                                        'array',
+                                        'stdClass'));
     return true;
   }
 
