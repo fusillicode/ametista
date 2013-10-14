@@ -11,14 +11,19 @@ class Model
     } catch (Exception $e) {
       exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
     }
-    $this->_current_namespace = 'n:global';
+    $this->_current_namespace = 'N:global';
     $this->_current_class = null;
     $this->_current_procedure = null;
     $this->_redis->sadd('types', array('boolean', 'int', 'double', 'string', 'array', 'stdClass'));
     return true;
   }
 
-  public function buildModel() {}
+  public function build() {}
+
+  public function delete()
+  {
+    return $this->_redis->flushall();
+  }
 
   public function populate(array $statements)
   {
@@ -63,19 +68,22 @@ class Model
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
     $this->_current_class = $node_object->name;
-    $current_class_key = "{$this->_current_namespace}:c:{$this->_current_class}";
-    // $this->updateAlreadyInsertedClassKeys($this->_current_class, $current_class_key);
+    $current_class_key = "{$this->_current_namespace}:C:{$this->_current_class}";
+    $this->updateInsertedClassKeys($this->_current_class, $current_class_key);
     if ($superclass = $node_object->extends) {
       $this->_redis->sadd("{$current_class_key}:<", $superclass->parts[0]);
       $this->_redis->sadd("{$superclass->parts[0]}:>", "{$current_class_key}");
     }
-    $this->_redis->sadd("classes", $current_class_key);
+    $this->_redis->sadd("types", $current_class_key);
     $this->_redis->sadd("{$this->_current_namespace}:[C", $current_class_key);
   }
 
-  private function updateAlreadyInsertedClassKeys($class_name, $class_key)
+  private function updateInsertedClassKeys($class_name, $class_key)
   {
-    if (!$class_references = $this->_redis->keys($class_name)) return false;
+    if (!$class_references = $this->_redis->keys($class_name)) {
+      return false;
+    }
+    die();
     foreach ($class_references as $key => $class_reference) {
       $this->_redis->sadd(str_replace($class_reference,
                                       $class_key,
