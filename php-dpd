@@ -9,16 +9,18 @@ include_once __DIR__ . '/Model.php';
 $model = new Model();
 $model->delete();
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
+$traverser = new PHPParser_NodeTraverser;
+$traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver());
 $node_dumper = new PHPParser_NodeDumper;
-$files = getFiles('./test_codebase');
+$files = getFiles('./test_codebase/controllers/front');
 
 $start = microtime(true);
 
 foreach ($files as $file) {
   try {
-    echo "{$file}\n";
+    // echo "{$file}\n";
     $code = file_get_contents($file);
-    $statements = $parser->parse($code);
+    $statements = $traverser->traverse($parser->parse($code));
     $model->populate($statements);
     // $redis->set("{$file}", serialize($statements));
     // $dump = $node_dumper->dump($statements);
