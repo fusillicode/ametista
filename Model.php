@@ -30,7 +30,8 @@ class Model
     return $this->_redis->flushall();
   }
 
-  public function get() {
+  public function get()
+  {
     return $this->_redis;
   }
 
@@ -46,53 +47,60 @@ class Model
   private function insertNode(PHPParser_Node $node_object)
   {
     switch (get_class($node_object)) {
-      case 'PHPParser_Node_Stmt_Namespace':
-        $this->insertNamespace($node_object);
-        break;
+      // case 'PHPParser_Node_Stmt_Namespace':
+      //   $this->insertNamespace($node_object);
+      //   break;
       case 'PHPParser_Node_Stmt_Class':
         $this->insertClass($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_Function':
-      //   $this->insertFunction($node_object);
-      //   break;
+      case 'PHPParser_Node_Stmt_Function':
+        $this->insertFunction($node_object);
+        break;
       // case 'PHPParser_Node_Stmt_ClassMethod':
       //   $this->insertClassMethod($node_object);
       //   break;
-      // case 'PHPParser_Node_Expr_Assign':
-      //   $this->insertAssignement($node_object);
-      //   break;
+      case 'PHPParser_Node_Expr_Assign':
+        $this->insertAssignement($node_object);
+        break;
     }
   }
 
-  private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
-  {
-    foreach ($node_object->name->parts as $key => $sub_namespace_name) {
-      $parent_namespace = $this->_current_namespace;
-      $this->_current_namespace .= "\\{$sub_namespace_name}";
-      $this->_redis->sadd("{$parent_namespace}:[N", $this->_current_namespace);
-      $this->_redis->sadd("{$this->_current_namespace}:]N", $parent_namespace);
-    }
-  }
+  // private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
+  // {
+  //   foreach ($node_object->name->parts as $key => $sub_namespace_name) {
+  //     $parent_namespace = $this->_current_namespace;
+  //     $this->_current_namespace .= "\\{$sub_namespace_name}";
+  //     $this->_redis->sadd("{$parent_namespace}:[N", $this->_current_namespace);
+  //     $this->_redis->sadd("{$this->_current_namespace}:]N", $parent_namespace);
+  //   }
+  // }
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
-    $this->_current_class = $node_object->name;
-    $current_class_key = "{$this->_current_namespace}:C:{$this->_current_class}";
-    $this->updateInsertedClassKeys($this->_current_class, $current_class_key);
-    if ($superclass = $node_object->extends) {
-      $this->_redis->sadd("{$current_class_key}:<", $superclass->parts[0]);
-      $this->_redis->sadd("{$superclass->parts[0]}:>", "{$current_class_key}");
-    }
-    $this->_redis->sadd("types", $current_class_key);
-    $this->_redis->sadd("{$this->_current_namespace}:[C", $current_class_key);
+    $this->_current_class = $this->getKey($node_object->namespacedName->parts, 'C:');
+    $this->insertSuperclass($node_object);
+    $this->_redis->sadd("types", $this->_current_class);
+  }
+
+  private function getKey($key_parts, $type)
+  {
+    return $type.(is_array($key_parts) ?
+                  implode("\\", $key_parts) :
+                  "\\".$key_parts);
+  }
+
+  private function insertSuperclass($node_object)
+  {
+    if (!$superclass = $node_object->extends) return false;
+    $superclass_key = $this->getKey($superclass->parts, 'C:');
+    $this->_redis->sadd("{$this->_current_class}>", $superclass_key);
+    $this->_redis->sadd("{$superclass_key}<", "{$this->_current_class}");
+    $this->populate($node_object->statements);
   }
 
   private function updateInsertedClassKeys($class_name, $class_key)
   {
-    if (!$class_references = $this->_redis->keys($class_name)) {
-      return false;
-    }
-    die();
+    if (!$class_references = $this->_redis->keys($class_name)) return false;
     foreach ($class_references as $key => $class_reference) {
       $this->_redis->sadd(str_replace($class_reference,
                                       $class_key,
@@ -104,7 +112,8 @@ class Model
 
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
   {
-    $this->insert("function {$node_object->name}");
+    $this->_current_procedure = $this->getKey($node_object->namespacedName->parts, 'F:');
+    $this->populate($node_object->statements);
   }
 
   private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
