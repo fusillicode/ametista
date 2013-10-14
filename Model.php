@@ -35,11 +35,12 @@ class Model
     return $this->_redis;
   }
 
-  public function populate(array $statements)
+  public function populate($statements)
   {
+    $statements = $statements ? $statements : array();
     foreach ($statements as $key => $node_object) {
       $this->insertNode($node_object);
-      $this->populate($node_object->stmts ? $node_object->stmts : array());
+      $this->populate($node_object->stmts);
     }
     return $this->_redis;
   }
@@ -59,9 +60,9 @@ class Model
       // case 'PHPParser_Node_Stmt_ClassMethod':
       //   $this->insertClassMethod($node_object);
       //   break;
-      case 'PHPParser_Node_Expr_Assign':
-        $this->insertAssignement($node_object);
-        break;
+      // case 'PHPParser_Node_Expr_Assign':
+      //   $this->insertAssignement($node_object);
+      //   break;
     }
   }
 
@@ -80,6 +81,7 @@ class Model
     $this->_current_class = $this->getKey($node_object->namespacedName->parts, 'C:');
     $this->insertSuperclass($node_object);
     $this->_redis->sadd("types", $this->_current_class);
+    $this->populate($node_object->stmts);
   }
 
   private function getKey($key_parts, $type)
@@ -89,13 +91,12 @@ class Model
                   "\\".$key_parts);
   }
 
-  private function insertSuperclass($node_object)
+  private function insertSuperclass(PHPParser_Node_Stmt_Class $node_object)
   {
     if (!$superclass = $node_object->extends) return false;
     $superclass_key = $this->getKey($superclass->parts, 'C:');
     $this->_redis->sadd("{$this->_current_class}>", $superclass_key);
     $this->_redis->sadd("{$superclass_key}<", "{$this->_current_class}");
-    $this->populate($node_object->statements);
   }
 
   private function updateInsertedClassKeys($class_name, $class_key)
