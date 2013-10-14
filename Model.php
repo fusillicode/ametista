@@ -29,7 +29,7 @@ class Model
   {
     foreach ($statements as $key => $node_object) {
       $this->insertNode($node_object);
-      if (!empty($node_object->stmts)) $this->populate($node_object->stmts);
+      $this->populate($node_object->stmts ? $node_object->stmts : array());
     }
     return $this->_redis;
   }
