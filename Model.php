@@ -37,12 +37,10 @@ class Model
 
   public function populate($statements)
   {
-    $statements = $statements ? $statements : array();
-    foreach ($statements as $key => $node_object) {
+    if (!$statements) return false;
+    foreach ($statements as $key => $node_object)
       $this->insertNode($node_object);
-      $this->populate($node_object->stmts);
-    }
-    return $this->_redis;
+    return $this->get();
   }
 
   private function insertNode(PHPParser_Node $node_object)
