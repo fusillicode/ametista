@@ -85,7 +85,7 @@ class Model
 
   private function createKey($key_parts, $type)
   {
-    return $type.(is_array($key_parts) ?
+    return $type.(isset($key_parts[0]) ?
                   implode("\\", $key_parts) :
                   "\\".$key_parts);
   }
