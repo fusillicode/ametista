@@ -11,9 +11,9 @@ class Model
     } catch (Exception $e) {
       exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
     }
-    $this->_current_namespace = 'N:global';
-    $this->_current_class = null;
-    $this->_current_procedure = null;
+    $this->_current_namespace = '';
+    $this->_current_class = '';
+    $this->_current_procedure = '';
     $this->_redis->sadd('types', array('boolean',
                                         'int',
                                         'double',
@@ -52,15 +52,15 @@ class Model
       case 'PHPParser_Node_Stmt_Class':
         $this->insertClass($node_object);
         break;
-      case 'PHPParser_Node_Stmt_Function':
-        $this->insertFunction($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_ClassMethod':
-        $this->insertClassMethod($node_object);
-        break;
-      case 'PHPParser_Node_Expr_Assign':
-        $this->insertAssignement($node_object);
-        break;
+      // case 'PHPParser_Node_Stmt_Function':
+      //   $this->insertFunction($node_object);
+      //   break;
+      // case 'PHPParser_Node_Stmt_ClassMethod':
+      //   $this->insertClassMethod($node_object);
+      //   break;
+      // case 'PHPParser_Node_Expr_Assign':
+      //   $this->insertAssignement($node_object);
+      //   break;
     }
   }
 
@@ -72,6 +72,7 @@ class Model
       $this->_redis->sadd("{$parent_namespace}:[N", $this->_current_namespace);
       $this->_redis->sadd("{$this->_current_namespace}:]N", $parent_namespace);
     }
+    $this->populate($node_object->stmts);
   }
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
