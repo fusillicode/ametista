@@ -11,15 +11,12 @@ class Model
     } catch (Exception $e) {
       exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
     }
-    $this->_current_namespace = '';
-    $this->_current_class = '';
-    $this->_current_procedure = '';
-    $this->_redis->sadd('types', array('boolean',
-                                        'int',
-                                        'double',
-                                        'string',
-                                        'array',
-                                        'stdClass'));
+    $this->_redis->sadd('scalar_types', array('boolean',
+                                              'int',
+                                              'double',
+                                              'string',
+                                              'array'));
+    $this->_redis->sadd('classes', 'stdClass');
     return true;
   }
 
@@ -40,7 +37,6 @@ class Model
     if (!$statements) return false;
     foreach ($statements as $key => $node_object)
       $this->insertNode($node_object);
-    return $this->get();
   }
 
   private function insertNode(PHPParser_Node $node_object)
@@ -52,9 +48,9 @@ class Model
       case 'PHPParser_Node_Stmt_Class':
         $this->insertClass($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_Function':
-      //   $this->insertFunction($node_object);
-      //   break;
+      case 'PHPParser_Node_Stmt_Function':
+        $this->insertFunction($node_object);
+        break;
       // case 'PHPParser_Node_Stmt_ClassMethod':
       //   $this->insertClassMethod($node_object);
       //   break;
@@ -66,54 +62,68 @@ class Model
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
   {
-    foreach ($node_object->name->parts as $key => $sub_namespace_name) {
-      $parent_namespace = $this->_current_namespace;
-      $this->_current_namespace .= "\\{$sub_namespace_name}";
-      $this->_redis->sadd("{$parent_namespace}:[N", $this->_current_namespace);
-      $this->_redis->sadd("{$this->_current_namespace}:]N", $parent_namespace);
-    }
+    $namespace_key = $this->buildKey($node_object->name->parts, 'N:\\');
+    $this->_redis->sadd('namespaces', $namespace_key);
+    $this->buildNamespaceHierarchy($node_object->name->parts);
+    $this->_redis->lpush('scope', $namespace_key);
     $this->populate($node_object->stmts);
+    $this->_redis->lpop('scope');
   }
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
-    $this->_current_class = $this->createKey($node_object->namespacedName->parts, 'C:');
-    $this->insertSuperclass($node_object);
-    $this->_redis->sadd("types", $this->_current_class);
+    $class_key = $this->buildKey($node_object->namespacedName->parts, 'C:\\');
+    $this->_redis->sadd('classes', $class_key);
+    $this->buildClassHierarchy($node_object, $class_key);
+    $this->buildContainRelation($class_key, 'C', 'N');
+    $this->_redis->lpush('scope', $class_key);
     $this->populate($node_object->stmts);
+    $this->_redis->lpop('scope');
   }
 
-  private function createKey($key_parts, $type)
+  private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
+  {
+    $function_key = $this->buildKey($node_object->namespacedName->parts, 'F:\\');
+    $this->_redis->sadd('functions', $function_key);
+    $this->buildContainRelation($function_key, 'F', 'N');
+    $this->_redis->lpush('scope', $function_key);
+    $this->populate($node_object->stmts);
+    $this->_redis->lpop('scope');
+  }
+
+  private function buildNamespaceHierarchy($namespace_name_parts)
+  {
+    if (!$namespace_name_parts) return false;
+    $parent_namespace = $current_namespace = '\\';
+    foreach ($namespace_name_parts as $key => $sub_namespace) {
+      $current_namespace .= $sub_namespace;
+      $this->_redis->sadd("N:{$parent_namespace}:[N", $current_namespace);
+      $this->_redis->sadd("N:{$current_namespace}:]N", $parent_namespace);
+    }
+  }
+
+  private function buildClassHierarchy(PHPParser_Node_Stmt_Class $node_object, $current_class_key)
+  {
+    if (!$superclass = $node_object->extends) return false;
+    $superclass_key = $this->buildKey($superclass->parts, "C:\\");
+    $this->_redis->sadd("{$current_class_key}:>", $superclass_key);
+    $this->_redis->sadd("{$superclass_key}:<", "{$current_class_key}");
+  }
+
+  private function buildContainRelation($contained_element, $contained_type, $container_type)
+  {
+    $container = $this->_redis->lrange('scope', 0, 0);
+    if (isset($container[0])) {
+      $this->_redis->sadd("{$container[0]}:[{$contained_type}", $contained_element);
+      $this->_redis->sadd("{$contained_element}:]{$container_type}", $container[0]);
+    }
+  }
+
+  private function buildKey($key_parts, $type)
   {
     return $type.(isset($key_parts[0]) ?
                   implode("\\", $key_parts) :
                   "\\".$key_parts);
-  }
-
-  private function insertSuperclass(PHPParser_Node_Stmt_Class $node_object)
-  {
-    if (!$superclass = $node_object->extends) return false;
-    $superclass_key = $this->createKey($superclass->parts, 'C:');
-    $this->_redis->sadd("{$this->_current_class}>", $superclass_key);
-    $this->_redis->sadd("{$superclass_key}<", "{$this->_current_class}");
-  }
-
-  // private function updateInsertedClassKeys($class_name, $class_key)
-  // {
-  //   if (!$class_references = $this->_redis->keys($class_name)) return false;
-  //   foreach ($class_references as $key => $class_reference) {
-  //     $this->_redis->sadd(str_replace($class_reference,
-  //                                     $class_key,
-  //                                     $class_reference),
-  //                         $this->_redis->smembers($class_reference));
-  //     $this->_redis->del($class_reference);
-  //   }
-  // }
-
-  private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
-  {
-    $this->_current_procedure = $this->createKey($node_object->namespacedName->parts, 'F:');
-    $this->populate($node_object->statements);
   }
 
   private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
