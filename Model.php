@@ -76,13 +76,13 @@ class Model
 
   private function insertClass(PHPParser_Node_Stmt_Class $node_object)
   {
-    $this->_current_class = $this->getKey($node_object->namespacedName->parts, 'C:');
+    $this->_current_class = $this->createKey($node_object->namespacedName->parts, 'C:');
     $this->insertSuperclass($node_object);
     $this->_redis->sadd("types", $this->_current_class);
     $this->populate($node_object->stmts);
   }
 
-  private function getKey($key_parts, $type)
+  private function createKey($key_parts, $type)
   {
     return $type.(is_array($key_parts) ?
                   implode("\\", $key_parts) :
@@ -92,7 +92,7 @@ class Model
   private function insertSuperclass(PHPParser_Node_Stmt_Class $node_object)
   {
     if (!$superclass = $node_object->extends) return false;
-    $superclass_key = $this->getKey($superclass->parts, 'C:');
+    $superclass_key = $this->createKey($superclass->parts, 'C:');
     $this->_redis->sadd("{$this->_current_class}>", $superclass_key);
     $this->_redis->sadd("{$superclass_key}<", "{$this->_current_class}");
   }
@@ -111,7 +111,7 @@ class Model
 
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
   {
-    $this->_current_procedure = $this->getKey($node_object->namespacedName->parts, 'F:');
+    $this->_current_procedure = $this->createKey($node_object->namespacedName->parts, 'F:');
     $this->populate($node_object->statements);
   }
 
