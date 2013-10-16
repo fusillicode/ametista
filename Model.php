@@ -51,9 +51,9 @@ class Model
       case 'PHPParser_Node_Stmt_Function':
         $this->insertFunction($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_ClassMethod':
-      //   $this->insertClassMethod($node_object);
-      //   break;
+      case 'PHPParser_Node_Stmt_ClassMethod':
+        $this->insertClassMethod($node_object);
+        break;
       // case 'PHPParser_Node_Expr_Assign':
       //   $this->insertAssignement($node_object);
       //   break;
@@ -75,7 +75,7 @@ class Model
     $class_key = $this->buildKey($node_object->namespacedName->parts, 'C:\\');
     $this->_redis->sadd('classes', $class_key);
     $this->buildClassHierarchy($node_object, $class_key);
-    $this->buildContainRelation($class_key, 'C', 'N');
+    $this->buildContainmentRelationship($class_key, 'C', 'N');
     $this->_redis->lpush('scope', $class_key);
     $this->populate($node_object->stmts);
     $this->_redis->lpop('scope');
@@ -85,8 +85,18 @@ class Model
   {
     $function_key = $this->buildKey($node_object->namespacedName->parts, 'F:\\');
     $this->_redis->sadd('functions', $function_key);
-    $this->buildContainRelation($function_key, 'F', 'N');
+    $this->buildContainmentRelationship($function_key, 'F', 'N');
     $this->_redis->lpush('scope', $function_key);
+    $this->populate($node_object->stmts);
+    $this->_redis->lpop('scope');
+  }
+
+  private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
+  {
+    $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
+    $method_key = $this->buildKey($node_object->name, "M:{$class}");
+    $this->buildContainmentRelationship($method_key, 'M', 'C', $class);
+    $this->_redis->lpush('scope', $method_key);
     $this->populate($node_object->stmts);
     $this->_redis->lpop('scope');
   }
@@ -102,7 +112,8 @@ class Model
     }
   }
 
-  private function buildClassHierarchy(PHPParser_Node_Stmt_Class $node_object, $current_class_key)
+  private function buildClassHierarchy(PHPParser_Node_Stmt_Class $node_object,
+                                       $current_class_key)
   {
     if (!$superclass = $node_object->extends) return false;
     $superclass_key = $this->buildKey($superclass->parts, "C:\\");
@@ -110,9 +121,12 @@ class Model
     $this->_redis->sadd("{$superclass_key}:<", "{$current_class_key}");
   }
 
-  private function buildContainRelation($contained_element, $contained_type, $container_type)
+  private function buildContainmentRelationship($contained_element,
+                                                $contained_type,
+                                                $container_type,
+                                                $container = null)
   {
-    $container = $this->_redis->lrange('scope', 0, 0);
+    $container = $container ? $container : $this->_redis->lrange('scope', 0, 0);
     if (isset($container[0])) {
       $this->_redis->sadd("{$container[0]}:[{$contained_type}", $contained_element);
       $this->_redis->sadd("{$contained_element}:]{$container_type}", $container[0]);
@@ -121,14 +135,9 @@ class Model
 
   private function buildKey($key_parts, $type)
   {
-    return $type.(isset($key_parts[0]) ?
+    return $type.(is_array($key_parts) ?
                   implode("\\", $key_parts) :
                   "\\".$key_parts);
-  }
-
-  private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
-  {
-
   }
 
   private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
