@@ -118,7 +118,7 @@ class Model
     if (!$superclass = $node_object->extends) return false;
     $superclass_key = $this->buildKey($superclass->parts, "C:\\");
     $this->_redis->sadd("{$current_class_key}:>", $superclass_key);
-    $this->_redis->sadd("{$superclass_key}:<", "{$current_class_key}");
+    $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
   }
 
   private function buildContainmentRelationship($contained_element,
