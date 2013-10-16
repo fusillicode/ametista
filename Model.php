@@ -64,7 +64,7 @@ class Model
   {
     $namespace_key = $this->buildKey($node_object->name->parts, 'N:\\');
     $this->_redis->sadd('namespaces', $namespace_key);
-    $this->buildNamespaceHierarchy($node_object->name->parts);
+    $this->insertNamespaceHierarchy($node_object->name->parts);
     $this->_redis->lpush('scope', $namespace_key);
     $this->populate($node_object->stmts);
     $this->_redis->lpop('scope');
@@ -74,8 +74,8 @@ class Model
   {
     $class_key = $this->buildKey($node_object->namespacedName->parts, 'C:\\');
     $this->_redis->sadd('classes', $class_key);
-    $this->buildClassHierarchy($node_object, $class_key);
-    $this->buildContainmentRelationship($class_key, 'C', 'N');
+    $this->insertClassHierarchy($node_object, $class_key);
+    $this->insertContainmentRelationship($class_key, 'C', 'N');
     $this->_redis->lpush('scope', $class_key);
     $this->populate($node_object->stmts);
     $this->_redis->lpop('scope');
@@ -85,7 +85,7 @@ class Model
   {
     $function_key = $this->buildKey($node_object->namespacedName->parts, 'F:\\');
     $this->_redis->sadd('functions', $function_key);
-    $this->buildContainmentRelationship($function_key, 'F', 'N');
+    $this->insertContainmentRelationship($function_key, 'F', 'N');
     $this->_redis->lpush('scope', $function_key);
     $this->populate($node_object->stmts);
     $this->_redis->lpop('scope');
@@ -95,13 +95,13 @@ class Model
   {
     $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
     $method_key = $this->buildKey($node_object->name, "M:{$class}");
-    $this->buildContainmentRelationship($method_key, 'M', 'C', $class);
+    $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     $this->_redis->lpush('scope', $method_key);
     $this->populate($node_object->stmts);
     $this->_redis->lpop('scope');
   }
 
-  private function buildNamespaceHierarchy($namespace_name_parts)
+  private function insertNamespaceHierarchy($namespace_name_parts)
   {
     if (!$namespace_name_parts) return false;
     $parent_namespace = $current_namespace = '\\';
@@ -112,8 +112,8 @@ class Model
     }
   }
 
-  private function buildClassHierarchy(PHPParser_Node_Stmt_Class $node_object,
-                                       $current_class_key)
+  private function insertClassHierarchy(PHPParser_Node_Stmt_Class $node_object,
+                                        $current_class_key)
   {
     if (!$superclass = $node_object->extends) return false;
     $superclass_key = $this->buildKey($superclass->parts, "C:\\");
@@ -121,10 +121,10 @@ class Model
     $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
   }
 
-  private function buildContainmentRelationship($contained_element,
-                                                $contained_type,
-                                                $container_type,
-                                                $container = null)
+  private function insertContainmentRelationship($contained_element,
+                                                 $contained_type,
+                                                 $container_type,
+                                                 $container = null)
   {
     if ($container) {
       $this->_redis->sadd("{$container}:[{$contained_type}", $contained_element);
