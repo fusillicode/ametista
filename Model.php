@@ -69,6 +69,13 @@ class Model
     $this->_redis->lpop('scope');
   }
 
+  private function populateIteratively($statements, $key)
+  {
+    $this->_redis->lpush('scope', $namespace_key);
+    $this->populate($statements);
+    $this->_redis->lpop('scope');
+  }
+
   private function insertKey($key_parts, $prefix, $set)
   {
     $key = $this->buildKey($key_parts, $prefix);
