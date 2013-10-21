@@ -97,16 +97,8 @@ class Model
     return $key;
   }
 
-  private function buildKey($key_parts, $type)
+  private function insertNamespaceHierarchy(array $namespace_name_parts)
   {
-    return $type.(is_array($key_parts) ?
-                  implode("\\", $key_parts) :
-                  "\\".$key_parts);
-  }
-
-  private function insertNamespaceHierarchy($namespace_name_parts)
-  {
-    if (!$namespace_name_parts) return false;
     $parent_namespace = $current_namespace = '\\';
     foreach ($namespace_name_parts as $key => $sub_namespace) {
       $current_namespace .= $sub_namespace;
@@ -124,6 +116,12 @@ class Model
     $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
   }
 
+  private function buildKey($key_parts, $prefix)
+  {
+    return $prefix.(is_array($key_parts) ?
+                    implode("\\", $key_parts) :
+                    "\\".$key_parts);
+  }
   private function insertContainmentRelationship($contained_element,
                                                  $contained_type,
                                                  $container_type,
