@@ -17,7 +17,6 @@ class Model
                                               'string',
                                               'array'));
     $this->_redis->sadd('classes', 'stdClass');
-    return true;
   }
 
   public function build() {}
@@ -34,7 +33,7 @@ class Model
 
   public function populate($statements)
   {
-    if (!$statements) return false;
+    if (!$statements) return;
     foreach ($statements as $key => $node_object)
       $this->insertNode($node_object);
   }
@@ -54,9 +53,9 @@ class Model
       case 'PHPParser_Node_Stmt_ClassMethod':
         $this->insertClassMethod($node_object);
         break;
-      // case 'PHPParser_Node_Expr_Assign':
-      //   $this->insertAssignement($node_object);
-      //   break;
+      case 'PHPParser_Node_Expr_Assign':
+        $this->insertAssignement($node_object);
+        break;
     }
   }
 
@@ -110,7 +109,7 @@ class Model
   private function insertClassHierarchy(PHPParser_Node_Stmt_Class $node_object,
                                         $current_class_key)
   {
-    if (!$superclass = $node_object->extends) return false;
+    if (!$superclass = $node_object->extends) return;
     $superclass_key = $this->buildKey($superclass->parts, "C:\\");
     $this->_redis->sadd("{$current_class_key}:>", $superclass_key);
     $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
@@ -146,6 +145,7 @@ class Model
 
   private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
   {
+    var_dump(get_class($node_object->expr));
     // if ($node_object->var instanceof PHPParser_Node_Expr_Variable)
     //   $this->insertVariable($node_object->var);
     // elseif ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
