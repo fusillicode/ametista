@@ -145,21 +145,43 @@ class Model
 
   private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
   {
-    var_dump(get_class($node_object->expr));
+    // var_dump(get_class($node_object->var), $node_object->var->name);
+    $this->insertLeftValue($node_object->var);
     // if ($node_object->var instanceof PHPParser_Node_Expr_Variable)
-    //   $this->insertVariable($node_object->var);
     // elseif ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
-    //   $this->insertVariable($node_object->var->name);
+    //   $this->insertLeftValue($node_object->var->name);
     // elseif ($node_object->var->name instanceof String)
     //   $this->insert("variable {$node_object->var->name}");
   }
 
-  private function insertVariable(PHPParser_Node_Expr_Variable $node_object)
+  private function insertLeftValue(PHPParser_Node_Expr $node_object)
   {
-    // if ($node_object->name instanceof PHPParser_Node_Expr_Variable)
-    //   $this->insertVariable($node_object->name);
-    // else
-    //   $this->insert("variable {$node_object->name}");
+    if ($node_object->name instanceof PHPParser_Node_Expr_Variable)
+      $this->insertVariable($node_object->name, $node_object->var);
+    // elseif ($node_object->name instanceof PHPParser_Node_Expr_Variable)
+    //   $this->insertLeftValue($node_object->name);
+    // elseif ($node_object->name instanceof PHPParser_Node_Expr_ArrayDimFetch)
+    //   $this->_redis->sadd($node, );
+  }
+
+  private function insertVariable($node, $right_expression)
+  {
+    if ($node->name instanceof PHPParser_Node_Expr_Variable)
+      $this->insertVariable($node->name);
+    else {
+      $scope = $this->_redis->lrange('scope', 0, 0);
+      $scope = $scope ? $scope[0] : '';
+      $variable_key = $this->buildKey($node->name, $scope);
+      $this->_redis->sadd($variable_key, $this->getRightValue($right_expression));
+    }
+  }
+
+  private function getRightValue($node)
+  {
+    if ($node instanceof PHPParser_Node_Expr_New)
+      echo '1';
+    else
+      echo '2';
   }
 
 }

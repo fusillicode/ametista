@@ -18,14 +18,14 @@ $start = microtime(true);
 
 foreach ($files as $file) {
   try {
-    // echo "{$file}\n";
+    echo "{$file}\n";
     $code = file_get_contents($file);
     $statements = $traverser->traverse($parser->parse($code));
-    $model->populate($statements);
-    die();
+    // $model->populate($statements);
+    // die();
     // $redis->set("{$file}", serialize($statements));
-    // $dump = $node_dumper->dump($statements);
-    // file_put_contents('./test/'.replaceExtension($file,'ast'), $dump);
+    $dump = $node_dumper->dump($statements);
+    file_put_contents('./test_codebase_asts/'.replaceExtension($file,'ast'), $dump);
   } catch (PHPParser_Error $e) {
     echo 'Parse Error: ', $e->getMessage();
   }
