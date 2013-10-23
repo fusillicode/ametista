@@ -1,0 +1,2965 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: php_self
+                        default: Scalar_String(
+                            value: stores
+                        )
+                    )
+                )
+            )
+            1: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: init
+                        args: array(
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: errors
+                                    )
+                                    dim: null
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: PHP "Dom" extension has not been loaded.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_MethodCall(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: context
+                                    )
+                                    name: smarty
+                                )
+                                name: assign
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: errors
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: errors
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: extension_loaded
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: Dom
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+                name: init
+            )
+            2: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                    0: Param(
+                        name: store
+                        default: null
+                        type: null
+                        byRef: false
+                    )
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: ignore_field
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                                0: Expr_ArrayItem(
+                                    key: null
+                                    value: Scalar_String(
+                                        value: firstname
+                                    )
+                                    byRef: false
+                                )
+                                1: Expr_ArrayItem(
+                                    key: null
+                                    value: Scalar_String(
+                                        value: lastname
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: out_datas
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: address_datas
+                        )
+                        expr: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: AddressFormat
+                                )
+                            )
+                            name: getOrderedAddressFields
+                            args: array(
+                                0: Arg(
+                                    value: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: store
+                                        )
+                                        dim: Scalar_String(
+                                            value: id_country
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                1: Arg(
+                                    value: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                2: Arg(
+                                    value: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: true
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_Variable(
+                            name: state
+                        )
+                        expr: Expr_Ternary(
+                            cond: Expr_Isset(
+                                vars: array(
+                                    0: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: store
+                                        )
+                                        dim: Scalar_String(
+                                            value: id_state
+                                        )
+                                    )
+                                )
+                            )
+                            if: Expr_New(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: State
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: store
+                                            )
+                                            dim: Scalar_String(
+                                                value: id_state
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            else: Expr_ConstFetch(
+                                name: Name(
+                                    parts: array(
+                                        0: null
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    4: Stmt_Foreach(
+                        keyVar: null
+                        byRef: false
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: data_fields
+                                )
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: explode
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value:  
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Expr_Variable(
+                                                name: data_line
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: addr_out
+                                )
+                                expr: Expr_Array(
+                                    items: array(
+                                    )
+                                )
+                            )
+                            2: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: data_fields_mod
+                                )
+                                expr: Expr_ConstFetch(
+                                    name: Name(
+                                        parts: array(
+                                            0: false
+                                        )
+                                    )
+                                )
+                            )
+                            3: Stmt_Foreach(
+                                keyVar: null
+                                byRef: false
+                                stmts: array(
+                                    0: Expr_Assign(
+                                        var: Expr_Variable(
+                                            name: field_item
+                                        )
+                                        expr: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: trim
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_Variable(
+                                                        name: field_item
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    1: Stmt_If(
+                                        stmts: array(
+                                            0: Expr_Assign(
+                                                var: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: addr_out
+                                                    )
+                                                    dim: null
+                                                )
+                                                expr: Expr_Ternary(
+                                                    cond: Expr_BooleanAnd(
+                                                        left: Expr_BooleanAnd(
+                                                            left: Expr_BooleanAnd(
+                                                                left: Expr_Equal(
+                                                                    left: Expr_Variable(
+                                                                        name: field_item
+                                                                    )
+                                                                    right: Scalar_String(
+                                                                        value: city
+                                                                    )
+                                                                )
+                                                                right: Expr_Variable(
+                                                                    name: state
+                                                                )
+                                                            )
+                                                            right: Expr_Isset(
+                                                                vars: array(
+                                                                    0: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: state
+                                                                        )
+                                                                        name: iso_code
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        right: Expr_FuncCall(
+                                                            name: Name(
+                                                                parts: array(
+                                                                    0: strlen
+                                                                )
+                                                            )
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: state
+                                                                        )
+                                                                        name: iso_code
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    if: Expr_Concat(
+                                                        left: Expr_Concat(
+                                                            left: Expr_ArrayDimFetch(
+                                                                var: Expr_Variable(
+                                                                    name: store
+                                                                )
+                                                                dim: Expr_Variable(
+                                                                    name: field_item
+                                                                )
+                                                            )
+                                                            right: Scalar_String(
+                                                                value: , 
+                                                            )
+                                                        )
+                                                        right: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: state
+                                                            )
+                                                            name: iso_code
+                                                        )
+                                                    )
+                                                    else: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: store
+                                                        )
+                                                        dim: Expr_Variable(
+                                                            name: field_item
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            1: Expr_Assign(
+                                                var: Expr_Variable(
+                                                    name: data_fields_mod
+                                                )
+                                                expr: Expr_ConstFetch(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: true
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        elseifs: array(
+                                        )
+                                        else: null
+                                        cond: Expr_BooleanAnd(
+                                            left: Expr_BooleanNot(
+                                                expr: Expr_FuncCall(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: in_array
+                                                        )
+                                                    )
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Expr_Variable(
+                                                                name: field_item
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                        1: Arg(
+                                                            value: Expr_Variable(
+                                                                name: ignore_field
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            right: Expr_BooleanNot(
+                                                expr: Expr_Empty(
+                                                    expr: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: store
+                                                        )
+                                                        dim: Expr_Variable(
+                                                            name: field_item
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                expr: Expr_Variable(
+                                    name: data_fields
+                                )
+                                valueVar: Expr_Variable(
+                                    name: field_item
+                                )
+                            )
+                            4: Stmt_If(
+                                stmts: array(
+                                    0: Expr_Assign(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: out_datas
+                                            )
+                                            dim: null
+                                        )
+                                        expr: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: implode
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value:  
+                                                    )
+                                                    byRef: false
+                                                )
+                                                1: Arg(
+                                                    value: Expr_Variable(
+                                                        name: addr_out
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: null
+                                cond: Expr_Variable(
+                                    name: data_fields_mod
+                                )
+                            )
+                        )
+                        expr: Expr_Variable(
+                            name: address_datas
+                        )
+                        valueVar: Expr_Variable(
+                            name: data_line
+                        )
+                    )
+                    5: Expr_Assign(
+                        var: Expr_Variable(
+                            name: out
+                        )
+                        expr: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: implode
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: <br />
+                                    )
+                                    byRef: false
+                                )
+                                1: Arg(
+                                    value: Expr_Variable(
+                                        name: out_datas
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    6: Stmt_Return(
+                        expr: Expr_Variable(
+                            name: out
+                        )
+                    )
+                )
+                name: processStoreAddress
+            )
+            3: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: stores
+                        )
+                        expr: Expr_MethodCall(
+                            var: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Db
+                                    )
+                                )
+                                name: getInstance
+                                args: array(
+                                )
+                            )
+                            name: executeS
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Concat(
+                                        left: Expr_Concat(
+                                            left: Expr_Concat(
+                                                left: Expr_Concat(
+                                                    left: Expr_Concat(
+                                                        left: Expr_Concat(
+                                                            left: Expr_Concat(
+                                                                left: Expr_Concat(
+                                                                    left: Expr_Concat(
+                                                                        left: Scalar_String(
+                                                                            value: 
+                                                                        		SELECT s.*, cl.name country, st.iso_code state
+                                                                        		FROM 
+                                                                        )
+                                                                        right: Expr_ConstFetch(
+                                                                            name: Name(
+                                                                                parts: array(
+                                                                                    0: _DB_PREFIX_
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    right: Scalar_String(
+                                                                        value: store s
+                                                                    		
+                                                                    )
+                                                                )
+                                                                right: Expr_StaticCall(
+                                                                    class: Name_FullyQualified(
+                                                                        parts: array(
+                                                                            0: Shop
+                                                                        )
+                                                                    )
+                                                                    name: addSqlAssociation
+                                                                    args: array(
+                                                                        0: Arg(
+                                                                            value: Scalar_String(
+                                                                                value: store
+                                                                            )
+                                                                            byRef: false
+                                                                        )
+                                                                        1: Arg(
+                                                                            value: Scalar_String(
+                                                                                value: s
+                                                                            )
+                                                                            byRef: false
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                            right: Scalar_String(
+                                                                value: 
+                                                            		LEFT JOIN 
+                                                            )
+                                                        )
+                                                        right: Expr_ConstFetch(
+                                                            name: Name(
+                                                                parts: array(
+                                                                    0: _DB_PREFIX_
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Scalar_String(
+                                                        value: country_lang cl ON (cl.id_country = s.id_country)
+                                                    		LEFT JOIN 
+                                                    )
+                                                )
+                                                right: Expr_ConstFetch(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: _DB_PREFIX_
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            right: Scalar_String(
+                                                value: state st ON (st.id_state = s.id_state)
+                                            		WHERE s.active = 1 AND cl.id_lang = 
+                                            )
+                                        )
+                                        right: Expr_Cast_Int(
+                                            expr: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: this
+                                                        )
+                                                        name: context
+                                                    )
+                                                    name: language
+                                                )
+                                                name: id
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_Foreach(
+                        keyVar: null
+                        byRef: true
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_Variable(
+                                        name: store
+                                    )
+                                    dim: Scalar_String(
+                                        value: has_picture
+                                    )
+                                )
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: file_exists
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Concat(
+                                                left: Expr_Concat(
+                                                    left: Expr_ConstFetch(
+                                                        name: Name(
+                                                            parts: array(
+                                                                0: _PS_STORE_IMG_DIR_
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Expr_Cast_Int(
+                                                        expr: Expr_ArrayDimFetch(
+                                                            var: Expr_Variable(
+                                                                name: store
+                                                            )
+                                                            dim: Scalar_String(
+                                                                value: id_store
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                right: Scalar_String(
+                                                    value: .jpg
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Stmt_If(
+                                stmts: array(
+                                    0: Expr_Assign(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: store
+                                            )
+                                            dim: Scalar_String(
+                                                value: working_hours
+                                            )
+                                        )
+                                        expr: Expr_Variable(
+                                            name: working_hours
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: null
+                                cond: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: working_hours
+                                    )
+                                    expr: Expr_MethodCall(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: renderStoreWorkingHours
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Variable(
+                                                    name: store
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        expr: Expr_Variable(
+                            name: stores
+                        )
+                        valueVar: Expr_Variable(
+                            name: store
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: simplifiedStoresDiplay
+                                            )
+                                            value: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: true
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: stores
+                                            )
+                                            value: Expr_Variable(
+                                                name: stores
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: assignStoresSimplified
+            )
+            4: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                    0: Param(
+                        name: store
+                        default: null
+                        type: null
+                        byRef: false
+                    )
+                )
+                stmts: array(
+                    0: Stmt_Global(
+                        vars: array(
+                            0: Expr_Variable(
+                                name: smarty
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Monday
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 2
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Tuesday
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 3
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Wednesday
+                        )
+                    )
+                    4: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 4
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Thursday
+                        )
+                    )
+                    5: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 5
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Friday
+                        )
+                    )
+                    6: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 6
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Saturday
+                        )
+                    )
+                    7: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 7
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Sunday
+                        )
+                    )
+                    8: Expr_Assign(
+                        var: Expr_Variable(
+                            name: days_datas
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                            )
+                        )
+                    )
+                    9: Expr_Assign(
+                        var: Expr_Variable(
+                            name: hours
+                        )
+                        expr: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: array_filter
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: unserialize
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: store
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: hours
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    10: Stmt_If(
+                        stmts: array(
+                            0: Stmt_For(
+                                init: array(
+                                    0: Expr_Assign(
+                                        var: Expr_Variable(
+                                            name: i
+                                        )
+                                        expr: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                )
+                                cond: array(
+                                    0: Expr_Smaller(
+                                        left: Expr_Variable(
+                                            name: i
+                                        )
+                                        right: Scalar_LNumber(
+                                            value: 8
+                                        )
+                                    )
+                                )
+                                loop: array(
+                                    0: Expr_PostInc(
+                                        var: Expr_Variable(
+                                            name: i
+                                        )
+                                    )
+                                )
+                                stmts: array(
+                                    0: Stmt_If(
+                                        stmts: array(
+                                            0: Expr_Assign(
+                                                var: Expr_Variable(
+                                                    name: hours_datas
+                                                )
+                                                expr: Expr_Array(
+                                                    items: array(
+                                                    )
+                                                )
+                                            )
+                                            1: Expr_Assign(
+                                                var: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: hours_datas
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: hours
+                                                    )
+                                                )
+                                                expr: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: hours
+                                                    )
+                                                    dim: Expr_Minus(
+                                                        left: Expr_Cast_Int(
+                                                            expr: Expr_Variable(
+                                                                name: i
+                                                            )
+                                                        )
+                                                        right: Scalar_LNumber(
+                                                            value: 1
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            2: Expr_Assign(
+                                                var: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: hours_datas
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: day
+                                                    )
+                                                )
+                                                expr: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: days
+                                                    )
+                                                    dim: Expr_Variable(
+                                                        name: i
+                                                    )
+                                                )
+                                            )
+                                            3: Expr_Assign(
+                                                var: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: days_datas
+                                                    )
+                                                    dim: null
+                                                )
+                                                expr: Expr_Variable(
+                                                    name: hours_datas
+                                                )
+                                            )
+                                        )
+                                        elseifs: array(
+                                        )
+                                        else: null
+                                        cond: Expr_Isset(
+                                            vars: array(
+                                                0: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: hours
+                                                    )
+                                                    dim: Expr_Minus(
+                                                        left: Expr_Cast_Int(
+                                                            expr: Expr_Variable(
+                                                                name: i
+                                                            )
+                                                        )
+                                                        right: Scalar_LNumber(
+                                                            value: 1
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: smarty
+                                )
+                                name: assign
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: days_datas
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Variable(
+                                            name: days_datas
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            2: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: smarty
+                                )
+                                name: assign
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: id_country
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: store
+                                            )
+                                            dim: Scalar_String(
+                                                value: id_country
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            3: Stmt_Return(
+                                expr: Expr_MethodCall(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: smarty
+                                    )
+                                    name: fetch
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Concat(
+                                                left: Expr_ConstFetch(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: _PS_THEME_DIR_
+                                                        )
+                                                    )
+                                                )
+                                                right: Scalar_String(
+                                                    value: store_infos.tpl
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_Empty(
+                                expr: Expr_Variable(
+                                    name: hours
+                                )
+                            )
+                        )
+                    )
+                    11: Stmt_Return(
+                        expr: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+                name: renderStoreWorkingHours
+            )
+            5: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: distanceUnit
+                        )
+                        expr: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Configuration
+                                )
+                            )
+                            name: get
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: PS_DISTANCE_UNIT
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: distanceUnit
+                                )
+                                expr: Scalar_String(
+                                    value: km
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: in_array
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Variable(
+                                            name: distanceUnit
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Array(
+                                            items: array(
+                                                0: Expr_ArrayItem(
+                                                    key: null
+                                                    value: Scalar_String(
+                                                        value: km
+                                                    )
+                                                    byRef: false
+                                                )
+                                                1: Expr_ArrayItem(
+                                                    key: null
+                                                    value: Scalar_String(
+                                                        value: mi
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: stores
+                                )
+                                expr: Expr_MethodCall(
+                                    var: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Db
+                                            )
+                                        )
+                                        name: getInstance
+                                        args: array(
+                                        )
+                                    )
+                                    name: executeS
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Concat(
+                                                left: Expr_Concat(
+                                                    left: Expr_Concat(
+                                                        left: Expr_Concat(
+                                                            left: Expr_Concat(
+                                                                left: Expr_Concat(
+                                                                    left: Expr_Concat(
+                                                                        left: Expr_Concat(
+                                                                            left: Expr_Concat(
+                                                                                left: Scalar_String(
+                                                                                    value: 
+                                                                                			SELECT s.*, cl.name country, st.iso_code state
+                                                                                			FROM 
+                                                                                )
+                                                                                right: Expr_ConstFetch(
+                                                                                    name: Name(
+                                                                                        parts: array(
+                                                                                            0: _DB_PREFIX_
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                            )
+                                                                            right: Scalar_String(
+                                                                                value: store s
+                                                                            			
+                                                                            )
+                                                                        )
+                                                                        right: Expr_StaticCall(
+                                                                            class: Name_FullyQualified(
+                                                                                parts: array(
+                                                                                    0: Shop
+                                                                                )
+                                                                            )
+                                                                            name: addSqlAssociation
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Scalar_String(
+                                                                                        value: store
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                                1: Arg(
+                                                                                    value: Scalar_String(
+                                                                                        value: s
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    right: Scalar_String(
+                                                                        value: 
+                                                                    			LEFT JOIN 
+                                                                    )
+                                                                )
+                                                                right: Expr_ConstFetch(
+                                                                    name: Name(
+                                                                        parts: array(
+                                                                            0: _DB_PREFIX_
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                            right: Scalar_String(
+                                                                value: country_lang cl ON (cl.id_country = s.id_country)
+                                                            			LEFT JOIN 
+                                                            )
+                                                        )
+                                                        right: Expr_ConstFetch(
+                                                            name: Name(
+                                                                parts: array(
+                                                                    0: _DB_PREFIX_
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Scalar_String(
+                                                        value: state st ON (st.id_state = s.id_state)
+                                                    			WHERE s.active = 1 AND cl.id_lang = 
+                                                    )
+                                                )
+                                                right: Expr_Cast_Int(
+                                                    expr: Expr_PropertyFetch(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: context
+                                                            )
+                                                            name: language
+                                                        )
+                                                        name: id
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: distance
+                                    )
+                                    expr: Expr_Cast_Int(
+                                        expr: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Tools
+                                                )
+                                            )
+                                            name: getValue
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: radius
+                                                    )
+                                                    byRef: false
+                                                )
+                                                1: Arg(
+                                                    value: Scalar_LNumber(
+                                                        value: 100
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                1: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: multiplicator
+                                    )
+                                    expr: Expr_Ternary(
+                                        cond: Expr_Equal(
+                                            left: Expr_Variable(
+                                                name: distanceUnit
+                                            )
+                                            right: Scalar_String(
+                                                value: km
+                                            )
+                                        )
+                                        if: Scalar_LNumber(
+                                            value: 6371
+                                        )
+                                        else: Scalar_LNumber(
+                                            value: 3959
+                                        )
+                                    )
+                                )
+                                2: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: stores
+                                    )
+                                    expr: Expr_MethodCall(
+                                        var: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Db
+                                                )
+                                            )
+                                            name: getInstance
+                                            args: array(
+                                            )
+                                        )
+                                        name: executeS
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Concat(
+                                                    left: Expr_Concat(
+                                                        left: Expr_Concat(
+                                                            left: Expr_Concat(
+                                                                left: Expr_Concat(
+                                                                    left: Expr_Concat(
+                                                                        left: Expr_Concat(
+                                                                            left: Expr_Concat(
+                                                                                left: Expr_Concat(
+                                                                                    left: Expr_Concat(
+                                                                                        left: Expr_Concat(
+                                                                                            left: Expr_Concat(
+                                                                                                left: Expr_Concat(
+                                                                                                    left: Expr_Concat(
+                                                                                                        left: Expr_Concat(
+                                                                                                            left: Expr_Concat(
+                                                                                                                left: Expr_Concat(
+                                                                                                                    left: Expr_Concat(
+                                                                                                                        left: Expr_Concat(
+                                                                                                                            left: Expr_Concat(
+                                                                                                                                left: Scalar_String(
+                                                                                                                                    value: 
+                                                                                                                                			SELECT s.*, cl.name country, st.iso_code state,
+                                                                                                                                			(
+                                                                                                                                )
+                                                                                                                                right: Expr_Cast_Int(
+                                                                                                                                    expr: Expr_Variable(
+                                                                                                                                        name: multiplicator
+                                                                                                                                    )
+                                                                                                                                )
+                                                                                                                            )
+                                                                                                                            right: Scalar_String(
+                                                                                                                                value: 
+                                                                                                                            				* acos(
+                                                                                                                            					cos(radians(
+                                                                                                                            )
+                                                                                                                        )
+                                                                                                                        right: Expr_Cast_Double(
+                                                                                                                            expr: Expr_StaticCall(
+                                                                                                                                class: Name_FullyQualified(
+                                                                                                                                    parts: array(
+                                                                                                                                        0: Tools
+                                                                                                                                    )
+                                                                                                                                )
+                                                                                                                                name: getValue
+                                                                                                                                args: array(
+                                                                                                                                    0: Arg(
+                                                                                                                                        value: Scalar_String(
+                                                                                                                                            value: latitude
+                                                                                                                                        )
+                                                                                                                                        byRef: false
+                                                                                                                                    )
+                                                                                                                                )
+                                                                                                                            )
+                                                                                                                        )
+                                                                                                                    )
+                                                                                                                    right: Scalar_String(
+                                                                                                                        value: ))
+                                                                                                                    					* cos(radians(latitude))
+                                                                                                                    					* cos(radians(longitude) - radians(
+                                                                                                                    )
+                                                                                                                )
+                                                                                                                right: Expr_Cast_Double(
+                                                                                                                    expr: Expr_StaticCall(
+                                                                                                                        class: Name_FullyQualified(
+                                                                                                                            parts: array(
+                                                                                                                                0: Tools
+                                                                                                                            )
+                                                                                                                        )
+                                                                                                                        name: getValue
+                                                                                                                        args: array(
+                                                                                                                            0: Arg(
+                                                                                                                                value: Scalar_String(
+                                                                                                                                    value: longitude
+                                                                                                                                )
+                                                                                                                                byRef: false
+                                                                                                                            )
+                                                                                                                        )
+                                                                                                                    )
+                                                                                                                )
+                                                                                                            )
+                                                                                                            right: Scalar_String(
+                                                                                                                value: ))
+                                                                                                            					+ sin(radians(
+                                                                                                            )
+                                                                                                        )
+                                                                                                        right: Expr_Cast_Double(
+                                                                                                            expr: Expr_StaticCall(
+                                                                                                                class: Name_FullyQualified(
+                                                                                                                    parts: array(
+                                                                                                                        0: Tools
+                                                                                                                    )
+                                                                                                                )
+                                                                                                                name: getValue
+                                                                                                                args: array(
+                                                                                                                    0: Arg(
+                                                                                                                        value: Scalar_String(
+                                                                                                                            value: latitude
+                                                                                                                        )
+                                                                                                                        byRef: false
+                                                                                                                    )
+                                                                                                                )
+                                                                                                            )
+                                                                                                        )
+                                                                                                    )
+                                                                                                    right: Scalar_String(
+                                                                                                        value: ))
+                                                                                                    					* sin(radians(latitude))
+                                                                                                    				)
+                                                                                                    			) distance,
+                                                                                                    			cl.id_country id_country
+                                                                                                    			FROM 
+                                                                                                    )
+                                                                                                )
+                                                                                                right: Expr_ConstFetch(
+                                                                                                    name: Name(
+                                                                                                        parts: array(
+                                                                                                            0: _DB_PREFIX_
+                                                                                                        )
+                                                                                                    )
+                                                                                                )
+                                                                                            )
+                                                                                            right: Scalar_String(
+                                                                                                value: store s
+                                                                                            			
+                                                                                            )
+                                                                                        )
+                                                                                        right: Expr_StaticCall(
+                                                                                            class: Name_FullyQualified(
+                                                                                                parts: array(
+                                                                                                    0: Shop
+                                                                                                )
+                                                                                            )
+                                                                                            name: addSqlAssociation
+                                                                                            args: array(
+                                                                                                0: Arg(
+                                                                                                    value: Scalar_String(
+                                                                                                        value: store
+                                                                                                    )
+                                                                                                    byRef: false
+                                                                                                )
+                                                                                                1: Arg(
+                                                                                                    value: Scalar_String(
+                                                                                                        value: s
+                                                                                                    )
+                                                                                                    byRef: false
+                                                                                                )
+                                                                                            )
+                                                                                        )
+                                                                                    )
+                                                                                    right: Scalar_String(
+                                                                                        value: 
+                                                                                    			LEFT JOIN 
+                                                                                    )
+                                                                                )
+                                                                                right: Expr_ConstFetch(
+                                                                                    name: Name(
+                                                                                        parts: array(
+                                                                                            0: _DB_PREFIX_
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                            )
+                                                                            right: Scalar_String(
+                                                                                value: country_lang cl ON (cl.id_country = s.id_country)
+                                                                            			LEFT JOIN 
+                                                                            )
+                                                                        )
+                                                                        right: Expr_ConstFetch(
+                                                                            name: Name(
+                                                                                parts: array(
+                                                                                    0: _DB_PREFIX_
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    right: Scalar_String(
+                                                                        value: state st ON (st.id_state = s.id_state)
+                                                                    			WHERE s.active = 1 AND cl.id_lang = 
+                                                                    )
+                                                                )
+                                                                right: Expr_Cast_Int(
+                                                                    expr: Expr_PropertyFetch(
+                                                                        var: Expr_PropertyFetch(
+                                                                            var: Expr_PropertyFetch(
+                                                                                var: Expr_Variable(
+                                                                                    name: this
+                                                                                )
+                                                                                name: context
+                                                                            )
+                                                                            name: language
+                                                                        )
+                                                                        name: id
+                                                                    )
+                                                                )
+                                                            )
+                                                            right: Scalar_String(
+                                                                value: 
+                                                            			HAVING distance < 
+                                                            )
+                                                        )
+                                                        right: Expr_Cast_Int(
+                                                            expr: Expr_Variable(
+                                                                name: distance
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Scalar_String(
+                                                        value: 
+                                                    			ORDER BY distance ASC
+                                                    			LIMIT 0,20
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_Equal(
+                            left: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: all
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            right: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                    )
+                    3: Stmt_Return(
+                        expr: Expr_Variable(
+                            name: stores
+                        )
+                    )
+                )
+                name: getStores
+            )
+            6: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: hasStoreIcon
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: file_exists
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Concat(
+                                                left: Expr_ConstFetch(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: _PS_IMG_DIR_
+                                                        )
+                                                    )
+                                                )
+                                                right: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Configuration
+                                                        )
+                                                    )
+                                                    name: get
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: PS_STORES_ICON
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: distanceUnit
+                        )
+                        expr: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Configuration
+                                )
+                            )
+                            name: get
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: PS_DISTANCE_UNIT
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: distanceUnit
+                                )
+                                expr: Scalar_String(
+                                    value: km
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: in_array
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Variable(
+                                            name: distanceUnit
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Array(
+                                            items: array(
+                                                0: Expr_ArrayItem(
+                                                    key: null
+                                                    value: Scalar_String(
+                                                        value: km
+                                                    )
+                                                    byRef: false
+                                                )
+                                                1: Expr_ArrayItem(
+                                                    key: null
+                                                    value: Scalar_String(
+                                                        value: mi
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: distance_unit
+                                            )
+                                            value: Expr_Variable(
+                                                name: distanceUnit
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: simplifiedStoresDiplay
+                                            )
+                                            value: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: stores
+                                            )
+                                            value: Expr_MethodCall(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: getStores
+                                                args: array(
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: assignStores
+            )
+            7: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: stores
+                        )
+                        expr: Expr_MethodCall(
+                            var: Expr_Variable(
+                                name: this
+                            )
+                            name: getStores
+                            args: array(
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: dom
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: DOMDocument
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: 1.0
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: node
+                        )
+                        expr: Expr_MethodCall(
+                            var: Expr_Variable(
+                                name: dom
+                            )
+                            name: createElement
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: markers
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_Variable(
+                            name: parnode
+                        )
+                        expr: Expr_MethodCall(
+                            var: Expr_Variable(
+                                name: dom
+                            )
+                            name: appendChild
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Variable(
+                                        name: node
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    4: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Monday
+                        )
+                    )
+                    5: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 2
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Tuesday
+                        )
+                    )
+                    6: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 3
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Wednesday
+                        )
+                    )
+                    7: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 4
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Thursday
+                        )
+                    )
+                    8: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 5
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Friday
+                        )
+                    )
+                    9: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 6
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Saturday
+                        )
+                    )
+                    10: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: days
+                            )
+                            dim: Scalar_LNumber(
+                                value: 7
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: Sunday
+                        )
+                    )
+                    11: Stmt_Foreach(
+                        keyVar: null
+                        byRef: false
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: other
+                                )
+                                expr: Scalar_String(
+                                    value: 
+                                )
+                            )
+                            1: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: node
+                                )
+                                expr: Expr_MethodCall(
+                                    var: Expr_Variable(
+                                        name: dom
+                                    )
+                                    name: createElement
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: marker
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            2: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                expr: Expr_MethodCall(
+                                    var: Expr_Variable(
+                                        name: parnode
+                                    )
+                                    name: appendChild
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: node
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            3: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: name
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: store
+                                            )
+                                            dim: Scalar_String(
+                                                value: name
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            4: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: address
+                                )
+                                expr: Expr_MethodCall(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: processStoreAddress
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: store
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            5: Expr_AssignConcat(
+                                var: Expr_Variable(
+                                    name: other
+                                )
+                                expr: Expr_MethodCall(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: renderStoreWorkingHours
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: store
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            6: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: addressNoHtml
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: strip_tags
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_FuncCall(
+                                                        name: Name(
+                                                            parts: array(
+                                                                0: str_replace
+                                                            )
+                                                        )
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Scalar_String(
+                                                                    value: <br />
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                            1: Arg(
+                                                                value: Scalar_String(
+                                                                    value:  
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                            2: Arg(
+                                                                value: Expr_Variable(
+                                                                    name: address
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            7: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: address
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Variable(
+                                            name: address
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            8: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: other
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Variable(
+                                            name: other
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            9: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: phone
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: store
+                                            )
+                                            dim: Scalar_String(
+                                                value: phone
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            10: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: id_store
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Cast_Int(
+                                            expr: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: store
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_store
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            11: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: has_store_picture
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: file_exists
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_Concat(
+                                                        left: Expr_Concat(
+                                                            left: Expr_ConstFetch(
+                                                                name: Name(
+                                                                    parts: array(
+                                                                        0: _PS_STORE_IMG_DIR_
+                                                                    )
+                                                                )
+                                                            )
+                                                            right: Expr_Cast_Int(
+                                                                expr: Expr_ArrayDimFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: store
+                                                                    )
+                                                                    dim: Scalar_String(
+                                                                        value: id_store
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        right: Scalar_String(
+                                                            value: .jpg
+                                                        )
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            12: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: lat
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Cast_Double(
+                                            expr: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: store
+                                                )
+                                                dim: Scalar_String(
+                                                    value: latitude
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            13: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: newnode
+                                )
+                                name: setAttribute
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: lng
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Cast_Double(
+                                            expr: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: store
+                                                )
+                                                dim: Scalar_String(
+                                                    value: longitude
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            14: Stmt_If(
+                                stmts: array(
+                                    0: Expr_MethodCall(
+                                        var: Expr_Variable(
+                                            name: newnode
+                                        )
+                                        name: setAttribute
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: distance
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Arg(
+                                                value: Expr_Cast_Int(
+                                                    expr: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: store
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: distance
+                                                        )
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: null
+                                cond: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: store
+                                            )
+                                            dim: Scalar_String(
+                                                value: distance
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        expr: Expr_Variable(
+                            name: stores
+                        )
+                        valueVar: Expr_Variable(
+                            name: store
+                        )
+                    )
+                    12: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: Content-type: text/xml
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    13: Expr_Exit(
+                        expr: Expr_MethodCall(
+                            var: Expr_Variable(
+                                name: dom
+                            )
+                            name: saveXML
+                            args: array(
+                            )
+                        )
+                    )
+                )
+                name: displayAjax
+            )
+            8: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: initContent
+                        args: array(
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: assignStoresSimplified
+                                args: array(
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_MethodCall(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: assignStores
+                                    args: array(
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Configuration
+                                )
+                            )
+                            name: get
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: PS_STORES_SIMPLIFIED
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mediumSize
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Image
+                                                    )
+                                                )
+                                                name: getSize
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: ImageType
+                                                                )
+                                                            )
+                                                            name: getFormatedName
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: medium
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: defaultLat
+                                            )
+                                            value: Expr_Cast_Double(
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Configuration
+                                                        )
+                                                    )
+                                                    name: get
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: PS_STORES_CENTER_LAT
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: defaultLong
+                                            )
+                                            value: Expr_Cast_Double(
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Configuration
+                                                        )
+                                                    )
+                                                    name: get
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: PS_STORES_CENTER_LONG
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        3: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: searchUrl
+                                            )
+                                            value: Expr_MethodCall(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: this
+                                                        )
+                                                        name: context
+                                                    )
+                                                    name: link
+                                                )
+                                                name: getPageLink
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: stores
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        4: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: logo_store
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Configuration
+                                                    )
+                                                )
+                                                name: get
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: PS_STORES_ICON
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    3: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: setTemplate
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: stores.tpl
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: initContent
+            )
+            9: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: setMedia
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addCSS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_CSS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: stores.css
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: addJS
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Concat(
+                                            left: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: _THEME_JS_DIR_
+                                                    )
+                                                )
+                                            )
+                                            right: Scalar_String(
+                                                value: stores.js
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Configuration
+                                    )
+                                )
+                                name: get
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: PS_STORES_SIMPLIFIED
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_Variable(
+                            name: default_country
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Country
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Cast_Int(
+                                        expr: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Configuration
+                                                )
+                                            )
+                                            name: get
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: PS_COUNTRY_DEFAULT
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    4: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addJS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Scalar_String(
+                                        value: http://maps.google.com/maps/api/js?sensor=true&amp;region=
+                                    )
+                                    right: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: substr
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: default_country
+                                                    )
+                                                    name: iso_code
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Arg(
+                                                value: Scalar_LNumber(
+                                                    value: 0
+                                                )
+                                                byRef: false
+                                            )
+                                            2: Arg(
+                                                value: Scalar_LNumber(
+                                                    value: 2
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: setMedia
+            )
+        )
+        name: StoresControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: StoresControllerCore
+            )
+        )
+    )
+)

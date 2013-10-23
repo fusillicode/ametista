@@ -1,0 +1,77 @@
+array(
+    0: Expr_Assign(
+        var: Expr_Variable(
+            name: v
+        )
+        expr: Scalar_String(
+            value: 
+        )
+    )
+    1: Expr_Assign(
+        var: Expr_Variable(
+            name: Expr_Variable(
+                name: vv
+            )
+        )
+        expr: Scalar_String(
+            value: pippo
+        )
+    )
+    2: Expr_Assign(
+        var: Expr_ArrayDimFetch(
+            var: Expr_Variable(
+                name: a
+            )
+            dim: Scalar_LNumber(
+                value: 1
+            )
+        )
+        expr: Scalar_String(
+            value: pippa
+        )
+    )
+    3: Stmt_Function(
+        byRef: false
+        params: array(
+        )
+        stmts: array(
+            0: Expr_Assign(
+                var: Expr_Variable(
+                    name: v1
+                )
+                expr: Scalar_String(
+                    value: 
+                )
+            )
+            1: Expr_Assign(
+                var: Expr_Variable(
+                    name: Expr_Variable(
+                        name: vv1
+                    )
+                )
+                expr: Scalar_String(
+                    value: pippo
+                )
+            )
+            2: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: a1
+                    )
+                    dim: Scalar_LNumber(
+                        value: 1
+                    )
+                )
+                expr: Scalar_String(
+                    value: pippa
+                )
+            )
+        )
+        name: prova
+        namespacedName: Name(
+            parts: array(
+                0: prova
+            )
+        )
+    )
+)

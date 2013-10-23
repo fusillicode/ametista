@@ -1,0 +1,381 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: php_self
+                        default: Scalar_String(
+                            value: best-sales
+                        )
+                    )
+                )
+            )
+            1: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: initContent
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: productSort
+                        args: array(
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: nbProducts
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: ProductSale
+                                    )
+                                )
+                                name: getNbSales
+                                args: array(
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: pagination
+                        args: array(
+                            0: Arg(
+                                value: Expr_Variable(
+                                    name: nbProducts
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    4: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: products
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: ProductSale
+                                                    )
+                                                )
+                                                name: getBestSales
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_PropertyFetch(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: context
+                                                                )
+                                                                name: language
+                                                            )
+                                                            name: id
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                    1: Arg(
+                                                        value: Expr_Minus(
+                                                            left: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: p
+                                                            )
+                                                            right: Scalar_LNumber(
+                                                                value: 1
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                    2: Arg(
+                                                        value: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: n
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                    3: Arg(
+                                                        value: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: orderBy
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                    4: Arg(
+                                                        value: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: orderWay
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: add_prod_display
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Configuration
+                                                    )
+                                                )
+                                                name: get
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: PS_ATTRIBUTE_CATEGORY_DISPLAY
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: nbProducts
+                                            )
+                                            value: Expr_Variable(
+                                                name: nbProducts
+                                            )
+                                            byRef: false
+                                        )
+                                        3: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: homeSize
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Image
+                                                    )
+                                                )
+                                                name: getSize
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: ImageType
+                                                                )
+                                                            )
+                                                            name: getFormatedName
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: home
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        4: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: comparator_max_item
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Configuration
+                                                    )
+                                                )
+                                                name: get
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: PS_COMPARATOR_MAX_ITEM
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    5: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: setTemplate
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: best-sales.tpl
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: initContent
+            )
+            2: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: setMedia
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addCSS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_CSS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: product_list.css
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: addJS
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Concat(
+                                            left: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: _THEME_JS_DIR_
+                                                    )
+                                                )
+                                            )
+                                            right: Scalar_String(
+                                                value: products-comparison.js
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Configuration
+                                )
+                            )
+                            name: get
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: PS_COMPARATOR_MAX_ITEM
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                )
+                name: setMedia
+            )
+        )
+        name: BestSalesControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: BestSalesControllerCore
+            )
+        )
+    )
+)

@@ -1,0 +1,351 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_header
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_footer
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            2: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: order_slip
+                        default: null
+                    )
+                )
+            )
+            3: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Stmt_If(
+                        stmts: array(
+                            0: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: redirect
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: index.php?controller=authentication&back=order-follow
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_MethodCall(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: context
+                                    )
+                                    name: customer
+                                )
+                                name: isLogged
+                                args: array(
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: order_slip
+                                )
+                                expr: Expr_New(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: OrderSlip
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: _GET
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_order_slip
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanAnd(
+                            left: Expr_Isset(
+                                vars: array(
+                                    0: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: _GET
+                                        )
+                                        dim: Scalar_String(
+                                            value: id_order_slip
+                                        )
+                                    )
+                                )
+                            )
+                            right: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Validate
+                                    )
+                                )
+                                name: isUnsignedId
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _GET
+                                            )
+                                            dim: Scalar_String(
+                                                value: id_order_slip
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: Order return not found.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_Exit(
+                                            expr: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: displayError
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: Order return not found.
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_NotEqual(
+                                        left: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: order_slip
+                                            )
+                                            name: id_customer
+                                        )
+                                        right: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: this
+                                                    )
+                                                    name: context
+                                                )
+                                                name: customer
+                                            )
+                                            name: id
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_BooleanOr(
+                            left: Expr_BooleanNot(
+                                expr: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: order_slip
+                                        )
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanNot(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Validate
+                                        )
+                                    )
+                                    name: isLoadedObject
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: order_slip
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+                name: postProcess
+            )
+            4: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: pdf
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: PDF
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: order_slip
+                                    )
+                                    byRef: false
+                                )
+                                1: Arg(
+                                    value: Expr_ClassConstFetch(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: PDF
+                                            )
+                                        )
+                                        name: TEMPLATE_ORDER_SLIP
+                                    )
+                                    byRef: false
+                                )
+                                2: Arg(
+                                    value: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: smarty
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: pdf
+                        )
+                        name: render
+                        args: array(
+                        )
+                    )
+                )
+                name: display
+            )
+        )
+        name: PdfOrderSlipControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: PdfOrderSlipControllerCore
+            )
+        )
+    )
+)

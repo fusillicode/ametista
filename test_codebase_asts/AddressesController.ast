@@ -1,0 +1,639 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: auth
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: php_self
+                        default: Scalar_String(
+                            value: addresses
+                        )
+                    )
+                )
+            )
+            2: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: authRedirection
+                        default: Scalar_String(
+                            value: addresses
+                        )
+                    )
+                )
+            )
+            3: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: ssl
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            4: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: setMedia
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addCSS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_CSS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: addresses.css
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addJS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_JS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: tools.js
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: setMedia
+            )
+            5: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: init
+                        args: array(
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: The customer could not be found.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Validate
+                                    )
+                                )
+                                name: isLoadedObject
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: context
+                                            )
+                                            name: customer
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+                name: init
+            )
+            6: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: initContent
+                        args: array(
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: total
+                        )
+                        expr: Scalar_LNumber(
+                            value: 0
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: multiple_addresses_formated
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                            )
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_Variable(
+                            name: ordered_fields
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                            )
+                        )
+                    )
+                    4: Expr_Assign(
+                        var: Expr_Variable(
+                            name: addresses
+                        )
+                        expr: Expr_MethodCall(
+                            var: Expr_PropertyFetch(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: context
+                                )
+                                name: customer
+                            )
+                            name: getAddresses
+                            args: array(
+                                0: Arg(
+                                    value: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: context
+                                            )
+                                            name: language
+                                        )
+                                        name: id
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    5: Stmt_Foreach(
+                        keyVar: null
+                        byRef: false
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: address
+                                )
+                                expr: Expr_New(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Address
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: detail
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_address
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_Variable(
+                                        name: multiple_addresses_formated
+                                    )
+                                    dim: Expr_Variable(
+                                        name: total
+                                    )
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: AddressFormat
+                                        )
+                                    )
+                                    name: getFormattedLayoutData
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: address
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            2: Stmt_Unset(
+                                vars: array(
+                                    0: Expr_Variable(
+                                        name: address
+                                    )
+                                )
+                            )
+                            3: Expr_PreInc(
+                                var: Expr_Variable(
+                                    name: total
+                                )
+                            )
+                            4: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: ordered_fields
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: AddressFormat
+                                        )
+                                    )
+                                    name: getOrderedAddressFields
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: detail
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_country
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Arg(
+                                            value: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: true
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        expr: Expr_Variable(
+                            name: addresses
+                        )
+                        valueVar: Expr_Variable(
+                            name: detail
+                        )
+                    )
+                    6: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_Variable(
+                                        name: ordered_fields
+                                    )
+                                    dim: Expr_Variable(
+                                        name: key
+                                    )
+                                )
+                                expr: Scalar_String(
+                                    value: country
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_Assign(
+                            var: Expr_Variable(
+                                name: key
+                            )
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: array_search
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: Country:name
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Variable(
+                                            name: ordered_fields
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    7: Expr_Assign(
+                        var: Expr_Variable(
+                            name: addresses_style
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                                0: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: company
+                                    )
+                                    value: Scalar_String(
+                                        value: address_company
+                                    )
+                                    byRef: false
+                                )
+                                1: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: vat_number
+                                    )
+                                    value: Scalar_String(
+                                        value: address_company
+                                    )
+                                    byRef: false
+                                )
+                                2: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: firstname
+                                    )
+                                    value: Scalar_String(
+                                        value: address_name
+                                    )
+                                    byRef: false
+                                )
+                                3: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: lastname
+                                    )
+                                    value: Scalar_String(
+                                        value: address_name
+                                    )
+                                    byRef: false
+                                )
+                                4: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: address1
+                                    )
+                                    value: Scalar_String(
+                                        value: address_address1
+                                    )
+                                    byRef: false
+                                )
+                                5: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: address2
+                                    )
+                                    value: Scalar_String(
+                                        value: address_address2
+                                    )
+                                    byRef: false
+                                )
+                                6: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: city
+                                    )
+                                    value: Scalar_String(
+                                        value: address_city
+                                    )
+                                    byRef: false
+                                )
+                                7: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: country
+                                    )
+                                    value: Scalar_String(
+                                        value: address_country
+                                    )
+                                    byRef: false
+                                )
+                                8: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: phone
+                                    )
+                                    value: Scalar_String(
+                                        value: address_phone
+                                    )
+                                    byRef: false
+                                )
+                                9: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: phone_mobile
+                                    )
+                                    value: Scalar_String(
+                                        value: address_phone_mobile
+                                    )
+                                    byRef: false
+                                )
+                                10: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: alias
+                                    )
+                                    value: Scalar_String(
+                                        value: address_title
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    8: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: addresses_style
+                                            )
+                                            value: Expr_Variable(
+                                                name: addresses_style
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: multipleAddresses
+                                            )
+                                            value: Expr_Variable(
+                                                name: multiple_addresses_formated
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ordered_fields
+                                            )
+                                            value: Expr_Variable(
+                                                name: ordered_fields
+                                            )
+                                            byRef: false
+                                        )
+                                        3: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: addresses
+                                            )
+                                            value: Expr_Variable(
+                                                name: addresses
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    9: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: setTemplate
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: addresses.tpl
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: initContent
+            )
+        )
+        name: AddressesControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: AddressesControllerCore
+            )
+        )
+    )
+)

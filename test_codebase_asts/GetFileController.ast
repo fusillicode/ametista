@@ -1,0 +1,3374 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_header
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_footer
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            2: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: filename
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: getValue
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: file
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Stmt_If(
+                                stmts: array(
+                                    0: Expr_Exit(
+                                        expr: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Tools
+                                                )
+                                            )
+                                            name: displayError
+                                            args: array(
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: null
+                                cond: Expr_BooleanNot(
+                                    expr: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Validate
+                                            )
+                                        )
+                                        name: isSha1
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Variable(
+                                                    name: filename
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            2: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: file
+                                )
+                                expr: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_DOWNLOAD_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: strval
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_FuncCall(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: preg_replace
+                                                        )
+                                                    )
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: /\.{2,}/
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                        1: Arg(
+                                                            value: Scalar_String(
+                                                                value: .
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                        2: Arg(
+                                                            value: Expr_Variable(
+                                                                name: filename
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            3: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: filename
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: ProductDownload
+                                        )
+                                    )
+                                    name: getFilenameFromFilename
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: getValue
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: file
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            4: Stmt_If(
+                                stmts: array(
+                                    0: Expr_Assign(
+                                        var: Expr_Variable(
+                                            name: newFileName
+                                        )
+                                        expr: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Tools
+                                                )
+                                            )
+                                            name: getValue
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: filename
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    1: Stmt_If(
+                                        stmts: array(
+                                            0: Expr_Assign(
+                                                var: Expr_Variable(
+                                                    name: filename
+                                                )
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Tools
+                                                        )
+                                                    )
+                                                    name: getValue
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: filename
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        elseifs: array(
+                                        )
+                                        else: Stmt_Else(
+                                            stmts: array(
+                                                0: Expr_Assign(
+                                                    var: Expr_Variable(
+                                                        name: filename
+                                                    )
+                                                    expr: Scalar_String(
+                                                        value: file
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        cond: Expr_BooleanNot(
+                                            expr: Expr_Empty(
+                                                expr: Expr_Variable(
+                                                    name: newFileName
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: null
+                                cond: Expr_Empty(
+                                    expr: Expr_Variable(
+                                        name: filename
+                                    )
+                                )
+                            )
+                            5: Stmt_If(
+                                stmts: array(
+                                    0: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: redirect
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: index.php
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: null
+                                cond: Expr_BooleanNot(
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: file_exists
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Variable(
+                                                    name: file
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: Invalid key.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanNot(
+                                        expr: Expr_Assign(
+                                            var: Expr_Variable(
+                                                name: key
+                                            )
+                                            expr: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: getValue
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: key
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                1: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: setCookieLanguage
+                                    args: array(
+                                    )
+                                )
+                                2: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Tools
+                                                )
+                                            )
+                                            name: redirect
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_Concat(
+                                                        left: Scalar_String(
+                                                            value: index.php?controller=authentication&back=get-file.php&key=
+                                                        )
+                                                        right: Expr_Variable(
+                                                            name: key
+                                                        )
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: Stmt_Else(
+                                        stmts: array(
+                                            0: Stmt_If(
+                                                stmts: array(
+                                                    0: Expr_Assign(
+                                                        var: Expr_Variable(
+                                                            name: order
+                                                        )
+                                                        expr: Expr_New(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Order
+                                                                )
+                                                            )
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Expr_Cast_Int(
+                                                                        expr: Expr_StaticCall(
+                                                                            class: Name_FullyQualified(
+                                                                                parts: array(
+                                                                                    0: Tools
+                                                                                )
+                                                                            )
+                                                                            name: getValue
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Scalar_String(
+                                                                                        value: id_order
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    1: Stmt_If(
+                                                        stmts: array(
+                                                            0: Expr_MethodCall(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: displayCustomError
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Scalar_String(
+                                                                            value: Invalid key.
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        elseifs: array(
+                                                        )
+                                                        else: null
+                                                        cond: Expr_BooleanNot(
+                                                            expr: Expr_StaticCall(
+                                                                class: Name_FullyQualified(
+                                                                    parts: array(
+                                                                        0: Validate
+                                                                    )
+                                                                )
+                                                                name: isLoadedObject
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Expr_Variable(
+                                                                            name: order
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    2: Stmt_If(
+                                                        stmts: array(
+                                                            0: Expr_MethodCall(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: displayCustomError
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Scalar_String(
+                                                                            value: Invalid key.
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        elseifs: array(
+                                                        )
+                                                        else: null
+                                                        cond: Expr_NotEqual(
+                                                            left: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: order
+                                                                )
+                                                                name: secure_key
+                                                            )
+                                                            right: Expr_StaticCall(
+                                                                class: Name_FullyQualified(
+                                                                    parts: array(
+                                                                        0: Tools
+                                                                    )
+                                                                )
+                                                                name: getValue
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Scalar_String(
+                                                                            value: secure_key
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                elseifs: array(
+                                                )
+                                                else: null
+                                                cond: Expr_BooleanAnd(
+                                                    left: Expr_BooleanAnd(
+                                                        left: Expr_BooleanNot(
+                                                            expr: Expr_MethodCall(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: context
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: isLogged
+                                                                args: array(
+                                                                )
+                                                            )
+                                                        )
+                                                        right: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Tools
+                                                                )
+                                                            )
+                                                            name: getValue
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: secure_key
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Expr_StaticCall(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: Tools
+                                                            )
+                                                        )
+                                                        name: getValue
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Scalar_String(
+                                                                    value: id_order
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    cond: Expr_BooleanAnd(
+                                        left: Expr_BooleanAnd(
+                                            left: Expr_BooleanNot(
+                                                expr: Expr_MethodCall(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: context
+                                                        )
+                                                        name: customer
+                                                    )
+                                                    name: isLogged
+                                                    args: array(
+                                                    )
+                                                )
+                                            )
+                                            right: Expr_BooleanNot(
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Tools
+                                                        )
+                                                    )
+                                                    name: getValue
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: secure_key
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        right: Expr_BooleanNot(
+                                            expr: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: getValue
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Scalar_String(
+                                                            value: id_order
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                3: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: tmp
+                                    )
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: explode
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: -
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Arg(
+                                                value: Expr_Variable(
+                                                    name: key
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                4: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: Invalid key.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_NotEqual(
+                                        left: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: count
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_Variable(
+                                                        name: tmp
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        right: Scalar_LNumber(
+                                            value: 2
+                                        )
+                                    )
+                                )
+                                5: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: filename
+                                    )
+                                    expr: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: tmp
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                    )
+                                )
+                                6: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: hash
+                                    )
+                                    expr: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: tmp
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                )
+                                7: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: This product does not exist in our store.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanNot(
+                                        expr: Expr_Assign(
+                                            var: Expr_Variable(
+                                                name: info
+                                            )
+                                            expr: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: OrderDetail
+                                                    )
+                                                )
+                                                name: getDownloadFromHash
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_Variable(
+                                                            name: hash
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                8: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: This product has been deleted.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanOr(
+                                        left: Expr_BooleanNot(
+                                            expr: Expr_Isset(
+                                                vars: array(
+                                                    0: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: info
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: id_product_download
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        right: Expr_Empty(
+                                            expr: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: info
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_product_download
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                9: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: This file no longer exists.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanNot(
+                                        expr: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: file_exists
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_Concat(
+                                                        left: Expr_ConstFetch(
+                                                            name: Name(
+                                                                parts: array(
+                                                                    0: _PS_DOWNLOAD_DIR_
+                                                                )
+                                                            )
+                                                        )
+                                                        right: Expr_Variable(
+                                                            name: filename
+                                                        )
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                10: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: This product has been refunded.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanAnd(
+                                        left: Expr_BooleanAnd(
+                                            left: Expr_Isset(
+                                                vars: array(
+                                                    0: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: info
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: product_quantity_refunded
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            right: Expr_Isset(
+                                                vars: array(
+                                                    0: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: info
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: product_quantity_return
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        right: Expr_BooleanOr(
+                                            left: Expr_Greater(
+                                                left: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: info
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: product_quantity_refunded
+                                                    )
+                                                )
+                                                right: Scalar_LNumber(
+                                                    value: 0
+                                                )
+                                            )
+                                            right: Expr_Greater(
+                                                left: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: info
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: product_quantity_return
+                                                    )
+                                                )
+                                                right: Scalar_LNumber(
+                                                    value: 0
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                11: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: now
+                                    )
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: time
+                                            )
+                                        )
+                                        args: array(
+                                        )
+                                    )
+                                )
+                                12: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: product_deadline
+                                    )
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: strtotime
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: info
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: download_deadline
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                13: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: The product deadline is in the past.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanAnd(
+                                        left: Expr_Greater(
+                                            left: Expr_Variable(
+                                                name: now
+                                            )
+                                            right: Expr_Variable(
+                                                name: product_deadline
+                                            )
+                                        )
+                                        right: Expr_NotEqual(
+                                            left: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: info
+                                                )
+                                                dim: Scalar_String(
+                                                    value: download_deadline
+                                                )
+                                            )
+                                            right: Scalar_String(
+                                                value: 0000-00-00 00:00:00
+                                            )
+                                        )
+                                    )
+                                )
+                                14: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: customer_deadline
+                                    )
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: strtotime
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: info
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: date_expiration
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                15: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: Expiration date has passed, you cannot download this product
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanAnd(
+                                        left: Expr_Greater(
+                                            left: Expr_Variable(
+                                                name: now
+                                            )
+                                            right: Expr_Variable(
+                                                name: customer_deadline
+                                            )
+                                        )
+                                        right: Expr_NotEqual(
+                                            left: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: info
+                                                )
+                                                dim: Scalar_String(
+                                                    value: date_expiration
+                                                )
+                                            )
+                                            right: Scalar_String(
+                                                value: 0000-00-00 00:00:00
+                                            )
+                                        )
+                                    )
+                                )
+                                16: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: displayCustomError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: You have reached the maximum number of allowed downloads.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: null
+                                    cond: Expr_BooleanAnd(
+                                        left: Expr_GreaterOrEqual(
+                                            left: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: info
+                                                )
+                                                dim: Scalar_String(
+                                                    value: download_nb
+                                                )
+                                            )
+                                            right: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: info
+                                                )
+                                                dim: Scalar_String(
+                                                    value: nb_downloadable
+                                                )
+                                            )
+                                        )
+                                        right: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: info
+                                            )
+                                            dim: Scalar_String(
+                                                value: nb_downloadable
+                                            )
+                                        )
+                                    )
+                                )
+                                17: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: OrderDetail
+                                        )
+                                    )
+                                    name: incrementDownload
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: info
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_order_detail
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                18: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: file
+                                    )
+                                    expr: Expr_Concat(
+                                        left: Expr_ConstFetch(
+                                            name: Name(
+                                                parts: array(
+                                                    0: _PS_DOWNLOAD_DIR_
+                                                )
+                                            )
+                                        )
+                                        right: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: info
+                                            )
+                                            dim: Scalar_String(
+                                                value: filename
+                                            )
+                                        )
+                                    )
+                                )
+                                19: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: filename
+                                    )
+                                    expr: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: info
+                                        )
+                                        dim: Scalar_String(
+                                            value: display_filename
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_BooleanAnd(
+                            left: Expr_BooleanAnd(
+                                left: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: context
+                                            )
+                                            name: employee
+                                        )
+                                    )
+                                )
+                                right: Expr_MethodCall(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: employee
+                                    )
+                                    name: isLoggedBack
+                                    args: array(
+                                    )
+                                )
+                            )
+                            right: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: file
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: mimeType
+                        )
+                        expr: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: finfo
+                                )
+                                expr: Expr_ErrorSuppress(
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: finfo_open
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_ConstFetch(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: FILEINFO_MIME
+                                                        )
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: mimeType
+                                )
+                                expr: Expr_ErrorSuppress(
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: finfo_file
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Variable(
+                                                    name: finfo
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Arg(
+                                                value: Expr_Variable(
+                                                    name: file
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            2: Expr_ErrorSuppress(
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: finfo_close
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: finfo
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_Assign(
+                                            var: Expr_Variable(
+                                                name: mimeType
+                                            )
+                                            expr: Expr_ErrorSuppress(
+                                                expr: Expr_FuncCall(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: mime_content_type
+                                                        )
+                                                    )
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Expr_Variable(
+                                                                name: file
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: Stmt_Else(
+                                        stmts: array(
+                                            0: Stmt_If(
+                                                stmts: array(
+                                                    0: Expr_Assign(
+                                                        var: Expr_Variable(
+                                                            name: mimeType
+                                                        )
+                                                        expr: Expr_FuncCall(
+                                                            name: Name(
+                                                                parts: array(
+                                                                    0: trim
+                                                                )
+                                                            )
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Expr_ErrorSuppress(
+                                                                        expr: Expr_FuncCall(
+                                                                            name: Name(
+                                                                                parts: array(
+                                                                                    0: exec
+                                                                                )
+                                                                            )
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Expr_Concat(
+                                                                                        left: Scalar_String(
+                                                                                            value: file -b --mime-type 
+                                                                                        )
+                                                                                        right: Expr_FuncCall(
+                                                                                            name: Name(
+                                                                                                parts: array(
+                                                                                                    0: escapeshellarg
+                                                                                                )
+                                                                                            )
+                                                                                            args: array(
+                                                                                                0: Arg(
+                                                                                                    value: Expr_Variable(
+                                                                                                        name: file
+                                                                                                    )
+                                                                                                    byRef: false
+                                                                                                )
+                                                                                            )
+                                                                                        )
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    1: Stmt_If(
+                                                        stmts: array(
+                                                            0: Expr_Assign(
+                                                                var: Expr_Variable(
+                                                                    name: mimeType
+                                                                )
+                                                                expr: Expr_FuncCall(
+                                                                    name: Name(
+                                                                        parts: array(
+                                                                            0: trim
+                                                                        )
+                                                                    )
+                                                                    args: array(
+                                                                        0: Arg(
+                                                                            value: Expr_ErrorSuppress(
+                                                                                expr: Expr_FuncCall(
+                                                                                    name: Name(
+                                                                                        parts: array(
+                                                                                            0: exec
+                                                                                        )
+                                                                                    )
+                                                                                    args: array(
+                                                                                        0: Arg(
+                                                                                            value: Expr_Concat(
+                                                                                                left: Scalar_String(
+                                                                                                    value: file --mime 
+                                                                                                )
+                                                                                                right: Expr_FuncCall(
+                                                                                                    name: Name(
+                                                                                                        parts: array(
+                                                                                                            0: escapeshellarg
+                                                                                                        )
+                                                                                                    )
+                                                                                                    args: array(
+                                                                                                        0: Arg(
+                                                                                                            value: Expr_Variable(
+                                                                                                                name: file
+                                                                                                            )
+                                                                                                            byRef: false
+                                                                                                        )
+                                                                                                    )
+                                                                                                )
+                                                                                            )
+                                                                                            byRef: false
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                            )
+                                                                            byRef: false
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        elseifs: array(
+                                                        )
+                                                        else: null
+                                                        cond: Expr_BooleanNot(
+                                                            expr: Expr_Variable(
+                                                                name: mimeType
+                                                            )
+                                                        )
+                                                    )
+                                                    2: Stmt_If(
+                                                        stmts: array(
+                                                            0: Expr_Assign(
+                                                                var: Expr_Variable(
+                                                                    name: mimeType
+                                                                )
+                                                                expr: Expr_FuncCall(
+                                                                    name: Name(
+                                                                        parts: array(
+                                                                            0: trim
+                                                                        )
+                                                                    )
+                                                                    args: array(
+                                                                        0: Arg(
+                                                                            value: Expr_ErrorSuppress(
+                                                                                expr: Expr_FuncCall(
+                                                                                    name: Name(
+                                                                                        parts: array(
+                                                                                            0: exec
+                                                                                        )
+                                                                                    )
+                                                                                    args: array(
+                                                                                        0: Arg(
+                                                                                            value: Expr_Concat(
+                                                                                                left: Scalar_String(
+                                                                                                    value: file -bi 
+                                                                                                )
+                                                                                                right: Expr_FuncCall(
+                                                                                                    name: Name(
+                                                                                                        parts: array(
+                                                                                                            0: escapeshellarg
+                                                                                                        )
+                                                                                                    )
+                                                                                                    args: array(
+                                                                                                        0: Arg(
+                                                                                                            value: Expr_Variable(
+                                                                                                                name: file
+                                                                                                            )
+                                                                                                            byRef: false
+                                                                                                        )
+                                                                                                    )
+                                                                                                )
+                                                                                            )
+                                                                                            byRef: false
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                            )
+                                                                            byRef: false
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        elseifs: array(
+                                                        )
+                                                        else: null
+                                                        cond: Expr_BooleanNot(
+                                                            expr: Expr_Variable(
+                                                                name: mimeType
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                elseifs: array(
+                                                )
+                                                else: null
+                                                cond: Expr_FuncCall(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: function_exists
+                                                        )
+                                                    )
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: exec
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    cond: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: function_exists
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: mime_content_type
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: function_exists
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: finfo_open
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: bName
+                                )
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: basename
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: filename
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: bName
+                                )
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: explode
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: .
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Expr_Variable(
+                                                name: bName
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            2: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: bName
+                                )
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: strtolower
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: bName
+                                                )
+                                                dim: Expr_Minus(
+                                                    left: Expr_FuncCall(
+                                                        name: Name(
+                                                            parts: array(
+                                                                0: count
+                                                            )
+                                                        )
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Expr_Variable(
+                                                                    name: bName
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Scalar_LNumber(
+                                                        value: 1
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            3: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: mimeTypes
+                                )
+                                expr: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ez
+                                            )
+                                            value: Scalar_String(
+                                                value: application/andrew-inset
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: hqx
+                                            )
+                                            value: Scalar_String(
+                                                value: application/mac-binhex40
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: cpt
+                                            )
+                                            value: Scalar_String(
+                                                value: application/mac-compactpro
+                                            )
+                                            byRef: false
+                                        )
+                                        3: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: doc
+                                            )
+                                            value: Scalar_String(
+                                                value: application/msword
+                                            )
+                                            byRef: false
+                                        )
+                                        4: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: oda
+                                            )
+                                            value: Scalar_String(
+                                                value: application/oda
+                                            )
+                                            byRef: false
+                                        )
+                                        5: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: pdf
+                                            )
+                                            value: Scalar_String(
+                                                value: application/pdf
+                                            )
+                                            byRef: false
+                                        )
+                                        6: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ai
+                                            )
+                                            value: Scalar_String(
+                                                value: application/postscript
+                                            )
+                                            byRef: false
+                                        )
+                                        7: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: eps
+                                            )
+                                            value: Scalar_String(
+                                                value: application/postscript
+                                            )
+                                            byRef: false
+                                        )
+                                        8: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ps
+                                            )
+                                            value: Scalar_String(
+                                                value: application/postscript
+                                            )
+                                            byRef: false
+                                        )
+                                        9: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: smi
+                                            )
+                                            value: Scalar_String(
+                                                value: application/smil
+                                            )
+                                            byRef: false
+                                        )
+                                        10: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: smil
+                                            )
+                                            value: Scalar_String(
+                                                value: application/smil
+                                            )
+                                            byRef: false
+                                        )
+                                        11: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wbxml
+                                            )
+                                            value: Scalar_String(
+                                                value: application/vnd.wap.wbxml
+                                            )
+                                            byRef: false
+                                        )
+                                        12: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wmlc
+                                            )
+                                            value: Scalar_String(
+                                                value: application/vnd.wap.wmlc
+                                            )
+                                            byRef: false
+                                        )
+                                        13: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wmlsc
+                                            )
+                                            value: Scalar_String(
+                                                value: application/vnd.wap.wmlscriptc
+                                            )
+                                            byRef: false
+                                        )
+                                        14: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: bcpio
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-bcpio
+                                            )
+                                            byRef: false
+                                        )
+                                        15: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: vcd
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-cdlink
+                                            )
+                                            byRef: false
+                                        )
+                                        16: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: pgn
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-chess-pgn
+                                            )
+                                            byRef: false
+                                        )
+                                        17: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: cpio
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-cpio
+                                            )
+                                            byRef: false
+                                        )
+                                        18: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: csh
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-csh
+                                            )
+                                            byRef: false
+                                        )
+                                        19: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: dcr
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-director
+                                            )
+                                            byRef: false
+                                        )
+                                        20: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: dir
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-director
+                                            )
+                                            byRef: false
+                                        )
+                                        21: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: dxr
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-director
+                                            )
+                                            byRef: false
+                                        )
+                                        22: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: dvi
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-dvi
+                                            )
+                                            byRef: false
+                                        )
+                                        23: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: spl
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-futuresplash
+                                            )
+                                            byRef: false
+                                        )
+                                        24: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: gtar
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-gtar
+                                            )
+                                            byRef: false
+                                        )
+                                        25: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: hdf
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-hdf
+                                            )
+                                            byRef: false
+                                        )
+                                        26: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: js
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-javascript
+                                            )
+                                            byRef: false
+                                        )
+                                        27: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: skp
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-koan
+                                            )
+                                            byRef: false
+                                        )
+                                        28: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: skd
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-koan
+                                            )
+                                            byRef: false
+                                        )
+                                        29: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: skt
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-koan
+                                            )
+                                            byRef: false
+                                        )
+                                        30: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: skm
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-koan
+                                            )
+                                            byRef: false
+                                        )
+                                        31: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: latex
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-latex
+                                            )
+                                            byRef: false
+                                        )
+                                        32: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: nc
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-netcdf
+                                            )
+                                            byRef: false
+                                        )
+                                        33: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: cdf
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-netcdf
+                                            )
+                                            byRef: false
+                                        )
+                                        34: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sh
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-sh
+                                            )
+                                            byRef: false
+                                        )
+                                        35: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: shar
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-shar
+                                            )
+                                            byRef: false
+                                        )
+                                        36: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: swf
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-shockwave-flash
+                                            )
+                                            byRef: false
+                                        )
+                                        37: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sit
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-stuffit
+                                            )
+                                            byRef: false
+                                        )
+                                        38: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sv4cpio
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-sv4cpio
+                                            )
+                                            byRef: false
+                                        )
+                                        39: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sv4crc
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-sv4crc
+                                            )
+                                            byRef: false
+                                        )
+                                        40: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tar
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-tar
+                                            )
+                                            byRef: false
+                                        )
+                                        41: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tcl
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-tcl
+                                            )
+                                            byRef: false
+                                        )
+                                        42: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tex
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-tex
+                                            )
+                                            byRef: false
+                                        )
+                                        43: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: texinfo
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-texinfo
+                                            )
+                                            byRef: false
+                                        )
+                                        44: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: texi
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-texinfo
+                                            )
+                                            byRef: false
+                                        )
+                                        45: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: t
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-troff
+                                            )
+                                            byRef: false
+                                        )
+                                        46: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tr
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-troff
+                                            )
+                                            byRef: false
+                                        )
+                                        47: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: roff
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-troff
+                                            )
+                                            byRef: false
+                                        )
+                                        48: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: man
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-troff-man
+                                            )
+                                            byRef: false
+                                        )
+                                        49: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: me
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-troff-me
+                                            )
+                                            byRef: false
+                                        )
+                                        50: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ms
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-troff-ms
+                                            )
+                                            byRef: false
+                                        )
+                                        51: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ustar
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-ustar
+                                            )
+                                            byRef: false
+                                        )
+                                        52: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: src
+                                            )
+                                            value: Scalar_String(
+                                                value: application/x-wais-source
+                                            )
+                                            byRef: false
+                                        )
+                                        53: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xhtml
+                                            )
+                                            value: Scalar_String(
+                                                value: application/xhtml+xml
+                                            )
+                                            byRef: false
+                                        )
+                                        54: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xht
+                                            )
+                                            value: Scalar_String(
+                                                value: application/xhtml+xml
+                                            )
+                                            byRef: false
+                                        )
+                                        55: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: zip
+                                            )
+                                            value: Scalar_String(
+                                                value: application/zip
+                                            )
+                                            byRef: false
+                                        )
+                                        56: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: au
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/basic
+                                            )
+                                            byRef: false
+                                        )
+                                        57: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: snd
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/basic
+                                            )
+                                            byRef: false
+                                        )
+                                        58: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mid
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/midi
+                                            )
+                                            byRef: false
+                                        )
+                                        59: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: midi
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/midi
+                                            )
+                                            byRef: false
+                                        )
+                                        60: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: kar
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/midi
+                                            )
+                                            byRef: false
+                                        )
+                                        61: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mpga
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/mpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        62: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mp2
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/mpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        63: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mp3
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/mpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        64: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: aif
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-aiff
+                                            )
+                                            byRef: false
+                                        )
+                                        65: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: aiff
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-aiff
+                                            )
+                                            byRef: false
+                                        )
+                                        66: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: aifc
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-aiff
+                                            )
+                                            byRef: false
+                                        )
+                                        67: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: m3u
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-mpegurl
+                                            )
+                                            byRef: false
+                                        )
+                                        68: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ram
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-pn-realaudio
+                                            )
+                                            byRef: false
+                                        )
+                                        69: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: rm
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-pn-realaudio
+                                            )
+                                            byRef: false
+                                        )
+                                        70: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: rpm
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-pn-realaudio-plugin
+                                            )
+                                            byRef: false
+                                        )
+                                        71: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ra
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-realaudio
+                                            )
+                                            byRef: false
+                                        )
+                                        72: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wav
+                                            )
+                                            value: Scalar_String(
+                                                value: audio/x-wav
+                                            )
+                                            byRef: false
+                                        )
+                                        73: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: pdb
+                                            )
+                                            value: Scalar_String(
+                                                value: chemical/x-pdb
+                                            )
+                                            byRef: false
+                                        )
+                                        74: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xyz
+                                            )
+                                            value: Scalar_String(
+                                                value: chemical/x-xyz
+                                            )
+                                            byRef: false
+                                        )
+                                        75: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: bmp
+                                            )
+                                            value: Scalar_String(
+                                                value: image/bmp
+                                            )
+                                            byRef: false
+                                        )
+                                        76: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: gif
+                                            )
+                                            value: Scalar_String(
+                                                value: image/gif
+                                            )
+                                            byRef: false
+                                        )
+                                        77: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ief
+                                            )
+                                            value: Scalar_String(
+                                                value: image/ief
+                                            )
+                                            byRef: false
+                                        )
+                                        78: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: jpeg
+                                            )
+                                            value: Scalar_String(
+                                                value: image/jpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        79: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: jpg
+                                            )
+                                            value: Scalar_String(
+                                                value: image/jpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        80: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: jpe
+                                            )
+                                            value: Scalar_String(
+                                                value: image/jpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        81: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: png
+                                            )
+                                            value: Scalar_String(
+                                                value: image/png
+                                            )
+                                            byRef: false
+                                        )
+                                        82: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tiff
+                                            )
+                                            value: Scalar_String(
+                                                value: image/tiff
+                                            )
+                                            byRef: false
+                                        )
+                                        83: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tif
+                                            )
+                                            value: Scalar_String(
+                                                value: image/tif
+                                            )
+                                            byRef: false
+                                        )
+                                        84: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: djvu
+                                            )
+                                            value: Scalar_String(
+                                                value: image/vnd.djvu
+                                            )
+                                            byRef: false
+                                        )
+                                        85: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: djv
+                                            )
+                                            value: Scalar_String(
+                                                value: image/vnd.djvu
+                                            )
+                                            byRef: false
+                                        )
+                                        86: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wbmp
+                                            )
+                                            value: Scalar_String(
+                                                value: image/vnd.wap.wbmp
+                                            )
+                                            byRef: false
+                                        )
+                                        87: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ras
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-cmu-raster
+                                            )
+                                            byRef: false
+                                        )
+                                        88: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: pnm
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-portable-anymap
+                                            )
+                                            byRef: false
+                                        )
+                                        89: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: pbm
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-portable-bitmap
+                                            )
+                                            byRef: false
+                                        )
+                                        90: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: pgm
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-portable-graymap
+                                            )
+                                            byRef: false
+                                        )
+                                        91: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ppm
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-portable-pixmap
+                                            )
+                                            byRef: false
+                                        )
+                                        92: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: rgb
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-rgb
+                                            )
+                                            byRef: false
+                                        )
+                                        93: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xbm
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-xbitmap
+                                            )
+                                            byRef: false
+                                        )
+                                        94: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xpm
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-xpixmap
+                                            )
+                                            byRef: false
+                                        )
+                                        95: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xwd
+                                            )
+                                            value: Scalar_String(
+                                                value: image/x-windowdump
+                                            )
+                                            byRef: false
+                                        )
+                                        96: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: igs
+                                            )
+                                            value: Scalar_String(
+                                                value: model/iges
+                                            )
+                                            byRef: false
+                                        )
+                                        97: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: iges
+                                            )
+                                            value: Scalar_String(
+                                                value: model/iges
+                                            )
+                                            byRef: false
+                                        )
+                                        98: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: msh
+                                            )
+                                            value: Scalar_String(
+                                                value: model/mesh
+                                            )
+                                            byRef: false
+                                        )
+                                        99: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mesh
+                                            )
+                                            value: Scalar_String(
+                                                value: model/mesh
+                                            )
+                                            byRef: false
+                                        )
+                                        100: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: silo
+                                            )
+                                            value: Scalar_String(
+                                                value: model/mesh
+                                            )
+                                            byRef: false
+                                        )
+                                        101: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wrl
+                                            )
+                                            value: Scalar_String(
+                                                value: model/vrml
+                                            )
+                                            byRef: false
+                                        )
+                                        102: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: vrml
+                                            )
+                                            value: Scalar_String(
+                                                value: model/vrml
+                                            )
+                                            byRef: false
+                                        )
+                                        103: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: css
+                                            )
+                                            value: Scalar_String(
+                                                value: text/css
+                                            )
+                                            byRef: false
+                                        )
+                                        104: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: html
+                                            )
+                                            value: Scalar_String(
+                                                value: text/html
+                                            )
+                                            byRef: false
+                                        )
+                                        105: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: htm
+                                            )
+                                            value: Scalar_String(
+                                                value: text/html
+                                            )
+                                            byRef: false
+                                        )
+                                        106: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: asc
+                                            )
+                                            value: Scalar_String(
+                                                value: text/plain
+                                            )
+                                            byRef: false
+                                        )
+                                        107: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: txt
+                                            )
+                                            value: Scalar_String(
+                                                value: text/plain
+                                            )
+                                            byRef: false
+                                        )
+                                        108: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: rtx
+                                            )
+                                            value: Scalar_String(
+                                                value: text/richtext
+                                            )
+                                            byRef: false
+                                        )
+                                        109: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: rtf
+                                            )
+                                            value: Scalar_String(
+                                                value: text/rtf
+                                            )
+                                            byRef: false
+                                        )
+                                        110: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sgml
+                                            )
+                                            value: Scalar_String(
+                                                value: text/sgml
+                                            )
+                                            byRef: false
+                                        )
+                                        111: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sgm
+                                            )
+                                            value: Scalar_String(
+                                                value: text/sgml
+                                            )
+                                            byRef: false
+                                        )
+                                        112: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: tsv
+                                            )
+                                            value: Scalar_String(
+                                                value: text/tab-seperated-values
+                                            )
+                                            byRef: false
+                                        )
+                                        113: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wml
+                                            )
+                                            value: Scalar_String(
+                                                value: text/vnd.wap.wml
+                                            )
+                                            byRef: false
+                                        )
+                                        114: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: wmls
+                                            )
+                                            value: Scalar_String(
+                                                value: text/vnd.wap.wmlscript
+                                            )
+                                            byRef: false
+                                        )
+                                        115: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: etx
+                                            )
+                                            value: Scalar_String(
+                                                value: text/x-setext
+                                            )
+                                            byRef: false
+                                        )
+                                        116: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xml
+                                            )
+                                            value: Scalar_String(
+                                                value: text/xml
+                                            )
+                                            byRef: false
+                                        )
+                                        117: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: xsl
+                                            )
+                                            value: Scalar_String(
+                                                value: text/xml
+                                            )
+                                            byRef: false
+                                        )
+                                        118: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mpeg
+                                            )
+                                            value: Scalar_String(
+                                                value: video/mpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        119: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mpg
+                                            )
+                                            value: Scalar_String(
+                                                value: video/mpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        120: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mpe
+                                            )
+                                            value: Scalar_String(
+                                                value: video/mpeg
+                                            )
+                                            byRef: false
+                                        )
+                                        121: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: qt
+                                            )
+                                            value: Scalar_String(
+                                                value: video/quicktime
+                                            )
+                                            byRef: false
+                                        )
+                                        122: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mov
+                                            )
+                                            value: Scalar_String(
+                                                value: video/quicktime
+                                            )
+                                            byRef: false
+                                        )
+                                        123: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: mxu
+                                            )
+                                            value: Scalar_String(
+                                                value: video/vnd.mpegurl
+                                            )
+                                            byRef: false
+                                        )
+                                        124: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: avi
+                                            )
+                                            value: Scalar_String(
+                                                value: video/x-msvideo
+                                            )
+                                            byRef: false
+                                        )
+                                        125: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: movie
+                                            )
+                                            value: Scalar_String(
+                                                value: video/x-sgi-movie
+                                            )
+                                            byRef: false
+                                        )
+                                        126: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: ice
+                                            )
+                                            value: Scalar_String(
+                                                value: x-conference-xcooltalk
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            4: Stmt_If(
+                                stmts: array(
+                                    0: Expr_Assign(
+                                        var: Expr_Variable(
+                                            name: mimeType
+                                        )
+                                        expr: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: mimeTypes
+                                            )
+                                            dim: Expr_Variable(
+                                                name: bName
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: Stmt_Else(
+                                    stmts: array(
+                                        0: Expr_Assign(
+                                            var: Expr_Variable(
+                                                name: mimeType
+                                            )
+                                            expr: Scalar_String(
+                                                value: application/octet-stream
+                                            )
+                                        )
+                                    )
+                                )
+                                cond: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: mimeTypes
+                                            )
+                                            dim: Expr_Variable(
+                                                name: bName
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_Empty(
+                            expr: Expr_Variable(
+                                name: mimeType
+                            )
+                        )
+                    )
+                    4: Stmt_If(
+                        stmts: array(
+                            0: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: ob_end_clean
+                                    )
+                                )
+                                args: array(
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: ob_get_level
+                                )
+                            )
+                            args: array(
+                            )
+                        )
+                    )
+                    5: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: Content-Transfer-Encoding: binary
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    6: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Scalar_String(
+                                        value: Content-Type: 
+                                    )
+                                    right: Expr_Variable(
+                                        name: mimeType
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    7: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Scalar_String(
+                                        value: Content-Length: 
+                                    )
+                                    right: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: filesize
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Variable(
+                                                    name: file
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    8: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_Concat(
+                                        left: Scalar_String(
+                                            value: Content-Disposition: attachment; filename="
+                                        )
+                                        right: Expr_Variable(
+                                            name: filename
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: "
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    9: Expr_Assign(
+                        var: Expr_Variable(
+                            name: fp
+                        )
+                        expr: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: fopen
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Variable(
+                                        name: file
+                                    )
+                                    byRef: false
+                                )
+                                1: Arg(
+                                    value: Scalar_String(
+                                        value: rb
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    10: Stmt_While(
+                        cond: Expr_BooleanNot(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: feof
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Variable(
+                                            name: fp
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        stmts: array(
+                            0: Stmt_Echo(
+                                exprs: array(
+                                    0: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: fgets
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Variable(
+                                                    name: fp
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Arg(
+                                                value: Scalar_LNumber(
+                                                    value: 16384
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    11: Expr_Exit(
+                        expr: null
+                    )
+                )
+                name: init
+            )
+            3: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                    0: Param(
+                        name: msg
+                        default: null
+                        type: null
+                        byRef: false
+                    )
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: translations
+                        )
+                        expr: Expr_Array(
+                            items: array(
+                                0: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: Invalid key.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: Invalid key.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                1: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: This product does not exist in our store.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: This product does not exist in our store.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                2: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: This product has been deleted.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: This product has been deleted.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                3: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: This file no longer exists.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: This file no longer exists.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                4: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: This product has been refunded.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: This product has been refunded.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                5: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: The product deadline is in the past.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: The product deadline is in the past.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                6: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: Expiration date exceeded
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: The product expiration date has passed, preventing you from download this product.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                7: Expr_ArrayItem(
+                                    key: Scalar_String(
+                                        value: You have reached the maximum number of allowed downloads.
+                                    )
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: displayError
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: You have reached the maximum number of downloads allowed.
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_InlineHTML(
+                        value: 		<script type="text/javascript">
+                    		//<![CDATA[
+                    		alert("
+                    )
+                    2: Stmt_Echo(
+                        exprs: array(
+                            0: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: html_entity_decode
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: translations
+                                            )
+                                            dim: Expr_Variable(
+                                                name: msg
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_ConstFetch(
+                                            name: Name(
+                                                parts: array(
+                                                    0: ENT_QUOTES
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_String(
+                                            value: utf-8
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    3: Stmt_InlineHTML(
+                        value: ");
+                    		window.location.href = '
+                    )
+                    4: Stmt_Echo(
+                        exprs: array(
+                            0: Expr_ConstFetch(
+                                name: Name(
+                                    parts: array(
+                                        0: __PS_BASE_URI__
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    5: Stmt_InlineHTML(
+                        value: ';
+                    		//]]>
+                    		</script>
+                    		
+                    )
+                    6: Expr_Exit(
+                        expr: null
+                    )
+                )
+                name: displayCustomError
+            )
+        )
+        name: GetFileControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: GetFileControllerCore
+            )
+        )
+    )
+)

@@ -1,0 +1,1702 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: auth
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: php_self
+                        default: Scalar_String(
+                            value: identity
+                        )
+                    )
+                )
+            )
+            2: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: authRedirection
+                        default: Scalar_String(
+                            value: identity
+                        )
+                    )
+                )
+            )
+            3: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: ssl
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            4: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: init
+                        args: array(
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: this
+                            )
+                            name: customer
+                        )
+                        expr: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: customer
+                        )
+                    )
+                )
+                name: init
+            )
+            5: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: origin_newsletter
+                        )
+                        expr: Expr_Cast_Bool(
+                            expr: Expr_PropertyFetch(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: customer
+                                )
+                                name: newsletter
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: customer
+                                    )
+                                    name: birthday
+                                )
+                                expr: Expr_Concat(
+                                    left: Expr_Concat(
+                                        left: Expr_Concat(
+                                            left: Expr_Concat(
+                                                left: Expr_Cast_Int(
+                                                    expr: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: _POST
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: years
+                                                        )
+                                                    )
+                                                )
+                                                right: Scalar_String(
+                                                    value: -
+                                                )
+                                            )
+                                            right: Expr_Cast_Int(
+                                                expr: Expr_ArrayDimFetch(
+                                                    var: Expr_Variable(
+                                                        name: _POST
+                                                    )
+                                                    dim: Scalar_String(
+                                                        value: months
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        right: Scalar_String(
+                                            value: -
+                                        )
+                                    )
+                                    right: Expr_Cast_Int(
+                                        expr: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: days
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanAnd(
+                            left: Expr_BooleanAnd(
+                                left: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: years
+                                            )
+                                        )
+                                    )
+                                )
+                                right: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: months
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            right: Expr_Isset(
+                                vars: array(
+                                    0: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: _POST
+                                        )
+                                        dim: Scalar_String(
+                                            value: days
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Stmt_If(
+                                stmts: array(
+                                    0: Expr_Assign(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: errors
+                                            )
+                                            dim: null
+                                        )
+                                        expr: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Tools
+                                                )
+                                            )
+                                            name: displayError
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: Invalid date of birth.
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                elseifs: array(
+                                )
+                                else: Stmt_Else(
+                                    stmts: array(
+                                        0: Expr_Assign(
+                                            var: Expr_Variable(
+                                                name: email
+                                            )
+                                            expr: Expr_FuncCall(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: trim
+                                                    )
+                                                )
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Tools
+                                                                )
+                                                            )
+                                                            name: getValue
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: email
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        1: Expr_Assign(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: this
+                                                    )
+                                                    name: customer
+                                                )
+                                                name: birthday
+                                            )
+                                            expr: Expr_Ternary(
+                                                cond: Expr_Empty(
+                                                    expr: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: _POST
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: years
+                                                        )
+                                                    )
+                                                )
+                                                if: Scalar_String(
+                                                    value: 
+                                                )
+                                                else: Expr_Concat(
+                                                    left: Expr_Concat(
+                                                        left: Expr_Concat(
+                                                            left: Expr_Concat(
+                                                                left: Expr_Cast_Int(
+                                                                    expr: Expr_ArrayDimFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: _POST
+                                                                        )
+                                                                        dim: Scalar_String(
+                                                                            value: years
+                                                                        )
+                                                                    )
+                                                                )
+                                                                right: Scalar_String(
+                                                                    value: -
+                                                                )
+                                                            )
+                                                            right: Expr_Cast_Int(
+                                                                expr: Expr_ArrayDimFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: _POST
+                                                                    )
+                                                                    dim: Scalar_String(
+                                                                        value: months
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        right: Scalar_String(
+                                                            value: -
+                                                        )
+                                                    )
+                                                    right: Expr_Cast_Int(
+                                                        expr: Expr_ArrayDimFetch(
+                                                            var: Expr_Variable(
+                                                                name: _POST
+                                                            )
+                                                            dim: Scalar_String(
+                                                                value: days
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        2: Stmt_If(
+                                            stmts: array(
+                                                0: Expr_Assign(
+                                                    var: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: _POST
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: old_passwd
+                                                        )
+                                                    )
+                                                    expr: Expr_FuncCall(
+                                                        name: Name(
+                                                            parts: array(
+                                                                0: trim
+                                                            )
+                                                        )
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Expr_ArrayDimFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: _POST
+                                                                    )
+                                                                    dim: Scalar_String(
+                                                                        value: old_passwd
+                                                                    )
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            elseifs: array(
+                                            )
+                                            else: null
+                                            cond: Expr_Isset(
+                                                vars: array(
+                                                    0: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: _POST
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: old_passwd
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        3: Stmt_If(
+                                            stmts: array(
+                                                0: Expr_Assign(
+                                                    var: Expr_ArrayDimFetch(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: errors
+                                                        )
+                                                        dim: null
+                                                    )
+                                                    expr: Expr_StaticCall(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: Tools
+                                                            )
+                                                        )
+                                                        name: displayError
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Scalar_String(
+                                                                    value: This email address is not valid
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            elseifs: array(
+                                                0: Stmt_ElseIf(
+                                                    cond: Expr_BooleanAnd(
+                                                        left: Expr_NotEqual(
+                                                            left: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: email
+                                                            )
+                                                            right: Expr_Variable(
+                                                                name: email
+                                                            )
+                                                        )
+                                                        right: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Customer
+                                                                )
+                                                            )
+                                                            name: customerExists
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Expr_Variable(
+                                                                        name: email
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                                1: Arg(
+                                                                    value: Expr_ConstFetch(
+                                                                        name: Name(
+                                                                            parts: array(
+                                                                                0: true
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_ArrayDimFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: errors
+                                                                )
+                                                                dim: null
+                                                            )
+                                                            expr: Expr_StaticCall(
+                                                                class: Name_FullyQualified(
+                                                                    parts: array(
+                                                                        0: Tools
+                                                                    )
+                                                                )
+                                                                name: displayError
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Scalar_String(
+                                                                            value: An account using this email address has already been registered.
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                1: Stmt_ElseIf(
+                                                    cond: Expr_BooleanOr(
+                                                        left: Expr_BooleanOr(
+                                                            left: Expr_BooleanNot(
+                                                                expr: Expr_Isset(
+                                                                    vars: array(
+                                                                        0: Expr_ArrayDimFetch(
+                                                                            var: Expr_Variable(
+                                                                                name: _POST
+                                                                            )
+                                                                            dim: Scalar_String(
+                                                                                value: old_passwd
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                            right: Expr_Empty(
+                                                                expr: Expr_ArrayDimFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: _POST
+                                                                    )
+                                                                    dim: Scalar_String(
+                                                                        value: old_passwd
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        right: Expr_NotEqual(
+                                                            left: Expr_StaticCall(
+                                                                class: Name_FullyQualified(
+                                                                    parts: array(
+                                                                        0: Tools
+                                                                    )
+                                                                )
+                                                                name: encrypt
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Expr_ArrayDimFetch(
+                                                                            var: Expr_Variable(
+                                                                                name: _POST
+                                                                            )
+                                                                            dim: Scalar_String(
+                                                                                value: old_passwd
+                                                                            )
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                            right: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: context
+                                                                    )
+                                                                    name: cookie
+                                                                )
+                                                                name: passwd
+                                                            )
+                                                        )
+                                                    )
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_ArrayDimFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: errors
+                                                                )
+                                                                dim: null
+                                                            )
+                                                            expr: Expr_StaticCall(
+                                                                class: Name_FullyQualified(
+                                                                    parts: array(
+                                                                        0: Tools
+                                                                    )
+                                                                )
+                                                                name: displayError
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Scalar_String(
+                                                                            value: The password you entered is incorrect.
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                2: Stmt_ElseIf(
+                                                    cond: Expr_NotEqual(
+                                                        left: Expr_ArrayDimFetch(
+                                                            var: Expr_Variable(
+                                                                name: _POST
+                                                            )
+                                                            dim: Scalar_String(
+                                                                value: passwd
+                                                            )
+                                                        )
+                                                        right: Expr_ArrayDimFetch(
+                                                            var: Expr_Variable(
+                                                                name: _POST
+                                                            )
+                                                            dim: Scalar_String(
+                                                                value: confirmation
+                                                            )
+                                                        )
+                                                    )
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_ArrayDimFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: errors
+                                                                )
+                                                                dim: null
+                                                            )
+                                                            expr: Expr_StaticCall(
+                                                                class: Name_FullyQualified(
+                                                                    parts: array(
+                                                                        0: Tools
+                                                                    )
+                                                                )
+                                                                name: displayError
+                                                                args: array(
+                                                                    0: Arg(
+                                                                        value: Scalar_String(
+                                                                            value: The password and confirmation do not match.
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            else: Stmt_Else(
+                                                stmts: array(
+                                                    0: Expr_Assign(
+                                                        var: Expr_Variable(
+                                                            name: prev_id_default_group
+                                                        )
+                                                        expr: Expr_PropertyFetch(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: customer
+                                                            )
+                                                            name: id_default_group
+                                                        )
+                                                    )
+                                                    1: Expr_Assign(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: errors
+                                                        )
+                                                        expr: Expr_FuncCall(
+                                                            name: Name(
+                                                                parts: array(
+                                                                    0: array_merge
+                                                                )
+                                                            )
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: errors
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                                1: Arg(
+                                                                    value: Expr_MethodCall(
+                                                                        var: Expr_PropertyFetch(
+                                                                            var: Expr_Variable(
+                                                                                name: this
+                                                                            )
+                                                                            name: customer
+                                                                        )
+                                                                        name: validateController
+                                                                        args: array(
+                                                                        )
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            cond: Expr_BooleanNot(
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Validate
+                                                        )
+                                                    )
+                                                    name: isEmail
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Expr_Variable(
+                                                                name: email
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        4: Stmt_If(
+                                            stmts: array(
+                                                0: Expr_Assign(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: customer
+                                                        )
+                                                        name: id_default_group
+                                                    )
+                                                    expr: Expr_Cast_Int(
+                                                        expr: Expr_Variable(
+                                                            name: prev_id_default_group
+                                                        )
+                                                    )
+                                                )
+                                                1: Expr_Assign(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: customer
+                                                        )
+                                                        name: firstname
+                                                    )
+                                                    expr: Expr_StaticCall(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: Tools
+                                                            )
+                                                        )
+                                                        name: ucwords
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Expr_PropertyFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: customer
+                                                                    )
+                                                                    name: firstname
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                2: Stmt_If(
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: newsletter
+                                                            )
+                                                            expr: Scalar_LNumber(
+                                                                value: 0
+                                                            )
+                                                        )
+                                                    )
+                                                    elseifs: array(
+                                                        0: Stmt_ElseIf(
+                                                            cond: Expr_BooleanAnd(
+                                                                left: Expr_BooleanNot(
+                                                                    expr: Expr_Variable(
+                                                                        name: origin_newsletter
+                                                                    )
+                                                                )
+                                                                right: Expr_Isset(
+                                                                    vars: array(
+                                                                        0: Expr_ArrayDimFetch(
+                                                                            var: Expr_Variable(
+                                                                                name: _POST
+                                                                            )
+                                                                            dim: Scalar_String(
+                                                                                value: newsletter
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                            stmts: array(
+                                                                0: Stmt_If(
+                                                                    stmts: array(
+                                                                        0: Stmt_If(
+                                                                            stmts: array(
+                                                                                0: Expr_MethodCall(
+                                                                                    var: Expr_Variable(
+                                                                                        name: module_newsletter
+                                                                                    )
+                                                                                    name: confirmSubscription
+                                                                                    args: array(
+                                                                                        0: Arg(
+                                                                                            value: Expr_PropertyFetch(
+                                                                                                var: Expr_PropertyFetch(
+                                                                                                    var: Expr_Variable(
+                                                                                                        name: this
+                                                                                                    )
+                                                                                                    name: customer
+                                                                                                )
+                                                                                                name: email
+                                                                                            )
+                                                                                            byRef: false
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                            )
+                                                                            elseifs: array(
+                                                                            )
+                                                                            else: null
+                                                                            cond: Expr_PropertyFetch(
+                                                                                var: Expr_Variable(
+                                                                                    name: module_newsletter
+                                                                                )
+                                                                                name: active
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                    elseifs: array(
+                                                                    )
+                                                                    else: null
+                                                                    cond: Expr_Assign(
+                                                                        var: Expr_Variable(
+                                                                            name: module_newsletter
+                                                                        )
+                                                                        expr: Expr_StaticCall(
+                                                                            class: Name_FullyQualified(
+                                                                                parts: array(
+                                                                                    0: Module
+                                                                                )
+                                                                            )
+                                                                            name: getInstanceByName
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Scalar_String(
+                                                                                        value: blocknewsletter
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    else: null
+                                                    cond: Expr_BooleanNot(
+                                                        expr: Expr_Isset(
+                                                            vars: array(
+                                                                0: Expr_ArrayDimFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: _POST
+                                                                    )
+                                                                    dim: Scalar_String(
+                                                                        value: newsletter
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                3: Stmt_If(
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: optin
+                                                            )
+                                                            expr: Scalar_LNumber(
+                                                                value: 0
+                                                            )
+                                                        )
+                                                    )
+                                                    elseifs: array(
+                                                    )
+                                                    else: null
+                                                    cond: Expr_BooleanNot(
+                                                        expr: Expr_Isset(
+                                                            vars: array(
+                                                                0: Expr_ArrayDimFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: _POST
+                                                                    )
+                                                                    dim: Scalar_String(
+                                                                        value: optin
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                4: Stmt_If(
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: context
+                                                                    )
+                                                                    name: cookie
+                                                                )
+                                                                name: passwd
+                                                            )
+                                                            expr: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: passwd
+                                                            )
+                                                        )
+                                                    )
+                                                    elseifs: array(
+                                                    )
+                                                    else: null
+                                                    cond: Expr_StaticCall(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: Tools
+                                                            )
+                                                        )
+                                                        name: getValue
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Scalar_String(
+                                                                    value: passwd
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                5: Stmt_If(
+                                                    stmts: array(
+                                                        0: Expr_Assign(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: context
+                                                                    )
+                                                                    name: cookie
+                                                                )
+                                                                name: customer_lastname
+                                                            )
+                                                            expr: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: lastname
+                                                            )
+                                                        )
+                                                        1: Expr_Assign(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: context
+                                                                    )
+                                                                    name: cookie
+                                                                )
+                                                                name: customer_firstname
+                                                            )
+                                                            expr: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: customer
+                                                                )
+                                                                name: firstname
+                                                            )
+                                                        )
+                                                        2: Expr_MethodCall(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_PropertyFetch(
+                                                                    var: Expr_Variable(
+                                                                        name: this
+                                                                    )
+                                                                    name: context
+                                                                )
+                                                                name: smarty
+                                                            )
+                                                            name: assign
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: confirmation
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                                1: Arg(
+                                                                    value: Scalar_LNumber(
+                                                                        value: 1
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    elseifs: array(
+                                                    )
+                                                    else: Stmt_Else(
+                                                        stmts: array(
+                                                            0: Expr_Assign(
+                                                                var: Expr_ArrayDimFetch(
+                                                                    var: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: this
+                                                                        )
+                                                                        name: errors
+                                                                    )
+                                                                    dim: null
+                                                                )
+                                                                expr: Expr_StaticCall(
+                                                                    class: Name_FullyQualified(
+                                                                        parts: array(
+                                                                            0: Tools
+                                                                        )
+                                                                    )
+                                                                    name: displayError
+                                                                    args: array(
+                                                                        0: Arg(
+                                                                            value: Scalar_String(
+                                                                                value: The information cannot be updated.
+                                                                            )
+                                                                            byRef: false
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                    cond: Expr_MethodCall(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: customer
+                                                        )
+                                                        name: update
+                                                        args: array(
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            elseifs: array(
+                                            )
+                                            else: null
+                                            cond: Expr_BooleanNot(
+                                                expr: Expr_FuncCall(
+                                                    name: Name(
+                                                        parts: array(
+                                                            0: count
+                                                        )
+                                                    )
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: errors
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                                cond: Expr_BooleanAnd(
+                                    left: Expr_BooleanNot(
+                                        expr: Expr_ErrorSuppress(
+                                            expr: Expr_FuncCall(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: checkdate
+                                                    )
+                                                )
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Tools
+                                                                )
+                                                            )
+                                                            name: getValue
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: months
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                    1: Arg(
+                                                        value: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Tools
+                                                                )
+                                                            )
+                                                            name: getValue
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: days
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                    2: Arg(
+                                                        value: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Tools
+                                                                )
+                                                            )
+                                                            name: getValue
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: years
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    right: Expr_BooleanNot(
+                                        expr: Expr_BooleanAnd(
+                                            left: Expr_BooleanAnd(
+                                                left: Expr_Equal(
+                                                    left: Expr_StaticCall(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: Tools
+                                                            )
+                                                        )
+                                                        name: getValue
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Scalar_String(
+                                                                    value: months
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Scalar_String(
+                                                        value: 
+                                                    )
+                                                )
+                                                right: Expr_Equal(
+                                                    left: Expr_StaticCall(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: Tools
+                                                            )
+                                                        )
+                                                        name: getValue
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Scalar_String(
+                                                                    value: days
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Scalar_String(
+                                                        value: 
+                                                    )
+                                                )
+                                            )
+                                            right: Expr_Equal(
+                                                left: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Tools
+                                                        )
+                                                    )
+                                                    name: getValue
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: years
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                                right: Scalar_String(
+                                                    value: 
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: _POST
+                                    )
+                                    expr: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: array_map
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: stripslashes
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Arg(
+                                                value: Expr_MethodCall(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: this
+                                                        )
+                                                        name: customer
+                                                    )
+                                                    name: getFields
+                                                    args: array(
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Tools
+                                )
+                            )
+                            name: isSubmit
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: submitIdentity
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Stmt_Return(
+                        expr: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: this
+                            )
+                            name: customer
+                        )
+                    )
+                )
+                name: postProcess
+            )
+            6: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: initContent
+                        args: array(
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: birthday
+                                )
+                                expr: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: explode
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: -
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: this
+                                                    )
+                                                    name: customer
+                                                )
+                                                name: birthday
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: birthday
+                                    )
+                                    expr: Expr_Array(
+                                        items: array(
+                                            0: Expr_ArrayItem(
+                                                key: null
+                                                value: Scalar_String(
+                                                    value: -
+                                                )
+                                                byRef: false
+                                            )
+                                            1: Expr_ArrayItem(
+                                                key: null
+                                                value: Scalar_String(
+                                                    value: -
+                                                )
+                                                byRef: false
+                                            )
+                                            2: Expr_ArrayItem(
+                                                key: null
+                                                value: Scalar_String(
+                                                    value: -
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: customer
+                            )
+                            name: birthday
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: years
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: dateYears
+                                                args: array(
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sl_year
+                                            )
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: birthday
+                                                )
+                                                dim: Scalar_LNumber(
+                                                    value: 0
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: months
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: dateMonths
+                                                args: array(
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        3: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sl_month
+                                            )
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: birthday
+                                                )
+                                                dim: Scalar_LNumber(
+                                                    value: 1
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        4: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: days
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Tools
+                                                    )
+                                                )
+                                                name: dateDays
+                                                args: array(
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        5: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: sl_day
+                                            )
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: birthday
+                                                )
+                                                dim: Scalar_LNumber(
+                                                    value: 2
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                        6: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: errors
+                                            )
+                                            value: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: errors
+                                            )
+                                            byRef: false
+                                        )
+                                        7: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: genders
+                                            )
+                                            value: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Gender
+                                                    )
+                                                )
+                                                name: getGenders
+                                                args: array(
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    3: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: newsletter
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_Cast_Int(
+                                    expr: Expr_PropertyFetch(
+                                        var: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Module
+                                                )
+                                            )
+                                            name: getInstanceByName
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: blocknewsletter
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        name: active
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    4: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: setTemplate
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: identity.tpl
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: initContent
+            )
+            7: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: setMedia
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addCSS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_CSS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: identity.css
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: setMedia
+            )
+        )
+        name: IdentityControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: IdentityControllerCore
+            )
+        )
+    )
+)

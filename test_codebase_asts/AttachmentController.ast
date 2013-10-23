@@ -1,0 +1,285 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: a
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Attachment
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: getValue
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: id_attachment
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                                1: Arg(
+                                    value: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: context
+                                            )
+                                            name: language
+                                        )
+                                        name: id
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: redirect
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: index.php
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: a
+                                )
+                                name: id
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: ob_end_clean
+                                    )
+                                )
+                                args: array(
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: ob_get_level
+                                )
+                            )
+                            args: array(
+                            )
+                        )
+                    )
+                    3: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: Content-Transfer-Encoding: binary
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    4: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Scalar_String(
+                                        value: Content-Type: 
+                                    )
+                                    right: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: a
+                                        )
+                                        name: mime
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    5: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Scalar_String(
+                                        value: Content-Length: 
+                                    )
+                                    right: Expr_FuncCall(
+                                        name: Name(
+                                            parts: array(
+                                                0: filesize
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Concat(
+                                                    left: Expr_ConstFetch(
+                                                        name: Name(
+                                                            parts: array(
+                                                                0: _PS_DOWNLOAD_DIR_
+                                                            )
+                                                        )
+                                                    )
+                                                    right: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: a
+                                                        )
+                                                        name: file
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    6: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_Concat(
+                                        left: Scalar_String(
+                                            value: Content-Disposition: attachment; filename="
+                                        )
+                                        right: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: utf8_decode
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: a
+                                                        )
+                                                        name: file_name
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: "
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    7: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: readfile
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_DOWNLOAD_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: a
+                                        )
+                                        name: file
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    8: Expr_Exit(
+                        expr: null
+                    )
+                )
+                name: postProcess
+            )
+        )
+        name: AttachmentControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: AttachmentControllerCore
+            )
+        )
+    )
+)

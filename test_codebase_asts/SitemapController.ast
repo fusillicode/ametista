@@ -1,0 +1,607 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: php_self
+                        default: Scalar_String(
+                            value: sitemap
+                        )
+                    )
+                )
+            )
+            1: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: setMedia
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addCSS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_CSS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: sitemap.css
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: addJS
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _THEME_JS_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: tools/treeManagement.js
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: setMedia
+            )
+            2: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: initContent
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: categoriesTree
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_MethodCall(
+                                    var: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Category
+                                            )
+                                        )
+                                        name: getRootCategory
+                                        args: array(
+                                        )
+                                    )
+                                    name: recurseLiteCategTree
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 0
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: categoriescmsTree
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: CMSCategory
+                                        )
+                                    )
+                                    name: getRecurseCategory
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: this
+                                                        )
+                                                        name: context
+                                                    )
+                                                    name: language
+                                                )
+                                                name: id
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                            byRef: false
+                                        )
+                                        3: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    3: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: voucherAllowed
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_Cast_Int(
+                                    expr: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: CartRule
+                                            )
+                                        )
+                                        name: isFeatureActive
+                                        args: array(
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    4: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: blockmanufacturer
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Module
+                                        )
+                                    )
+                                    name: getInstanceByName
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: blockmanufacturer
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_MethodCall(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: context
+                                    )
+                                    name: smarty
+                                )
+                                name: assign
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: display_manufacturer_link
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Ternary(
+                                            cond: Expr_Isset(
+                                                vars: array(
+                                                    0: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: blockmanufacturer
+                                                        )
+                                                        name: active
+                                                    )
+                                                )
+                                            )
+                                            if: Expr_Cast_Bool(
+                                                expr: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: blockmanufacturer
+                                                    )
+                                                    name: active
+                                                )
+                                            )
+                                            else: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_MethodCall(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: smarty
+                                    )
+                                    name: assign
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: display_manufacturer_link
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 0
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Module
+                                )
+                            )
+                            name: isInstalled
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: blockmanufacturer
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    5: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: blocksupplier
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Module
+                                        )
+                                    )
+                                    name: getInstanceByName
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: blocksupplier
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            1: Expr_MethodCall(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: context
+                                    )
+                                    name: smarty
+                                )
+                                name: assign
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: display_supplier_link
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Expr_Ternary(
+                                            cond: Expr_Isset(
+                                                vars: array(
+                                                    0: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: blocksupplier
+                                                        )
+                                                        name: active
+                                                    )
+                                                )
+                                            )
+                                            if: Expr_Cast_Bool(
+                                                expr: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: blocksupplier
+                                                    )
+                                                    name: active
+                                                )
+                                            )
+                                            else: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_MethodCall(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: smarty
+                                    )
+                                    name: assign
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: display_supplier_link
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 0
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Module
+                                )
+                            )
+                            name: isInstalled
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: blocksupplier
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    6: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: PS_DISPLAY_SUPPLIERS
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Configuration
+                                        )
+                                    )
+                                    name: get
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: PS_DISPLAY_SUPPLIERS
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    7: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: display_store
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Configuration
+                                        )
+                                    )
+                                    name: get
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: PS_STORES_DISPLAY_SITEMAP
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    8: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: setTemplate
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: sitemap.tpl
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: initContent
+            )
+        )
+        name: SitemapControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: SitemapControllerCore
+            )
+        )
+    )
+)

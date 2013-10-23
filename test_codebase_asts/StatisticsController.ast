@@ -1,0 +1,928 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_header
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_footer
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            2: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: param_token
+                        default: null
+                    )
+                )
+            )
+            3: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: this
+                            )
+                            name: param_token
+                        )
+                        expr: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Tools
+                                )
+                            )
+                            name: getValue
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: token
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: null
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: param_token
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_MethodCall(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: processNavigationStats
+                                args: array(
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_MethodCall(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: processPageTime
+                                            args: array(
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: Stmt_Else(
+                                        stmts: array(
+                                            0: Expr_Exit(
+                                                expr: null
+                                            )
+                                        )
+                                    )
+                                    cond: Expr_Equal(
+                                        left: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: type
+                                            )
+                                        )
+                                        right: Scalar_String(
+                                            value: pagetime
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_Equal(
+                            left: Expr_ArrayDimFetch(
+                                var: Expr_Variable(
+                                    name: _POST
+                                )
+                                dim: Scalar_String(
+                                    value: type
+                                )
+                            )
+                            right: Scalar_String(
+                                value: navinfo
+                            )
+                        )
+                    )
+                )
+                name: postProcess
+            )
+            4: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: id_guest
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: id_guest
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: null
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_NotEqual(
+                            left: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: sha1
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Concat(
+                                            left: Expr_Variable(
+                                                name: id_guest
+                                            )
+                                            right: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: _COOKIE_KEY_
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            right: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: param_token
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: guest
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Guest
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Cast_Int(
+                                        expr: Expr_FuncCall(
+                                            name: Name(
+                                                parts: array(
+                                                    0: substr
+                                                )
+                                            )
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: _POST
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: id_guest
+                                                        )
+                                                    )
+                                                    byRef: false
+                                                )
+                                                1: Arg(
+                                                    value: Scalar_LNumber(
+                                                        value: 0
+                                                    )
+                                                    byRef: false
+                                                )
+                                                2: Arg(
+                                                    value: Scalar_LNumber(
+                                                        value: 10
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: javascript
+                        )
+                        expr: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                    4: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: screen_resolution_x
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: screen_resolution_x
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 5
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    5: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: screen_resolution_y
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: screen_resolution_y
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 5
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    6: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: screen_color
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: screen_color
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 3
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    7: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: sun_java
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: sun_java
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    8: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: adobe_flash
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: adobe_flash
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    9: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: adobe_director
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: adobe_director
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    10: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: apple_quicktime
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: apple_quicktime
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    11: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: real_player
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: real_player
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    12: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: guest
+                            )
+                            name: windows_media
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: substr
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _POST
+                                            )
+                                            dim: Scalar_String(
+                                                value: windows_media
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                    1: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 0
+                                        )
+                                        byRef: false
+                                    )
+                                    2: Arg(
+                                        value: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    13: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: guest
+                        )
+                        name: update
+                        args: array(
+                        )
+                    )
+                )
+                name: processNavigationStats
+            )
+            5: Stmt_ClassMethod(
+                type: 2
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: id_connection
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: id_connections
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: time
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: time
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: time_start
+                        )
+                        expr: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Tools
+                                )
+                            )
+                            name: getValue
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: time_start
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_Variable(
+                            name: id_page
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: id_page
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    4: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: null
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_NotEqual(
+                            left: Expr_FuncCall(
+                                name: Name(
+                                    parts: array(
+                                        0: sha1
+                                    )
+                                )
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Concat(
+                                            left: Expr_Concat(
+                                                left: Expr_Concat(
+                                                    left: Expr_Variable(
+                                                        name: id_connection
+                                                    )
+                                                    right: Expr_Variable(
+                                                        name: id_page
+                                                    )
+                                                )
+                                                right: Expr_Variable(
+                                                    name: time_start
+                                                )
+                                            )
+                                            right: Expr_ConstFetch(
+                                                name: Name(
+                                                    parts: array(
+                                                        0: _COOKIE_KEY_
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            right: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: param_token
+                            )
+                        )
+                    )
+                    5: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: null
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_SmallerOrEqual(
+                            left: Expr_Variable(
+                                name: time
+                            )
+                            right: Scalar_LNumber(
+                                value: 0
+                            )
+                        )
+                    )
+                    6: Expr_StaticCall(
+                        class: Name_FullyQualified(
+                            parts: array(
+                                0: Connection
+                            )
+                        )
+                        name: setPageTime
+                        args: array(
+                            0: Arg(
+                                value: Expr_Variable(
+                                    name: id_connection
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_Variable(
+                                    name: id_page
+                                )
+                                byRef: false
+                            )
+                            2: Arg(
+                                value: Expr_FuncCall(
+                                    name: Name(
+                                        parts: array(
+                                            0: substr
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: time_start
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 0
+                                            )
+                                            byRef: false
+                                        )
+                                        2: Arg(
+                                            value: Scalar_LNumber(
+                                                value: 19
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                            3: Arg(
+                                value: Expr_Variable(
+                                    name: time
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: processPageTime
+            )
+        )
+        name: StatisticsControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: StatisticsControllerCore
+            )
+        )
+    )
+)

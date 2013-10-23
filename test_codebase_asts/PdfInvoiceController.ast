@@ -1,0 +1,711 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_header
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: display_footer
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: false
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            2: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: content_only
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            3: Stmt_Property(
+                type: 2
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: template
+                        default: null
+                    )
+                )
+            )
+            4: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: filename
+                        default: null
+                    )
+                )
+            )
+            5: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Stmt_If(
+                        stmts: array(
+                            0: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: redirect
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: index.php?controller=authentication&back=pdf-invoice
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanAnd(
+                            left: Expr_BooleanNot(
+                                expr: Expr_MethodCall(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: customer
+                                    )
+                                    name: isLogged
+                                    args: array(
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanNot(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: getValue
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: secure_key
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: Invoices are disabled in this shop.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanNot(
+                            expr: Expr_Cast_Int(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Configuration
+                                        )
+                                    )
+                                    name: get
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: PS_INVOICE
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: id_order
+                        )
+                        expr: Expr_Cast_Int(
+                            expr: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Tools
+                                    )
+                                )
+                                name: getValue
+                                args: array(
+                                    0: Arg(
+                                        value: Scalar_String(
+                                            value: id_order
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    3: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: order
+                                )
+                                expr: Expr_New(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Order
+                                        )
+                                    )
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Cast_Int(
+                                                expr: Expr_Variable(
+                                                    name: id_order
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_StaticCall(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Validate
+                                )
+                            )
+                            name: isUnsignedId
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Variable(
+                                        name: id_order
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    4: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: The invoice was not found.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanOr(
+                            left: Expr_BooleanNot(
+                                expr: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_Variable(
+                                            name: order
+                                        )
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanNot(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Validate
+                                        )
+                                    )
+                                    name: isLoadedObject
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_Variable(
+                                                name: order
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    5: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: The invoice was not found.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanOr(
+                            left: Expr_BooleanAnd(
+                                left: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_Variable(
+                                                        name: this
+                                                    )
+                                                    name: context
+                                                )
+                                                name: customer
+                                            )
+                                            name: id
+                                        )
+                                    )
+                                )
+                                right: Expr_NotEqual(
+                                    left: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: order
+                                        )
+                                        name: id_customer
+                                    )
+                                    right: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: context
+                                            )
+                                            name: customer
+                                        )
+                                        name: id
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanAnd(
+                                left: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: isSubmit
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: secure_key
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                right: Expr_NotEqual(
+                                    left: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: order
+                                        )
+                                        name: secure_key
+                                    )
+                                    right: Expr_StaticCall(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: Tools
+                                            )
+                                        )
+                                        name: getValue
+                                        args: array(
+                                            0: Arg(
+                                                value: Scalar_String(
+                                                    value: secure_key
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    6: Stmt_If(
+                        stmts: array(
+                            0: Expr_Exit(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: No invoice is available.
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanAnd(
+                            left: Expr_BooleanNot(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: OrderState
+                                        )
+                                    )
+                                    name: invoiceAvailable
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_MethodCall(
+                                                var: Expr_Variable(
+                                                    name: order
+                                                )
+                                                name: getCurrentState
+                                                args: array(
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanNot(
+                                expr: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: order
+                                    )
+                                    name: invoice_number
+                                )
+                            )
+                        )
+                    )
+                    7: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: this
+                            )
+                            name: order
+                        )
+                        expr: Expr_Variable(
+                            name: order
+                        )
+                    )
+                )
+                name: postProcess
+            )
+            6: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: order_invoice_list
+                        )
+                        expr: Expr_MethodCall(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: order
+                            )
+                            name: getInvoicesCollection
+                            args: array(
+                            )
+                        )
+                    )
+                    1: Expr_StaticCall(
+                        class: Name_FullyQualified(
+                            parts: array(
+                                0: Hook
+                            )
+                        )
+                        name: exec
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: actionPDFInvoiceRender
+                                )
+                                byRef: false
+                            )
+                            1: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: order_invoice_list
+                                            )
+                                            value: Expr_Variable(
+                                                name: order_invoice_list
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_Variable(
+                            name: pdf
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: PDF
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Variable(
+                                        name: order_invoice_list
+                                    )
+                                    byRef: false
+                                )
+                                1: Arg(
+                                    value: Expr_ClassConstFetch(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: PDF
+                                            )
+                                        )
+                                        name: TEMPLATE_INVOICE
+                                    )
+                                    byRef: false
+                                )
+                                2: Arg(
+                                    value: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: smarty
+                                    )
+                                    byRef: false
+                                )
+                                3: Arg(
+                                    value: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: context
+                                            )
+                                            name: language
+                                        )
+                                        name: id
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: pdf
+                        )
+                        name: render
+                        args: array(
+                        )
+                    )
+                )
+                name: display
+            )
+            7: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                    0: Param(
+                        name: iso_country
+                        default: null
+                        type: null
+                        byRef: false
+                    )
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: template
+                        )
+                        expr: Expr_Concat(
+                            left: Expr_ConstFetch(
+                                name: Name(
+                                    parts: array(
+                                        0: _PS_THEME_PDF_DIR_
+                                    )
+                                )
+                            )
+                            right: Scalar_String(
+                                value: /invoice.tpl
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
+                        var: Expr_Variable(
+                            name: iso_template
+                        )
+                        expr: Expr_Concat(
+                            left: Expr_Concat(
+                                left: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_PDF_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: /invoice.
+                                    )
+                                )
+                                right: Expr_Variable(
+                                    name: iso_country
+                                )
+                            )
+                            right: Scalar_String(
+                                value: .tpl
+                            )
+                        )
+                    )
+                    2: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_Variable(
+                                    name: template
+                                )
+                                expr: Expr_Variable(
+                                    name: iso_template
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: file_exists
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Variable(
+                                        name: iso_template
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    3: Stmt_Return(
+                        expr: Expr_Variable(
+                            name: template
+                        )
+                    )
+                )
+                name: getTemplate
+            )
+        )
+        name: PdfInvoiceControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: PdfInvoiceControllerCore
+            )
+        )
+    )
+)

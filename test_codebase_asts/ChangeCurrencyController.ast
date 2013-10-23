@@ -1,0 +1,129 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_Assign(
+                        var: Expr_Variable(
+                            name: currency
+                        )
+                        expr: Expr_New(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: Currency
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Expr_Cast_Int(
+                                        expr: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Tools
+                                                )
+                                            )
+                                            name: getValue
+                                            args: array(
+                                                0: Arg(
+                                                    value: Scalar_String(
+                                                        value: id_currency
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: context
+                                        )
+                                        name: cookie
+                                    )
+                                    name: id_currency
+                                )
+                                expr: Expr_Cast_Int(
+                                    expr: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: currency
+                                        )
+                                        name: id
+                                    )
+                                )
+                            )
+                            1: Expr_Exit(
+                                expr: Scalar_String(
+                                    value: 1
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: null
+                        cond: Expr_BooleanAnd(
+                            left: Expr_StaticCall(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: Validate
+                                    )
+                                )
+                                name: isLoadedObject
+                                args: array(
+                                    0: Arg(
+                                        value: Expr_Variable(
+                                            name: currency
+                                        )
+                                        byRef: false
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanNot(
+                                expr: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: currency
+                                    )
+                                    name: deleted
+                                )
+                            )
+                        )
+                    )
+                    2: Expr_Exit(
+                        expr: Scalar_String(
+                            value: 0
+                        )
+                    )
+                )
+                name: initContent
+            )
+        )
+        name: ChangeCurrencyControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: ChangeCurrencyControllerCore
+            )
+        )
+    )
+)

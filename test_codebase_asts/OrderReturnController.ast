@@ -1,0 +1,694 @@
+array(
+    0: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: FrontController
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: auth
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            1: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: php_self
+                        default: Scalar_String(
+                            value: order-return
+                        )
+                    )
+                )
+            )
+            2: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: authRedirection
+                        default: Scalar_String(
+                            value: order-follow
+                        )
+                    )
+                )
+            )
+            3: Stmt_Property(
+                type: 1
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: ssl
+                        default: Expr_ConstFetch(
+                            name: Name(
+                                parts: array(
+                                    0: true
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            4: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: init
+                        args: array(
+                        )
+                    )
+                    1: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: Cache-Control: no-cache, must-revalidate
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Expr_FuncCall(
+                        name: Name(
+                            parts: array(
+                                0: header
+                            )
+                        )
+                        args: array(
+                            0: Arg(
+                                value: Scalar_String(
+                                    value: Expires: Sat, 26 Jul 1997 05:00:00 GMT
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    3: Stmt_If(
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: errors
+                                    )
+                                    dim: null
+                                )
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Tools
+                                        )
+                                    )
+                                    name: displayError
+                                    args: array(
+                                        0: Arg(
+                                            value: Scalar_String(
+                                                value: Order ID required
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        elseifs: array(
+                        )
+                        else: Stmt_Else(
+                            stmts: array(
+                                0: Expr_Assign(
+                                    var: Expr_Variable(
+                                        name: orderRet
+                                    )
+                                    expr: Expr_New(
+                                        class: Name_FullyQualified(
+                                            parts: array(
+                                                0: OrderReturn
+                                            )
+                                        )
+                                        args: array(
+                                            0: Arg(
+                                                value: Expr_Cast_Int(
+                                                    expr: Expr_ArrayDimFetch(
+                                                        var: Expr_Variable(
+                                                            name: _GET
+                                                        )
+                                                        dim: Scalar_String(
+                                                            value: id_order_return
+                                                        )
+                                                    )
+                                                )
+                                                byRef: false
+                                            )
+                                        )
+                                    )
+                                )
+                                1: Stmt_If(
+                                    stmts: array(
+                                        0: Expr_Assign(
+                                            var: Expr_Variable(
+                                                name: order
+                                            )
+                                            expr: Expr_New(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Order
+                                                    )
+                                                )
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_Cast_Int(
+                                                            expr: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: orderRet
+                                                                )
+                                                                name: id_order
+                                                            )
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        1: Stmt_If(
+                                            stmts: array(
+                                                0: Expr_Assign(
+                                                    var: Expr_Variable(
+                                                        name: state
+                                                    )
+                                                    expr: Expr_New(
+                                                        class: Name_FullyQualified(
+                                                            parts: array(
+                                                                0: OrderReturnState
+                                                            )
+                                                        )
+                                                        args: array(
+                                                            0: Arg(
+                                                                value: Expr_Cast_Int(
+                                                                    expr: Expr_PropertyFetch(
+                                                                        var: Expr_Variable(
+                                                                            name: orderRet
+                                                                        )
+                                                                        name: state
+                                                                    )
+                                                                )
+                                                                byRef: false
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                                1: Expr_MethodCall(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_PropertyFetch(
+                                                            var: Expr_Variable(
+                                                                name: this
+                                                            )
+                                                            name: context
+                                                        )
+                                                        name: smarty
+                                                    )
+                                                    name: assign
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Expr_Array(
+                                                                items: array(
+                                                                    0: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: orderRet
+                                                                        )
+                                                                        value: Expr_Variable(
+                                                                            name: orderRet
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                    1: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: order
+                                                                        )
+                                                                        value: Expr_Variable(
+                                                                            name: order
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                    2: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: state_name
+                                                                        )
+                                                                        value: Expr_ArrayDimFetch(
+                                                                            var: Expr_PropertyFetch(
+                                                                                var: Expr_Variable(
+                                                                                    name: state
+                                                                                )
+                                                                                name: name
+                                                                            )
+                                                                            dim: Expr_Cast_Int(
+                                                                                expr: Expr_PropertyFetch(
+                                                                                    var: Expr_PropertyFetch(
+                                                                                        var: Expr_PropertyFetch(
+                                                                                            var: Expr_Variable(
+                                                                                                name: this
+                                                                                            )
+                                                                                            name: context
+                                                                                        )
+                                                                                        name: language
+                                                                                    )
+                                                                                    name: id
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                    3: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: return_allowed
+                                                                        )
+                                                                        value: Expr_ConstFetch(
+                                                                            name: Name(
+                                                                                parts: array(
+                                                                                    0: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                    4: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: products
+                                                                        )
+                                                                        value: Expr_StaticCall(
+                                                                            class: Name_FullyQualified(
+                                                                                parts: array(
+                                                                                    0: OrderReturn
+                                                                                )
+                                                                            )
+                                                                            name: getOrdersReturnProducts
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Expr_Cast_Int(
+                                                                                        expr: Expr_PropertyFetch(
+                                                                                            var: Expr_Variable(
+                                                                                                name: orderRet
+                                                                                            )
+                                                                                            name: id
+                                                                                        )
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                                1: Arg(
+                                                                                    value: Expr_Variable(
+                                                                                        name: order
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                    5: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: returnedCustomizations
+                                                                        )
+                                                                        value: Expr_StaticCall(
+                                                                            class: Name_FullyQualified(
+                                                                                parts: array(
+                                                                                    0: OrderReturn
+                                                                                )
+                                                                            )
+                                                                            name: getReturnedCustomizedProducts
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Expr_Cast_Int(
+                                                                                        expr: Expr_PropertyFetch(
+                                                                                            var: Expr_Variable(
+                                                                                                name: orderRet
+                                                                                            )
+                                                                                            name: id_order
+                                                                                        )
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                    6: Expr_ArrayItem(
+                                                                        key: Scalar_String(
+                                                                            value: customizedDatas
+                                                                        )
+                                                                        value: Expr_StaticCall(
+                                                                            class: Name_FullyQualified(
+                                                                                parts: array(
+                                                                                    0: Product
+                                                                                )
+                                                                            )
+                                                                            name: getAllCustomizedDatas
+                                                                            args: array(
+                                                                                0: Arg(
+                                                                                    value: Expr_Cast_Int(
+                                                                                        expr: Expr_PropertyFetch(
+                                                                                            var: Expr_Variable(
+                                                                                                name: order
+                                                                                            )
+                                                                                            name: id_cart
+                                                                                        )
+                                                                                    )
+                                                                                    byRef: false
+                                                                                )
+                                                                            )
+                                                                        )
+                                                                        byRef: false
+                                                                    )
+                                                                )
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            elseifs: array(
+                                            )
+                                            else: Stmt_Else(
+                                                stmts: array(
+                                                    0: Expr_Assign(
+                                                        var: Expr_ArrayDimFetch(
+                                                            var: Expr_PropertyFetch(
+                                                                var: Expr_Variable(
+                                                                    name: this
+                                                                )
+                                                                name: errors
+                                                            )
+                                                            dim: null
+                                                        )
+                                                        expr: Expr_StaticCall(
+                                                            class: Name_FullyQualified(
+                                                                parts: array(
+                                                                    0: Tools
+                                                                )
+                                                            )
+                                                            name: displayError
+                                                            args: array(
+                                                                0: Arg(
+                                                                    value: Scalar_String(
+                                                                        value: Cannot find the order return.
+                                                                    )
+                                                                    byRef: false
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            cond: Expr_StaticCall(
+                                                class: Name_FullyQualified(
+                                                    parts: array(
+                                                        0: Validate
+                                                    )
+                                                )
+                                                name: isLoadedObject
+                                                args: array(
+                                                    0: Arg(
+                                                        value: Expr_Variable(
+                                                            name: order
+                                                        )
+                                                        byRef: false
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    elseifs: array(
+                                    )
+                                    else: Stmt_Else(
+                                        stmts: array(
+                                            0: Expr_Assign(
+                                                var: Expr_ArrayDimFetch(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: this
+                                                        )
+                                                        name: errors
+                                                    )
+                                                    dim: null
+                                                )
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Tools
+                                                        )
+                                                    )
+                                                    name: displayError
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: Cannot find the order return.
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                    cond: Expr_BooleanAnd(
+                                        left: Expr_StaticCall(
+                                            class: Name_FullyQualified(
+                                                parts: array(
+                                                    0: Validate
+                                                )
+                                            )
+                                            name: isLoadedObject
+                                            args: array(
+                                                0: Arg(
+                                                    value: Expr_Variable(
+                                                        name: orderRet
+                                                    )
+                                                    byRef: false
+                                                )
+                                            )
+                                        )
+                                        right: Expr_Equal(
+                                            left: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: orderRet
+                                                )
+                                                name: id_customer
+                                            )
+                                            right: Expr_PropertyFetch(
+                                                var: Expr_PropertyFetch(
+                                                    var: Expr_PropertyFetch(
+                                                        var: Expr_Variable(
+                                                            name: this
+                                                        )
+                                                        name: context
+                                                    )
+                                                    name: cookie
+                                                )
+                                                name: id_customer
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        cond: Expr_BooleanOr(
+                            left: Expr_BooleanNot(
+                                expr: Expr_Isset(
+                                    vars: array(
+                                        0: Expr_ArrayDimFetch(
+                                            var: Expr_Variable(
+                                                name: _GET
+                                            )
+                                            dim: Scalar_String(
+                                                value: id_order_return
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                            right: Expr_BooleanNot(
+                                expr: Expr_StaticCall(
+                                    class: Name_FullyQualified(
+                                        parts: array(
+                                            0: Validate
+                                        )
+                                    )
+                                    name: isUnsignedId
+                                    args: array(
+                                        0: Arg(
+                                            value: Expr_ArrayDimFetch(
+                                                var: Expr_Variable(
+                                                    name: _GET
+                                                )
+                                                dim: Scalar_String(
+                                                    value: id_order_return
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+                name: init
+            )
+            5: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_StaticCall(
+                        class: Name(
+                            parts: array(
+                                0: parent
+                            )
+                        )
+                        name: initContent
+                        args: array(
+                        )
+                    )
+                    1: Expr_MethodCall(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: context
+                            )
+                            name: smarty
+                        )
+                        name: assign
+                        args: array(
+                            0: Arg(
+                                value: Expr_Array(
+                                    items: array(
+                                        0: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: errors
+                                            )
+                                            value: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: errors
+                                            )
+                                            byRef: false
+                                        )
+                                        1: Expr_ArrayItem(
+                                            key: Scalar_String(
+                                                value: nbdaysreturn
+                                            )
+                                            value: Expr_Cast_Int(
+                                                expr: Expr_StaticCall(
+                                                    class: Name_FullyQualified(
+                                                        parts: array(
+                                                            0: Configuration
+                                                        )
+                                                    )
+                                                    name: get
+                                                    args: array(
+                                                        0: Arg(
+                                                            value: Scalar_String(
+                                                                value: PS_ORDER_RETURN_NB_DAYS
+                                                            )
+                                                            byRef: false
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                            byRef: false
+                                        )
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                    2: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: setTemplate
+                        args: array(
+                            0: Arg(
+                                value: Expr_Concat(
+                                    left: Expr_ConstFetch(
+                                        name: Name(
+                                            parts: array(
+                                                0: _PS_THEME_DIR_
+                                            )
+                                        )
+                                    )
+                                    right: Scalar_String(
+                                        value: order-return.tpl
+                                    )
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: initContent
+            )
+            6: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                    0: Expr_MethodCall(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: smartyOutputContent
+                        args: array(
+                            0: Arg(
+                                value: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: template
+                                )
+                                byRef: false
+                            )
+                        )
+                    )
+                )
+                name: displayAjax
+            )
+        )
+        name: OrderReturnControllerCore
+        namespacedName: Name(
+            parts: array(
+                0: OrderReturnControllerCore
+            )
+        )
+    )
+)

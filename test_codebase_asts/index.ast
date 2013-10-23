@@ -1,0 +1,127 @@
+array(
+    0: Expr_FuncCall(
+        name: Name(
+            parts: array(
+                0: header
+            )
+        )
+        args: array(
+            0: Arg(
+                value: Scalar_String(
+                    value: Expires: Mon, 26 Jul 1997 05:00:00 GMT
+                )
+                byRef: false
+            )
+        )
+    )
+    1: Expr_FuncCall(
+        name: Name(
+            parts: array(
+                0: header
+            )
+        )
+        args: array(
+            0: Arg(
+                value: Expr_Concat(
+                    left: Expr_Concat(
+                        left: Scalar_String(
+                            value: Last-Modified: 
+                        )
+                        right: Expr_FuncCall(
+                            name: Name(
+                                parts: array(
+                                    0: gmdate
+                                )
+                            )
+                            args: array(
+                                0: Arg(
+                                    value: Scalar_String(
+                                        value: D, d M Y H:i:s
+                                    )
+                                    byRef: false
+                                )
+                            )
+                        )
+                    )
+                    right: Scalar_String(
+                        value:  GMT
+                    )
+                )
+                byRef: false
+            )
+        )
+    )
+    2: Expr_FuncCall(
+        name: Name(
+            parts: array(
+                0: header
+            )
+        )
+        args: array(
+            0: Arg(
+                value: Scalar_String(
+                    value: Cache-Control: no-store, no-cache, must-revalidate
+                )
+                byRef: false
+            )
+        )
+    )
+    3: Expr_FuncCall(
+        name: Name(
+            parts: array(
+                0: header
+            )
+        )
+        args: array(
+            0: Arg(
+                value: Scalar_String(
+                    value: Cache-Control: post-check=0, pre-check=0
+                )
+                byRef: false
+            )
+            1: Arg(
+                value: Expr_ConstFetch(
+                    name: Name(
+                        parts: array(
+                            0: false
+                        )
+                    )
+                )
+                byRef: false
+            )
+        )
+    )
+    4: Expr_FuncCall(
+        name: Name(
+            parts: array(
+                0: header
+            )
+        )
+        args: array(
+            0: Arg(
+                value: Scalar_String(
+                    value: Pragma: no-cache
+                )
+                byRef: false
+            )
+        )
+    )
+    5: Expr_FuncCall(
+        name: Name(
+            parts: array(
+                0: header
+            )
+        )
+        args: array(
+            0: Arg(
+                value: Scalar_String(
+                    value: Location: ../
+                )
+                byRef: false
+            )
+        )
+    )
+    6: Expr_Exit(
+        expr: null
+    )
+)
