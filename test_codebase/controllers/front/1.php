@@ -1,5 +1,7 @@
 <?php
 
+namespace ciao\merda;
+
 $v = '';
 $$vv = 'pippo';
 $a[1] = 'pippa';
