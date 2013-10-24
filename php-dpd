@@ -7,7 +7,6 @@ include_once __DIR__ . '/Model.php';
 // $start_redis_server = `./vendor/redis-2.6.16/src/redis-server`;
 
 $model = new Model();
-$model->delete();
 $parser = new PHPParser_Parser(new PHPParser_Lexer);
 $traverser = new PHPParser_NodeTraverser;
 $traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver());

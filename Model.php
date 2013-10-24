@@ -2,15 +2,10 @@
 
 class Model
 {
-  public function __construct()
+  public function __construct($address = '', $clear = true)
   {
-    try {
-      $this->_redis = new Predis\Client();
-      $this->_redis->connect();
-      echo "Successfully connected to Redis server\n";
-    } catch (Exception $e) {
-      exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
-    }
+    $this->connectTo($address);
+    if ($clear) $this->clear();
     $this->_redis->sadd('scalar_types', array('boolean',
                                               'int',
                                               'double',
@@ -19,12 +14,30 @@ class Model
     $this->_redis->sadd('classes', 'stdClass');
   }
 
-  public function build() {}
-
-  public function delete()
+  public function clear()
   {
     return $this->_redis->flushall();
   }
+
+  public function connectTo($address = '')
+  {
+    try {
+      $this->_redis = new Predis\Client();
+      $this->_redis->connect();
+      echo "Successfully connected to Redis server\n";
+    } catch (Exception $e) {
+      exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
+    }
+  }
+
+  public function init()
+  {
+    $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double',
+                                              'string', 'array'));
+    $this->_redis->sadd('classes', 'stdClass');
+  }
+
+  public function build() {}
 
   public function get()
   {
