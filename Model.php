@@ -5,7 +5,7 @@ class Model
   public function __construct($address = '')
   {
     $this->connectTo($address);
-    $this->init();
+    $this->initializeModel();
   }
 
   public function clear()
@@ -24,7 +24,7 @@ class Model
     }
   }
 
-  public function init()
+  public function initializeModel()
   {
     $this->clear();
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double',
