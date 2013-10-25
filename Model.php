@@ -100,12 +100,13 @@ class Model
     $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
   }
 
-  // private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
-  // {
-  //   $function_key = $this->insertKey($node_object->namespacedName->parts, 'F:\\', 'functions');
-  //   $this->insertContainmentRelationship($function_key, 'F', 'N');
-  //   $this->populateIteratively($node_object->stmts, $function_key);
-  // }
+  private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
+  {
+    $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
+    $this->_redis->sadd('functions', $function_key);
+    $this->insertContainmentRelationship($function_key, 'F', 'N');
+    $this->populateIteratively($node_object->stmts, $function_key);
+  }
 
   // private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
   // {
