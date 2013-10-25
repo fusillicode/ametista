@@ -8,11 +8,6 @@ class Model
     $this->initializeModel();
   }
 
-  public function clear()
-  {
-    return $this->_redis->flushall();
-  }
-
   public function connectTo($address = '')
   {
     try {
@@ -32,12 +27,11 @@ class Model
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
   }
 
-  public function build() {}
+  public function clear() { return $this->_redis->flushall(); }
 
-  public function get()
-  {
-    return $this->_redis;
-  }
+  public function get() { return $this->_redis; }
+
+  public function build() {}
 
   public function populate($statements)
   {
