@@ -12,3 +12,7 @@ function prova()
 	$$vv1 = 'pippo';
 	$a1[1] = 'pippa';
 }
+
+class merda extends ciaa {
+
+}

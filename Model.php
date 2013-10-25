@@ -27,10 +27,9 @@ class Model
   public function initializeModel()
   {
     $this->clear();
-    $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double',
-                                              'string', 'array'));
-    $this->_redis->sadd('classes', 'stdClass');
     $this->_redis->sadd('namespaces', 'N:\\');
+    $this->_redis->sadd('classes', 'C:\\stdClass');
+    $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
   }
 
   public function build() {}
@@ -53,9 +52,9 @@ class Model
       case 'PHPParser_Node_Stmt_Namespace':
         $this->insertNamespace($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_Class':
-      //   $this->insertClass($node_object);
-      //   break;
+      case 'PHPParser_Node_Stmt_Class':
+        $this->insertClass($node_object);
+        break;
       // case 'PHPParser_Node_Stmt_Function':
       //   $this->insertFunction($node_object);
       //   break;
@@ -70,18 +69,41 @@ class Model
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
   {
-    $namespace_key = $this->insertKey($node_object->name->parts, 'N:\\', 'namespaces');
+    $namespace_key = 'N:\\'.implode('\\', $node_object->name->parts);
+    $this->_redis->sadd('namespaces', $namespace_key);
     $this->insertNamespaceHierarchy($node_object->name->parts);
     $this->populateIteratively($node_object->stmts, $namespace_key);
   }
 
-  // private function insertClass(PHPParser_Node_Stmt_Class $node_object)
-  // {
-  //   $class_key = $this->insertKey($node_object->namespacedName->parts, 'C:\\', 'classes');
-  //   $this->insertClassHierarchy($node_object, $class_key);
-  //   $this->insertContainmentRelationship($class_key, 'C', 'N');
-  //   $this->populateIteratively($node_object->stmts, $class_key);
-  // }
+  private function insertNamespaceHierarchy(array $namespace_name_parts)
+  {
+    $parent_namespace = '\\';
+    $current_namespace = '';
+    foreach ($namespace_name_parts as $key => $sub_namespace) {
+      $current_namespace .= "\\{$sub_namespace}";
+      $this->_redis->sadd('namespaces', "N:{$current_namespace}");
+      $this->_redis->sadd("N:{$current_namespace}:]N", "N:{$parent_namespace}");
+      $this->_redis->sadd("N:{$parent_namespace}:[N", "N:{$current_namespace}");
+      $parent_namespace = $current_namespace;
+    }
+  }
+
+  private function insertClass(PHPParser_Node_Stmt_Class $node_object)
+  {
+    $class_key = 'C:\\'.implode('\\', $node_object->namespacedName->parts);
+    $this->_redis->sadd('classes', $class_key);
+    $this->insertClassHierarchy($node_object, $class_key);
+    $this->insertContainmentRelationship($class_key, 'C', 'N');
+    $this->populateIteratively($node_object->stmts, $class_key);
+  }
+
+  private function insertClassHierarchy(PHPParser_Node_Stmt_Class $node_object, $current_class_key)
+  {
+    if (!$superclass = $node_object->extends) return;
+    $superclass_key = 'C:\\'.implode('\\', $superclass->parts);
+    $this->_redis->sadd("{$current_class_key}:>", $superclass_key);
+    $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
+  }
 
   // private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
   // {
@@ -98,54 +120,32 @@ class Model
   //   $this->populateIteratively($node_object->stmts, $method_key);
   // }
 
-  private function insertKey($key_parts, $prefix, $set)
-  {
-    $key = $this->buildKey($key_parts, $prefix);
-    $this->_redis->sadd($set, $key);
-    return $key;
-  }
+  // private function insertKey($key_parts, $prefix, $set)
+  // {
+  //   $key = $this->buildKey($key_parts, $prefix);
+  //   $this->_redis->sadd($set, $key);
+  //   return $key;
+  // }
 
-  private function insertNamespaceHierarchy(array $namespace_name_parts)
+  // private function buildKey($key_parts, $prefix)
+  // {
+  //   return $prefix.(is_array($key_parts) ? implode("\\", $key_parts) : "\\".$key_parts);
+  // }
+
+  private function insertContainmentRelationship($contained_element,
+                                                 $contained_type,
+                                                 $container_type,
+                                                 $container = null)
   {
-    $parent_namespace = '\\';
-    $current_namespace = '';
-    foreach ($namespace_name_parts as $key => $sub_namespace) {
-      $current_namespace .= "\\{$sub_namespace}";
-      $this->_redis->sadd('namespaces', "N:{$current_namespace}");
-      $this->_redis->sadd("N:{$current_namespace}:]N", "N:{$parent_namespace}");
-      $this->_redis->sadd("N:{$parent_namespace}:[N", "N:{$current_namespace}");
-      $parent_namespace = $current_namespace;
+    if ($container) {
+      $this->_redis->sadd("{$container}:[{$contained_type}", $contained_element);
+      $this->_redis->sadd("{$contained_element}:]{$container_type}", $container);
+    } elseif ($container = $this->_redis->lrange('scope', 0, 0) &&
+              isset($container[0])) {
+      $this->_redis->sadd("{$container[0]}:[{$contained_type}", $contained_element);
+      $this->_redis->sadd("{$contained_element}:]{$container_type}", $container[0]);
     }
   }
-
-  // private function insertClassHierarchy(PHPParser_Node_Stmt_Class $node_object,
-  //                                       $current_class_key)
-  // {
-  //   if (!$superclass = $node_object->extends) return;
-  //   $superclass_key = $this->buildKey($superclass->parts, "C:\\");
-  //   $this->_redis->sadd("{$current_class_key}:>", $superclass_key);
-  //   $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
-  // }
-
-  private function buildKey($key_parts, $prefix)
-  {
-    return $prefix.(is_array($key_parts) ? implode("\\", $key_parts) : "\\".$key_parts);
-  }
-
-  // private function insertContainmentRelationship($contained_element,
-  //                                                $contained_type,
-  //                                                $container_type,
-  //                                                $container = null)
-  // {
-  //   if ($container) {
-  //     $this->_redis->sadd("{$container}:[{$contained_type}", $contained_element);
-  //     $this->_redis->sadd("{$contained_element}:]{$container_type}", $container);
-  //   } elseif ($container = $this->_redis->lrange('scope', 0, 0) &&
-  //             isset($container[0])) {
-  //     $this->_redis->sadd("{$container[0]}:[{$contained_type}", $contained_element);
-  //     $this->_redis->sadd("{$contained_element}:]{$container_type}", $container[0]);
-  //   }
-  // }
 
   private function populateIteratively($statements, $key)
   {
