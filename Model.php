@@ -107,11 +107,14 @@ class Model
 
   private function insertNamespaceHierarchy(array $namespace_name_parts)
   {
-    $parent_namespace = $current_namespace = '\\';
+    $parent_namespace = '\\';
+    $current_namespace = '';
     foreach ($namespace_name_parts as $key => $sub_namespace) {
-      $current_namespace .= "{$sub_namespace}\\";
-      $this->_redis->sadd("N:{$parent_namespace}:[N", $current_namespace);
-      $this->_redis->sadd("N:{$current_namespace}:]N", $parent_namespace);
+      $current_namespace .= "\\{$sub_namespace}";
+      $this->_redis->sadd('namespaces', "N:{$current_namespace}");
+      $this->_redis->sadd("N:{$current_namespace}:]N", "N:{$parent_namespace}");
+      $this->_redis->sadd("N:{$parent_namespace}:[N", "N:{$current_namespace}");
+      $parent_namespace = $current_namespace;
     }
   }
 
