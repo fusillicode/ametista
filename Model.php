@@ -134,12 +134,15 @@ class Model
                                                  $container = null)
   {
     if ($container) {
+
       $this->_redis->sadd("{$container}:[{$contained_type}", $contained_element);
       $this->_redis->sadd("{$contained_element}:]{$container_type}", $container);
-    } elseif ($container = $this->_redis->lrange('scope', 0, 0) &&
-              isset($container[0])) {
+
+    } elseif ($container = $this->_redis->lrange('scope', 0, 0) && isset($container[0])) {
+
       $this->_redis->sadd("{$container[0]}:[{$contained_type}", $contained_element);
       $this->_redis->sadd("{$contained_element}:]{$container_type}", $container[0]);
+
     }
   }
 
