@@ -129,9 +129,7 @@ class Model
 
   private function buildKey($key_parts, $prefix)
   {
-    return $prefix.(is_array($key_parts) ?
-                    implode("\\", $key_parts) :
-                    "\\".$key_parts);
+    return $prefix.(is_array($key_parts) ? implode("\\", $key_parts) : "\\".$key_parts);
   }
 
   // private function insertContainmentRelationship($contained_element,
