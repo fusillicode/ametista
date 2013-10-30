@@ -138,9 +138,9 @@ class Model
       case 'PHPParser_Node_Stmt_Function':
         $this->insertFunction($node_object);
         break;
-      // case 'PHPParser_Node_Expr_Assign':
-      //   $this->insertAssignement($node_object);
-      //   break;
+      case 'PHPParser_Node_Expr_Assign':
+        $this->insertAssignement($node_object);
+        break;
     }
   }
 
@@ -202,18 +202,6 @@ class Model
     $this->insertContainmentRelationship($function_key, 'F', 'N');
     $this->populateIteratively($node_object->stmts, $function_key);
   }
-
-  // private function insertKey($key_parts, $prefix, $set)
-  // {
-  //   $key = $this->buildKey($key_parts, $prefix);
-  //   $this->_redis->sadd($set, $key);
-  //   return $key;
-  // }
-
-  // private function buildKey($key_parts, $prefix)
-  // {
-  //   return $prefix.(is_array($key_parts) ? implode("\\", $key_parts) : "\\".$key_parts);
-  // }
 
   private function insertContainmentRelationship($contained_element, $contained_type, $container_type, $container = null)
   {
