@@ -5,7 +5,7 @@ class Model
   public function __construct($address = '', $parser = null, $lexer = null, $visitors = null)
   {
     $this->connectTo($address);
-    $this->initializeModel();
+    $this->initialize();
     $this->setParser($parser, $lexer);
     $this->addVisitor(new PHPParser_NodeVisitor_NameResolver());
   }
@@ -21,12 +21,21 @@ class Model
     }
   }
 
-  public function initializeModel()
+  public function initialize()
   {
     $this->clear();
     $this->_redis->sadd('namespaces', 'N:\\');
     $this->_redis->sadd('classes', 'C:\\stdClass');
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
+  }
+
+  public function addVisitor($visitor)
+  {
+    $this->setTraverser();
+    if ($visitor instanceof PHPParser_NodeVisitor)
+      $this->traverser->addVisitor($visitor);
+    else
+      echo "You're trying to add a visitor that doesn't interface\n";
   }
 
   public function setParser(PHPParser_Parser $parser = null, PHPParser_Lexer $lexer = null)
@@ -42,15 +51,6 @@ class Model
   public function setTraverser(PHPParser_NodeTraverser $traverser = null)
   {
     return $this->traverser = $traverser ? $traverser : new PHPParser_NodeTraverser;
-  }
-
-  public function addVisitor($visitor)
-  {
-    $this->setTraverser();
-    if ($visitor instanceof PHPParser_NodeVisitor)
-      $this->traverser->addVisitor($visitor);
-    else
-      echo "You're trying to add a visitor that doesn't interface\n";
   }
 
   public function clear() { return $this->_redis->flushall(); }
