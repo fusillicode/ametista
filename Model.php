@@ -170,8 +170,8 @@ class Model
     $class_key = 'C:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('classes', $class_key);
     $this->insertClassHierarchy($node_object, $class_key);
-    $this->insertClassMethods($node_object, $class_key);
     $this->insertContainmentRelationship($class_key, 'C', 'N');
+    $this->insertClassMethods($node_object, $class_key);
     $this->populateIteratively($node_object->stmts, $class_key);
   }
 
@@ -184,14 +184,6 @@ class Model
     $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
   }
 
-  private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
-  {
-    $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
-    $this->_redis->sadd('functions', $function_key);
-    $this->insertContainmentRelationship($function_key, 'F', 'N');
-    $this->populateIteratively($node_object->stmts, $function_key);
-  }
-
   private function insertClassMethods(PHPParser_Node_Stmt_Class $node_object)
   {
     if (!$class_methods = $node_object->getMethods()) return;
@@ -201,6 +193,14 @@ class Model
       $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     }
     $this->populateIteratively($node_object->stmts, $method_key);
+  }
+
+  private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
+  {
+    $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
+    $this->_redis->sadd('functions', $function_key);
+    $this->insertContainmentRelationship($function_key, 'F', 'N');
+    $this->populateIteratively($node_object->stmts, $function_key);
   }
 
   // private function insertKey($key_parts, $prefix, $set)
