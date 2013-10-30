@@ -87,7 +87,7 @@ class Model
     }
   }
 
-  public function populate($statements)
+  private function populate($statements)
   {
     if (!$statements) return;
     foreach ($statements as $key => $node_object)
