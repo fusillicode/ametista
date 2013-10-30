@@ -1,7 +1,5 @@
 <?php
 
-include_once __DIR__ . '/vendor/autoload.php';
-include_once __DIR__ . '/utilities.php';
 include_once __DIR__ . '/Model.php';
 
 // $start_redis_server = `./vendor/redis-2.6.16/src/redis-server`;

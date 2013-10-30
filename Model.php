@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . '/vendor/autoload.php';
+
 class Model
 {
   public function __construct($address = '', $parser = null, $lexer = null, $visitors = null)
