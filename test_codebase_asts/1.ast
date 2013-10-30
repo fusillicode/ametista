@@ -84,6 +84,28 @@ array(
                     )
                 )
             )
+            4: Stmt_Class(
+                type: 0
+                extends: Name_FullyQualified(
+                    parts: array(
+                        0: ciao
+                        1: merda
+                        2: pippo
+                    )
+                )
+                implements: array(
+                )
+                stmts: array(
+                )
+                name: merda
+                namespacedName: Name(
+                    parts: array(
+                        0: ciao
+                        1: merda
+                        2: merda
+                    )
+                )
+            )
         )
     )
 )

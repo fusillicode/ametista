@@ -13,6 +13,6 @@ function prova()
 	$a1[1] = 'pippa';
 }
 
-class merda extends \asd\ciaa {
+class merda extends pippo {
 
 }

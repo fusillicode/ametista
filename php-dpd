@@ -7,28 +7,10 @@ include_once __DIR__ . '/Model.php';
 // $start_redis_server = `./vendor/redis-2.6.16/src/redis-server`;
 
 $model = new Model();
-$parser = new PHPParser_Parser(new PHPParser_Lexer);
-$traverser = new PHPParser_NodeTraverser;
-$traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver());
-$node_dumper = new PHPParser_NodeDumper;
-$files = getFiles('./test_codebase/controllers/front');
 
 $start = microtime(true);
 
-foreach ($files as $file) {
-  try {
-    echo "{$file}\n";
-    $code = file_get_contents($file);
-    $statements = $traverser->traverse($parser->parse($code));
-    $model->populate($statements);
-    die();
-    // $redis->set("{$file}", serialize($statements));
-    $dump = $node_dumper->dump($statements);
-    file_put_contents('./test_codebase_asts/'.replaceExtension($file,'ast'), $dump);
-  } catch (PHPParser_Error $e) {
-    echo 'Parse Error: ', $e->getMessage();
-  }
-}
+$model->build('./test_codebase/controllers/front');
 
 $end = microtime(true);
 $time = $end - $start;

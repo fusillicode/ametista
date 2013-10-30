@@ -2,10 +2,13 @@
 
 class Model
 {
-  public function __construct($address = '')
+  public function __construct($address = '', $parser = null, $lexer = null,
+                              $visitors = null)
   {
     $this->connectTo($address);
     $this->initializeModel();
+    $this->setParser($parser, $lexer);
+    $this->addVisitor(new PHPParser_NodeVisitor_NameResolver());
   }
 
   public function connectTo($address = '')
@@ -27,11 +30,89 @@ class Model
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
   }
 
+  public function setParser(PHPParser_Parser $parser = null,
+                            PHPParser_Lexer $lexer = null)
+  {
+    return $this->parser = $parser ? $parser : new PHPParser_Parser($this->setLexer($lexer));
+  }
+
+  public function setLexer(PHPParser_Lexer $lexer = null)
+  {
+    return $this->lexer = $lexer ? $lexer : new PHPParser_Lexer;
+  }
+
+  public function setTraverser(PHPParser_NodeTraverser $traverser = null)
+  {
+    return $this->traverser = $traverser ? $traverser : new PHPParser_NodeTraverser;
+  }
+
+  public function addVisitor($visitor)
+  {
+    $this->setTraverser();
+    if ($visitor instanceof PHPParser_NodeVisitor)
+      $this->traverser->addVisitor($visitor);
+    else
+      echo "Wrong visitor interface\n";
+  }
+
   public function clear() { return $this->_redis->flushall(); }
 
   public function get() { return $this->_redis; }
 
-  public function build() {}
+  public function build($path, $recursive = true)
+  {
+    $files = $this->getFiles('./test_codebase/controllers/front', $recursive);
+    $this->buildForFiles($files);
+  }
+
+  private function getFiles($root_directory, $recursive)
+  {
+    if (!file_exists($root_directory) && !is_dir($root_directory)) {
+      echo "Directory \"{$root_directory}\" not found\n";
+      return array();
+    }
+    $files = array();
+    $stack[] = $root_directory;
+    while ($stack) {
+      $current_directory = array_pop($stack);
+      $directory_content = scandir($current_directory);
+      foreach ($directory_content as $content) {
+        if ($content === '.' || $content === '..') continue;
+        $current_element = "{$current_directory}/{$content}";
+        $extension = pathinfo($current_element, PATHINFO_EXTENSION);
+        if (is_file($current_element) && is_readable($current_element) && $extension === 'php')
+          $files[] = $current_element;
+        elseif (is_dir($current_element) && $recursive)
+          $stack[] = $current_element;
+      }
+    }
+    return $files;
+  }
+
+  private function buildForFiles($files)
+  {
+    $node_dumper = new PHPParser_NodeDumper;
+    foreach ($files as $file) {
+      try {
+        echo "{$file}\n";
+        $source_code = file_get_contents($file);
+        $statements = $this->traverser->traverse($this->parser->parse($source_code));
+        $this->populate($statements);
+        // $redis->set("{$file}", serialize($statements));
+        $dump = $node_dumper->dump($statements);
+        file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
+        die();
+      } catch (PHPParser_Error $e) {
+        echo "Parse Error: {$e->getMessage()}";
+      }
+    }
+  }
+
+  private function replaceExtension($file_path, $new_extension)
+  {
+    $path_information = pathinfo($file_path);
+    return "{$path_information['filename']}.{$new_extension}";
+  }
 
   public function populate($statements)
   {
@@ -49,9 +130,9 @@ class Model
       case 'PHPParser_Node_Stmt_Class':
         $this->insertClass($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_Function':
-      //   $this->insertFunction($node_object);
-      //   break;
+      case 'PHPParser_Node_Stmt_Function':
+        $this->insertFunction($node_object);
+        break;
       // case 'PHPParser_Node_Stmt_ClassMethod':
       //   $this->insertClassMethod($node_object);
       //   break;
