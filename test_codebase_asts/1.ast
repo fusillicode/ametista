@@ -96,6 +96,33 @@ array(
                 implements: array(
                 )
                 stmts: array(
+                    0: Stmt_ClassMethod(
+                        type: 4
+                        byRef: false
+                        params: array(
+                        )
+                        stmts: array(
+                        )
+                        name: ciao
+                    )
+                    1: Stmt_ClassMethod(
+                        type: 4
+                        byRef: false
+                        params: array(
+                        )
+                        stmts: array(
+                        )
+                        name: hola
+                    )
+                    2: Stmt_ClassMethod(
+                        type: 1
+                        byRef: false
+                        params: array(
+                        )
+                        stmts: array(
+                        )
+                        name: hi
+                    )
                 )
                 name: merda
                 namespacedName: Name(
@@ -103,6 +130,36 @@ array(
                         0: ciao
                         1: merda
                         2: merda
+                    )
+                )
+            )
+            5: Stmt_Use(
+                uses: array(
+                    0: Stmt_UseUse(
+                        name: Name(
+                            parts: array(
+                                0: asd
+                                1: asda
+                                2: asdasdasd
+                                3: bello
+                            )
+                        )
+                        alias: cizza
+                    )
+                )
+            )
+            6: Stmt_Function(
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                )
+                name: cizza
+                namespacedName: Name(
+                    parts: array(
+                        0: ciao
+                        1: merda
+                        2: cizza
                     )
                 )
             )

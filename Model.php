@@ -138,9 +138,6 @@ class Model
       case 'PHPParser_Node_Stmt_Function':
         $this->insertFunction($node_object);
         break;
-      // case 'PHPParser_Node_Stmt_ClassMethod':
-      //   $this->insertClassMethod($node_object);
-      //   break;
       // case 'PHPParser_Node_Expr_Assign':
       //   $this->insertAssignement($node_object);
       //   break;
@@ -173,6 +170,7 @@ class Model
     $class_key = 'C:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('classes', $class_key);
     $this->insertClassHierarchy($node_object, $class_key);
+    $this->insertClassMethods($node_object, $class_key);
     $this->insertContainmentRelationship($class_key, 'C', 'N');
     $this->populateIteratively($node_object->stmts, $class_key);
   }
@@ -194,13 +192,16 @@ class Model
     $this->populateIteratively($node_object->stmts, $function_key);
   }
 
-  // private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
-  // {
-  //   $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
-  //   $method_key = $this->insertKey($node_object->name, "M:{$class}", 'methods');
-  //   $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
-  //   $this->populateIteratively($node_object->stmts, $method_key);
-  // }
+  private function insertClassMethods(PHPParser_Node_Stmt_Class $node_object)
+  {
+    if (!$class_methods = $node_object->getMethods()) return;
+    $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
+    foreach ($class_methods as $key => $class_method) {
+      $method_key = "M:{$class}\\{$class_method->name}";
+      $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
+    }
+    $this->populateIteratively($node_object->stmts, $method_key);
+  }
 
   // private function insertKey($key_parts, $prefix, $set)
   // {
@@ -218,7 +219,7 @@ class Model
   {
     if ($container) {
 
-      $this->_redis->sadd("{$container}:[{$contained_type}", $contained_element);
+      $this->_redis->sadd("{$container_type}:{$container}:[{$contained_type}", $contained_element);
       $this->_redis->sadd("{$contained_element}:]{$container_type}", $container);
 
     } elseif ($container = $this->_redis->lrange('scope', 0, 0) && isset($container[0])) {

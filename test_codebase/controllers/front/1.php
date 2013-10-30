@@ -15,4 +15,21 @@ function prova()
 
 class merda extends pippo {
 
+  private function ciao(){
+
+  }
+
+  private function hola(){
+
+  }
+
+  public function hi(){
+
+  }
+}
+
+use \asd\asda\asdasdasd\bello as cizza;
+
+function cizza() {
+
 }
