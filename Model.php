@@ -2,8 +2,7 @@
 
 class Model
 {
-  public function __construct($address = '', $parser = null, $lexer = null,
-                              $visitors = null)
+  public function __construct($address = '', $parser = null, $lexer = null, $visitors = null)
   {
     $this->connectTo($address);
     $this->initializeModel();
@@ -30,8 +29,7 @@ class Model
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
   }
 
-  public function setParser(PHPParser_Parser $parser = null,
-                            PHPParser_Lexer $lexer = null)
+  public function setParser(PHPParser_Parser $parser = null, PHPParser_Lexer $lexer = null)
   {
     return $this->parser = $parser ? $parser : new PHPParser_Parser($this->setLexer($lexer));
   }
@@ -52,7 +50,7 @@ class Model
     if ($visitor instanceof PHPParser_NodeVisitor)
       $this->traverser->addVisitor($visitor);
     else
-      echo "Wrong visitor interface\n";
+      echo "You're trying to add a visitor that doesn't interface\n";
   }
 
   public function clear() { return $this->_redis->flushall(); }
@@ -62,7 +60,32 @@ class Model
   public function build($path, $recursive = true)
   {
     $files = $this->getFiles('./test_codebase/controllers/front', $recursive);
-    $this->buildForFiles($files);
+    $this->node_dumper = new PHPParser_NodeDumper;
+    foreach ($files as $file)
+      $this->buildForFile($file);
+  }
+
+  public function buildForFile($file)
+  {
+    try {
+      echo "{$file}\n";
+      $source_code = file_get_contents($file);
+      $statements = $this->traverser->traverse($this->parser->parse($source_code));
+      $this->populate($statements);
+      // $redis->set("{$file}", serialize($statements));
+      $dump = $this->node_dumper->dump($statements);
+      file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
+      die();
+    } catch (PHPParser_Error $e) {
+      echo "Parse Error: {$e->getMessage()}";
+    }
+  }
+
+  public function populate($statements)
+  {
+    if (!$statements) return;
+    foreach ($statements as $key => $node_object)
+      $this->insertNode($node_object);
   }
 
   private function getFiles($root_directory, $recursive)
@@ -89,36 +112,10 @@ class Model
     return $files;
   }
 
-  private function buildForFiles($files)
-  {
-    $node_dumper = new PHPParser_NodeDumper;
-    foreach ($files as $file) {
-      try {
-        echo "{$file}\n";
-        $source_code = file_get_contents($file);
-        $statements = $this->traverser->traverse($this->parser->parse($source_code));
-        $this->populate($statements);
-        // $redis->set("{$file}", serialize($statements));
-        $dump = $node_dumper->dump($statements);
-        file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
-        die();
-      } catch (PHPParser_Error $e) {
-        echo "Parse Error: {$e->getMessage()}";
-      }
-    }
-  }
-
   private function replaceExtension($file_path, $new_extension)
   {
     $path_information = pathinfo($file_path);
     return "{$path_information['filename']}.{$new_extension}";
-  }
-
-  public function populate($statements)
-  {
-    if (!$statements) return;
-    foreach ($statements as $key => $node_object)
-      $this->insertNode($node_object);
   }
 
   private function insertNode(PHPParser_Node $node_object)
@@ -209,10 +206,7 @@ class Model
   //   return $prefix.(is_array($key_parts) ? implode("\\", $key_parts) : "\\".$key_parts);
   // }
 
-  private function insertContainmentRelationship($contained_element,
-                                                 $contained_type,
-                                                 $container_type,
-                                                 $container = null)
+  private function insertContainmentRelationship($contained_element, $contained_type, $container_type, $container = null)
   {
     if ($container) {
 
