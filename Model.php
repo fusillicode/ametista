@@ -169,8 +169,10 @@ class Model
     $this->_redis->sadd('classes', $class_key);
     $this->insertClassHierarchy($node_object, $class_key);
     $this->insertContainmentRelationship($class_key, 'C', 'N');
+    $this->_redis->lpush('scope', $class_key);
     $this->insertClassMethods($node_object, $class_key);
-    $this->populateIteratively($node_object->stmts, $class_key);
+    $this->populate($node_object->stmts);
+    $this->_redis->lpop('scope');
   }
 
   private function insertClassHierarchy(PHPParser_Node_Stmt_Class $node_object, $current_class_key)
