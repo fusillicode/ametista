@@ -136,6 +136,9 @@ class Model
       case 'PHPParser_Node_Stmt_Function':
         $this->insertFunction($node_object);
         break;
+      case 'PHPParser_Node_Stmt_ClassMethod':
+        $this->insertClassMethod($node_object);
+        break;
       // case 'PHPParser_Node_Expr_Assign':
       //   $this->insertAssignement($node_object);
       //   break;
@@ -169,10 +172,7 @@ class Model
     $this->_redis->sadd('classes', $class_key);
     $this->insertClassHierarchy($node_object, $class_key);
     $this->insertContainmentRelationship($class_key, 'C', 'N');
-    $this->_redis->lpush('scope', $class_key);
-    $this->insertClassMethods($node_object, $class_key);
-    $this->populate($node_object->stmts);
-    $this->_redis->lpop('scope');
+    $this->populateIteratively($node_object->stmts, $class_key);
   }
 
   private function insertClassHierarchy(PHPParser_Node_Stmt_Class $node_object, $current_class_key)
@@ -184,23 +184,20 @@ class Model
     $this->_redis->sadd("{$superclass_key}:<", $current_class_key);
   }
 
-  private function insertClassMethods(PHPParser_Node_Stmt_Class $node_object)
-  {
-    if (!$class_methods = $node_object->getMethods()) return;
-    $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
-    foreach ($class_methods as $key => $class_method) {
-      $method_key = "M:{$class}\\{$class_method->name}";
-      $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
-      $this->populateIteratively($class_method->stmts, $method_key);
-    }
-  }
-
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
   {
     $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('functions', $function_key);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
     $this->populateIteratively($node_object->stmts, $function_key);
+  }
+
+  private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
+  {
+    $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
+    $method_key = "M:{$class}\\{$node_object->name}";
+    $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
+    $this->populateIteratively($node_object->stmts, $method_key);
   }
 
   private function insertContainmentRelationship($contained_element, $contained_type, $container_type, $container = null)
