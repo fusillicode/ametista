@@ -66,7 +66,7 @@ class Model
 
   public function build($path, $recursive = true)
   {
-    $files = $this->getFiles('./test_codebase/controllers/front', $recursive);
+    $files = $this->getFiles($path, $recursive);
     $this->node_dumper = new PHPParser_NodeDumper;
     foreach ($files as $file)
       $this->buildForFile($file);
