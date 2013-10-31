@@ -33,11 +33,10 @@ class Model
 
   public function addVisitor($visitor)
   {
-    $this->setTraverser();
     if ($visitor instanceof PHPParser_NodeVisitor)
-      $this->traverser->addVisitor($visitor);
+      $this->setTraverser()->addVisitor($visitor);
     else
-      echo "You're trying to add a visitor that doesn't interface\n";
+      echo "You're trying to add a visitor that doesn't have the proper interface\n";
   }
 
   public function setParser(PHPParser_Parser $parser = null, PHPParser_Lexer $lexer = null)
@@ -138,9 +137,9 @@ class Model
       case 'PHPParser_Node_Stmt_Function':
         $this->insertFunction($node_object);
         break;
-      case 'PHPParser_Node_Expr_Assign':
-        $this->insertAssignement($node_object);
-        break;
+      // case 'PHPParser_Node_Expr_Assign':
+      //   $this->insertAssignement($node_object);
+      //   break;
     }
   }
 
