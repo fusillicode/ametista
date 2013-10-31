@@ -82,7 +82,6 @@ class Model
       // $redis->set("{$file}", serialize($statements));
       $dump = $this->node_dumper->dump($statements);
       file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
-      die();
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";
     }
@@ -190,8 +189,8 @@ class Model
     foreach ($class_methods as $key => $class_method) {
       $method_key = "M:{$class}\\{$class_method->name}";
       $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
+      $this->populateIteratively($class_method->stmts, $method_key);
     }
-    $this->populateIteratively($node_object->stmts, $method_key);
   }
 
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
@@ -219,6 +218,7 @@ class Model
 
   private function populateIteratively($statements, $key)
   {
+    if (!$statements) return;
     $this->_redis->lpush('scope', $key);
     $this->populate($statements);
     $this->_redis->lpop('scope');
