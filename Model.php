@@ -245,7 +245,9 @@ class Model
       return $this->getLeftValue($left_value->name);
     if ($left_value instanceof PHPParser_Node_Expr_ArrayDimFetch)
       return $this->getLeftValue($left_value->var)."[{$left_value->dim->value}]";
-    return $left_value;
+    $scope = $this->_redis->lrange('scope', 0, 0);
+    $scope[0][0] = 'V';
+    return "{$scope[0]}\\{$left_value}";
   }
 
   // private function insertVariable($node, $right_expression)
