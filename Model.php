@@ -205,7 +205,7 @@ class Model
   {
     if ($container) {
 
-      $this->_redis->sadd("{$container_type}:{$container}:[{$contained_type}", "{$contained_type}:{$contained_element}");
+      $this->_redis->sadd("{$container_type}:{$container}:[{$contained_type}", $contained_element);
       $this->_redis->sadd("{$contained_element}:]{$container_type}", "{$container_type}:{$container}");
 
     } elseif ($container = $this->_redis->lrange('scope', 0, 0) && isset($container[0])) {
