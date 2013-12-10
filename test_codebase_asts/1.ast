@@ -9,13 +9,26 @@ array(
         stmts: array(
             0: Expr_Assign(
                 var: Expr_Variable(
+                    name: b
+                )
+                expr: Expr_Assign(
+                    var: Expr_Variable(
+                        name: c
+                    )
+                    expr: Expr_Variable(
+                        name: e
+                    )
+                )
+            )
+            1: Expr_Assign(
+                var: Expr_Variable(
                     name: v
                 )
                 expr: Scalar_String(
                     value: 
                 )
             )
-            1: Expr_Assign(
+            2: Expr_Assign(
                 var: Expr_Variable(
                     name: Expr_Variable(
                         name: vv
@@ -25,20 +38,25 @@ array(
                     value: pippo
                 )
             )
-            2: Expr_Assign(
+            3: Expr_Assign(
                 var: Expr_ArrayDimFetch(
-                    var: Expr_Variable(
-                        name: a
+                    var: Expr_ArrayDimFetch(
+                        var: Expr_Variable(
+                            name: a
+                        )
+                        dim: Scalar_LNumber(
+                            value: 1
+                        )
                     )
                     dim: Scalar_LNumber(
-                        value: 1
+                        value: 2
                     )
                 )
                 expr: Scalar_String(
                     value: pippa
                 )
             )
-            3: Stmt_Function(
+            4: Stmt_Function(
                 byRef: false
                 params: array(
                 )
@@ -84,7 +102,7 @@ array(
                     )
                 )
             )
-            4: Stmt_Class(
+            5: Stmt_Class(
                 type: 0
                 extends: Name_FullyQualified(
                     parts: array(
@@ -133,7 +151,7 @@ array(
                     )
                 )
             )
-            5: Stmt_Use(
+            6: Stmt_Use(
                 uses: array(
                     0: Stmt_UseUse(
                         name: Name(
@@ -148,7 +166,7 @@ array(
                     )
                 )
             )
-            6: Stmt_Function(
+            7: Stmt_Function(
                 byRef: false
                 params: array(
                 )

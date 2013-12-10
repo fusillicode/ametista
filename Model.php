@@ -226,16 +226,26 @@ class Model
 
   private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
   {
-    if ($node_object->var instanceof PHPParser_Node_Expr_Variable) {
-      if ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
-        var_dump($node_object->expr->value);
-      else
-        var_dump($node_object->expr->value);
-    } elseif ($node_object->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
-      var_dump($node_object->expr->value);
+    var_dump($this->getLeftValue($node_object->var));
+    // if ($node_object->var instanceof PHPParser_Node_Expr_Variable) {
+    //   if ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
+    //     var_dump($node_object->var->name->name);
+    //   else
+    //     var_dump($node_object->var->name);
+    // } elseif ($node_object->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
+    //   var_dump($node_object->var-name);
     //   $this->insertLeftValue($node_object->var->name);
     // elseif ($node_object->var->name instanceof String)
     //   $this->insert("variable {$node_object->var->name}");
+  }
+
+  private function getLeftValue($left_value)
+  {
+    if ($left_value instanceof PHPParser_Node_Expr_Variable)
+      return $this->getLeftValue($left_value->name);
+    if ($left_value instanceof PHPParser_Node_Expr_ArrayDimFetch)
+      return $this->getLeftValue($left_value->var);
+    return $left_value;
   }
 
   // private function insertVariable($node, $right_expression)

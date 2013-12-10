@@ -2,9 +2,10 @@
 
 namespace ciao\mondo;
 
+$b = $c = $e;
 $v = '';
 $$vv = 'pippo';
-$a[1] = 'pippa';
+$a[1][2] = 'pippa';
 
 function prova()
 {
