@@ -226,17 +226,11 @@ class Model
 
   private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
   {
-    var_dump($this->getLeftValue($node_object->var));
-    // if ($node_object->var instanceof PHPParser_Node_Expr_Variable) {
-    //   if ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
-    //     var_dump($node_object->var->name->name);
-    //   else
-    //     var_dump($node_object->var->name);
-    // } elseif ($node_object->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
-    //   var_dump($node_object->var-name);
-    //   $this->insertLeftValue($node_object->var->name);
-    // elseif ($node_object->var->name instanceof String)
-    //   $this->insert("variable {$node_object->var->name}");
+    $left_value = $this->getLeftValue($node_object->var);
+    $scope = $this->_redis->lrange('scope', 0, 0);
+    $container = substr($scope[0], 2);
+    $left_value_key = "V:{$container}\\{$left_value}";
+    $this->insertContainmentRelationship($left_value_key, 'V', $scope[0][0], $container);
   }
 
   private function getLeftValue($left_value)
@@ -245,28 +239,8 @@ class Model
       return $this->getLeftValue($left_value->name);
     if ($left_value instanceof PHPParser_Node_Expr_ArrayDimFetch)
       return $this->getLeftValue($left_value->var)."[{$left_value->dim->value}]";
-    $scope = $this->_redis->lrange('scope', 0, 0);
-    $scope[0][0] = 'V';
-    return "{$scope[0]}\\{$left_value}";
+    return $left_value;
   }
-
-  // private function insertVariable($node, $right_expression)
-  // {
-  //   if ($node->name instanceof PHPParser_Node_Expr_Variable)
-  //     var_dump($node);
-  //   else {
-  //     $scope = $this->_redis->lrange('scope', 0, 0);
-  //     var_dump($scope);
-  //   }
-  // }
-
-  // private function getRightValue($node)
-  // {
-  //   if ($node instanceof PHPParser_Node_Expr_New)
-  //     echo '1';
-  //   else
-  //     echo '2';
-  // }
 
 }
 
