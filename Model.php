@@ -228,11 +228,11 @@ class Model
   {
     if ($node_object->var instanceof PHPParser_Node_Expr_Variable) {
       if ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
-        var_dump('reference reference');
+        var_dump($node_object->expr->value);
       else
-        var_dump('simple variable');
+        var_dump($node_object->expr->value);
     } elseif ($node_object->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
-      var_dump('array variable');
+      var_dump($node_object->expr->value);
     //   $this->insertLeftValue($node_object->var->name);
     // elseif ($node_object->var->name instanceof String)
     //   $this->insert("variable {$node_object->var->name}");
