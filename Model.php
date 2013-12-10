@@ -141,7 +141,7 @@ class Model
         $this->insertClassMethod($node_object);
         break;
       case 'PHPParser_Node_Expr_Assign':
-        $this->insertAssignement($node_object);
+        $this->insertVariable($node_object);
         break;
     }
   }
@@ -201,22 +201,23 @@ class Model
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
-  private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
+  private function insertVariable(PHPParser_Node_Expr_Assign $node_object)
   {
-    $left_value = $this->getLeftValue($node_object->var);
+    $variable = $this->getVariableName($node_object->var);
     $scope = $this->_redis->lrange('scope', 0, 0);
     $container = substr($scope[0], 2);
-    $left_value_key = "V:{$container}\\{$left_value}";
-    $this->insertContainmentRelationship($left_value_key, 'V', $scope[0][0], $container);
+    $variable_key = "V:{$container}\\{$variable}";
+    $this->_redis->sadd('variables', $variable_key);
+    $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
-  private function getLeftValue($left_value)
+  private function getVariableName($variable)
   {
-    if ($left_value instanceof PHPParser_Node_Expr_Variable)
-      return $this->getLeftValue($left_value->name);
-    if ($left_value instanceof PHPParser_Node_Expr_ArrayDimFetch)
-      return $this->getLeftValue($left_value->var)."[{$left_value->dim->value}]";
-    return $left_value;
+    if ($variable instanceof PHPParser_Node_Expr_Variable)
+      return $this->getVariableName($variable->name);
+    if ($variable instanceof PHPParser_Node_Expr_ArrayDimFetch)
+      return $this->getVariableName($variable->var)."[{$variable->dim->value}]";
+    return $variable;
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per
