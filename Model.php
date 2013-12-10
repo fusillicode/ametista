@@ -158,6 +158,8 @@ class Model
   {
     $parent_namespace = '\\';
     $current_namespace = '';
+    // per i namespace non uso insertContainmentRelationship() per motivi di preformance
+    // e perchè così è più semplice,,,
     foreach ($namespace_name_parts as $key => $sub_namespace) {
       $current_namespace .= "\\{$sub_namespace}";
       $this->_redis->sadd('namespaces', "N:{$current_namespace}");
