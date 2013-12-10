@@ -219,6 +219,10 @@ class Model
     return $left_value;
   }
 
+  // la procedura di inserimento è prevede di specificare o meno il container per
+  // motivi di preformance. Ho voluto ottimizzare ed evitare di andare a prendere due
+  // volte lo scope visto che per i metodi e gli assegnamenti c'è sempre bisogno dello
+  // scope prima dell'inserimento delle relazioni di contenimento
   private function insertContainmentRelationship($contained_element, $contained_type, $container_type, $container = null)
   {
     if ($container) {
