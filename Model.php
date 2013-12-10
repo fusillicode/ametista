@@ -82,6 +82,7 @@ class Model
       // $redis->set("{$file}", serialize($statements));
       $dump = $this->node_dumper->dump($statements);
       file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
+      die();
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";
     }
@@ -139,9 +140,9 @@ class Model
       case 'PHPParser_Node_Stmt_ClassMethod':
         $this->insertClassMethod($node_object);
         break;
-      // case 'PHPParser_Node_Expr_Assign':
-      //   $this->insertAssignement($node_object);
-      //   break;
+      case 'PHPParser_Node_Expr_Assign':
+        $this->insertAssignement($node_object);
+        break;
     }
   }
 
@@ -223,36 +224,27 @@ class Model
     $this->_redis->lpop('scope');
   }
 
-  // private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
-  // {
-  //   // var_dump(get_class($node_object->var), $node_object->var->name);
-  //   $this->insertLeftValue($node_object->var);
-  //   // if ($node_object->var instanceof PHPParser_Node_Expr_Variable)
-  //   // elseif ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
-  //   //   $this->insertLeftValue($node_object->var->name);
-  //   // elseif ($node_object->var->name instanceof String)
-  //   //   $this->insert("variable {$node_object->var->name}");
-  // }
-
-  // private function insertLeftValue(PHPParser_Node_Expr $node_object)
-  // {
-  //   if ($node_object->name instanceof PHPParser_Node_Expr_Variable)
-  //     $this->insertVariable($node_object->name, $node_object->var);
-  //   // elseif ($node_object->name instanceof PHPParser_Node_Expr_Variable)
-  //   //   $this->insertLeftValue($node_object->name);
-  //   // elseif ($node_object->name instanceof PHPParser_Node_Expr_ArrayDimFetch)
-  //   //   $this->_redis->sadd($node, );
-  // }
+  private function insertAssignement(PHPParser_Node_Expr_Assign $node_object)
+  {
+    if ($node_object->var instanceof PHPParser_Node_Expr_Variable) {
+      if ($node_object->var->name instanceof PHPParser_Node_Expr_Variable)
+        var_dump('reference reference');
+      else
+        var_dump('simple variable');
+    } elseif ($node_object->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
+      var_dump('array variable');
+    //   $this->insertLeftValue($node_object->var->name);
+    // elseif ($node_object->var->name instanceof String)
+    //   $this->insert("variable {$node_object->var->name}");
+  }
 
   // private function insertVariable($node, $right_expression)
   // {
   //   if ($node->name instanceof PHPParser_Node_Expr_Variable)
-  //     $this->insertVariable($node->name);
+  //     var_dump($node);
   //   else {
   //     $scope = $this->_redis->lrange('scope', 0, 0);
-  //     $scope = $scope ? $scope[0] : '';
-  //     $variable_key = $this->buildKey($node->name, $scope);
-  //     $this->_redis->sadd($variable_key, $this->getRightValue($right_expression));
+  //     var_dump($scope);
   //   }
   // }
 

@@ -3,7 +3,7 @@ array(
         name: Name(
             parts: array(
                 0: ciao
-                1: merda
+                1: mondo
             )
         )
         stmts: array(
@@ -79,7 +79,7 @@ array(
                 namespacedName: Name(
                     parts: array(
                         0: ciao
-                        1: merda
+                        1: mondo
                         2: prova
                     )
                 )
@@ -89,7 +89,7 @@ array(
                 extends: Name_FullyQualified(
                     parts: array(
                         0: ciao
-                        1: merda
+                        1: mondo
                         2: pippo
                     )
                 )
@@ -124,12 +124,12 @@ array(
                         name: hi
                     )
                 )
-                name: merda
+                name: mondo
                 namespacedName: Name(
                     parts: array(
                         0: ciao
-                        1: merda
-                        2: merda
+                        1: mondo
+                        2: mondo
                     )
                 )
             )
@@ -158,7 +158,7 @@ array(
                 namespacedName: Name(
                     parts: array(
                         0: ciao
-                        1: merda
+                        1: mondo
                         2: cizza
                     )
                 )

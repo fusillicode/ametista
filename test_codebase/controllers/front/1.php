@@ -1,6 +1,6 @@
 <?php
 
-namespace ciao\merda;
+namespace ciao\mondo;
 
 $v = '';
 $$vv = 'pippo';
@@ -13,7 +13,7 @@ function prova()
 	$a1[1] = 'pippa';
 }
 
-class merda extends pippo {
+class mondo extends pippo {
 
   private function ciao(){
 
