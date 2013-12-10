@@ -244,7 +244,7 @@ class Model
     if ($left_value instanceof PHPParser_Node_Expr_Variable)
       return $this->getLeftValue($left_value->name);
     if ($left_value instanceof PHPParser_Node_Expr_ArrayDimFetch)
-      return $this->getLeftValue($left_value->var);
+      return $this->getLeftValue($left_value->var)."[{$left_value->dim->value}]";
     return $left_value;
   }
 
