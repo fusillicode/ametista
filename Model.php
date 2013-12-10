@@ -158,14 +158,11 @@ class Model
   {
     $parent_namespace = '\\';
     $current_namespace = '';
-    // per i namespace non uso insertContainmentRelationship() per motivi di preformance
-    // e perchè, mappo la relazione di contenimento con quella usata anche per il
-    // contenimento delle classi e metodi (i.e. ] e [)
     foreach ($namespace_name_parts as $key => $sub_namespace) {
       $current_namespace .= "\\{$sub_namespace}";
-      $this->_redis->sadd('namespaces', "N:{$current_namespace}");
-      $this->_redis->sadd("N:{$current_namespace}:]N", "N:{$parent_namespace}");
-      $this->_redis->sadd("N:{$parent_namespace}:[N", "N:{$current_namespace}");
+      $current_namespace_key = "N:{$current_namespace}";
+      $this->_redis->sadd('namespaces', $current_namespace_key);
+      $this->insertContainmentRelationship($current_namespace_key, 'N', 'N', $parent_namespace);
       $parent_namespace = $current_namespace;
     }
   }
