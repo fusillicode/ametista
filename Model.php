@@ -217,6 +217,8 @@ class Model
       return $this->getVariableName($variable->name);
     if ($variable instanceof PHPParser_Node_Expr_ArrayDimFetch)
       return $this->getVariableName($variable->var)."[{$variable->dim->value}]";
+    if ($variable instanceof PHPParser_Node_Expr_PropertyFetch)
+      return $this->getVariableName($variable->var)."->{$variable->name}";
     return $variable;
   }
 

@@ -17,7 +17,7 @@ function prova()
 class mondo extends pippo {
 
   private function ciao(){
-
+    $this->a = 'micky';
   }
 
   private function hola(){
