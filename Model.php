@@ -220,6 +220,7 @@ class Model
     $scope = $this->_redis->lrange('scope', 0, 0);
     $container = substr($scope[0], 2);
     $variable_key = "V:{$container}\\{$variable}";
+    // check per variabile già definita
     var_dump($this->_redis->sismember('variables', $variable_key));
     $this->_redis->sadd('variables', $variable_key);
     $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
