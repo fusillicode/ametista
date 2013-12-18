@@ -12,6 +12,7 @@ function prova()
 	$v1 = '';
 	$$vv1 = 'pippo';
 	$a1[1] = 'pippa';
+  $a1[1] = 'aladin';
 }
 
 class mondo extends pippo {

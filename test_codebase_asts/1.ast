@@ -92,6 +92,19 @@ array(
                             value: pippa
                         )
                     )
+                    3: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: a1
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        expr: Scalar_String(
+                            value: aladin
+                        )
+                    )
                 )
                 name: prova
                 namespacedName: Name(

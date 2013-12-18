@@ -208,7 +208,7 @@ class Model
     $scope = $this->_redis->lrange('scope', 0, 0);
     $container = substr($scope[0], 2);
     $variable_key = "V:{$container}\\{$variable}";
-    var_dump($this->checkAlreadyDefinedVariable($variable_key));
+    var_dump($this->_redis->sismember('variables', $variable_key));
     $this->_redis->sadd('variables', $variable_key);
     $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
@@ -222,12 +222,6 @@ class Model
     if ($variable instanceof PHPParser_Node_Expr_PropertyFetch)
       return $this->getVariableName($variable->var)."->{$variable->name}";
     return $variable;
-  }
-
-  private function checkAlreadyDefinedVariable($variable_key)
-  {
-    $defined_variables = $this->_redis->smembers('variables');
-    return in_array($variable_key, $defined_variables);
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per
