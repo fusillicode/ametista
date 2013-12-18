@@ -7,7 +7,7 @@ $v = '';
 $$vv = 'pippo';
 $a[1][2] = 'pippa';
 
-function prova(bool $a, int $b)
+function prova(bool $ella, int $peppa)
 {
 	$v1 = '';
 	$$vv1 = 'pippo';

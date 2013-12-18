@@ -188,6 +188,7 @@ class Model
 
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
   {
+    $this->insertParameters($node_object);
     $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('functions', $function_key);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
@@ -196,13 +197,21 @@ class Model
 
   private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
   {
+    $this->insertParameters($node_object);
     $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
     $method_key = "M:{$class}\\{$node_object->name}";
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
-  private function insertVariable(PHPParser_Node_Expr_Assign $node_object)
+  private function insertParameters($node_object)
+  {
+    if (!$parameters = $node_object->parameters) return;
+    foreach ($parameters as $key => $param)
+      $this->insertVariable($param);
+  }
+
+  private function insertVariable($node_object)
   {
     $variable = $this->getVariableName($node_object->var);
     $scope = $this->_redis->lrange('scope', 0, 0);
