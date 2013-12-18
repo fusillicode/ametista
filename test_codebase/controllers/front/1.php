@@ -7,7 +7,7 @@ $v = '';
 $$vv = 'pippo';
 $a[1][2] = 'pippa';
 
-function prova()
+function prova(bool $a, int $b)
 {
 	$v1 = '';
 	$$vv1 = 'pippo';
@@ -17,8 +17,8 @@ function prova()
 
 class mondo extends pippo {
 
-  private function ciao(){
-    $this->a = 'micky';
+  private function ciao(int $a){
+    $this->a = $a;
   }
 
   private function hola(){
