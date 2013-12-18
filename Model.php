@@ -207,8 +207,11 @@ class Model
   private function insertParameters($node_object)
   {
     if (!$parameters = $node_object->params) return;
-    foreach ($parameters as $key => $param)
-      $this->insertVariable($param);
+    foreach ($parameters as $key => $parameter) {
+      // devo estendere insertVariable o fare un insertParameter?
+      // $this->insertParameter($parameter);
+      $this->insertVariable($parameter);
+    }
   }
 
   private function insertVariable($node_object)
