@@ -142,7 +142,7 @@ class Model
         $this->insertClassMethod($node_object);
         break;
       case 'PHPParser_Node_Expr_Assign':
-        $this->insertVariable($node_object);
+        $this->insertAssignment($node_object);
         break;
     }
   }
@@ -208,13 +208,12 @@ class Model
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
-      // devo estendere insertVariable o fare un insertParameter?
+      // devo estendere insertAssignment o fare un insertParameter?
       // $this->insertParameter($parameter);
-      $this->insertVariable($parameter);
     }
   }
 
-  private function insertVariable($node_object)
+  private function insertAssignment($node_object)
   {
     $variable = $this->getVariableName($node_object->var);
     $scope = $this->_redis->lrange('scope', 0, 0);

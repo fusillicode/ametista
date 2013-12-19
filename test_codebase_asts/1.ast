@@ -70,7 +70,6 @@ array(
                             )
                         )
                         byRef: false
-                        var: null
                     )
                     1: Param(
                         name: peppa
@@ -83,7 +82,6 @@ array(
                             )
                         )
                         byRef: false
-                        var: null
                     )
                 )
                 stmts: array(
@@ -168,7 +166,6 @@ array(
                                     )
                                 )
                                 byRef: false
-                                var: null
                             )
                         )
                         stmts: array(
