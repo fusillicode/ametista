@@ -27,8 +27,10 @@ class Model
   {
     $this->clear();
     $this->_redis->sadd('namespaces', 'N:\\');
+    $this->_redis->lpush('scope', 'N:\\');
     $this->_redis->sadd('classes', 'C:\\stdClass');
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
+    $this->_redis->sadd('globals', '');
     $this->_redis->sadd('variables', '');
   }
 
@@ -217,7 +219,7 @@ class Model
   // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    // var_dump($node_object->var->var);
+    var_dump($this->isGlobalAssignement($node_object));
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -226,6 +228,14 @@ class Model
     // var_dump($this->_redis->sismember('variables', $variable_key));
     // $this->_redis->sadd('variables', $variable_key);
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
+  }
+
+  private function isGlobalAssignement($node_object)
+  {
+    $container = $this->_redis->lrange('scope', 0, 0)[0];
+    return $node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS' ||
+           $node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS' ||
+           $container === 'N:\\';
   }
 
   private function getVariableName($variable)
