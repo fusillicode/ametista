@@ -247,7 +247,7 @@ class Model
 
   private function getGlobalsVariableName($variable)
   {
-    if($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
+    if ($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
       return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
     else
       return $variable->dim->value;
