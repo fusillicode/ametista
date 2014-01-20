@@ -213,16 +213,19 @@ class Model
     }
   }
 
+  // insertAssignement deve discriminare le variabili locali a funzioni e metodi,
+  // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    $variable = $this->getVariableName($node_object->var);
-    $scope = $this->_redis->lrange('scope', 0, 0);
-    $container = substr($scope[0], 2);
-    $variable_key = "V:{$container}\\{$variable}";
-    // check per variabile già definita
-    var_dump($this->_redis->sismember('variables', $variable_key));
-    $this->_redis->sadd('variables', $variable_key);
-    $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
+    // var_dump($node_object->var->var);
+    // $variable = $this->getVariableName($node_object->var);
+    // $scope = $this->_redis->lrange('scope', 0, 0);
+    // $container = substr($scope[0], 2);
+    // $variable_key = "V:{$container}\\{$variable}";
+    // // check per variabile già definita
+    // var_dump($this->_redis->sismember('variables', $variable_key));
+    // $this->_redis->sadd('variables', $variable_key);
+    // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
   private function getVariableName($variable)

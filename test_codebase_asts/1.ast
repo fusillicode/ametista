@@ -85,7 +85,14 @@ array(
                     )
                 )
                 stmts: array(
-                    0: Expr_Assign(
+                    0: Stmt_Global(
+                        vars: array(
+                            0: Expr_Variable(
+                                name: a
+                            )
+                        )
+                    )
+                    1: Expr_Assign(
                         var: Expr_Variable(
                             name: v1
                         )
@@ -93,7 +100,7 @@ array(
                             value: 
                         )
                     )
-                    1: Expr_Assign(
+                    2: Expr_Assign(
                         var: Expr_Variable(
                             name: Expr_Variable(
                                 name: vv1
@@ -103,7 +110,7 @@ array(
                             value: pippo
                         )
                     )
-                    2: Expr_Assign(
+                    3: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_Variable(
                                 name: a1
@@ -116,7 +123,7 @@ array(
                             value: pippa
                         )
                     )
-                    3: Expr_Assign(
+                    4: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_Variable(
                                 name: a1
@@ -151,7 +158,18 @@ array(
                 implements: array(
                 )
                 stmts: array(
-                    0: Stmt_ClassMethod(
+                    0: Stmt_Property(
+                        type: 9
+                        props: array(
+                            0: Stmt_PropertyProperty(
+                                name: b
+                                default: Scalar_String(
+                                    value: a
+                                )
+                            )
+                        )
+                    )
+                    1: Stmt_ClassMethod(
                         type: 4
                         byRef: false
                         params: array(
@@ -171,19 +189,35 @@ array(
                         stmts: array(
                             0: Expr_Assign(
                                 var: Expr_PropertyFetch(
-                                    var: Expr_Variable(
-                                        name: this
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: a
                                     )
-                                    name: a
+                                    name: b
                                 )
                                 expr: Expr_Variable(
                                     name: a
                                 )
                             )
+                            1: Expr_Assign(
+                                var: Expr_StaticPropertyFetch(
+                                    class: Name(
+                                        parts: array(
+                                            0: self
+                                        )
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_String(
+                                    value: ciao
+                                )
+                            )
                         )
                         name: ciao
                     )
-                    1: Stmt_ClassMethod(
+                    2: Stmt_ClassMethod(
                         type: 4
                         byRef: false
                         params: array(
@@ -192,7 +226,7 @@ array(
                         )
                         name: hola
                     )
-                    2: Stmt_ClassMethod(
+                    3: Stmt_ClassMethod(
                         type: 1
                         byRef: false
                         params: array(

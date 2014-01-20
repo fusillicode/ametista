@@ -9,6 +9,7 @@ $a[1][2] = 'pippa';
 
 function prova(bool $ella, int $peppa)
 {
+  global $a;
 	$v1 = '';
 	$$vv1 = 'pippo';
 	$a1[1] = 'pippa';
@@ -17,8 +18,11 @@ function prova(bool $ella, int $peppa)
 
 class mondo extends pippo {
 
+  public static $b = 'a';
+
   private function ciao(int $a){
-    $this->a = $a;
+    $this->a->b = $a;
+    self::$b = 'ciao';
   }
 
   private function hola(){
