@@ -146,6 +146,9 @@ class Model
       case 'PHPParser_Node_Expr_Assign':
         $this->insertAssignment($node_object);
         break;
+      case 'PHPParser_Node_Stmt_Global':
+        $this->insertGlobalVariable($node_object);
+        break;
     }
   }
 
@@ -228,6 +231,13 @@ class Model
     // var_dump($this->_redis->sismember('variables', $variable_key));
     // $this->_redis->sadd('variables', $variable_key);
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
+  }
+
+  private function insertGlobalVariable($node_object)
+  {
+    foreach ($node_object->vars as $key => $variable) {
+      var_dump($variable->name);
+    }
   }
 
   private function getGlobalVariable($node_object)
