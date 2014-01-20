@@ -15,20 +15,6 @@ array(
     )
     1: Expr_Assign(
         var: Expr_Variable(
-            name: b
-            var: null
-        )
-        expr: Expr_Assign(
-            var: Expr_Variable(
-                name: c
-            )
-            expr: Expr_Variable(
-                name: e
-            )
-        )
-    )
-    2: Expr_Assign(
-        var: Expr_Variable(
             name: v
             var: null
         )
@@ -36,7 +22,7 @@ array(
             value: 
         )
     )
-    3: Expr_Assign(
+    2: Expr_Assign(
         var: Expr_Variable(
             name: Expr_Variable(
                 name: vv
@@ -47,7 +33,7 @@ array(
             value: pippo
         )
     )
-    4: Expr_Assign(
+    3: Expr_Assign(
         var: Expr_ArrayDimFetch(
             var: Expr_ArrayDimFetch(
                 var: Expr_Variable(
@@ -65,7 +51,7 @@ array(
             value: pippa
         )
     )
-    5: Stmt_Function(
+    4: Stmt_Function(
         byRef: false
         params: array(
             0: Param(
@@ -117,6 +103,37 @@ array(
                 )
             )
             2: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_ArrayDimFetch(
+                        var: Expr_Variable(
+                            name: GLOBALS
+                        )
+                        dim: Scalar_String(
+                            value: a
+                        )
+                    )
+                    dim: Scalar_String(
+                        value: b
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 2
+                )
+            )
+            3: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: GLOBALS
+                    )
+                    dim: Scalar_String(
+                        value: a
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            4: Expr_Assign(
                 var: Expr_Variable(
                     name: v1
                     var: null
@@ -125,7 +142,7 @@ array(
                     value: 
                 )
             )
-            3: Expr_Assign(
+            5: Expr_Assign(
                 var: Expr_Variable(
                     name: Expr_Variable(
                         name: vv1
@@ -136,7 +153,7 @@ array(
                     value: pippo
                 )
             )
-            4: Expr_Assign(
+            6: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: a1
@@ -149,7 +166,7 @@ array(
                     value: pippa
                 )
             )
-            5: Expr_Assign(
+            7: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: a1
@@ -170,7 +187,7 @@ array(
             )
         )
     )
-    6: Stmt_Class(
+    5: Stmt_Class(
         type: 0
         extends: Name_FullyQualified(
             parts: array(
@@ -207,48 +224,7 @@ array(
                     )
                 )
                 stmts: array(
-                    0: Stmt_Global(
-                        vars: array(
-                            0: Expr_Variable(
-                                name: a
-                            )
-                            1: Expr_Variable(
-                                name: b
-                            )
-                            2: Expr_Variable(
-                                name: c
-                            )
-                        )
-                    )
-                    1: Expr_Assign(
-                        var: Expr_PropertyFetch(
-                            var: Expr_PropertyFetch(
-                                var: Expr_Variable(
-                                    name: this
-                                )
-                                name: a
-                            )
-                            name: b
-                        )
-                        expr: Expr_Variable(
-                            name: a
-                        )
-                    )
-                    2: Expr_Assign(
-                        var: Expr_StaticPropertyFetch(
-                            class: Name(
-                                parts: array(
-                                    0: self
-                                )
-                            )
-                            name: b
-                            var: null
-                        )
-                        expr: Scalar_String(
-                            value: ciao
-                        )
-                    )
-                    3: Expr_Assign(
+                    0: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_Variable(
@@ -266,7 +242,66 @@ array(
                             value: 2
                         )
                     )
+                    1: Stmt_Global(
+                        vars: array(
+                            0: Expr_Variable(
+                                name: a
+                            )
+                            1: Expr_Variable(
+                                name: b
+                            )
+                            2: Expr_Variable(
+                                name: c
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: a
+                            )
+                            name: b
+                        )
+                        expr: Expr_Variable(
+                            name: a
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_StaticPropertyFetch(
+                            class: Name(
+                                parts: array(
+                                    0: self
+                                )
+                            )
+                            name: b
+                            var: null
+                        )
+                        expr: Scalar_String(
+                            value: ciao
+                        )
+                    )
                     4: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_ArrayDimFetch(
+                                var: Expr_Variable(
+                                    name: GLOBALS
+                                )
+                                dim: Scalar_String(
+                                    value: a
+                                )
+                            )
+                            dim: Scalar_String(
+                                value: b
+                            )
+                        )
+                        expr: Scalar_LNumber(
+                            value: 2
+                        )
+                    )
+                    5: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_Variable(
                                 name: GLOBALS
@@ -308,7 +343,7 @@ array(
             )
         )
     )
-    7: Stmt_Use(
+    6: Stmt_Use(
         uses: array(
             0: Stmt_UseUse(
                 name: Name(
@@ -323,7 +358,7 @@ array(
             )
         )
     )
-    8: Stmt_Function(
+    7: Stmt_Function(
         byRef: false
         params: array(
         )
@@ -336,7 +371,7 @@ array(
             )
         )
     )
-    9: Expr_Assign(
+    8: Expr_Assign(
         var: Expr_Variable(
             name: a
             var: null

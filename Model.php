@@ -232,19 +232,14 @@ class Model
 
   private function getGlobalVariable($node_object)
   {
-    if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable &&
-        $node_object->var->var->name === 'GLOBALS') {
-      var_dump($node_object->var->dim->value);
-      die();
-    } elseif($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch &&
-             $node_object->var->var->var->name === 'GLOBALS') {
-      var_dump($this->getGlobalsVariableName($node_object->var));
-      die();
+    if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
+      return $node_object->var->dim->value;
+    } elseif($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
+      return $this->getGlobalsVariableName($node_object->var);
     } else {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       if ($container === 'N:\\') {
-        var_dump($this->getVariableName($node_object));
-        die();
+        return $this->getVariableName($node_object);
       }
     }
     return false;
@@ -253,9 +248,9 @@ class Model
   private function getGlobalsVariableName($variable)
   {
     if($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
-      return $this->getGlobalsVariableName($variable->var);
+      return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
     else
-      return $variable->name;
+      return $variable->dim->value;
   }
 
   private function getVariableName($variable)

@@ -4,7 +4,6 @@ $b = $c = $e;
 
 // namespace ciao\mondo;
 
-$b = $c = $e;
 $v = '';
 $$vv = 'pippo';
 $a[1][2] = 'pippa';
@@ -12,6 +11,8 @@ $a[1][2] = 'pippa';
 function prova(bool $ella, int $peppa)
 {
   global $a, $b, $c;
+  $GLOBALS['a'] = 1;
+  $GLOBALS['a']['b'] = 2;
   $GLOBALS['a'] = 1;
 	$v1 = '';
 	$$vv1 = 'pippo';
@@ -24,6 +25,7 @@ class mondo extends pippo {
   public static $b = 'a';
 
   private function ciao(int $a){
+    $GLOBALS['a']['b'] = 2;
     global $a, $b, $c;
     $this->a->b = $a;
     self::$b = 'ciao';
