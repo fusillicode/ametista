@@ -336,4 +336,13 @@ array(
             )
         )
     )
+    9: Expr_Assign(
+        var: Expr_Variable(
+            name: a
+            var: null
+        )
+        expr: Scalar_String(
+            value: aasdasd
+        )
+    )
 )

@@ -219,7 +219,7 @@ class Model
   // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    var_dump($this->isGlobalAssignement($node_object));
+    var_dump($this->getGlobalVariable($node_object));
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -230,12 +230,32 @@ class Model
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
-  private function isGlobalAssignement($node_object)
+  private function getGlobalVariable($node_object)
   {
-    $container = $this->_redis->lrange('scope', 0, 0)[0];
-    return $node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS' ||
-           $node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS' ||
-           $container === 'N:\\';
+    if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable &&
+        $node_object->var->var->name === 'GLOBALS') {
+      var_dump($node_object->var->dim->value);
+      die();
+    } elseif($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch &&
+             $node_object->var->var->var->name === 'GLOBALS') {
+      var_dump($this->getGlobalsVariableName($node_object->var));
+      die();
+    } else {
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      if ($container === 'N:\\') {
+        var_dump($this->getVariableName($node_object));
+        die();
+      }
+    }
+    return false;
+  }
+
+  private function getGlobalsVariableName($variable)
+  {
+    if($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
+      return $this->getGlobalsVariableName($variable->var);
+    else
+      return $variable->name;
   }
 
   private function getVariableName($variable)
@@ -246,7 +266,11 @@ class Model
       return $this->getVariableName($variable->var)."[{$variable->dim->value}]";
     if ($variable instanceof PHPParser_Node_Expr_PropertyFetch)
       return $this->getVariableName($variable->var)."->{$variable->name}";
-    return $variable;
+    if ($variable instanceof PHPParser_Node_Expr_Assign)
+      return $this->getVariableName($variable->var);
+    if (is_string($variable))
+      return $variable;
+    return 'NO_NAME_FOUND';
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per

@@ -45,3 +45,5 @@ use \asd\asda\asdasdasd\bello as cizza;
 function cizza() {
 
 }
+
+$a = 'aasdasd';
