@@ -223,9 +223,8 @@ class Model
     foreach ($parameters as $key => $parameter) {
       // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
       // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
-      var_dump($parameter);
+      var_dump($parameter->getLine());
     }
-    die();
   }
 
   // insertAssignement deve discriminare le variabili locali a funzioni e metodi,
@@ -235,24 +234,29 @@ class Model
     if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
       // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
       // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
+      var_dump($node_object->var->getLine());
     } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
       // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
       // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
+      var_dump($node_object->var->getLine());
     } else {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       $variable_name = $this->getVariableName($node_object);
       if ($container === 'N:\\') {
         // se sono nello scope generale significa che ho un assegnamento di una variabile globale
         // il nome della variabile è $variable_name;
+        var_dump($node_object->var->getLine());
       } else {
         // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
         $global_variable_key_in_scope = $container.'\\'.$variable_name;
         if ($this->_redis->sismember('scoped_global_variables', $global_variable_key_in_scope)) {
           // assegnamento di una variabile globale
           // il nome della variabile è $variable_name;
+          var_dump($node_object->var->getLine());
         } else {
           // assegnamento di una variabile locale
           // il nome della variabile è $variable_name;
+          var_dump($node_object->var->getLine());
         }
       }
     }

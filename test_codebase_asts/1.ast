@@ -56,7 +56,9 @@ array(
         params: array(
             0: Param(
                 name: ella
-                default: null
+                default: Scalar_LNumber(
+                    value: 1
+                )
                 type: Name_FullyQualified(
                     parts: array(
                         0: bool
