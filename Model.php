@@ -29,7 +29,7 @@ class Model
     $this->clear();
     $this->_redis->sadd('namespaces', 'N:\\');
     $this->_redis->lpush('scope', 'N:\\');
-    $this->_redis->lpush('global_variables_in_scope', '');
+    $this->_redis->sadd('global_variables_in_scope', '');
     $this->_redis->sadd('classes', 'C:\\stdClass');
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
     $this->_redis->sadd('global_variables', '');
@@ -154,7 +154,7 @@ class Model
         $this->insertAssignment($node_object);
         break;
       case 'PHPParser_Node_Stmt_Global':
-        $this->insertGlobalVariable($node_object);
+        $this->insertGlobalVariableInScope($node_object);
         break;
     }
   }
@@ -240,10 +240,12 @@ class Model
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
-  private function insertGlobalVariable($node_object)
+  private function insertGlobalVariableInScope($node_object)
   {
     foreach ($node_object->vars as $key => $variable) {
-      var_dump($variable->name);
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      $global_variable_key = $container.'\\'.$variable->name;
+      $this->_redis->sadd('global_variables_in_scope', $global_variable_key);
     }
   }
 
