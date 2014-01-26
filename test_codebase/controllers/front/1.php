@@ -8,7 +8,7 @@ $v = '';
 $$vv = 'pippo';
 $a[1][2] = 'pippa';
 
-function prova(bool $ella, int $peppa)
+function prova(bool $ella = 1, int $peppa)
 {
   global $a, $b, $c;
   $GLOBALS['a'] = 1;

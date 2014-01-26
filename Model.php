@@ -221,6 +221,8 @@ class Model
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
+      // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
+      // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
       var_dump($parameter);
     }
     die();
