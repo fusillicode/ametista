@@ -146,6 +146,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: id_address
+                            var: null
                         )
                         expr: Scalar_LNumber(
                             value: 0
@@ -908,6 +909,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: address
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -2988,6 +2990,7 @@ array(
                                 name: errors
                             )
                             dim: null
+                            name: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -3963,6 +3966,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: list
+                            var: null
                         )
                         expr: Scalar_String(
                             value: 
@@ -4135,6 +4139,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: id_country
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_FuncCall(
@@ -4174,6 +4179,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: dlv_adr_fields
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4250,6 +4256,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: vat_number_exists
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -4279,6 +4286,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: vat_number_management
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

@@ -28,12 +28,12 @@ class Model
   {
     $this->clear();
     $this->_redis->sadd('namespaces', 'N:\\');
-    $this->_redis->lpush('scope', 'N:\\');
-    $this->_redis->sadd('global_variables_in_scope', '');
     $this->_redis->sadd('classes', 'C:\\stdClass');
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
-    $this->_redis->sadd('global_variables', '');
-    $this->_redis->sadd('local_variables', '');
+
+    // strutture temporanee
+    $this->_redis->lpush('scope', 'N:\\');
+    $this->_redis->sadd('global_variables_in_scope', '');
   }
 
   public function setVisitors(array $visitors)
@@ -259,17 +259,17 @@ class Model
       return $this->getGlobalsVariableName($node_object->var);
     } else {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
+      $variable_name = $this->getVariableName($node_object);
       if ($container === 'N:\\') {
-        // caso in cui sono nello scope generale
-        return $this->getVariableName($node_object);
+        // se sono nello scope generale significa che ho un assegnamento di una variabile globale
+        return $variable_name;
       } else {
-        // caso in cui NON sono nello scope generale
-        // in questo caso vado a verificare che la variabile non sia una di quelle definite come globali
-        $global_variable_key_in_scope = $container.'\\'.$node_object->var->name;
+        // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
+        $global_variable_key_in_scope = $container.'\\'.$variable_name;
         if ($this->_redis->sismember('global_variables_in_scope', $global_variable_key_in_scope)) {
-          // globali
+          // assegnamento di una variabile globale
         } else {
-          // variabile locale
+          // assegnamento di una variabile locale
         }
       }
     }
