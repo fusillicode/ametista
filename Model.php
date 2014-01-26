@@ -229,7 +229,33 @@ class Model
   // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    $this->insertGlobalVariable($node_object);
+    if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
+      // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
+      // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
+    } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
+      // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
+      // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
+    } else {
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      $variable_name = $this->getVariableName($node_object);
+      if ($container === 'N:\\') {
+        // se sono nello scope generale significa che ho un assegnamento di una variabile globale
+        // il nome della variabile è $variable_name;
+      } else {
+        // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
+        $global_variable_key_in_scope = $container.'\\'.$variable_name;
+        if ($this->_redis->sismember('global_variables_in_scope', $global_variable_key_in_scope)) {
+          // assegnamento di una variabile globale
+          // il nome della variabile è $variable_name;
+        } else {
+          // assegnamento di una variabile locale
+          // il nome della variabile è $variable_name;
+        }
+      }
+    }
+    // ci sono altri casi?
+
+
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -238,42 +264,6 @@ class Model
     // var_dump($this->_redis->sismember('variables', $variable_key));
     // $this->_redis->sadd('variables', $variable_key);
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
-  }
-
-  private function insertGlobalVariableInScope($node_object)
-  {
-    foreach ($node_object->vars as $key => $variable) {
-      $container = $this->_redis->lrange('scope', 0, 0)[0];
-      // non modifico la prima lettera della chiave della variabile globale visto che il dato che
-      // memorizzo mi serve solo temporaneamente per il controllo in insertGlobalVariable
-      $global_variable_key = $container.'\\'.$variable->name;
-      $this->_redis->sadd('global_variables_in_scope', $global_variable_key);
-    }
-  }
-
-  private function insertGlobalVariable($node_object)
-  {
-    if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
-      return $node_object->var->dim->value;
-    } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
-      return $this->getGlobalsVariableName($node_object->var);
-    } else {
-      $container = $this->_redis->lrange('scope', 0, 0)[0];
-      $variable_name = $this->getVariableName($node_object);
-      if ($container === 'N:\\') {
-        // se sono nello scope generale significa che ho un assegnamento di una variabile globale
-        return $variable_name;
-      } else {
-        // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
-        $global_variable_key_in_scope = $container.'\\'.$variable_name;
-        if ($this->_redis->sismember('global_variables_in_scope', $global_variable_key_in_scope)) {
-          // assegnamento di una variabile globale
-        } else {
-          // assegnamento di una variabile locale
-        }
-      }
-    }
-    return false;
   }
 
   private function getGlobalsVariableName($variable)
@@ -298,6 +288,18 @@ class Model
     if (is_string($variable))
       return $variable;
     return 'NO_NAME_FOUND';
+  }
+
+
+  private function insertGlobalVariableInScope($node_object)
+  {
+    foreach ($node_object->vars as $key => $variable) {
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      // non modifico la prima lettera della chiave della variabile globale visto che il dato che
+      // memorizzo mi serve solo temporaneamente per il controllo in insertGlobalVariable
+      $global_variable_key = $container.'\\'.$variable->name;
+      $this->_redis->sadd('global_variables_in_scope', $global_variable_key);
+    }
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per
