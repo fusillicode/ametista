@@ -33,7 +33,7 @@ class Model
 
     // strutture temporanee
     $this->_redis->lpush('scope', 'N:\\');
-    $this->_redis->sadd('global_variables_in_scope', '');
+    $this->_redis->sadd('scoped_global_variables', '');
   }
 
   public function setVisitors(array $visitors)
@@ -154,7 +154,7 @@ class Model
         $this->insertAssignment($node_object);
         break;
       case 'PHPParser_Node_Stmt_Global':
-        $this->insertGlobalVariableInScope($node_object);
+        $this->insertScopedGlobalVariable($node_object);
         break;
     }
   }
@@ -212,6 +212,7 @@ class Model
     $this->insertParameters($node_object);
     $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
     $method_key = "M:{$class}\\{$node_object->name}";
+    $this->_redis->sadd('methods', $method_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     $this->populateIteratively($node_object->stmts, $method_key);
   }
@@ -220,9 +221,9 @@ class Model
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
-      // devo estendere insertAssignment o fare un insertParameter?
-      // $this->insertParameter($parameter);
+      var_dump($parameter);
     }
+    die();
   }
 
   // insertAssignement deve discriminare le variabili locali a funzioni e metodi,
@@ -244,7 +245,7 @@ class Model
       } else {
         // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
         $global_variable_key_in_scope = $container.'\\'.$variable_name;
-        if ($this->_redis->sismember('global_variables_in_scope', $global_variable_key_in_scope)) {
+        if ($this->_redis->sismember('scoped_global_variables', $global_variable_key_in_scope)) {
           // assegnamento di una variabile globale
           // il nome della variabile è $variable_name;
         } else {
@@ -291,14 +292,14 @@ class Model
   }
 
 
-  private function insertGlobalVariableInScope($node_object)
+  private function insertScopedGlobalVariable($node_object)
   {
     foreach ($node_object->vars as $key => $variable) {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       // non modifico la prima lettera della chiave della variabile globale visto che il dato che
       // memorizzo mi serve solo temporaneamente per il controllo in insertGlobalVariable
       $global_variable_key = $container.'\\'.$variable->name;
-      $this->_redis->sadd('global_variables_in_scope', $global_variable_key);
+      $this->_redis->sadd('scoped_global_variables', $global_variable_key);
     }
   }
 
