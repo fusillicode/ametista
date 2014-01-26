@@ -28,10 +28,11 @@ class Model
     $this->clear();
     $this->_redis->sadd('namespaces', 'N:\\');
     $this->_redis->lpush('scope', 'N:\\');
+    $this->_redis->lpush('global_variables_in_scope', '');
     $this->_redis->sadd('classes', 'C:\\stdClass');
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
-    $this->_redis->sadd('globals', '');
-    $this->_redis->sadd('variables', '');
+    $this->_redis->sadd('global_variables', '');
+    $this->_redis->sadd('local_variables', '');
   }
 
   public function addVisitor($visitor)
