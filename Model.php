@@ -229,7 +229,7 @@ class Model
   // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    $this->getGlobalVariable($node_object);
+    $this->insertGlobalVariable($node_object);
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -244,12 +244,14 @@ class Model
   {
     foreach ($node_object->vars as $key => $variable) {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
+      // non modifico la prima lettera della chiave della variabile globale visto che il dato che
+      // memorizzo mi serve solo temporaneamente per il controllo in insertGlobalVariable
       $global_variable_key = $container.'\\'.$variable->name;
       $this->_redis->sadd('global_variables_in_scope', $global_variable_key);
     }
   }
 
-  private function getGlobalVariable($node_object)
+  private function insertGlobalVariable($node_object)
   {
     if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
       return $node_object->var->dim->value;
