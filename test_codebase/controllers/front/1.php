@@ -14,7 +14,7 @@ function prova(bool $ella, int $peppa)
   $GLOBALS['a'] = 1;
   $GLOBALS['a']['b'] = 2;
   $GLOBALS['a'] = 1;
-	$v1 = '';
+	$a = '';
 	$$vv1 = 'pippo';
 	$a1[1] = 'pippa';
   $a1[1] = 'aladin';

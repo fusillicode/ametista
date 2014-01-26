@@ -260,11 +260,17 @@ class Model
     } else {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       if ($container === 'N:\\') {
+        // caso in cui sono nello scope generale
         return $this->getVariableName($node_object);
       } else {
-        // caso in cui non sono nello scope generale e quindi devo andare a verificare se
-        // nello scope corrente (i.e. non generale) siano state definite delle variabili
-        // globali
+        // caso in cui NON sono nello scope generale
+        // in questo caso vado a verificare che la variabile non sia una di quelle definite come globali
+        $global_variable_key_in_scope = $container.'\\'.$node_object->var->name;
+        if ($this->_redis->sismember('global_variables_in_scope', $global_variable_key_in_scope)) {
+          // globali
+        } else {
+          // variabile locale
+        }
       }
     }
     return false;
