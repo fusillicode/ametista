@@ -40,10 +40,11 @@ class Model
   {
     foreach ($visitors as $key => $visitor) {
       $interfaces = class_implements($visitor);
-      if (isset($interfaces['PHPParser_NodeVisitor']))
+      if (isset($interfaces['PHPParser_NodeVisitor'])) {
         $this->traverser->addVisitor($visitor);
-      else
+      } else {
         echo "You're trying to add a visitor that doesn't have the proper interface\n";
+      }
     }
   }
 
@@ -118,10 +119,11 @@ class Model
         if ($content === '.' || $content === '..') continue;
         $current_element = "{$current_directory}/{$content}";
         $extension = pathinfo($current_element, PATHINFO_EXTENSION);
-        if (is_file($current_element) && is_readable($current_element) && $extension === 'php')
+        if (is_file($current_element) && is_readable($current_element) && $extension === 'php') {
           $files[] = $current_element;
-        elseif (is_dir($current_element) && $recursive)
+        } elseif (is_dir($current_element) && $recursive) {
           $stack[] = $current_element;
+        }
       }
     }
     return $files;
@@ -227,7 +229,7 @@ class Model
   // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    var_dump($this->getGlobalVariable($node_object));
+    $this->getGlobalVariable($node_object);
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -249,12 +251,16 @@ class Model
   {
     if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
       return $node_object->var->dim->value;
-    } elseif($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
+    } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
       return $this->getGlobalsVariableName($node_object->var);
     } else {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       if ($container === 'N:\\') {
         return $this->getVariableName($node_object);
+      } else {
+        // caso in cui non sono nello scope generale e quindi devo andare a verificare se
+        // nello scope corrente (i.e. non generale) siano state definite delle variabili
+        // globali
       }
     }
     return false;
@@ -262,10 +268,11 @@ class Model
 
   private function getGlobalsVariableName($variable)
   {
-    if ($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch)
+    if ($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch) {
       return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
-    else
+    } else {
       return $variable->dim->value;
+    }
   }
 
   private function getVariableName($variable)
