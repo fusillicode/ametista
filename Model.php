@@ -36,7 +36,7 @@ class Model
     $this->_redis->sadd('local_variables', '');
   }
 
-  public function setVisitors($visitors)
+  public function setVisitors(array $visitors)
   {
     foreach ($visitors as $key => $visitor) {
       $interfaces = class_implements($visitor);
