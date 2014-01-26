@@ -78,7 +78,18 @@ array(
             )
         )
         stmts: array(
-            0: Stmt_Global(
+            0: Expr_Assign(
+                var: Expr_PropertyFetch(
+                    var: Expr_Variable(
+                        name: this
+                    )
+                    name: ca
+                )
+                expr: Scalar_String(
+                    value: a
+                )
+            )
+            1: Stmt_Global(
                 vars: array(
                     0: Expr_Variable(
                         name: a
@@ -91,7 +102,7 @@ array(
                     )
                 )
             )
-            1: Expr_Assign(
+            2: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: GLOBALS
@@ -104,7 +115,7 @@ array(
                     value: 1
                 )
             )
-            2: Expr_Assign(
+            3: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_Variable(
@@ -122,7 +133,7 @@ array(
                     value: 2
                 )
             )
-            3: Expr_Assign(
+            4: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: GLOBALS
@@ -135,7 +146,7 @@ array(
                     value: 1
                 )
             )
-            4: Expr_Assign(
+            5: Expr_Assign(
                 var: Expr_Variable(
                     name: a
                     var: null
@@ -144,7 +155,7 @@ array(
                     value: 
                 )
             )
-            5: Expr_Assign(
+            6: Expr_Assign(
                 var: Expr_Variable(
                     name: Expr_Variable(
                         name: vv1
@@ -155,7 +166,7 @@ array(
                     value: pippo
                 )
             )
-            6: Expr_Assign(
+            7: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: a1
@@ -168,7 +179,7 @@ array(
                     value: pippa
                 )
             )
-            7: Expr_Assign(
+            8: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: a1

@@ -10,6 +10,7 @@ $a[1][2] = 'pippa';
 
 function prova(bool $ella = 1, int $peppa)
 {
+  $this->ca = 'a';
   global $a, $b, $c;
   $GLOBALS['a'] = 1;
   $GLOBALS['a']['b'] = 2;

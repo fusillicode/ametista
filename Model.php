@@ -231,7 +231,10 @@ class Model
   // globali e le proprietà delle classi
   private function insertAssignment($node_object)
   {
-    if ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
+    if ($node_object->var instanceof PHPParser_Node_Expr_PropertyFetch && $node_object->var->var->name === 'this') {
+      // assegnamento di una proprietà (i.e. attributo di classe)
+      var_dump($node_object->var->getLine());
+    } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
       // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
       // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
       var_dump($node_object->var->getLine());
@@ -260,7 +263,7 @@ class Model
         }
       }
     }
-    // ci sono altri casi?
+
 
 
     // $variable = $this->getVariableName($node_object->var);
