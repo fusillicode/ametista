@@ -50,7 +50,7 @@ class Model
 
   public function setLexer(PHPParser_Lexer $lexer = null)
   {
-    return $this->lexer = $lexer ? $lexer : new PHPParser_Lexer;
+    return $this->lexer = $lexer ? $lexer : new PHPParser_Lexer_Emulative;
   }
 
   public function setTraverser(PHPParser_NodeTraverser $traverser = null)
