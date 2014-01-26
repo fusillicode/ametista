@@ -4,12 +4,13 @@ include_once __DIR__ . '/vendor/autoload.php';
 
 class Model
 {
-  public function __construct($address = '', $parser = null, $lexer = null, $visitors = null)
+  public function __construct($address = '', $parser = null, $lexer = null, $traverser = null, $visitors = array())
   {
     $this->connectTo($address);
     $this->initialize();
     $this->setParser($parser, $lexer);
-    $this->addVisitor(new PHPParser_NodeVisitor_NameResolver());
+    $this->setTraverser($traverser);
+    $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
   }
 
   public function connectTo($address = '')
@@ -35,12 +36,15 @@ class Model
     $this->_redis->sadd('local_variables', '');
   }
 
-  public function addVisitor($visitor)
+  public function setVisitors($visitors)
   {
-    if ($visitor instanceof PHPParser_NodeVisitor)
-      $this->setTraverser()->addVisitor($visitor);
-    else
-      echo "You're trying to add a visitor that doesn't have the proper interface\n";
+    foreach ($visitors as $key => $visitor) {
+      $interfaces = class_implements($visitor);
+      if (isset($interfaces['PHPParser_NodeVisitor']))
+        $this->traverser->addVisitor($visitor);
+      else
+        echo "You're trying to add a visitor that doesn't have the proper interface\n";
+    }
   }
 
   public function setParser(PHPParser_Parser $parser = null, PHPParser_Lexer $lexer = null)
