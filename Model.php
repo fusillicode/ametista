@@ -312,11 +312,10 @@ class Model
     }
   }
 
-  // le proprietà delle classi potrebbero essere trattate nello stesso modo degli assegnamenti...
+  // le proprietà delle classi potrebbero essere trattate (i.e. rappresentate) nello stesso modo degli assegnamenti...
   private function insertClassProperty($node_object)
   {
-    var_dump($node_object);
-    die();
+    var_dump($node_object->getLine());
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per

@@ -214,9 +214,9 @@ array(
                 type: 9
                 props: array(
                     0: Stmt_PropertyProperty(
-                        name: b
+                        name: a
                         default: Scalar_String(
-                            value: a
+                            value: 12
                         )
                     )
                 )
