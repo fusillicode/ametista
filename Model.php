@@ -306,7 +306,7 @@ class Model
     foreach ($node_object->vars as $key => $variable) {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       // non modifico la prima lettera della chiave della variabile globale visto che il dato che
-      // memorizzo mi serve solo temporaneamente per il controllo in insertGlobalVariable
+      // memorizzo mi serve solo temporaneamente per il controllo in insertAssignement
       $global_variable_key = $container.'\\'.$variable->name;
       $this->_redis->sadd('scoped_global_variables', $global_variable_key);
     }
