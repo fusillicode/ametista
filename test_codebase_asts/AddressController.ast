@@ -2990,7 +2990,6 @@ array(
                                 name: errors
                             )
                             dim: null
-                            name: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

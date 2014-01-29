@@ -18,6 +18,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: currency
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(

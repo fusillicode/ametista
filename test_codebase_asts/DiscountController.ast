@@ -80,6 +80,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: cart_rules
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -145,6 +146,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: nb_cart_rules
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(

@@ -106,6 +106,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: origin_newsletter
+                            var: null
                         )
                         expr: Expr_Cast_Bool(
                             expr: Expr_PropertyFetch(

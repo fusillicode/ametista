@@ -3637,6 +3637,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: id_customer
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_Isset(
@@ -3674,6 +3675,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: id_group
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_PropertyFetch(
@@ -3694,6 +3696,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: id_country
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_Cast_Int(
@@ -3738,6 +3741,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: group_reduction
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -3823,6 +3827,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: tax
+                            var: null
                         )
                         expr: Expr_Cast_Double(
                             expr: Expr_MethodCall(
@@ -3911,6 +3916,7 @@ array(
                     7: Expr_Assign(
                         var: Expr_Variable(
                             name: product_price_with_tax
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4015,6 +4021,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: product_price_without_eco_tax
+                            var: null
                         )
                         expr: Expr_Minus(
                             left: Expr_Cast_Double(
@@ -4036,6 +4043,7 @@ array(
                     10: Expr_Assign(
                         var: Expr_Variable(
                             name: ecotax_rate
+                            var: null
                         )
                         expr: Expr_Cast_Double(
                             expr: Expr_StaticCall(
@@ -4083,6 +4091,7 @@ array(
                     11: Expr_Assign(
                         var: Expr_Variable(
                             name: ecotax_tax_amount
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4202,6 +4211,7 @@ array(
                     13: Expr_Assign(
                         var: Expr_Variable(
                             name: id_currency
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_PropertyFetch(
@@ -4221,6 +4231,7 @@ array(
                     14: Expr_Assign(
                         var: Expr_Variable(
                             name: id_product
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_PropertyFetch(
@@ -4237,6 +4248,7 @@ array(
                     15: Expr_Assign(
                         var: Expr_Variable(
                             name: id_shop
+                            var: null
                         )
                         expr: Expr_PropertyFetch(
                             var: Expr_PropertyFetch(
@@ -4254,6 +4266,7 @@ array(
                     16: Expr_Assign(
                         var: Expr_Variable(
                             name: quantity_discounts
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4491,6 +4504,7 @@ array(
                     18: Expr_Assign(
                         var: Expr_Variable(
                             name: product_price
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -4537,6 +4551,7 @@ array(
                     19: Expr_Assign(
                         var: Expr_Variable(
                             name: address
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -4858,6 +4873,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: images
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -4891,6 +4907,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: product_images
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -5309,6 +5326,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: size
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -5633,6 +5651,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: colors
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -5642,6 +5661,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: groups
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -5651,6 +5671,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: attributes_groups
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -7781,6 +7802,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: attributes_combinations
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -8635,6 +8657,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: reg
+                            var: null
                         )
                         expr: Scalar_String(
                             value: /\[img\-([0-9]+)\-(left|right)\-([a-zA-Z0-9-_]+)\]/
@@ -8882,6 +8905,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: authorized_file_fields
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -8960,6 +8984,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: indexes
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -9667,6 +9692,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: authorized_text_fields
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -9745,6 +9771,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: indexes
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -10011,6 +10038,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: customization_form_target
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

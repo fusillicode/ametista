@@ -1253,6 +1253,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: mimeType
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(
@@ -3019,6 +3020,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: fp
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -3109,6 +3111,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: translations
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(

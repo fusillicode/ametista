@@ -286,6 +286,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: pdf
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(

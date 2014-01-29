@@ -116,6 +116,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: is_guest
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(
@@ -280,6 +281,7 @@ array(
                     7: Expr_Assign(
                         var: Expr_Variable(
                             name: order
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -561,6 +563,7 @@ array(
                     12: Expr_Assign(
                         var: Expr_Variable(
                             name: module
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

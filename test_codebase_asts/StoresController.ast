@@ -134,6 +134,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: ignore_field
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -157,6 +158,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: out_datas
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -166,6 +168,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: address_datas
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -212,6 +215,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: state
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_Isset(
@@ -528,6 +532,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: out
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -568,6 +573,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: stores
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_StaticCall(
@@ -940,6 +946,7 @@ array(
                     8: Expr_Assign(
                         var: Expr_Variable(
                             name: days_datas
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -949,6 +956,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: hours
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -1214,6 +1222,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: distanceUnit
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1798,6 +1807,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: distanceUnit
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1938,6 +1948,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: stores
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_Variable(
@@ -1951,6 +1962,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: dom
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -1971,6 +1983,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: node
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_Variable(
@@ -1990,6 +2003,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: parnode
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_Variable(
@@ -2873,6 +2887,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: default_country
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(

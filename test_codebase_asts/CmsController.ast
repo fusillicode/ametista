@@ -765,6 +765,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: parent_cat
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(

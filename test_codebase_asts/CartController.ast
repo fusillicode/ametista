@@ -1041,6 +1041,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: removed
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1150,6 +1151,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: old_id_address_delivery
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -1173,6 +1175,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: new_id_address_delivery
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -1622,6 +1625,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: mode
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_BooleanAnd(
@@ -1743,6 +1747,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: product
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -1856,6 +1861,7 @@ array(
                     4: Expr_Assign(
                         var: Expr_Variable(
                             name: qty_to_check
+                            var: null
                         )
                         expr: Expr_PropertyFetch(
                             var: Expr_Variable(
@@ -1867,6 +1873,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: cart_products
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -3138,6 +3145,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: removed
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

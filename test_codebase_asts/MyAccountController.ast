@@ -122,6 +122,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: has_address
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(

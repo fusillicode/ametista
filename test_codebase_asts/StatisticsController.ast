@@ -173,6 +173,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: id_guest
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -238,6 +239,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: guest
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -699,6 +701,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: id_connection
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -722,6 +725,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: time
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -745,6 +749,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: time_start
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -766,6 +771,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: id_page
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(

@@ -185,6 +185,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: id_order
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -492,6 +493,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: order_invoice_list
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -540,6 +542,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: pdf
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -621,6 +624,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: template
+                            var: null
                         )
                         expr: Expr_Concat(
                             left: Expr_ConstFetch(
@@ -638,6 +642,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: iso_template
+                            var: null
                         )
                         expr: Expr_Concat(
                             left: Expr_Concat(

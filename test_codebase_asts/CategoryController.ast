@@ -421,6 +421,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: id_category
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -1289,6 +1290,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: scenes
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1717,6 +1719,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: hookExecuted
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(

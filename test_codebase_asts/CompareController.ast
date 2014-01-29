@@ -495,6 +495,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: hasProduct
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(

@@ -4264,6 +4264,7 @@ array(
                     4: Expr_Assign(
                         var: Expr_Variable(
                             name: selectedCountry
+                            var: null
                         )
                         expr: Expr_Cast_Int(
                             expr: Expr_StaticCall(
@@ -4403,6 +4404,7 @@ array(
                     6: Expr_Assign(
                         var: Expr_Variable(
                             name: free_shipping
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(
@@ -4779,6 +4781,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: years
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4794,6 +4797,7 @@ array(
                     10: Expr_Assign(
                         var: Expr_Variable(
                             name: months
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4809,6 +4813,7 @@ array(
                     11: Expr_Assign(
                         var: Expr_Variable(
                             name: days
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4977,6 +4982,7 @@ array(
                     18: Expr_Assign(
                         var: Expr_Variable(
                             name: blocknewsletter
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -5074,6 +5080,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: customer
+                            var: null
                         )
                         expr: Expr_PropertyFetch(
                             var: Expr_PropertyFetch(
@@ -5088,6 +5095,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: address_delivery
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -5117,6 +5125,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: id_address_invoice
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_NotEqual(
@@ -5167,6 +5176,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: address_invoice
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -6618,6 +6628,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: address_delivery
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -6647,6 +6658,7 @@ array(
                     4: Expr_Assign(
                         var: Expr_Variable(
                             name: address_invoice
+                            var: null
                         )
                         expr: Expr_Ternary(
                             cond: Expr_Equal(
@@ -7220,6 +7232,7 @@ array(
                     11: Expr_Assign(
                         var: Expr_Variable(
                             name: currency
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -7252,6 +7265,7 @@ array(
                     12: Expr_Assign(
                         var: Expr_Variable(
                             name: minimalPurchase
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -7460,6 +7474,7 @@ array(
                     15: Expr_Assign(
                         var: Expr_Variable(
                             name: return
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -7535,6 +7550,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: address_delivery
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -7564,6 +7580,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: cms
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -7612,6 +7629,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: link_conditions
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -7695,6 +7713,7 @@ array(
                     4: Expr_Assign(
                         var: Expr_Variable(
                             name: carriers
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -7714,6 +7733,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: delivery_option
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -7763,6 +7783,7 @@ array(
                     6: Expr_Assign(
                         var: Expr_Variable(
                             name: wrapping_fees
+                            var: null
                         )
                         expr: Expr_MethodCall(
                             var: Expr_PropertyFetch(
@@ -7792,6 +7813,7 @@ array(
                     7: Expr_Assign(
                         var: Expr_Variable(
                             name: wrapping_fees_tax_inc
+                            var: null
                         )
                         expr: Expr_Assign(
                             var: Expr_Variable(
@@ -7816,6 +7838,7 @@ array(
                     8: Expr_Assign(
                         var: Expr_Variable(
                             name: oldMessage
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -7848,6 +7871,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: free_shipping
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(
@@ -7962,6 +7986,7 @@ array(
                     12: Expr_Assign(
                         var: Expr_Variable(
                             name: vars
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -8853,6 +8878,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: address_delivery
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -8884,6 +8910,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: address_invoice
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -8915,6 +8942,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: inv_adr_fields
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -8961,6 +8989,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: dlv_adr_fields
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -9007,6 +9036,7 @@ array(
                     4: Expr_Assign(
                         var: Expr_Variable(
                             name: requireFormFieldsList
+                            var: null
                         )
                         expr: Expr_StaticPropertyFetch(
                             class: Name_FullyQualified(
@@ -9150,6 +9180,7 @@ array(
                     7: Expr_Assign(
                         var: Expr_Variable(
                             name: inv_all_fields
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -9159,6 +9190,7 @@ array(
                     8: Expr_Assign(
                         var: Expr_Variable(
                             name: dlv_all_fields
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -9427,6 +9459,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: result
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(

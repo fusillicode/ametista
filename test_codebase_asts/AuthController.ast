@@ -429,6 +429,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: back
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -450,6 +451,7 @@ array(
                     6: Expr_Assign(
                         var: Expr_Variable(
                             name: key
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1512,6 +1514,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: years
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1583,6 +1586,7 @@ array(
                     3: Expr_Assign(
                         var: Expr_Variable(
                             name: months
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -1654,6 +1658,7 @@ array(
                     5: Expr_Assign(
                         var: Expr_Variable(
                             name: days
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -2169,6 +2174,7 @@ array(
                     0: Expr_Assign(
                         var: Expr_Variable(
                             name: addressItems
+                            var: null
                         )
                         expr: Expr_Array(
                             items: array(
@@ -2178,6 +2184,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: addressFormat
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -2232,6 +2239,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: requireFormFieldsList
+                            var: null
                         )
                         expr: Expr_StaticPropertyFetch(
                             class: Name_FullyQualified(
@@ -2596,6 +2604,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: passwd
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -2629,6 +2638,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: email
+                            var: null
                         )
                         expr: Expr_FuncCall(
                             name: Name(
@@ -4412,6 +4422,7 @@ array(
                     7: Expr_Assign(
                         var: Expr_Variable(
                             name: customer
+                            var: null
                         )
                         expr: Expr_New(
                             class: Name_FullyQualified(
@@ -4426,6 +4437,7 @@ array(
                     8: Expr_Assign(
                         var: Expr_Variable(
                             name: lastnameAddress
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4447,6 +4459,7 @@ array(
                     9: Expr_Assign(
                         var: Expr_Variable(
                             name: firstnameAddress
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
@@ -4520,6 +4533,7 @@ array(
                     12: Expr_Assign(
                         var: Expr_Variable(
                             name: error_phone
+                            var: null
                         )
                         expr: Expr_ConstFetch(
                             name: Name(

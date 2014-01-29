@@ -740,6 +740,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: ordersReturn
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

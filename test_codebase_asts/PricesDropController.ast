@@ -135,6 +135,7 @@ array(
                     2: Expr_Assign(
                         var: Expr_Variable(
                             name: nbProducts
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(

@@ -175,6 +175,7 @@ array(
                     1: Expr_Assign(
                         var: Expr_Variable(
                             name: query
+                            var: null
                         )
                         expr: Expr_StaticCall(
                             class: Name_FullyQualified(
