@@ -23,7 +23,7 @@ function prova(bool $ella = 1, int $peppa)
 
 class mondo extends pippo {
 
-  public static $b = 'a';
+  public static $a = '12';
 
   private function ciao(int $a){
     $GLOBALS['a']['b'] = 2;

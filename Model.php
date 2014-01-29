@@ -153,6 +153,9 @@ class Model
       case 'PHPParser_Node_Expr_Assign':
         $this->insertAssignment($node_object);
         break;
+      case 'PHPParser_Node_Stmt_Property':
+        $this->insertClassProperty($node_object);
+        break;
       case 'PHPParser_Node_Stmt_Global':
         $this->insertScopedGlobalVariable($node_object);
         break;
@@ -263,9 +266,6 @@ class Model
         }
       }
     }
-
-
-
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -310,6 +310,13 @@ class Model
       $global_variable_key = $container.'\\'.$variable->name;
       $this->_redis->sadd('scoped_global_variables', $global_variable_key);
     }
+  }
+
+  // le proprietà delle classi potrebbero essere trattate nello stesso modo degli assegnamenti...
+  private function insertClassProperty($node_object)
+  {
+    var_dump($node_object);
+    die();
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per
