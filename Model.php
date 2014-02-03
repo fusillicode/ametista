@@ -4,9 +4,12 @@ include_once __DIR__ . '/vendor/autoload.php';
 
 class Model
 {
-  public function __construct($address = '', $parser = null, $lexer = null, $traverser = null, $visitors = array())
+  public function __construct($server_path = 'vendor/redis-2.6.16/src/',
+                              $server_executable = 'redis-server',
+                              $address = '', $parser = null, $lexer = null,
+                              $traverser = null, $visitors = array())
   {
-    $this->startRedisServer();
+    $this->startRedisServer($server_path, $server_executable);
     $this->connectTo($address);
     $this->initialize();
     $this->setParser($parser, $lexer);
@@ -14,9 +17,15 @@ class Model
     $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
   }
 
-  private function startRedisServer($server_path = 'vendor/redis-2.6.16/src/redis-server')
+  private function startRedisServer($server_path, $server_executable)
   {
-    shell_exec("nohup {$server_path} > /dev/null & echo $!");
+    exec("pgrep {$server_executable}", $output, $return);
+    if ($return == 0) {
+      echo "{$server_path}{$server_executable} is already running\n";
+    } else {
+      shell_exec("nohup {$server_path}{$server_executable} > /dev/null & echo $!");
+      echo "{$server_path}{$server_executable} started\n";
+    }
   }
 
   public function connectTo($address = '')
