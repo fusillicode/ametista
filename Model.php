@@ -6,11 +6,17 @@ class Model
 {
   public function __construct($address = '', $parser = null, $lexer = null, $traverser = null, $visitors = array())
   {
+    $this->startRedisServer();
     $this->connectTo($address);
     $this->initialize();
     $this->setParser($parser, $lexer);
     $this->setTraverser($traverser);
     $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
+  }
+
+  private function startRedisServer($server_path = 'vendor/redis-2.6.16/src/redis-server')
+  {
+    shell_exec("nohup {$server_path} > /dev/null & echo $!");
   }
 
   public function connectTo($address = '')
