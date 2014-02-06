@@ -152,30 +152,22 @@ class Model
 
   private function insertNode(PHPParser_Node $node_object)
   {
-    $this->insertNamespaceRawContent($node_object);
-    die();
-    switch (get_class($node_object)) {
-      case 'PHPParser_Node_Stmt_Namespace':
-        $this->insertNamespace($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_Class':
-        $this->insertClass($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_Function':
-        $this->insertFunction($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_ClassMethod':
-        $this->insertClassMethod($node_object);
-        break;
-      case 'PHPParser_Node_Expr_Assign':
-        $this->insertAssignment($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_Property':
-        $this->insertClassProperty($node_object);
-        break;
-      case 'PHPParser_Node_Stmt_Global':
-        $this->insertScopedGlobalVariable($node_object);
-        break;
+    // $this->insertNamespaceRawContent($node_object);
+    $node_type = $node_object->getType();
+    if ($node_type === 'Stmt_Namespace') {
+      $this->insertNamespace($node_object);
+    } elseif ($node_type === 'Stmt_Class') {
+      $this->insertClass($node_object);
+    } elseif ($node_type === 'Stmt_Function') {
+      $this->insertFunction($node_object);
+    } elseif ($node_type === 'Stmt_ClassMethod') {
+      $this->insertClassMethod($node_object);
+    } elseif ($node_type === 'Expr_Assign') {
+      $this->insertAssignment($node_object);
+    } elseif ($node_type === 'Stmt_Property') {
+      $this->insertClassProperty($node_object);
+    } elseif ($node_type === 'Stmt_Global') {
+      $this->insertScopedGlobalVariable($node_object);
     }
   }
 
