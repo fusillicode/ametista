@@ -171,16 +171,22 @@ class Model
     }
   }
 
-  private function insertNamespaceRawContent(PHPParser_Node_Stmt_Namespace $node_object, $namespace_key = null)
+  private function insertNamespaceRawContent($node_object, $namespace_key)
   {
-    $namespace_key = $namespace_key ? $namespace_key : 'N:\\';
-    $stmts = $node_object->stmts;
-    foreach ($stmts as $key => $sub_node) {
+    $raw_statements = $node_object->stmts;
+    foreach ($raw_statements as $key => $sub_node) {
       if (in_array($sub_node->getType(), array('Stmt_Function', 'Stmt_Class'))) {
-        unset($stmts[$key]);
+        unset($raw_statements[$key]);
       }
     }
-    $this->insertRawContent($node_object, $namespace_key);
+    $this->insertRawStatements($raw_statements, $namespace_key);
+  }
+
+  private function insertRawStatements(array $raw_statements, $key)
+  {
+    if (!$raw_statements) return;
+    // qui serializzo tutti gli stmts in esso contenuti nel nodo identificato dalla chiave Redis $key
+    $this->_redis->set($key, serialize($raw_statements));
   }
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
@@ -228,7 +234,7 @@ class Model
     $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('functions', $function_key);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
-    $this->insertRawContent($node_object, $function_key);
+    $this->insertRawStatements($node_object->stmts, $function_key);
     $this->populateIteratively($node_object->stmts, $function_key);
   }
 
@@ -239,15 +245,8 @@ class Model
     $method_key = "M:{$class}\\{$node_object->name}";
     $this->_redis->sadd('methods', $method_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
-    $this->insertRawContent($node_object, $method_key);
+    $this->insertRawStatements($node_object->stmts, $method_key);
     $this->populateIteratively($node_object->stmts, $method_key);
-  }
-
-  private function insertRawContent($node_object, $key)
-  {
-    if (!$node_object->stmts) return;
-    // qui serializzo tutto il nodo e non solo gli statements (i.e. $node_object->stmts) in esso contenuti
-    $this->_redis->set($key, serialize($node_object));
   }
 
   private function insertParameters($node_object)
