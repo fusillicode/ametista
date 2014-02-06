@@ -152,6 +152,8 @@ class Model
 
   private function insertNode(PHPParser_Node $node_object)
   {
+    $this->insertNamespaceRawContent($node_object);
+    die();
     switch (get_class($node_object)) {
       case 'PHPParser_Node_Stmt_Namespace':
         $this->insertNamespace($node_object);
@@ -175,6 +177,18 @@ class Model
         $this->insertScopedGlobalVariable($node_object);
         break;
     }
+  }
+
+  private function insertNamespaceRawContent(PHPParser_Node_Stmt_Namespace $node_object, $namespace_key = null)
+  {
+    $namespace_key = $namespace_key ? $namespace_key : 'N:\\';
+    $stmts = $node_object->stmts;
+    foreach ($stmts as $key => $sub_node) {
+      if (in_array($sub_node->getType(), array('Stmt_Function', 'Stmt_Class'))) {
+        unset($stmts[$key]);
+      }
+    }
+    $this->insertRawContent($node_object, $namespace_key);
   }
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)
@@ -234,7 +248,6 @@ class Model
     $this->_redis->sadd('methods', $method_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     $this->insertRawContent($node_object, $method_key);
-    var_dump($node_object->stmts);
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 

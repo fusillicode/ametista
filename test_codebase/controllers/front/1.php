@@ -1,8 +1,8 @@
 <?php
 
-$b = $c = $e;
+namespace ciao\mondo;
 
-// namespace ciao\mondo;
+$b = $c = $e;
 
 $v = '';
 $$vv = 'pippo';
