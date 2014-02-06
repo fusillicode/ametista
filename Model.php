@@ -46,6 +46,8 @@ class Model
     $this->_redis->sadd('classes', 'C:\\stdClass');
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
 
+    // strutture di utilità
+    $this->_redis->sadd('non_namespace_statements', array('Stmt_Namespace'));
     // strutture temporanee
     $this->_redis->lpush('scope', 'N:\\');
     $this->_redis->sadd('scoped_global_variables', '');
@@ -152,9 +154,11 @@ class Model
 
   private function insertNode(PHPParser_Node $node_object)
   {
-    // $this->insertNamespaceRawContent($node_object);
+    $scope = $this->_redis->lrange('scope', 0, 0)[0];
     $node_type = $node_object->getType();
-    if ($node_type === 'Stmt_Namespace') {
+    if ($scope === "N:\\" && !$this->_redis->sismember('non_namespace_statements', $node_type)) {
+      $this->insertNamespaceRawContent($node_object, $scope);
+    } elseif ($node_type === 'Stmt_Namespace') {
       $this->insertNamespace($node_object);
     } elseif ($node_type === 'Stmt_Class') {
       $this->insertClass($node_object);
@@ -174,11 +178,13 @@ class Model
   private function insertNamespaceRawContent($node_object, $namespace_key)
   {
     $raw_statements = $node_object->stmts;
+    var_dump(count($raw_statements));
     foreach ($raw_statements as $key => $sub_node) {
       if (in_array($sub_node->getType(), array('Stmt_Function', 'Stmt_Class'))) {
         unset($raw_statements[$key]);
       }
     }
+    var_dump(count($raw_statements));
     $this->insertRawStatements($raw_statements, $namespace_key);
   }
 
@@ -255,7 +261,7 @@ class Model
     foreach ($parameters as $key => $parameter) {
       // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
       // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
-      var_dump($parameter->getLine());
+      //var_dump($parameter->getLine())
     }
   }
 
@@ -265,33 +271,33 @@ class Model
   {
     if ($node_object->var instanceof PHPParser_Node_Expr_PropertyFetch && $node_object->var->var->name === 'this') {
       // assegnamento di una proprietà (i.e. attributo di classe)
-      var_dump($node_object->var->getLine());
+      //var_dump($node_object->var->getLine())
     } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
       // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
       // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
-      var_dump($node_object->var->getLine());
+      //var_dump($node_object->var->getLine())
     } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
       // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
       // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
-      var_dump($node_object->var->getLine());
+      //var_dump($node_object->var->getLine())
     } else {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
       $variable_name = $this->getVariableName($node_object);
       if ($container === 'N:\\') {
         // se sono nello scope generale significa che ho un assegnamento di una variabile globale
         // il nome della variabile è $variable_name;
-        var_dump($node_object->var->getLine());
+        //var_dump($node_object->var->getLine())
       } else {
         // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
         $global_variable_key_in_scope = $container.'\\'.$variable_name;
         if ($this->_redis->sismember('scoped_global_variables', $global_variable_key_in_scope)) {
           // assegnamento di una variabile globale
           // il nome della variabile è $variable_name;
-          var_dump($node_object->var->getLine());
+          //var_dump($node_object->var->getLine())
         } else {
           // assegnamento di una variabile locale
           // il nome della variabile è $variable_name;
-          var_dump($node_object->var->getLine());
+          //var_dump($node_object->var->getLine())
         }
       }
     }
@@ -344,7 +350,7 @@ class Model
   // le proprietà delle classi potrebbero essere trattate (i.e. rappresentate) nello stesso modo degli assegnamenti...
   private function insertClassProperty($node_object)
   {
-    var_dump($node_object->getLine());
+    //var_dump($node_object->getLine())
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per

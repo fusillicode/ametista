@@ -1,6 +1,5 @@
 <?php
 
-namespace ciao\mondo;
 
 $b = $c = $e;
 

@@ -1,89 +1,231 @@
 array(
-    0: Stmt_Namespace(
-        name: Name(
-            parts: array(
-                0: ciao
-                1: mondo
+    0: Expr_Assign(
+        var: Expr_Variable(
+            name: b
+        )
+        expr: Expr_Assign(
+            var: Expr_Variable(
+                name: c
+            )
+            expr: Expr_Variable(
+                name: e
+            )
+        )
+    )
+    1: Expr_Assign(
+        var: Expr_Variable(
+            name: v
+        )
+        expr: Scalar_String(
+            value: 
+        )
+    )
+    2: Expr_Assign(
+        var: Expr_Variable(
+            name: Expr_Variable(
+                name: vv
+            )
+        )
+        expr: Scalar_String(
+            value: pippo
+        )
+    )
+    3: Expr_Assign(
+        var: Expr_ArrayDimFetch(
+            var: Expr_ArrayDimFetch(
+                var: Expr_Variable(
+                    name: a
+                )
+                dim: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            dim: Scalar_LNumber(
+                value: 2
+            )
+        )
+        expr: Scalar_String(
+            value: pippa
+        )
+    )
+    4: Stmt_Function(
+        byRef: false
+        params: array(
+            0: Param(
+                name: ella
+                default: Scalar_LNumber(
+                    value: 1
+                )
+                type: Name_FullyQualified(
+                    parts: array(
+                        0: bool
+                    )
+                )
+                byRef: false
+            )
+            1: Param(
+                name: peppa
+                default: null
+                type: Name_FullyQualified(
+                    parts: array(
+                        0: int
+                    )
+                )
+                byRef: false
             )
         )
         stmts: array(
             0: Expr_Assign(
-                var: Expr_Variable(
-                    name: b
-                    var: null
-                )
-                expr: Expr_Assign(
+                var: Expr_PropertyFetch(
                     var: Expr_Variable(
-                        name: c
+                        name: this
                     )
-                    expr: Expr_Variable(
-                        name: e
-                    )
-                )
-            )
-            1: Expr_Assign(
-                var: Expr_Variable(
-                    name: v
-                    var: null
+                    name: ca
                 )
                 expr: Scalar_String(
-                    value: 
+                    value: a
+                )
+            )
+            1: Stmt_Global(
+                vars: array(
+                    0: Expr_Variable(
+                        name: a
+                    )
+                    1: Expr_Variable(
+                        name: b
+                    )
+                    2: Expr_Variable(
+                        name: c
+                    )
                 )
             )
             2: Expr_Assign(
-                var: Expr_Variable(
-                    name: Expr_Variable(
-                        name: vv
+                var: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: GLOBALS
                     )
-                    var: null
+                    dim: Scalar_String(
+                        value: a
+                    )
                 )
-                expr: Scalar_String(
-                    value: pippo
+                expr: Scalar_LNumber(
+                    value: 1
                 )
             )
             3: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_Variable(
-                            name: a
+                            name: GLOBALS
                         )
-                        dim: Scalar_LNumber(
-                            value: 1
+                        dim: Scalar_String(
+                            value: a
                         )
                     )
+                    dim: Scalar_String(
+                        value: b
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 2
+                )
+            )
+            4: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: GLOBALS
+                    )
+                    dim: Scalar_String(
+                        value: a
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            5: Expr_Assign(
+                var: Expr_Variable(
+                    name: a
+                )
+                expr: Scalar_String(
+                    value: 
+                )
+            )
+            6: Expr_Assign(
+                var: Expr_Variable(
+                    name: Expr_Variable(
+                        name: vv1
+                    )
+                )
+                expr: Scalar_String(
+                    value: pippo
+                )
+            )
+            7: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: a1
+                    )
                     dim: Scalar_LNumber(
-                        value: 2
+                        value: 1
                     )
                 )
                 expr: Scalar_String(
                     value: pippa
                 )
             )
-            4: Stmt_Function(
+            8: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_Variable(
+                        name: a1
+                    )
+                    dim: Scalar_LNumber(
+                        value: 1
+                    )
+                )
+                expr: Scalar_String(
+                    value: aladin
+                )
+            )
+        )
+        name: prova
+        namespacedName: Name(
+            parts: array(
+                0: prova
+            )
+        )
+    )
+    5: Stmt_Class(
+        type: 0
+        extends: Name_FullyQualified(
+            parts: array(
+                0: pippo
+            )
+        )
+        implements: array(
+        )
+        stmts: array(
+            0: Stmt_Property(
+                type: 9
+                props: array(
+                    0: Stmt_PropertyProperty(
+                        name: a
+                        default: Scalar_String(
+                            value: 12
+                        )
+                    )
+                )
+            )
+            1: Stmt_ClassMethod(
+                type: 4
                 byRef: false
                 params: array(
                     0: Param(
-                        name: ella
-                        default: Scalar_LNumber(
-                            value: 1
-                        )
-                        type: Name_FullyQualified(
-                            parts: array(
-                                0: ciao
-                                1: mondo
-                                2: bool
-                            )
-                        )
-                        byRef: false
-                    )
-                    1: Param(
-                        name: peppa
+                        name: a
                         default: null
                         type: Name_FullyQualified(
                             parts: array(
-                                0: ciao
-                                1: mondo
-                                2: int
+                                0: int
                             )
                         )
                         byRef: false
@@ -91,43 +233,6 @@ array(
                 )
                 stmts: array(
                     0: Expr_Assign(
-                        var: Expr_PropertyFetch(
-                            var: Expr_Variable(
-                                name: this
-                            )
-                            name: ca
-                        )
-                        expr: Scalar_String(
-                            value: a
-                        )
-                    )
-                    1: Stmt_Global(
-                        vars: array(
-                            0: Expr_Variable(
-                                name: a
-                            )
-                            1: Expr_Variable(
-                                name: b
-                            )
-                            2: Expr_Variable(
-                                name: c
-                            )
-                        )
-                    )
-                    2: Expr_Assign(
-                        var: Expr_ArrayDimFetch(
-                            var: Expr_Variable(
-                                name: GLOBALS
-                            )
-                            dim: Scalar_String(
-                                value: a
-                            )
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    3: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_Variable(
@@ -145,7 +250,65 @@ array(
                             value: 2
                         )
                     )
+                    1: Stmt_Global(
+                        vars: array(
+                            0: Expr_Variable(
+                                name: a
+                            )
+                            1: Expr_Variable(
+                                name: b
+                            )
+                            2: Expr_Variable(
+                                name: c
+                            )
+                        )
+                    )
+                    2: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: a
+                            )
+                            name: b
+                        )
+                        expr: Expr_Variable(
+                            name: a
+                        )
+                    )
+                    3: Expr_Assign(
+                        var: Expr_StaticPropertyFetch(
+                            class: Name(
+                                parts: array(
+                                    0: self
+                                )
+                            )
+                            name: b
+                        )
+                        expr: Scalar_String(
+                            value: ciao
+                        )
+                    )
                     4: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_ArrayDimFetch(
+                                var: Expr_Variable(
+                                    name: GLOBALS
+                                )
+                                dim: Scalar_String(
+                                    value: a
+                                )
+                            )
+                            dim: Scalar_String(
+                                value: b
+                            )
+                        )
+                        expr: Scalar_LNumber(
+                            value: 2
+                        )
+                    )
+                    5: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_Variable(
                                 name: GLOBALS
@@ -158,263 +321,69 @@ array(
                             value: 1
                         )
                     )
-                    5: Expr_Assign(
-                        var: Expr_Variable(
-                            name: a
-                            var: null
-                        )
-                        expr: Scalar_String(
-                            value: 
-                        )
-                    )
-                    6: Expr_Assign(
-                        var: Expr_Variable(
-                            name: Expr_Variable(
-                                name: vv1
-                            )
-                            var: null
-                        )
-                        expr: Scalar_String(
-                            value: pippo
-                        )
-                    )
-                    7: Expr_Assign(
-                        var: Expr_ArrayDimFetch(
-                            var: Expr_Variable(
-                                name: a1
-                            )
-                            dim: Scalar_LNumber(
-                                value: 1
-                            )
-                        )
-                        expr: Scalar_String(
-                            value: pippa
-                        )
-                    )
-                    8: Expr_Assign(
-                        var: Expr_ArrayDimFetch(
-                            var: Expr_Variable(
-                                name: a1
-                            )
-                            dim: Scalar_LNumber(
-                                value: 1
-                            )
-                        )
-                        expr: Scalar_String(
-                            value: aladin
-                        )
-                    )
                 )
-                name: prova
-                namespacedName: Name(
-                    parts: array(
-                        0: ciao
-                        1: mondo
-                        2: prova
-                    )
-                )
+                name: ciao
             )
-            5: Stmt_Class(
-                type: 0
-                extends: Name_FullyQualified(
-                    parts: array(
-                        0: ciao
-                        1: mondo
-                        2: pippo
-                    )
-                )
-                implements: array(
-                )
-                stmts: array(
-                    0: Stmt_Property(
-                        type: 9
-                        props: array(
-                            0: Stmt_PropertyProperty(
-                                name: a
-                                default: Scalar_String(
-                                    value: 12
-                                )
-                            )
-                        )
-                    )
-                    1: Stmt_ClassMethod(
-                        type: 4
-                        byRef: false
-                        params: array(
-                            0: Param(
-                                name: a
-                                default: null
-                                type: Name_FullyQualified(
-                                    parts: array(
-                                        0: ciao
-                                        1: mondo
-                                        2: int
-                                    )
-                                )
-                                byRef: false
-                            )
-                        )
-                        stmts: array(
-                            0: Expr_Assign(
-                                var: Expr_ArrayDimFetch(
-                                    var: Expr_ArrayDimFetch(
-                                        var: Expr_Variable(
-                                            name: GLOBALS
-                                        )
-                                        dim: Scalar_String(
-                                            value: a
-                                        )
-                                    )
-                                    dim: Scalar_String(
-                                        value: b
-                                    )
-                                )
-                                expr: Scalar_LNumber(
-                                    value: 2
-                                )
-                            )
-                            1: Stmt_Global(
-                                vars: array(
-                                    0: Expr_Variable(
-                                        name: a
-                                    )
-                                    1: Expr_Variable(
-                                        name: b
-                                    )
-                                    2: Expr_Variable(
-                                        name: c
-                                    )
-                                )
-                            )
-                            2: Expr_Assign(
-                                var: Expr_PropertyFetch(
-                                    var: Expr_PropertyFetch(
-                                        var: Expr_Variable(
-                                            name: this
-                                        )
-                                        name: a
-                                    )
-                                    name: b
-                                )
-                                expr: Expr_Variable(
-                                    name: a
-                                )
-                            )
-                            3: Expr_Assign(
-                                var: Expr_StaticPropertyFetch(
-                                    class: Name(
-                                        parts: array(
-                                            0: self
-                                        )
-                                    )
-                                    name: b
-                                    var: null
-                                )
-                                expr: Scalar_String(
-                                    value: ciao
-                                )
-                            )
-                            4: Expr_Assign(
-                                var: Expr_ArrayDimFetch(
-                                    var: Expr_ArrayDimFetch(
-                                        var: Expr_Variable(
-                                            name: GLOBALS
-                                        )
-                                        dim: Scalar_String(
-                                            value: a
-                                        )
-                                    )
-                                    dim: Scalar_String(
-                                        value: b
-                                    )
-                                )
-                                expr: Scalar_LNumber(
-                                    value: 2
-                                )
-                            )
-                            5: Expr_Assign(
-                                var: Expr_ArrayDimFetch(
-                                    var: Expr_Variable(
-                                        name: GLOBALS
-                                    )
-                                    dim: Scalar_String(
-                                        value: a
-                                    )
-                                )
-                                expr: Scalar_LNumber(
-                                    value: 1
-                                )
-                            )
-                        )
-                        name: ciao
-                    )
-                    2: Stmt_ClassMethod(
-                        type: 4
-                        byRef: false
-                        params: array(
-                        )
-                        stmts: array(
-                        )
-                        name: hola
-                    )
-                    3: Stmt_ClassMethod(
-                        type: 1
-                        byRef: false
-                        params: array(
-                        )
-                        stmts: array(
-                        )
-                        name: hi
-                    )
-                )
-                name: mondo
-                namespacedName: Name(
-                    parts: array(
-                        0: ciao
-                        1: mondo
-                        2: mondo
-                    )
-                )
-            )
-            6: Stmt_Use(
-                uses: array(
-                    0: Stmt_UseUse(
-                        name: Name(
-                            parts: array(
-                                0: asd
-                                1: asda
-                                2: asdasdasd
-                                3: bello
-                            )
-                        )
-                        alias: cizza
-                    )
-                )
-            )
-            7: Stmt_Function(
+            2: Stmt_ClassMethod(
+                type: 4
                 byRef: false
                 params: array(
                 )
                 stmts: array(
                 )
-                name: cizza
-                namespacedName: Name(
+                name: hola
+            )
+            3: Stmt_ClassMethod(
+                type: 1
+                byRef: false
+                params: array(
+                )
+                stmts: array(
+                )
+                name: hi
+            )
+        )
+        name: mondo
+        namespacedName: Name(
+            parts: array(
+                0: mondo
+            )
+        )
+    )
+    6: Stmt_Use(
+        uses: array(
+            0: Stmt_UseUse(
+                name: Name(
                     parts: array(
-                        0: ciao
-                        1: mondo
-                        2: cizza
+                        0: asd
+                        1: asda
+                        2: asdasdasd
+                        3: bello
                     )
                 )
+                alias: cizza
             )
-            8: Expr_Assign(
-                var: Expr_Variable(
-                    name: a
-                    var: null
-                )
-                expr: Scalar_String(
-                    value: aasdasd
-                )
+        )
+    )
+    7: Stmt_Function(
+        byRef: false
+        params: array(
+        )
+        stmts: array(
+        )
+        name: cizza
+        namespacedName: Name(
+            parts: array(
+                0: cizza
             )
+        )
+    )
+    8: Expr_Assign(
+        var: Expr_Variable(
+            name: a
+        )
+        expr: Scalar_String(
+            value: aasdasd
         )
     )
 )
