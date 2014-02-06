@@ -222,6 +222,7 @@ class Model
     $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('functions', $function_key);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
+    $this->insertRawContent($node_object, $function_key);
     $this->populateIteratively($node_object->stmts, $function_key);
   }
 
@@ -232,7 +233,16 @@ class Model
     $method_key = "M:{$class}\\{$node_object->name}";
     $this->_redis->sadd('methods', $method_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
+    $this->insertRawContent($node_object, $method_key);
+    var_dump($node_object->stmts);
     $this->populateIteratively($node_object->stmts, $method_key);
+  }
+
+  private function insertRawContent($node_object, $key)
+  {
+    if (!$node_object->stmts) return;
+    // qui serializzo tutto il nodo e non solo gli statements (i.e. $node_object->stmts) in esso contenuti
+    $this->_redis->set($key, serialize($node_object));
   }
 
   private function insertParameters($node_object)
