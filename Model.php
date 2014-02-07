@@ -245,12 +245,17 @@ class Model
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
+  // attenzione in insertParameters inserisco anche i parametri raw!!! facendolo qui
+  // evito di dover mergiare l'array dei parametri con quello degli statements ma
+  // rendo la chiamata di insertParameters necessaria prima di insertRawStatements!!!
   private function insertParameters($node_object, $container_type, $container_key)
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
       $parameter_key = 'L:'.$container_key.'\\'.$parameter->name;
+      $this->_redis->lpush($parameter_key, null);
       $this->insertContainmentRelationship($parameter_key, 'L', $container_type, $container_key);
+      $this->_redis->rpush($container_type.':'.$container_key, serialize($parameter));
       // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
       // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
       //var_dump($parameter->getLine())
