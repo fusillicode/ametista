@@ -224,9 +224,10 @@ class Model
 
   private function insertFunction(PHPParser_Node_Stmt_Function $node_object)
   {
-    $this->insertParameters($node_object);
-    $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
+    $namespaced_name = '\\'.implode('\\', $node_object->namespacedName->parts);
+    $function_key = 'F:'.$namespaced_name;
     $this->_redis->sadd('functions', $function_key);
+    $this->insertParameters($node_object, $namespaced_name);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
     $this->insertRawStatements($function_key, $node_object->stmts);
     $this->populateIteratively($node_object->stmts, $function_key);
@@ -234,19 +235,21 @@ class Model
 
   private function insertClassMethod(PHPParser_Node_Stmt_ClassMethod $node_object)
   {
-    $this->insertParameters($node_object);
     $class = substr($this->_redis->lrange('scope', 0, 0)[0], 2);
-    $method_key = "M:{$class}\\{$node_object->name}";
+    $container_key = $class.'\\'.$node_object->name;
+    $method_key = 'M:'.$container_key;
     $this->_redis->sadd('methods', $method_key);
+    $this->insertParameters($node_object, $container_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     $this->insertRawStatements($method_key, $node_object->stmts);
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
-  private function insertParameters($node_object)
+  private function insertParameters($node_object, $container_key)
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
+      var_dump($container_key.'\\'.$parameter->name);
       // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
       // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
       //var_dump($parameter->getLine())
@@ -297,6 +300,12 @@ class Model
     // var_dump($this->_redis->sismember('variables', $variable_key));
     // $this->_redis->sadd('variables', $variable_key);
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
+  }
+
+  // insertUse deve inserire la prima versione delle variabili
+  private function insertUse()
+  {
+
   }
 
   private function getGlobalsVariableName($variable)
