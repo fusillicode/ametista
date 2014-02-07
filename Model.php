@@ -176,10 +176,10 @@ class Model
     }
   }
 
-  private function insertRawStatements(array $raw_statements, $statement_key)
+  private function insertRawStatements($key, array $raw_statements)
   {
-    foreach ($raw_statements as $key => $raw_statement) {
-      $this->_redis->lpush($statement_key, serialize($raw_statement));
+    foreach ($raw_statements as $i => $raw_statement) {
+      $this->_redis->lpush($key, serialize($raw_statement));
     }
   }
 
@@ -228,7 +228,7 @@ class Model
     $function_key = 'F:\\'.implode('\\', $node_object->namespacedName->parts);
     $this->_redis->sadd('functions', $function_key);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
-    $this->insertRawStatements($node_object->stmts, $function_key);
+    $this->insertRawStatements($function_key, $node_object->stmts);
     $this->populateIteratively($node_object->stmts, $function_key);
   }
 
@@ -239,7 +239,7 @@ class Model
     $method_key = "M:{$class}\\{$node_object->name}";
     $this->_redis->sadd('methods', $method_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
-    $this->insertRawStatements($node_object->stmts, $method_key);
+    $this->insertRawStatements($method_key, $node_object->stmts);
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
