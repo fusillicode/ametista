@@ -157,7 +157,6 @@ class Model
     $scope = $this->_redis->lrange('scope', 0, 0)[0];
     $node_type = $node_object->getType();
     if ($scope === "N:\\" && !$this->_redis->sismember('non_namespace_statements', $node_type)) {
-      var_dump($scope);
       $this->_redis->lpush($scope, serialize($node_object));
     }
     if ($node_type === 'Stmt_Namespace') {
@@ -177,11 +176,11 @@ class Model
     }
   }
 
-  private function insertRawStatements(array $raw_statements, $key)
+  private function insertRawStatements(array $raw_statements, $statement_key)
   {
     if (!$raw_statements) return;
     foreach ($raw_statements as $key => $raw_statement) {
-      $this->_redis->lpush($key, serialize($raw_statement));
+      $this->_redis->lpush($statement_key, serialize($raw_statement));
     }
   }
 
