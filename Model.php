@@ -47,7 +47,7 @@ class Model
     $this->_redis->sadd('scalar_types', array('boolean', 'int', 'double', 'string', 'array'));
 
     // strutture di utilità
-    $this->_redis->sadd('non_namespace_statements', array('Stmt_Namespace'));
+    $this->_redis->sadd('non_namespace_statements', array('Stmt_Namespace', 'Stmt_Class', 'Stmt_Function'));
     // strutture temporanee
     $this->_redis->lpush('scope', 'N:\\');
     $this->_redis->sadd('scoped_global_variables', '');
@@ -157,8 +157,10 @@ class Model
     $scope = $this->_redis->lrange('scope', 0, 0)[0];
     $node_type = $node_object->getType();
     if ($scope === "N:\\" && !$this->_redis->sismember('non_namespace_statements', $node_type)) {
-      $this->insertNamespaceRawContent($node_object, $scope);
-    } elseif ($node_type === 'Stmt_Namespace') {
+      var_dump($scope);
+      $this->_redis->lpush($scope, serialize($node_object));
+    }
+    if ($node_type === 'Stmt_Namespace') {
       $this->insertNamespace($node_object);
     } elseif ($node_type === 'Stmt_Class') {
       $this->insertClass($node_object);
@@ -175,24 +177,12 @@ class Model
     }
   }
 
-  private function insertNamespaceRawContent($node_object, $namespace_key)
-  {
-    $raw_statements = $node_object->stmts;
-    var_dump(count($raw_statements));
-    foreach ($raw_statements as $key => $sub_node) {
-      if (in_array($sub_node->getType(), array('Stmt_Function', 'Stmt_Class'))) {
-        unset($raw_statements[$key]);
-      }
-    }
-    var_dump(count($raw_statements));
-    $this->insertRawStatements($raw_statements, $namespace_key);
-  }
-
   private function insertRawStatements(array $raw_statements, $key)
   {
     if (!$raw_statements) return;
-    // qui serializzo tutti gli stmts in esso contenuti nel nodo identificato dalla chiave Redis $key
-    $this->_redis->set($key, serialize($raw_statements));
+    foreach ($raw_statements as $key => $raw_statement) {
+      $this->_redis->lpush($key, serialize($raw_statement));
+    }
   }
 
   private function insertNamespace(PHPParser_Node_Stmt_Namespace $node_object)

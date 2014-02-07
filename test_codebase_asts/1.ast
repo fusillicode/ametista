@@ -2,6 +2,7 @@ array(
     0: Expr_Assign(
         var: Expr_Variable(
             name: b
+            var: null
         )
         expr: Expr_Assign(
             var: Expr_Variable(
@@ -15,6 +16,7 @@ array(
     1: Expr_Assign(
         var: Expr_Variable(
             name: v
+            var: null
         )
         expr: Scalar_String(
             value: 
@@ -25,6 +27,7 @@ array(
             name: Expr_Variable(
                 name: vv
             )
+            var: null
         )
         expr: Scalar_String(
             value: pippo
@@ -146,6 +149,7 @@ array(
             5: Expr_Assign(
                 var: Expr_Variable(
                     name: a
+                    var: null
                 )
                 expr: Scalar_String(
                     value: 
@@ -156,6 +160,7 @@ array(
                     name: Expr_Variable(
                         name: vv1
                     )
+                    var: null
                 )
                 expr: Scalar_String(
                     value: pippo
@@ -285,6 +290,7 @@ array(
                                 )
                             )
                             name: b
+                            var: null
                         )
                         expr: Scalar_String(
                             value: ciao
@@ -381,6 +387,7 @@ array(
     8: Expr_Assign(
         var: Expr_Variable(
             name: a
+            var: null
         )
         expr: Scalar_String(
             value: aasdasd
