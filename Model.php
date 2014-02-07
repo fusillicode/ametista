@@ -227,7 +227,7 @@ class Model
     $namespaced_name = '\\'.implode('\\', $node_object->namespacedName->parts);
     $function_key = 'F:'.$namespaced_name;
     $this->_redis->sadd('functions', $function_key);
-    $this->insertParameters($node_object, $namespaced_name);
+    $this->insertParameters($node_object, 'F', $namespaced_name);
     $this->insertContainmentRelationship($function_key, 'F', 'N');
     $this->insertRawStatements($function_key, $node_object->stmts);
     $this->populateIteratively($node_object->stmts, $function_key);
@@ -239,17 +239,18 @@ class Model
     $container_key = $class.'\\'.$node_object->name;
     $method_key = 'M:'.$container_key;
     $this->_redis->sadd('methods', $method_key);
-    $this->insertParameters($node_object, $container_key);
+    $this->insertParameters($node_object, 'M', $container_key);
     $this->insertContainmentRelationship($method_key, 'M', 'C', $class);
     $this->insertRawStatements($method_key, $node_object->stmts);
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
-  private function insertParameters($node_object, $container_key)
+  private function insertParameters($node_object, $container_type, $container_key)
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
-      var_dump($container_key.'\\'.$parameter->name);
+      $parameter_key = 'L:'.$container_key.'\\'.$parameter->name;
+      $this->insertContainmentRelationship($parameter_key, 'L', $container_type, $container_key);
       // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
       // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
       //var_dump($parameter->getLine())
