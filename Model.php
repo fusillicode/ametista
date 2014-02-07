@@ -178,7 +178,6 @@ class Model
 
   private function insertRawStatements(array $raw_statements, $statement_key)
   {
-    if (!$raw_statements) return;
     foreach ($raw_statements as $key => $raw_statement) {
       $this->_redis->lpush($statement_key, serialize($raw_statement));
     }
