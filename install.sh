@@ -6,7 +6,8 @@ php -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
 rm -rf vendor
 
 # Update Composer to install/update PHP-Parser and Predis packages
-composer update
+php composer.phar install
+php composer.phar update
 
 # Install Redis in vendor subdirectory
 cd vendor
