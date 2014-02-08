@@ -245,9 +245,10 @@ class Model
     $this->populateIteratively($node_object->stmts, $method_key);
   }
 
-  // attenzione in insertParameters inserisco anche i parametri raw!!! facendolo qui
-  // evito di dover mergiare l'array dei parametri con quello degli statements ma
-  // rendo la chiamata di insertParameters necessaria prima di insertRawStatements!!!
+  // attenzione in insertParameters inserisco anche i parametri raw nella funzione o metodo da
+  // cui chiamo il metodo in questione!!! inserendo qui evito di dover mergiare l'array dei
+  // parametri con quello degli statements ma rendo la chiamata di insertParameters necessaria
+  // prima di insertRawStatements!!!
   private function insertParameters($node_object, $container_type, $container_key)
   {
     if (!$parameters = $node_object->params) return;
