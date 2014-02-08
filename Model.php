@@ -269,11 +269,12 @@ class Model
   private function insertAssignment($node_object)
   {
     // ATTENZIONE NON CONSIDERO IL FETCH MULTIPLO!!!
+
     var_dump($this->getVariableName($node_object->var));
-    // die();
+
+
     // if ($node_object->var->getType() === 'Expr_ArrayDimFetch' && $node_object->var->var->getType() === 'Expr_PropertyFetch') {
     //   var_dump($this->getVariableName($node_object));
-    //   die();
     // // ok qui sotto ho la normale property fetch
     // } elseif ($node_object->var->getType() === 'Expr_PropertyFetch') {
     //   $variable_name = $this->getVariableName($node_object);
@@ -287,11 +288,11 @@ class Model
     // } elseif ($node_object->var->var->getType() === 'Expr_Variable' && $node_object->var->var->name === 'GLOBALS') {
     //   // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
     //   // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
-    //   //var_dump($node_object->var->getLine())
+    //   var_dump($this->getVariableName($node_object));
     // } elseif ($node_object->var->var->getType() ==='Expr_ArrayDimFetch' && $node_object->var->var->var->name === 'GLOBALS') {
     //   // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
     //   // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
-    //   //var_dump($node_object->var->getLine())
+    //   var_dump($this->getVariableName($node_object));
     // } else {
     //   $container = $this->_redis->lrange('scope', 0, 0)[0];
     //   $variable_name = $this->getVariableName($node_object);
@@ -323,15 +324,9 @@ class Model
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
-  // insertUse deve inserire la prima versione delle variabili
-  private function insertUse()
-  {
-
-  }
-
   private function getGlobalsVariableName($variable)
   {
-    if ($variable->var instanceof PHPParser_Node_Expr_ArrayDimFetch) {
+    if ($variable->var->getType() === 'Expr_ArrayDimFetch') {
       return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
     } else {
       return $variable->dim->value;
@@ -340,23 +335,23 @@ class Model
 
   private function getVariableName($variable)
   {
-    if ($variable instanceof PHPParser_Node_Expr_Variable) {
-      return $this->getVariableName($variable->name);
-    }
-    if ($variable instanceof PHPParser_Node_Expr_ArrayDimFetch){
-      return $this->getVariableName($variable->var)."['{$variable->dim->value}']";
-    }
-    if ($variable instanceof PHPParser_Node_Expr_PropertyFetch) {
-      return $this->getVariableName($variable->var)."->{$variable->name}";
-    }
-    if ($variable instanceof PHPParser_Node_Expr_Assign) {
-      return $this->getVariableName($variable->var);
-    }
-    if ($variable instanceof PHPParser_Node_Expr_StaticPropertyFetch) {
-      return $variable->class."::{$variable->name}";
-    }
     if (is_string($variable)) {
       return $variable;
+    }
+    if ($variable->getType() === 'Expr_Variable') {
+      return $this->getVariableName($variable->name);
+    }
+    if ($variable->getType() === 'Expr_ArrayDimFetch'){
+      return $this->getVariableName($variable->var)."['{$variable->dim->value}']";
+    }
+    if ($variable->getType() === 'Expr_PropertyFetch') {
+      return $this->getVariableName($variable->var)."->{$variable->name}";
+    }
+    if ($variable->getType() === 'Expr_Assign') {
+      return $this->getVariableName($variable->var);
+    }
+    if ($variable->getType() === 'Expr_StaticPropertyFetch') {
+      return $variable->class."::{$variable->name}";
     }
     return 'NO_NAME_FOUND';
   }
