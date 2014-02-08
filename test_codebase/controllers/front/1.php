@@ -9,7 +9,13 @@
 
 function prova(bool $ella = 1, int $peppa)
 {
+  // $this->ca->a = 'a';
+  $this->ca->a['b'] = 'a';
   $this->ca['a']->a['b'] = 'a';
+  self::$b = 'ciao';
+  self::$b->a = 'ciao';
+  self::$b['a']->a = 'ciao';
+  self::$b['a']->a['c'] = 'ciao';
   global $a, $b, $c;
   $GLOBALS['a'] = 1;
   $GLOBALS['a']['b'] = 2;
