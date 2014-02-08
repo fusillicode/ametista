@@ -9,23 +9,41 @@
 
 function prova(bool $ella = 1, int $peppa)
 {
-  // $this->ca[1][2]->a[1][2] = 'a';
-  // $this->ca->a = 'a';
-  // // $this->ca->a['b'] = 'a';
-  // $this->ca['a']->a['b'] = 'a';
-  self::$b = 'ciao';
-  self::$b->a = 'ciao';
-  self::$b['a']->a = 'ciao';
-  self::$b['a']->a['c'] = 'ciao';
+  $a = 1;
+  $a[1] = 1;
+  $a[1][1] = 1;
+
+  $this->a = 1;
+  $this->a->b = 1;
+  $this->a[1]->b = 1;
+  $this->a->b[1] = 1;
+  $this->a[1][1]->b = 1;
+  $this->a->b[1][1] = 1;
+  $this->a[1]->b[1] = 1;
+
+  // al posto di $this potrebbe esserci una variabile locale
+
+  self::$a = 1;
+  self::$a->b = 1;
+  self::$a[1]->b = 1;
+  self::$a->b[1] = 1;
+  self::$a[1][1]->b = 1;
+  self::$a->b[1][1] = 1;
+  self::$a[1]->b[1] = 1;
+
+  $GLOBALS['a'] = 1;
+  $GLOBALS['a']->b = 1;
+  $GLOBALS['a']->b[1] = 1;
+  $GLOBALS['a']->b[1][1] = 1;
+  $GLOBALS['a'][1]->b = 1;
+  $GLOBALS['a'][1][1]->b = 1;
+  $GLOBALS['a'][1]->b[1] = 1;
+
   global $a, $b, $c;
-  $GLOBALS['a'] = 1;
-  $GLOBALS['a']['b'] = 2;
-  $GLOBALS['a'] = 1;
-	$a = '';
-  // questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
+
+  // NON VIENE SUPPORTATO PRATICAMENTE DA NESSUNO...questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
 	$$vv1 = 'pippo';
-	$a1[1] = 'pippa';
-  $a1[1] = 'aladin';
+
 }
 
 class mondo extends pippo {
