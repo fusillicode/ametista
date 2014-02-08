@@ -269,6 +269,7 @@ class Model
   private function insertAssignment($node_object)
   {
     var_dump($node_object);
+    var_dump($this->getVariableName($node_object));
     die();
     // ATTENZIONE NON CONSIDERO IL FETCH MULTIPLO!!!
     if ($node_object->var instanceof PHPParser_Node_Expr_PropertyFetch && $node_object->var->var->name === 'this') {
@@ -315,6 +316,11 @@ class Model
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
+  private function resolveMultiplePropertyFetch($node_object)
+  {
+
+  }
+
   // insertUse deve inserire la prima versione delle variabili
   private function insertUse()
   {
@@ -335,7 +341,7 @@ class Model
     if ($variable instanceof PHPParser_Node_Expr_Variable)
       return $this->getVariableName($variable->name);
     if ($variable instanceof PHPParser_Node_Expr_ArrayDimFetch)
-      return $this->getVariableName($variable->var)."[{$variable->dim->value}]";
+      return $this->getVariableName($variable->var)."['{$variable->dim->value}']";
     if ($variable instanceof PHPParser_Node_Expr_PropertyFetch)
       return $this->getVariableName($variable->var)."->{$variable->name}";
     if ($variable instanceof PHPParser_Node_Expr_Assign)
