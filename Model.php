@@ -254,7 +254,7 @@ class Model
     foreach ($parameters as $key => $parameter) {
       $parameter_key = 'L:'.$container_key.'\\'.$parameter->name;
       $this->_redis->lpush($parameter_key, null);
-      $this->insertContainmentRelationship($parameter_key, 'L', $container_type, $container_key);
+      $this->_redis->sadd("{$container_type}:{$container_key}:[L", $parameter_key);
       $this->_redis->rpush($container_type.':'.$container_key, serialize($parameter));
       // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
       // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
