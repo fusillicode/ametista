@@ -268,44 +268,51 @@ class Model
   // ...questo metodo mi sa tanto di regola
   private function insertAssignment($node_object)
   {
-    var_dump($node_object);
-    var_dump($this->getVariableName($node_object));
-    die();
     // ATTENZIONE NON CONSIDERO IL FETCH MULTIPLO!!!
-    if ($node_object->var instanceof PHPParser_Node_Expr_PropertyFetch && $node_object->var->var->name === 'this') {
-      $container = $this->_redis->lrange('scope', 0, 0)[0];
-      var_dump($container);
-      // assegnamento di una proprietà (i.e. attributo di classe)
-      //var_dump($node_object->var->getLine())
-    } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {
-      // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
-      // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
-      //var_dump($node_object->var->getLine())
-    } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_ArrayDimFetch && $node_object->var->var->var->name === 'GLOBALS') {
-      // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
-      // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
-      //var_dump($node_object->var->getLine())
-    } else {
-      $container = $this->_redis->lrange('scope', 0, 0)[0];
-      $variable_name = $this->getVariableName($node_object);
-      if ($container === 'N:\\') {
-        // se sono nello scope generale significa che ho un assegnamento di una variabile globale
-        // il nome della variabile è $variable_name;
-        //var_dump($node_object->var->getLine())
-      } else {
-        // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
-        $global_variable_key_in_scope = $container.'\\'.$variable_name;
-        if ($this->_redis->sismember('scoped_global_variables', $global_variable_key_in_scope)) {
-          // assegnamento di una variabile globale
-          // il nome della variabile è $variable_name;
-          //var_dump($node_object->var->getLine())
-        } else {
-          // assegnamento di una variabile locale
-          // il nome della variabile è $variable_name;
-          //var_dump($node_object->var->getLine())
-        }
-      }
-    }
+    var_dump($this->getVariableName($node_object->var));
+    // die();
+    // if ($node_object->var->getType() === 'Expr_ArrayDimFetch' && $node_object->var->var->getType() === 'Expr_PropertyFetch') {
+    //   var_dump($this->getVariableName($node_object));
+    //   die();
+    // // ok qui sotto ho la normale property fetch
+    // } elseif ($node_object->var->getType() === 'Expr_PropertyFetch') {
+    //   $variable_name = $this->getVariableName($node_object);
+    //   if (strpos($variable_name, 'this') !== false) {
+    //     $container = $this->_redis->lrange('scope', 0, 0)[0];
+    //     var_dump($container);
+    //   }
+    //   die();
+    //   // assegnamento di una proprietà (i.e. attributo di classe) $this->ca->a
+    //   //var_dump($node_object->var->getLine())
+    // } elseif ($node_object->var->var->getType() === 'Expr_Variable' && $node_object->var->var->name === 'GLOBALS') {
+    //   // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
+    //   // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
+    //   //var_dump($node_object->var->getLine())
+    // } elseif ($node_object->var->var->getType() ==='Expr_ArrayDimFetch' && $node_object->var->var->var->name === 'GLOBALS') {
+    //   // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
+    //   // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
+    //   //var_dump($node_object->var->getLine())
+    // } else {
+    //   $container = $this->_redis->lrange('scope', 0, 0)[0];
+    //   $variable_name = $this->getVariableName($node_object);
+    //   if ($container === 'N:\\') {
+    //     // se sono nello scope generale significa che ho un assegnamento di una variabile globale
+    //     // il nome della variabile è $variable_name;
+    //     //var_dump($node_object->var->getLine())
+    //   } else {
+    //     // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
+    //     $global_variable_key_in_scope = $container.'\\'.$variable_name;
+    //     if ($this->_redis->sismember('scoped_global_variables', $global_variable_key_in_scope)) {
+    //       // assegnamento di una variabile globale
+    //       // il nome della variabile è $variable_name;
+    //       //var_dump($node_object->var->getLine())
+    //     } else {
+    //       // assegnamento di una variabile locale
+    //       // il nome della variabile è $variable_name;
+    //       //var_dump($node_object->var->getLine())
+    //     }
+    //   }
+    // }
     // $variable = $this->getVariableName($node_object->var);
     // $scope = $this->_redis->lrange('scope', 0, 0);
     // $container = substr($scope[0], 2);
@@ -314,11 +321,6 @@ class Model
     // var_dump($this->_redis->sismember('variables', $variable_key));
     // $this->_redis->sadd('variables', $variable_key);
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
-  }
-
-  private function resolveMultiplePropertyFetch($node_object)
-  {
-
   }
 
   // insertUse deve inserire la prima versione delle variabili
@@ -349,6 +351,9 @@ class Model
     }
     if ($variable instanceof PHPParser_Node_Expr_Assign) {
       return $this->getVariableName($variable->var);
+    }
+    if ($variable instanceof PHPParser_Node_Expr_StaticPropertyFetch) {
+      return $variable->class."::{$variable->name}";
     }
     if (is_string($variable)) {
       return $variable;

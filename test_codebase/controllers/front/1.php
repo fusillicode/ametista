@@ -9,9 +9,10 @@
 
 function prova(bool $ella = 1, int $peppa)
 {
+  // $this->ca[1][2]->a[1][2] = 'a';
   // $this->ca->a = 'a';
-  $this->ca->a['b'] = 'a';
-  $this->ca['a']->a['b'] = 'a';
+  // // $this->ca->a['b'] = 'a';
+  // $this->ca['a']->a['b'] = 'a';
   self::$b = 'ciao';
   self::$b->a = 'ciao';
   self::$b['a']->a = 'ciao';
@@ -21,6 +22,7 @@ function prova(bool $ella = 1, int $peppa)
   $GLOBALS['a']['b'] = 2;
   $GLOBALS['a'] = 1;
 	$a = '';
+  // questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
 	$$vv1 = 'pippo';
 	$a1[1] = 'pippa';
   $a1[1] = 'aladin';
