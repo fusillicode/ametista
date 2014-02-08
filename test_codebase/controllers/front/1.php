@@ -21,7 +21,13 @@ function prova(bool $ella = 1, int $peppa)
   $this->a->b[1][1] = 1;
   $this->a[1]->b[1] = 1;
 
-  // al posto di $this potrebbe esserci una variabile locale
+  $c->a = 1;
+  $c->a->b = 1;
+  $c->a[1]->b = 1;
+  $c->a->b[1] = 1;
+  $c->a[1][1]->b = 1;
+  $c->a->b[1][1] = 1;
+  $c->a[1]->b[1] = 1;
 
   self::$a = 1;
   self::$a->b = 1;
@@ -31,6 +37,14 @@ function prova(bool $ella = 1, int $peppa)
   self::$a->b[1][1] = 1;
   self::$a[1]->b[1] = 1;
 
+  AClass::$a = 1;
+  AClass::$a->b = 1;
+  AClass::$a[1]->b = 1;
+  AClass::$a->b[1] = 1;
+  AClass::$a[1][1]->b = 1;
+  AClass::$a->b[1][1] = 1;
+  AClass::$a[1]->b[1] = 1;
+
   $GLOBALS['a'] = 1;
   $GLOBALS['a']->b = 1;
   $GLOBALS['a']->b[1] = 1;
@@ -39,6 +53,7 @@ function prova(bool $ella = 1, int $peppa)
   $GLOBALS['a'][1][1]->b = 1;
   $GLOBALS['a'][1]->b[1] = 1;
 
+  /////////////////////////////////////////
   global $a, $b, $c;
 
   // NON VIENE SUPPORTATO PRATICAMENTE DA NESSUNO...questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
