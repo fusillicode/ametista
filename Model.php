@@ -268,9 +268,17 @@ class Model
   // ...questo metodo mi sa tanto di regola
   private function insertAssignment($node_object)
   {
-    // ATTENZIONE NON CONSIDERO IL FETCH MULTIPLO!!!
+    $variable_name = $this->getVariableName($node_object->var);
 
-    var_dump($this->getVariableName($node_object->var));
+    if (strpos($variable_name, 'GLOBALS') === 0) {
+
+    } elseif (strpos($variable_name, 'this') === 0) {
+
+    } elseif (strpos($variable_name, 'self') === 0) {
+
+    } else {
+
+    }
 
 
     // if ($node_object->var->getType() === 'Expr_ArrayDimFetch' && $node_object->var->var->getType() === 'Expr_PropertyFetch') {
@@ -324,14 +332,14 @@ class Model
     // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
 
-  private function getGlobalsVariableName($variable)
-  {
-    if ($variable->var->getType() === 'Expr_ArrayDimFetch') {
-      return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
-    } else {
-      return $variable->dim->value;
-    }
-  }
+  // private function getGlobalsVariableName($variable)
+  // {
+  //   if ($variable->var->getType() === 'Expr_ArrayDimFetch') {
+  //     return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
+  //   } else {
+  //     return $variable->dim->value;
+  //   }
+  // }
 
   private function getVariableName($variable)
   {

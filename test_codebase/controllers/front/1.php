@@ -37,13 +37,13 @@ function prova(bool $ella = 1, int $peppa)
   // self::$a->b[1][1] = 1;
   // self::$a[1]->b[1] = 1;
 
-  // AClass::$a = 1;
-  // AClass::$a->b = 1;
-  // AClass::$a[1]->b = 1;
-  // AClass::$a->b[1] = 1;
-  // AClass::$a[1][1]->b = 1;
-  // AClass::$a->b[1][1] = 1;
-  // AClass::$a[1]->b[1] = 1;
+  AClass::$a = 1;
+  AClass::$a->b = 1;
+  AClass::$a[1]->b = 1;
+  AClass::$a->b[1] = 1;
+  AClass::$a[1][1]->b = 1;
+  AClass::$a->b[1][1] = 1;
+  AClass::$a[1]->b[1] = 1;
 
   $GLOBALS['a'] = 1;
   $GLOBALS['a']->b = 1;
