@@ -80,10 +80,13 @@ array(
         stmts: array(
             0: Expr_Assign(
                 var: Expr_PropertyFetch(
-                    var: Expr_Variable(
-                        name: this
+                    var: Expr_PropertyFetch(
+                        var: Expr_Variable(
+                            name: this
+                        )
+                        name: ca
                     )
-                    name: ca
+                    name: a
                 )
                 expr: Scalar_String(
                     value: a

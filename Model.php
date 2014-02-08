@@ -246,28 +246,34 @@ class Model
   }
 
   // attenzione in insertParameters inserisco anche i parametri raw nella funzione o metodo da
-  // cui chiamo il metodo in questione!!! inserendo qui evito di dover mergiare l'array dei
+  // cui lo chiamo!!! inserendo qui evito di dover mergiare l'array dei
   // parametri con quello degli statements ma rendo la chiamata di insertParameters necessaria
   // prima di insertRawStatements!!!
   private function insertParameters($node_object, $container_type, $container_key)
   {
     if (!$parameters = $node_object->params) return;
     foreach ($parameters as $key => $parameter) {
+      // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
+      // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
+      //var_dump($parameter->getLine())
       $parameter_key = 'L:'.$container_key.'\\'.$parameter->name;
       $this->_redis->lpush($parameter_key, null);
       $this->_redis->sadd("{$container_type}:{$container_key}:[L", $parameter_key);
       $this->_redis->rpush($container_type.':'.$container_key, serialize($parameter));
-      // l'inserimento dei parametri può essere inteso come l'inserimento di variabili locali
-      // aventi già un tipo associato che è quello del valore di default o quello indicato dall'hint
-      //var_dump($parameter->getLine())
     }
   }
 
   // insertAssignement deve discriminare le variabili locali a funzioni e metodi,
   // globali e le proprietà delle classi
+  // ...questo metodo mi sa tanto di regola
   private function insertAssignment($node_object)
   {
+    var_dump($node_object);
+    die();
+    // ATTENZIONE NON CONSIDERO IL FETCH MULTIPLO!!!
     if ($node_object->var instanceof PHPParser_Node_Expr_PropertyFetch && $node_object->var->var->name === 'this') {
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      var_dump($container);
       // assegnamento di una proprietà (i.e. attributo di classe)
       //var_dump($node_object->var->getLine())
     } elseif ($node_object->var->var instanceof PHPParser_Node_Expr_Variable && $node_object->var->var->name === 'GLOBALS') {

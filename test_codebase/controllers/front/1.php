@@ -1,15 +1,15 @@
 <?php
 
 
-$b = $c = $e;
+// $b = $c = $e;
 
-$v = '';
-$$vv = 'pippo';
-$a[1][2] = 'pippa';
+// $v = '';
+// $$vv = 'pippo';
+// $a[1][2] = 'pippa';
 
 function prova(bool $ella = 1, int $peppa)
 {
-  $this->ca = 'a';
+  $this->ca->a = 'a';
   global $a, $b, $c;
   $GLOBALS['a'] = 1;
   $GLOBALS['a']['b'] = 2;
