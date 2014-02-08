@@ -338,16 +338,21 @@ class Model
 
   private function getVariableName($variable)
   {
-    if ($variable instanceof PHPParser_Node_Expr_Variable)
+    if ($variable instanceof PHPParser_Node_Expr_Variable) {
       return $this->getVariableName($variable->name);
-    if ($variable instanceof PHPParser_Node_Expr_ArrayDimFetch)
+    }
+    if ($variable instanceof PHPParser_Node_Expr_ArrayDimFetch){
       return $this->getVariableName($variable->var)."['{$variable->dim->value}']";
-    if ($variable instanceof PHPParser_Node_Expr_PropertyFetch)
+    }
+    if ($variable instanceof PHPParser_Node_Expr_PropertyFetch) {
       return $this->getVariableName($variable->var)."->{$variable->name}";
-    if ($variable instanceof PHPParser_Node_Expr_Assign)
+    }
+    if ($variable instanceof PHPParser_Node_Expr_Assign) {
       return $this->getVariableName($variable->var);
-    if (is_string($variable))
+    }
+    if (is_string($variable)) {
       return $variable;
+    }
     return 'NO_NAME_FOUND';
   }
 
