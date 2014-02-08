@@ -1,24 +1,29 @@
 [
     {
         "name": "nikic/php-parser",
-        "version": "v0.9.3",
-        "version_normalized": "0.9.3.0",
+        "version": "v0.9.4",
+        "version_normalized": "0.9.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "98ebfc8d545979636fa438f51921fdbec433f0f9"
+            "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/98ebfc8d545979636fa438f51921fdbec433f0f9",
-            "reference": "98ebfc8d545979636fa438f51921fdbec433f0f9",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
+            "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2"
         },
-        "time": "2012-11-22 18:54:05",
+        "time": "2013-08-25 17:11:40",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.9-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
@@ -42,8 +47,8 @@
     },
     {
         "name": "predis/predis",
-        "version": "0.8.x-dev",
-        "version_normalized": "0.8.9999999.9999999-dev",
+        "version": "v0.8.5",
+        "version_normalized": "0.8.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nrk/predis.git",
@@ -64,7 +69,7 @@
         },
         "time": "2014-01-16 14:10:29",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Predis": "lib/"

@@ -1,6 +1,6 @@
 {
   "require": {
-    "nikic/php-parser": "0.9.3",
-    "predis/predis": "0.8.*@dev"
+    "nikic/php-parser": "0.9.4",
+    "predis/predis": "0.8.5"
   }
 }

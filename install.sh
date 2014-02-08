@@ -11,8 +11,7 @@ php composer.phar update
 
 # Install Redis in vendor subdirectory
 cd vendor
-wget http://download.redis.io/releases/redis-2.6.16.tar.gz
-tar xzf redis-2.6.16.tar.gz
-cd redis-2.6.16
+wget http://download.redis.io/releases/redis-2.8.5.tar.gz
+tar xzf redis-2.8.5.tar.gz
+cd redis-2.8.5
 make
-make test
