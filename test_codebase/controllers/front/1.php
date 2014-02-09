@@ -13,13 +13,13 @@ function prova(bool $ella = 1, int $peppa)
   // $a[1] = 1;
   // $a[1][1] = 1;
 
-  // $this->a = 1;
-  // $this->a->b = 1;
-  // $this->a[1]->b = 1;
-  // $this->a->b[1] = 1;
-  // $this->a[1][1]->b = 1;
-  // $this->a->b[1][1] = 1;
-  // $this->a[1]->b[1] = 1;
+  $this->a = 1;
+  $this->a->b = 1;
+  $this->a[1]->b = 1;
+  $this->a->b[1] = 1;
+  $this->a[1][1]->b = 1;
+  $this->a->b[1][1] = 1;
+  $this->a[1]->b[1] = 1;
 
   // $c->a = 1;
   // $c->a->b = 1;

@@ -270,14 +270,26 @@ class Model
     $variable_name = $this->getVariableName($node_object->var);
 
     if (strpos($variable_name, 'GLOBALS') === 0) {
+
       preg_match("/GLOBALS\['(\\w)'\]/", $variable_name, $matches);
       $variable_name = $matches[1].str_replace($matches[0], '', $variable_name);
       var_dump($variable_name);
+
     } elseif (strpos($variable_name, 'this') === 0) {
+
+      $variable_name = str_replace('this->', '', $variable_name);
+      var_dump($variable_name);
 
     } elseif (strpos($variable_name, 'self') === 0) {
 
-    } else {
+      $variable_name = str_replace('self::', '', $variable_name);
+      var_dump($variable_name);
+
+    } elseif (strpos($variable_name, '::') !== false) {
+
+      $class_name = strstr($variable_name, '::', true);
+      $variable_name = str_replace($class_name.'::', '', $variable_name);
+      var_dump($class_name, $variable_name);
 
     }
 

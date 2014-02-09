@@ -27,11 +27,9 @@ array(
         )
         stmts: array(
             0: Expr_Assign(
-                var: Expr_StaticPropertyFetch(
-                    class: Name_FullyQualified(
-                        parts: array(
-                            0: AClass
-                        )
+                var: Expr_PropertyFetch(
+                    var: Expr_Variable(
+                        name: this
                     )
                     name: a
                 )
@@ -41,11 +39,9 @@ array(
             )
             1: Expr_Assign(
                 var: Expr_PropertyFetch(
-                    var: Expr_StaticPropertyFetch(
-                        class: Name_FullyQualified(
-                            parts: array(
-                                0: AClass
-                            )
+                    var: Expr_PropertyFetch(
+                        var: Expr_Variable(
+                            name: this
                         )
                         name: a
                     )
@@ -58,11 +54,9 @@ array(
             2: Expr_Assign(
                 var: Expr_PropertyFetch(
                     var: Expr_ArrayDimFetch(
-                        var: Expr_StaticPropertyFetch(
-                            class: Name_FullyQualified(
-                                parts: array(
-                                    0: AClass
-                                )
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: this
                             )
                             name: a
                         )
@@ -79,11 +73,9 @@ array(
             3: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_PropertyFetch(
-                        var: Expr_StaticPropertyFetch(
-                            class: Name_FullyQualified(
-                                parts: array(
-                                    0: AClass
-                                )
+                        var: Expr_PropertyFetch(
+                            var: Expr_Variable(
+                                name: this
                             )
                             name: a
                         )
@@ -101,11 +93,9 @@ array(
                 var: Expr_PropertyFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_ArrayDimFetch(
-                            var: Expr_StaticPropertyFetch(
-                                class: Name_FullyQualified(
-                                    parts: array(
-                                        0: AClass
-                                    )
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
                                 )
                                 name: a
                             )
@@ -127,6 +117,151 @@ array(
                 var: Expr_ArrayDimFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_PropertyFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: a
+                            )
+                            name: b
+                        )
+                        dim: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    dim: Scalar_LNumber(
+                        value: 1
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            6: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_PropertyFetch(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_Variable(
+                                    name: this
+                                )
+                                name: a
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        name: b
+                    )
+                    dim: Scalar_LNumber(
+                        value: 1
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            7: Expr_Assign(
+                var: Expr_StaticPropertyFetch(
+                    class: Name_FullyQualified(
+                        parts: array(
+                            0: AClass
+                        )
+                    )
+                    name: a
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            8: Expr_Assign(
+                var: Expr_PropertyFetch(
+                    var: Expr_StaticPropertyFetch(
+                        class: Name_FullyQualified(
+                            parts: array(
+                                0: AClass
+                            )
+                        )
+                        name: a
+                    )
+                    name: b
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            9: Expr_Assign(
+                var: Expr_PropertyFetch(
+                    var: Expr_ArrayDimFetch(
+                        var: Expr_StaticPropertyFetch(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: AClass
+                                )
+                            )
+                            name: a
+                        )
+                        dim: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    name: b
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            10: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_PropertyFetch(
+                        var: Expr_StaticPropertyFetch(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: AClass
+                                )
+                            )
+                            name: a
+                        )
+                        name: b
+                    )
+                    dim: Scalar_LNumber(
+                        value: 1
+                    )
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            11: Expr_Assign(
+                var: Expr_PropertyFetch(
+                    var: Expr_ArrayDimFetch(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_StaticPropertyFetch(
+                                class: Name_FullyQualified(
+                                    parts: array(
+                                        0: AClass
+                                    )
+                                )
+                                name: a
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        dim: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    name: b
+                )
+                expr: Scalar_LNumber(
+                    value: 1
+                )
+            )
+            12: Expr_Assign(
+                var: Expr_ArrayDimFetch(
+                    var: Expr_ArrayDimFetch(
+                        var: Expr_PropertyFetch(
                             var: Expr_StaticPropertyFetch(
                                 class: Name_FullyQualified(
                                     parts: array(
@@ -149,7 +284,7 @@ array(
                     value: 1
                 )
             )
-            6: Expr_Assign(
+            13: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_PropertyFetch(
                         var: Expr_ArrayDimFetch(
@@ -175,7 +310,7 @@ array(
                     value: 1
                 )
             )
-            7: Expr_Assign(
+            14: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_Variable(
                         name: GLOBALS
@@ -188,7 +323,7 @@ array(
                     value: 1
                 )
             )
-            8: Expr_Assign(
+            15: Expr_Assign(
                 var: Expr_PropertyFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_Variable(
@@ -204,7 +339,7 @@ array(
                     value: 1
                 )
             )
-            9: Expr_Assign(
+            16: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_PropertyFetch(
                         var: Expr_ArrayDimFetch(
@@ -225,7 +360,7 @@ array(
                     value: 1
                 )
             )
-            10: Expr_Assign(
+            17: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_PropertyFetch(
@@ -251,7 +386,7 @@ array(
                     value: 1
                 )
             )
-            11: Expr_Assign(
+            18: Expr_Assign(
                 var: Expr_PropertyFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_ArrayDimFetch(
@@ -272,7 +407,7 @@ array(
                     value: 1
                 )
             )
-            12: Expr_Assign(
+            19: Expr_Assign(
                 var: Expr_PropertyFetch(
                     var: Expr_ArrayDimFetch(
                         var: Expr_ArrayDimFetch(
@@ -298,7 +433,7 @@ array(
                     value: 1
                 )
             )
-            13: Expr_Assign(
+            20: Expr_Assign(
                 var: Expr_ArrayDimFetch(
                     var: Expr_PropertyFetch(
                         var: Expr_ArrayDimFetch(
@@ -324,7 +459,7 @@ array(
                     value: 1
                 )
             )
-            14: Stmt_Global(
+            21: Stmt_Global(
                 vars: array(
                     0: Expr_Variable(
                         name: a
