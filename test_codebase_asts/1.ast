@@ -307,7 +307,7 @@ array(
                                     name: GLOBALS
                                 )
                                 dim: Scalar_String(
-                                    value: a
+                                    value: b
                                 )
                             )
                             dim: Scalar_LNumber(
@@ -322,6 +322,19 @@ array(
                 )
                 expr: Scalar_LNumber(
                     value: 1
+                )
+            )
+            14: Stmt_Global(
+                vars: array(
+                    0: Expr_Variable(
+                        name: a
+                    )
+                    1: Expr_Variable(
+                        name: b
+                    )
+                    2: Expr_Variable(
+                        name: c
+                    )
                 )
             )
         )

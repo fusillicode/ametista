@@ -50,7 +50,6 @@ class Model
     $this->_redis->sadd('non_namespace_statements', array('Stmt_Namespace', 'Stmt_Class', 'Stmt_Function'));
     // strutture temporanee
     $this->_redis->lpush('scope', 'N:\\');
-    $this->_redis->sadd('scoped_global_variables', '');
   }
 
   public function setVisitors(array $visitors)
@@ -172,7 +171,7 @@ class Model
     } elseif ($node_type === 'Stmt_Property') {
       $this->insertClassProperty($node_object);
     } elseif ($node_type === 'Stmt_Global') {
-      $this->insertScopedGlobalVariable($node_object);
+      $this->insertInScopeGlobalVariable($node_object);
     }
   }
 
@@ -271,7 +270,9 @@ class Model
     $variable_name = $this->getVariableName($node_object->var);
 
     if (strpos($variable_name, 'GLOBALS') === 0) {
-
+      preg_match("/GLOBALS\['(\\w)'\]/", $variable_name, $matches);
+      $variable_name = $matches[1].str_replace($matches[0], '', $variable_name);
+      var_dump($variable_name);
     } elseif (strpos($variable_name, 'this') === 0) {
 
     } elseif (strpos($variable_name, 'self') === 0) {
@@ -365,7 +366,7 @@ class Model
   }
 
 
-  private function insertScopedGlobalVariable($node_object)
+  private function insertInScopeGlobalVariable($node_object)
   {
     foreach ($node_object->vars as $key => $variable) {
       $container = $this->_redis->lrange('scope', 0, 0)[0];
