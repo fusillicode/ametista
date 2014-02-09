@@ -7,6 +7,8 @@
 // $$vv = 'pippo';
 // $a[1][2] = 'pippa';
 
+namespace ciao;
+
 function prova(bool $ella = 1, int $peppa)
 {
   $a = 1;
@@ -37,6 +39,7 @@ function prova(bool $ella = 1, int $peppa)
   self::$a->b[1][1] = 1;
   self::$a[1]->b[1] = 1;
 
+  AClass::$a = 1;
   AClass::$a = 1;
   AClass::$a->b = 1;
   AClass::$a[1]->b = 1;

@@ -297,6 +297,8 @@ class Model
       var_dump($class_name, $variable_name);
 
     // caso di assegnamento a variabili locali al metodo, funzione, o namespace
+    // solo qui devo verificare che la variabile sia effettivamente locale e non sia invece
+    // una di quelle definite come globali!!! (i.e. globals $a, $b, $c)
     } else {
 
       var_dump($variable_name);
