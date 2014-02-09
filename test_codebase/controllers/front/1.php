@@ -9,9 +9,9 @@
 
 function prova(bool $ella = 1, int $peppa)
 {
-  // $a = 1;
-  // $a[1] = 1;
-  // $a[1][1] = 1;
+  $a = 1;
+  $a[1] = 1;
+  $a[1][1] = 1;
 
   $this->a = 1;
   $this->a->b = 1;
@@ -21,21 +21,21 @@ function prova(bool $ella = 1, int $peppa)
   $this->a->b[1][1] = 1;
   $this->a[1]->b[1] = 1;
 
-  // $c->a = 1;
-  // $c->a->b = 1;
-  // $c->a[1]->b = 1;
-  // $c->a->b[1] = 1;
-  // $c->a[1][1]->b = 1;
-  // $c->a->b[1][1] = 1;
-  // $c->a[1]->b[1] = 1;
+  $c->a = 1;
+  $c->a->b = 1;
+  $c->a[1]->b = 1;
+  $c->a->b[1] = 1;
+  $c->a[1][1]->b = 1;
+  $c->a->b[1][1] = 1;
+  $c->a[1]->b[1] = 1;
 
-  // self::$a = 1;
-  // self::$a->b = 1;
-  // self::$a[1]->b = 1;
-  // self::$a->b[1] = 1;
-  // self::$a[1][1]->b = 1;
-  // self::$a->b[1][1] = 1;
-  // self::$a[1]->b[1] = 1;
+  self::$a = 1;
+  self::$a->b = 1;
+  self::$a[1]->b = 1;
+  self::$a->b[1] = 1;
+  self::$a[1][1]->b = 1;
+  self::$a->b[1][1] = 1;
+  self::$a[1]->b[1] = 1;
 
   AClass::$a = 1;
   AClass::$a->b = 1;
