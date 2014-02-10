@@ -37,6 +37,7 @@ function prova(bool $ella = 1, int $peppa)
   $a[1] = 1;
   $a[1][1] = 1;
 
+  // USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
   $this->a = 1;
   $this->a->b = 1;
   $this->a[1]->b = 1;
@@ -53,13 +54,14 @@ function prova(bool $ella = 1, int $peppa)
   $c->a->b[1][1] = 1;
   $c->a[1]->b[1] = 1;
 
-  // self::$a = 1;
-  // self::$a->b = 1;
-  // self::$a[1]->b = 1;
-  // self::$a->b[1] = 1;
-  // self::$a[1][1]->b = 1;
-  // self::$a->b[1][1] = 1;
-  // self::$a[1]->b[1] = 1;
+  // USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
+  self::$a = 1;
+  self::$a->b = 1;
+  self::$a[1]->b = 1;
+  self::$a->b[1] = 1;
+  self::$a[1][1]->b = 1;
+  self::$a->b[1][1] = 1;
+  self::$a[1]->b[1] = 1;
 
   AClass::$a = 1;
   AClass::$a = 1;
