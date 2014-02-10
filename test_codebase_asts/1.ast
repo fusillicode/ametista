@@ -6,7 +6,180 @@ array(
             )
         )
         stmts: array(
-            0: Stmt_Function(
+            0: Stmt_Class(
+                type: 0
+                extends: null
+                implements: array(
+                )
+                stmts: array(
+                    0: Stmt_ClassMethod(
+                        type: 1
+                        byRef: false
+                        params: array(
+                        )
+                        stmts: array(
+                            0: Expr_Assign(
+                                var: Expr_StaticPropertyFetch(
+                                    class: Name(
+                                        parts: array(
+                                            0: self
+                                        )
+                                    )
+                                    name: a
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            1: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_StaticPropertyFetch(
+                                        class: Name(
+                                            parts: array(
+                                                0: self
+                                            )
+                                        )
+                                        name: a
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            2: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_StaticPropertyFetch(
+                                            class: Name(
+                                                parts: array(
+                                                    0: self
+                                                )
+                                            )
+                                            name: a
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            3: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_StaticPropertyFetch(
+                                            class: Name(
+                                                parts: array(
+                                                    0: self
+                                                )
+                                            )
+                                            name: a
+                                        )
+                                        name: b
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            4: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_StaticPropertyFetch(
+                                                class: Name(
+                                                    parts: array(
+                                                        0: self
+                                                    )
+                                                )
+                                                name: a
+                                            )
+                                            dim: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            5: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_StaticPropertyFetch(
+                                                class: Name(
+                                                    parts: array(
+                                                        0: self
+                                                    )
+                                                )
+                                                name: a
+                                            )
+                                            name: b
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            6: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_StaticPropertyFetch(
+                                                class: Name(
+                                                    parts: array(
+                                                        0: self
+                                                    )
+                                                )
+                                                name: a
+                                            )
+                                            dim: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                        )
+                                        name: b
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                        )
+                        name: soleggia
+                    )
+                )
+                name: Sole
+                namespacedName: Name(
+                    parts: array(
+                        0: ciao
+                        1: Sole
+                    )
+                )
+            )
+            1: Stmt_Function(
                 byRef: false
                 params: array(
                     0: Param(
@@ -346,9 +519,10 @@ array(
                     )
                     17: Expr_Assign(
                         var: Expr_StaticPropertyFetch(
-                            class: Name(
+                            class: Name_FullyQualified(
                                 parts: array(
-                                    0: self
+                                    0: ciao
+                                    1: AClass
                                 )
                             )
                             name: a
@@ -358,170 +532,20 @@ array(
                         )
                     )
                     18: Expr_Assign(
-                        var: Expr_PropertyFetch(
-                            var: Expr_StaticPropertyFetch(
-                                class: Name(
-                                    parts: array(
-                                        0: self
-                                    )
+                        var: Expr_StaticPropertyFetch(
+                            class: Name_FullyQualified(
+                                parts: array(
+                                    0: ciao
+                                    1: AClass
                                 )
-                                name: a
                             )
-                            name: b
+                            name: a
                         )
                         expr: Scalar_LNumber(
                             value: 1
                         )
                     )
                     19: Expr_Assign(
-                        var: Expr_PropertyFetch(
-                            var: Expr_ArrayDimFetch(
-                                var: Expr_StaticPropertyFetch(
-                                    class: Name(
-                                        parts: array(
-                                            0: self
-                                        )
-                                    )
-                                    name: a
-                                )
-                                dim: Scalar_LNumber(
-                                    value: 1
-                                )
-                            )
-                            name: b
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    20: Expr_Assign(
-                        var: Expr_ArrayDimFetch(
-                            var: Expr_PropertyFetch(
-                                var: Expr_StaticPropertyFetch(
-                                    class: Name(
-                                        parts: array(
-                                            0: self
-                                        )
-                                    )
-                                    name: a
-                                )
-                                name: b
-                            )
-                            dim: Scalar_LNumber(
-                                value: 1
-                            )
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    21: Expr_Assign(
-                        var: Expr_PropertyFetch(
-                            var: Expr_ArrayDimFetch(
-                                var: Expr_ArrayDimFetch(
-                                    var: Expr_StaticPropertyFetch(
-                                        class: Name(
-                                            parts: array(
-                                                0: self
-                                            )
-                                        )
-                                        name: a
-                                    )
-                                    dim: Scalar_LNumber(
-                                        value: 1
-                                    )
-                                )
-                                dim: Scalar_LNumber(
-                                    value: 1
-                                )
-                            )
-                            name: b
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    22: Expr_Assign(
-                        var: Expr_ArrayDimFetch(
-                            var: Expr_ArrayDimFetch(
-                                var: Expr_PropertyFetch(
-                                    var: Expr_StaticPropertyFetch(
-                                        class: Name(
-                                            parts: array(
-                                                0: self
-                                            )
-                                        )
-                                        name: a
-                                    )
-                                    name: b
-                                )
-                                dim: Scalar_LNumber(
-                                    value: 1
-                                )
-                            )
-                            dim: Scalar_LNumber(
-                                value: 1
-                            )
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    23: Expr_Assign(
-                        var: Expr_ArrayDimFetch(
-                            var: Expr_PropertyFetch(
-                                var: Expr_ArrayDimFetch(
-                                    var: Expr_StaticPropertyFetch(
-                                        class: Name(
-                                            parts: array(
-                                                0: self
-                                            )
-                                        )
-                                        name: a
-                                    )
-                                    dim: Scalar_LNumber(
-                                        value: 1
-                                    )
-                                )
-                                name: b
-                            )
-                            dim: Scalar_LNumber(
-                                value: 1
-                            )
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    24: Expr_Assign(
-                        var: Expr_StaticPropertyFetch(
-                            class: Name_FullyQualified(
-                                parts: array(
-                                    0: ciao
-                                    1: AClass
-                                )
-                            )
-                            name: a
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    25: Expr_Assign(
-                        var: Expr_StaticPropertyFetch(
-                            class: Name_FullyQualified(
-                                parts: array(
-                                    0: ciao
-                                    1: AClass
-                                )
-                            )
-                            name: a
-                        )
-                        expr: Scalar_LNumber(
-                            value: 1
-                        )
-                    )
-                    26: Expr_Assign(
                         var: Expr_PropertyFetch(
                             var: Expr_StaticPropertyFetch(
                                 class: Name_FullyQualified(
@@ -538,7 +562,7 @@ array(
                             value: 1
                         )
                     )
-                    27: Expr_Assign(
+                    20: Expr_Assign(
                         var: Expr_PropertyFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_StaticPropertyFetch(
@@ -560,7 +584,7 @@ array(
                             value: 1
                         )
                     )
-                    28: Expr_Assign(
+                    21: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_PropertyFetch(
                                 var: Expr_StaticPropertyFetch(
@@ -582,7 +606,7 @@ array(
                             value: 1
                         )
                     )
-                    29: Expr_Assign(
+                    22: Expr_Assign(
                         var: Expr_PropertyFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_ArrayDimFetch(
@@ -609,7 +633,7 @@ array(
                             value: 1
                         )
                     )
-                    30: Expr_Assign(
+                    23: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_PropertyFetch(
@@ -636,7 +660,7 @@ array(
                             value: 1
                         )
                     )
-                    31: Expr_Assign(
+                    24: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_PropertyFetch(
                                 var: Expr_ArrayDimFetch(
@@ -663,7 +687,7 @@ array(
                             value: 1
                         )
                     )
-                    32: Expr_Assign(
+                    25: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_Variable(
                                 name: GLOBALS
@@ -676,7 +700,7 @@ array(
                             value: 1
                         )
                     )
-                    33: Expr_Assign(
+                    26: Expr_Assign(
                         var: Expr_PropertyFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_Variable(
@@ -692,7 +716,7 @@ array(
                             value: 1
                         )
                     )
-                    34: Expr_Assign(
+                    27: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_PropertyFetch(
                                 var: Expr_ArrayDimFetch(
@@ -713,7 +737,7 @@ array(
                             value: 1
                         )
                     )
-                    35: Expr_Assign(
+                    28: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_PropertyFetch(
@@ -739,7 +763,7 @@ array(
                             value: 1
                         )
                     )
-                    36: Expr_Assign(
+                    29: Expr_Assign(
                         var: Expr_PropertyFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_ArrayDimFetch(
@@ -760,7 +784,7 @@ array(
                             value: 1
                         )
                     )
-                    37: Expr_Assign(
+                    30: Expr_Assign(
                         var: Expr_PropertyFetch(
                             var: Expr_ArrayDimFetch(
                                 var: Expr_ArrayDimFetch(
@@ -786,7 +810,7 @@ array(
                             value: 1
                         )
                     )
-                    38: Expr_Assign(
+                    31: Expr_Assign(
                         var: Expr_ArrayDimFetch(
                             var: Expr_PropertyFetch(
                                 var: Expr_ArrayDimFetch(
@@ -812,7 +836,7 @@ array(
                             value: 1
                         )
                     )
-                    39: Stmt_Global(
+                    32: Stmt_Global(
                         vars: array(
                             0: Expr_Variable(
                                 name: a
@@ -834,7 +858,7 @@ array(
                     )
                 )
             )
-            1: Stmt_Class(
+            2: Stmt_Class(
                 type: 0
                 extends: Name_FullyQualified(
                     parts: array(
@@ -903,7 +927,7 @@ array(
                     )
                 )
             )
-            2: Stmt_Use(
+            3: Stmt_Use(
                 uses: array(
                     0: Stmt_UseUse(
                         name: Name(
@@ -918,7 +942,7 @@ array(
                     )
                 )
             )
-            3: Stmt_Function(
+            4: Stmt_Function(
                 byRef: false
                 params: array(
                 )

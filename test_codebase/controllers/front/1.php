@@ -9,6 +9,21 @@
 
 namespace ciao;
 
+class Sole {
+
+  function soleggia()
+  {
+    self::$a = 1;
+    self::$a->b = 1;
+    self::$a[1]->b = 1;
+    self::$a->b[1] = 1;
+    self::$a[1][1]->b = 1;
+    self::$a->b[1][1] = 1;
+    self::$a[1]->b[1] = 1;
+  }
+
+}
+
 function prova(bool $ella = 1, int $peppa)
 {
   $a = 1;
@@ -31,13 +46,13 @@ function prova(bool $ella = 1, int $peppa)
   $c->a->b[1][1] = 1;
   $c->a[1]->b[1] = 1;
 
-  self::$a = 1;
-  self::$a->b = 1;
-  self::$a[1]->b = 1;
-  self::$a->b[1] = 1;
-  self::$a[1][1]->b = 1;
-  self::$a->b[1][1] = 1;
-  self::$a[1]->b[1] = 1;
+  // self::$a = 1;
+  // self::$a->b = 1;
+  // self::$a[1]->b = 1;
+  // self::$a->b[1] = 1;
+  // self::$a[1][1]->b = 1;
+  // self::$a->b[1][1] = 1;
+  // self::$a[1]->b[1] = 1;
 
   AClass::$a = 1;
   AClass::$a = 1;

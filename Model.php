@@ -4,7 +4,7 @@ include_once __DIR__ . '/vendor/autoload.php';
 
 class Model
 {
-  public function __construct($server_path = 'vendor/redis-2.6.16/src/',
+  public function __construct($server_path = 'vendor/redis-2.8.5/src/',
                               $server_executable = 'redis-server',
                               $address = '', $parser = null, $lexer = null,
                               $traverser = null, $visitors = array())
@@ -280,13 +280,14 @@ class Model
     } elseif (strpos($variable_name, 'this') === 0) {
 
       $variable_name = str_replace('this->', '', $variable_name);
-      var_dump($variable_name);
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      var_dump($container, $variable_name);
 
     // caso di assegnamento a proprietà STATICHE della classe sotto analisi
     } elseif (strpos($variable_name, 'self') === 0) {
 
       $variable_name = str_replace('self::', '', $variable_name);
-      var_dump($variable_name);
+      // var_dump($variable_name);
 
     // caso di assegnamento a proprietà STATICHE di classi diverse da quella sotto analisi
     // qui ho un problema...se non ho ancora analizzato la classe a cui sto facendo riferimento???
@@ -294,14 +295,14 @@ class Model
 
       $class_name = strstr($variable_name, '::', true);
       $variable_name = str_replace($class_name.'::', '', $variable_name);
-      var_dump($class_name, $variable_name);
+      // var_dump($class_name, $variable_name);
 
     // caso di assegnamento a variabili locali al metodo, funzione, o namespace
     // solo qui devo verificare che la variabile sia effettivamente locale e non sia invece
     // una di quelle definite come globali!!! (i.e. globals $a, $b, $c)
     } else {
 
-      var_dump($variable_name);
+      // var_dump($variable_name);
 
     }
 
