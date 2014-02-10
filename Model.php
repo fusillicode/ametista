@@ -274,20 +274,21 @@ class Model
 
       preg_match("/GLOBALS\['(\\w)'\]/", $variable_name, $matches);
       $variable_name = $matches[1].str_replace($matches[0], '', $variable_name);
-      var_dump($variable_name);
+      // var_dump($variable_name);
 
     // caso di assegnamento a proprietà della classe sotto analisi
     } elseif (strpos($variable_name, 'this') === 0) {
 
       $variable_name = str_replace('this->', '', $variable_name);
-      $container = $this->_redis->lrange('scope', 0, 0)[0];
+      $class = $this->_redis->lrange('scope', 0, 1)[1];
       var_dump($container, $variable_name);
 
     // caso di assegnamento a proprietà STATICHE della classe sotto analisi
     } elseif (strpos($variable_name, 'self') === 0) {
 
       $variable_name = str_replace('self::', '', $variable_name);
-      // var_dump($variable_name);
+      $class = $this->_redis->lrange('scope', 0, 1)[1];
+      var_dump($container, $variable_name);
 
     // caso di assegnamento a proprietà STATICHE di classi diverse da quella sotto analisi
     // qui ho un problema...se non ho ancora analizzato la classe a cui sto facendo riferimento???

@@ -167,6 +167,141 @@ array(
                                     value: 1
                                 )
                             )
+                            7: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_Variable(
+                                        name: this
+                                    )
+                                    name: a
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            8: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_Variable(
+                                            name: this
+                                        )
+                                        name: a
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            9: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: a
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            10: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_Variable(
+                                                name: this
+                                            )
+                                            name: a
+                                        )
+                                        name: b
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            11: Expr_Assign(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: a
+                                            )
+                                            dim: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                    name: b
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            12: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_PropertyFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: a
+                                            )
+                                            name: b
+                                        )
+                                        dim: Scalar_LNumber(
+                                            value: 1
+                                        )
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            13: Expr_Assign(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_PropertyFetch(
+                                        var: Expr_ArrayDimFetch(
+                                            var: Expr_PropertyFetch(
+                                                var: Expr_Variable(
+                                                    name: this
+                                                )
+                                                name: a
+                                            )
+                                            dim: Scalar_LNumber(
+                                                value: 1
+                                            )
+                                        )
+                                        name: b
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                expr: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
                         )
                         name: soleggia
                     )

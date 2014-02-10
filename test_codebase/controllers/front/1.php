@@ -20,6 +20,13 @@ class Sole {
     self::$a[1][1]->b = 1;
     self::$a->b[1][1] = 1;
     self::$a[1]->b[1] = 1;
+    $this->a = 1;
+    $this->a->b = 1;
+    $this->a[1]->b = 1;
+    $this->a->b[1] = 1;
+    $this->a[1][1]->b = 1;
+    $this->a->b[1][1] = 1;
+    $this->a[1]->b[1] = 1;
   }
 
 }
