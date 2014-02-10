@@ -27,6 +27,7 @@ class Sole {
     $this->a[1][1]->b = 1;
     $this->a->b[1][1] = 1;
     $this->a[1]->b[1] = 1;
+    $locale = 1;
   }
 
 }
