@@ -270,7 +270,7 @@ class Model
     $variable_name = $this->getVariableName($node_object->var);
 
     // caso di assegnamento all'array GLOBALS
-    if (strpos($variable_name, 'globaliS') === 0) {
+    if (strpos($variable_name, 'GLOBALS') === 0) {
 
       preg_match("/GLOBALS\['(\\w)'\]/", $variable_name, $matches);
       $variable_name = $matches[1].str_replace($matches[0], '', $variable_name);
