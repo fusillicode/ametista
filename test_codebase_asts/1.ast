@@ -1128,7 +1128,156 @@ array(
                             value: 1
                         )
                     )
-                    39: Stmt_Global(
+                    39: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_Variable(
+                                name: _POST
+                            )
+                            dim: Scalar_String(
+                                value: a
+                            )
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    40: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_ArrayDimFetch(
+                                var: Expr_Variable(
+                                    name: _POST
+                                )
+                                dim: Scalar_String(
+                                    value: a
+                                )
+                            )
+                            name: b
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    41: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_Variable(
+                                        name: _POST
+                                    )
+                                    dim: Scalar_String(
+                                        value: a
+                                    )
+                                )
+                                name: b
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    42: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_ArrayDimFetch(
+                                var: Expr_PropertyFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: _POST
+                                        )
+                                        dim: Scalar_String(
+                                            value: a
+                                        )
+                                    )
+                                    name: b
+                                )
+                                dim: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    43: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_ArrayDimFetch(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_Variable(
+                                        name: _POST
+                                    )
+                                    dim: Scalar_String(
+                                        value: a
+                                    )
+                                )
+                                dim: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            name: b
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    44: Expr_Assign(
+                        var: Expr_PropertyFetch(
+                            var: Expr_ArrayDimFetch(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: _POST
+                                        )
+                                        dim: Scalar_String(
+                                            value: a
+                                        )
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                dim: Scalar_LNumber(
+                                    value: 1
+                                )
+                            )
+                            name: b
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    45: Expr_Assign(
+                        var: Expr_ArrayDimFetch(
+                            var: Expr_PropertyFetch(
+                                var: Expr_ArrayDimFetch(
+                                    var: Expr_ArrayDimFetch(
+                                        var: Expr_Variable(
+                                            name: _POST
+                                        )
+                                        dim: Scalar_String(
+                                            value: b
+                                        )
+                                    )
+                                    dim: Scalar_LNumber(
+                                        value: 1
+                                    )
+                                )
+                                name: b
+                            )
+                            dim: Scalar_LNumber(
+                                value: 1
+                            )
+                        )
+                        expr: Scalar_LNumber(
+                            value: 1
+                        )
+                    )
+                    46: Stmt_Global(
                         vars: array(
                             0: Expr_Variable(
                                 name: a

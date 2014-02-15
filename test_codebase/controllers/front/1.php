@@ -81,6 +81,14 @@ function prova(bool $ella = 1, int $peppa)
   $GLOBALS['a'][1][1]->b = 1;
   $GLOBALS['b'][1]->b[1] = 1;
 
+  $_POST['a'] = 1;
+  $_POST['a']->b = 1;
+  $_POST['a']->b[1] = 1;
+  $_POST['a']->b[1][1] = 1;
+  $_POST['a'][1]->b = 1;
+  $_POST['a'][1][1]->b = 1;
+  $_POST['b'][1]->b[1] = 1;
+
   /////////////////////////////////////////
   global $a, $b, $c;
 

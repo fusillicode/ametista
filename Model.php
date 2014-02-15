@@ -262,19 +262,28 @@ class Model
     }
   }
 
+  // ritorna il nome della variabile globale oppure false se non ho una variabile globale
+  private function getGlobalVariableName($variable_name)
+  {
+    $global_variables = array('GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION', '_ENV', '_COOKIE');
+    foreach ($global_variables as $key => $global_variable) {
+      if (strpos($variable_name, $global_variable) === 0) {
+        preg_match("/{$global_variable}\['(\\w)'\]/", $variable_name, $matches);
+        return $matches[1].str_replace($matches[0], '', $variable_name);
+      }
+    }
+    return false;
+  }
+
   // insertAssignement deve discriminare le variabili locali a funzioni e metodi,
   // globali e le proprietà delle classi
   // ...questo metodo mi sa tanto di regola
   private function insertAssignment($node_object)
   {
     $variable_name = $this->getVariableName($node_object->var);
-
-    // caso di assegnamento all'array GLOBALS
-    if (strpos($variable_name, 'GLOBALS') === 0) {
-
-      preg_match("/GLOBALS\['(\\w)'\]/", $variable_name, $matches);
-      $variable_name = $matches[1].str_replace($matches[0], '', $variable_name);
-      // var_dump($variable_name);
+    $global_variable = $this->getGlobalVariableName($variable_name);
+    // caso di assegnamento all'array GLOBALS o ad una delle varibili globali di PHP
+    if ($global_variable === false) {
 
     // caso di assegnamento a proprietà della classe sotto analisi
     } elseif (strpos($variable_name, 'this') === 0) {
@@ -303,8 +312,8 @@ class Model
     // una di quelle definite come globali!!! (i.e. globals $a, $b, $c)
     } else {
 
-      $container = $this->_redis->lrange('scope', 0, 0)[0];
-      var_dump($container, $variable_name);
+      // $container = $this->_redis->lrange('scope', 0, 0)[0];
+      // var_dump($container, $variable_name);
 
     }
 
