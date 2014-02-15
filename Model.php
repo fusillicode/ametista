@@ -308,66 +308,7 @@ class Model
 
     }
 
-
-    // if ($node_object->var->getType() === 'Expr_ArrayDimFetch' && $node_object->var->var->getType() === 'Expr_PropertyFetch') {
-    //   var_dump($this->getVariableName($node_object));
-    // // ok qui sotto ho la normale property fetch
-    // } elseif ($node_object->var->getType() === 'Expr_PropertyFetch') {
-    //   $variable_name = $this->getVariableName($node_object);
-    //   if (strpos($variable_name, 'this') !== false) {
-    //     $container = $this->_redis->lrange('scope', 0, 0)[0];
-    //     var_dump($container);
-    //   }
-    //   die();
-    //   // assegnamento di una proprietà (i.e. attributo di classe) $this->ca->a
-    //   //var_dump($node_object->var->getLine())
-    // } elseif ($node_object->var->var->getType() === 'Expr_Variable' && $node_object->var->var->name === 'GLOBALS') {
-    //   // assegnamento di una variabile globale nella forma $GLOBALS['a'] = espressione
-    //   // il nome della variabile si ottiene per mezzo di $node_object->var->dim->value
-    //   var_dump($this->getVariableName($node_object));
-    // } elseif ($node_object->var->var->getType() ==='Expr_ArrayDimFetch' && $node_object->var->var->var->name === 'GLOBALS') {
-    //   // assegnamento di una variabile globale nella forma $GLOBALS['a']['b'] = espressione;
-    //   // il nome della variabile si ottiene per mezzo di $this->getGlobalsVariableName($node_object->var);
-    //   var_dump($this->getVariableName($node_object));
-    // } else {
-    //   $container = $this->_redis->lrange('scope', 0, 0)[0];
-    //   $variable_name = $this->getVariableName($node_object);
-    //   if ($container === 'N:\\') {
-    //     // se sono nello scope generale significa che ho un assegnamento di una variabile globale
-    //     // il nome della variabile è $variable_name;
-    //     //var_dump($node_object->var->getLine())
-    //   } else {
-    //     // se NON sono nello scope generale vado a verificare che la variabile non sia una di quelle definite come globali
-    //     $global_variable_key_in_scope = $container.'\\'.$variable_name;
-    //     if ($this->_redis->sismember('scoped_global_variables', $global_variable_key_in_scope)) {
-    //       // assegnamento di una variabile globale
-    //       // il nome della variabile è $variable_name;
-    //       //var_dump($node_object->var->getLine())
-    //     } else {
-    //       // assegnamento di una variabile locale
-    //       // il nome della variabile è $variable_name;
-    //       //var_dump($node_object->var->getLine())
-    //     }
-    //   }
-    // }
-    // $variable = $this->getVariableName($node_object->var);
-    // $scope = $this->_redis->lrange('scope', 0, 0);
-    // $container = substr($scope[0], 2);
-    // $variable_key = "V:{$container}\\{$variable}";
-    // // check per variabile già definita
-    // var_dump($this->_redis->sismember('variables', $variable_key));
-    // $this->_redis->sadd('variables', $variable_key);
-    // $this->insertContainmentRelationship($variable_key, 'V', $scope[0][0], $container);
   }
-
-  // private function getGlobalsVariableName($variable)
-  // {
-  //   if ($variable->var->getType() === 'Expr_ArrayDimFetch') {
-  //     return $this->getGlobalsVariableName($variable->var)."[{$variable->dim->value}]";
-  //   } else {
-  //     return $variable->dim->value;
-  //   }
-  // }
 
   private function getVariableName($variable)
   {
