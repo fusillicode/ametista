@@ -365,7 +365,11 @@ class Model
   // le proprietà delle classi potrebbero essere trattate (i.e. rappresentate) nello stesso modo degli assegnamenti...
   private function insertClassProperty($node_object)
   {
-    //var_dump($node_object->getLine())
+    $class = $this->_redis->lrange('scope', 0, 0)[0];
+    foreach ($node_object->props as $key => $property) {
+      $this->_redis->sadd('properties', $class.':[P');
+      $this->_redis->sadd($class.':[P', substr_replace($class, 'P:', 0, 2).'\\'.$property->name);
+    }
   }
 
   // la procedura di inserimento prevede di specificare o meno il container per

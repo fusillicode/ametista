@@ -114,7 +114,7 @@ function prova(bool $ella = 1, int $peppa)
 
 class mondo extends pippo {
 
-  public static $a = '12';
+  public static $a = '12', $b = 'asd';
 
   private function ciao(int $a){
 
