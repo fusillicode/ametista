@@ -285,7 +285,7 @@ class Model
     // caso di assegnamento all'array GLOBALS o ad una delle varibili globali di PHP
     if ($global_variable !== false) {
 
-      $this->_redis->sadd('glboal_variables', 'G:'.$global_variable);
+      $this->_redis->sadd('global_variables', 'G:'.$global_variable);
 
     // caso di assegnamento a proprietà della classe sotto analisi
     } elseif (strpos($variable_name, 'this') === 0) {
