@@ -285,14 +285,16 @@ class Model
     // caso di assegnamento all'array GLOBALS o ad una delle varibili globali di PHP
     if ($global_variable !== false) {
 
+      $container = $this->_redis->lrange('scope', 0, 0)[0];
       $this->_redis->sadd('global_variables', 'G:'.$global_variable);
+      $this->_redis->sadd($container.':[G', 'G:'.$global_variable);
 
     // caso di assegnamento a proprietà della classe sotto analisi
     } elseif (strpos($variable_name, 'this') === 0) {
 
       $variable_name = str_replace('this->', '', $variable_name);
       $class = $this->_redis->lrange('scope', 0, 1)[1];
-      $this->_redis->sadd('local_variables', $class.':[P');
+      $this->_redis->sadd('properties', $class.':[P');
       $this->_redis->sadd($class.':[P', substr_replace($class, 'P:', 0, 2).'\\'.$variable_name);
 
     // caso di assegnamento a proprietà STATICHE della classe sotto analisi
@@ -300,7 +302,7 @@ class Model
 
       $variable_name = str_replace('self::', '', $variable_name);
       $class = $this->_redis->lrange('scope', 0, 1)[1];
-      $this->_redis->sadd('local_variables', $class.':[P');
+      $this->_redis->sadd('properties', $class.':[P');
       $this->_redis->sadd($class.':[P', substr_replace($class, 'P:', 0, 2).'\\'.$variable_name);
 
     // caso di assegnamento a proprietà STATICHE di classi diverse da quella sotto analisi
@@ -309,7 +311,7 @@ class Model
 
       $class_name = strstr($variable_name, '::', true);
       $variable_name = str_replace($class_name.'::', '', $variable_name);
-      $this->_redis->sadd('local_variables', 'C:\\'.$class_name.':[P');
+      $this->_redis->sadd('properties', 'C:\\'.$class_name.':[P');
       $this->_redis->sadd('C:\\'.$class_name.':[P', 'P:\\'.$class_name.'\\'.$variable_name);
 
     // caso di assegnamento a variabili locali al metodo, funzione, o namespace

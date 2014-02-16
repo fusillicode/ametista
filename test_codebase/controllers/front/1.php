@@ -9,10 +9,25 @@
 
 namespace ciao;
 
+$GLOBALS['a'] = 1;
+$GLOBALS['a']->b = 1;
+$GLOBALS['a']->b[1] = 1;
+$GLOBALS['a']->b[1][1] = 1;
+$GLOBALS['a'][1]->b = 1;
+$GLOBALS['a'][1][1]->b = 1;
+$GLOBALS['b'][1]->b[1] = 1;
+
 class Sole {
 
   function soleggia()
   {
+    $GLOBALS['a'] = 1;
+    $GLOBALS['a']->b = 1;
+    $GLOBALS['a']->b[1] = 1;
+    $GLOBALS['a']->b[1][1] = 1;
+    $GLOBALS['a'][1]->b = 1;
+    $GLOBALS['a'][1][1]->b = 1;
+    $GLOBALS['b'][1]->b[1] = 1;
     self::$a = 1;
     self::$a->b = 1;
     self::$a[1]->b = 1;
