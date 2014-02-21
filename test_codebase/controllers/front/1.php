@@ -43,6 +43,7 @@ class Sole {
     $this->a->b[1][1] = 1;
     $this->a[1]->b[1] = 1;
     $locale = 1;
+    $this->context->cookie->{$this->table.'_pagination'} = $limit;
   }
 
 }

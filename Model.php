@@ -106,7 +106,7 @@ class Model
       $this->populate($statements);
       // $redis->set("{$file}", serialize($statements));
       $dump = $this->node_dumper->dump($statements);
-      file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
+      // file_put_contents('./test_codebase_asts/'.$this->replaceExtension($file,'ast'), $dump);
       die();
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";
@@ -175,8 +175,9 @@ class Model
     }
   }
 
-  private function insertRawStatements($key, array $raw_statements)
+  private function insertRawStatements($key, $raw_statements)
   {
+    if (!$raw_statements) return;
     foreach ($raw_statements as $i => $raw_statement) {
       $this->_redis->rpush($key, serialize($raw_statement));
     }
