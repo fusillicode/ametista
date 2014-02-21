@@ -43,7 +43,13 @@ class Sole {
     $this->a->b[1][1] = 1;
     $this->a[1]->b[1] = 1;
     $locale = 1;
-    $this->context->cookie->{$this->table.'_pagination'} = $limit;
+
+    $this->context->cookie['a']->{$this->table.'_pagination'} = $limit;
+    // $this->context->cookie['a'][1]->{$this->table.'_pagination'} = $limit;
+    // $this->context->{$this->table.'_pagination'}->cookie = $limit;
+    // $this->context->{$this->table.'_pagination'}->cookie['1'] = $limit;
+    // $this->context->{$this->table.'_pagination'}->cookie['1']->a = $limit;
+    // $this->context->cookie->{$this->table.'_pagination'} = $limit;
   }
 
 }

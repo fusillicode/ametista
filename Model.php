@@ -340,13 +340,19 @@ class Model
       return $this->getVariableName($variable->var)."['{$variable->dim->value}']";
     }
     if ($variable->getType() === 'Expr_PropertyFetch') {
-      return $this->getVariableName($variable->var)."->{$variable->name}";
+      return $this->getVariableName($variable->var).'->'.$this->getVariableName($variable->name);
     }
     if ($variable->getType() === 'Expr_Assign') {
       return $this->getVariableName($variable->var);
     }
     if ($variable->getType() === 'Expr_StaticPropertyFetch') {
       return $variable->class."::{$variable->name}";
+    }
+    if ($variable->getType() === 'Expr_Concat') {
+      return '{'.$this->getVariableName($variable->left).'.'.$this->getVariableName($variable->right).'}';
+    }
+    if ($variable->getType() === 'Scalar_String') {
+      return $variable->value;
     }
     return 'NO_NAME_FOUND';
   }
