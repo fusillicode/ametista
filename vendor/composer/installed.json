@@ -1,30 +1,79 @@
 [
     {
-        "name": "nikic/php-parser",
-        "version": "v0.9.4",
-        "version_normalized": "0.9.4.0",
+        "name": "devster/ubench",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/nikic/PHP-Parser.git",
-            "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f"
+            "url": "https://github.com/devster/ubench.git",
+            "reference": "b0d1f9a4ffad3b43413fdc6013c01e65dde11742"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
-            "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
+            "url": "https://api.github.com/repos/devster/ubench/zipball/b0d1f9a4ffad3b43413fdc6013c01e65dde11742",
+            "reference": "b0d1f9a4ffad3b43413fdc6013c01e65dde11742",
+            "shasum": ""
+        },
+        "time": "2013-02-28 08:22:22",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Ubench": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jeremy Perret",
+                "email": "jeremy@devster.org",
+                "homepage": "https://github.com/devster"
+            }
+        ],
+        "description": "Micro PHP library for benchmarking",
+        "homepage": "https://github.com/devster/ubench",
+        "keywords": [
+            "bench",
+            "benchmark",
+            "library",
+            "micro"
+        ]
+    },
+    {
+        "name": "nikic/php-parser",
+        "version": "0.9.x-dev",
+        "version_normalized": "0.9.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nikic/PHP-Parser.git",
+            "reference": "118f28344daf154e47e73e79779a60bc7430a40f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/118f28344daf154e47e73e79779a60bc7430a40f",
+            "reference": "118f28344daf154e47e73e79779a60bc7430a40f",
             "shasum": ""
         },
         "require": {
+            "ext-tokenizer": "*",
             "php": ">=5.2"
         },
-        "time": "2013-08-25 17:11:40",
+        "time": "2014-02-12 19:19:48",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "0.9-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "PHPParser": "lib/"
@@ -47,17 +96,17 @@
     },
     {
         "name": "predis/predis",
-        "version": "v0.8.5",
-        "version_normalized": "0.8.5.0",
+        "version": "0.8.x-dev",
+        "version_normalized": "0.8.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/nrk/predis.git",
-            "reference": "5f2eea628eb465d866ad2771927d83769c8f956c"
+            "reference": "809f76a7b3fd0e510a29753528e954a33fa597db"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nrk/predis/zipball/5f2eea628eb465d866ad2771927d83769c8f956c",
-            "reference": "5f2eea628eb465d866ad2771927d83769c8f956c",
+            "url": "https://api.github.com/repos/nrk/predis/zipball/809f76a7b3fd0e510a29753528e954a33fa597db",
+            "reference": "809f76a7b3fd0e510a29753528e954a33fa597db",
             "shasum": ""
         },
         "require": {
@@ -67,9 +116,9 @@
             "ext-curl": "Allows access to Webdis when paired with phpiredis",
             "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
         },
-        "time": "2014-01-16 14:10:29",
+        "time": "2014-02-11 18:10:09",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "Predis": "lib/"
