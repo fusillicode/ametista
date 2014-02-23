@@ -2,10 +2,6 @@
 
 include_once __DIR__ . '/Model.php';
 
-// con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
-// token_get_all() all'interno del Lexer
-ini_set('memory_limit', '512M');
-
 // $start_redis_server = `./vendor/redis-2.6.16/src/redis-server`;
 
 $model = new Model();

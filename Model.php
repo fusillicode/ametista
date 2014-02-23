@@ -7,7 +7,8 @@ class Model
   public function __construct($server_path = 'vendor/redis-2.8.5/src/',
                               $server_executable = 'redis-server',
                               $address = '', $parser = null, $lexer = null,
-                              $traverser = null, $visitors = array())
+                              $traverser = null, $visitors = array(),
+                              $memory_limit = 512)
   {
     $this->startRedisServer($server_path, $server_executable);
     $this->connectTo($address);
@@ -15,6 +16,9 @@ class Model
     $this->setParser($parser, $lexer);
     $this->setTraverser($traverser);
     $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
+    // con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
+    // token_get_all() all'interno del Lexer
+    ini_set('memory_limit', (int)$memory_limit.'M');
   }
 
   private function startRedisServer($server_path, $server_executable)
