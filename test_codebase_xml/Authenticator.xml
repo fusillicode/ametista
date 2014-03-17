@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+ <scalar:array>
+  <node:Stmt_Interface>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="true" line="3">/**
+ * Swift Mailer Authenticator Interface
+ * Please read the LICENSE file
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Authenticator
+ * @license GNU Lesser General Public License
+ */</comment>
+     <comment isDocComment="true" line="11">/**
+ * Swift Authenticator Interface
+ * Lists the methods all authenticators must implement
+ * @package Swift_Authenticator
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>17</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>33</scalar:int>
+   </attribute:endLine>
+   <subNode:extends>
+    <scalar:array/>
+   </subNode:extends>
+   <subNode:stmts>
+    <scalar:array>
+     <node:Stmt_ClassMethod>
+      <attribute:comments>
+       <scalar:array>
+        <comment isDocComment="true" line="19">/**
+   * Try to authenticate using the username and password
+   * Returns false on failure
+   * @param string The username
+   * @param string The password
+   * @param Swift The instance of Swift this authenticator is used in
+   * @return boolean
+   */</comment>
+       </scalar:array>
+      </attribute:comments>
+      <attribute:startLine>
+       <scalar:int>27</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>27</scalar:int>
+      </attribute:endLine>
+      <subNode:type>
+       <scalar:int>1</scalar:int>
+      </subNode:type>
+      <subNode:byRef>
+       <scalar:false/>
+      </subNode:byRef>
+      <subNode:params>
+       <scalar:array>
+        <node:Param>
+         <attribute:startLine>
+          <scalar:int>27</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>27</scalar:int>
+         </attribute:endLine>
+         <subNode:name>
+          <scalar:string>username</scalar:string>
+         </subNode:name>
+         <subNode:default>
+          <scalar:null/>
+         </subNode:default>
+         <subNode:type>
+          <scalar:null/>
+         </subNode:type>
+         <subNode:byRef>
+          <scalar:false/>
+         </subNode:byRef>
+        </node:Param>
+        <node:Param>
+         <attribute:startLine>
+          <scalar:int>27</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>27</scalar:int>
+         </attribute:endLine>
+         <subNode:name>
+          <scalar:string>password</scalar:string>
+         </subNode:name>
+         <subNode:default>
+          <scalar:null/>
+         </subNode:default>
+         <subNode:type>
+          <scalar:null/>
+         </subNode:type>
+         <subNode:byRef>
+          <scalar:false/>
+         </subNode:byRef>
+        </node:Param>
+        <node:Param>
+         <attribute:startLine>
+          <scalar:int>27</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>27</scalar:int>
+         </attribute:endLine>
+         <subNode:name>
+          <scalar:string>instance</scalar:string>
+         </subNode:name>
+         <subNode:default>
+          <scalar:null/>
+         </subNode:default>
+         <subNode:type>
+          <node:Name_FullyQualified>
+           <attribute:startLine>
+            <scalar:int>27</scalar:int>
+           </attribute:startLine>
+           <attribute:endLine>
+            <scalar:int>27</scalar:int>
+           </attribute:endLine>
+           <subNode:parts>
+            <scalar:array>
+             <scalar:string>Swift</scalar:string>
+            </scalar:array>
+           </subNode:parts>
+          </node:Name_FullyQualified>
+         </subNode:type>
+         <subNode:byRef>
+          <scalar:false/>
+         </subNode:byRef>
+        </node:Param>
+       </scalar:array>
+      </subNode:params>
+      <subNode:stmts>
+       <scalar:null/>
+      </subNode:stmts>
+      <subNode:name>
+       <scalar:string>isAuthenticated</scalar:string>
+      </subNode:name>
+     </node:Stmt_ClassMethod>
+     <node:Stmt_ClassMethod>
+      <attribute:comments>
+       <scalar:array>
+        <comment isDocComment="true" line="28">/**
+   * Return the name of the AUTH extension this is for
+   * @return string
+   */</comment>
+       </scalar:array>
+      </attribute:comments>
+      <attribute:startLine>
+       <scalar:int>32</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>32</scalar:int>
+      </attribute:endLine>
+      <subNode:type>
+       <scalar:int>1</scalar:int>
+      </subNode:type>
+      <subNode:byRef>
+       <scalar:false/>
+      </subNode:byRef>
+      <subNode:params>
+       <scalar:array/>
+      </subNode:params>
+      <subNode:stmts>
+       <scalar:null/>
+      </subNode:stmts>
+      <subNode:name>
+       <scalar:string>getAuthExtensionName</scalar:string>
+      </subNode:name>
+     </node:Stmt_ClassMethod>
+    </scalar:array>
+   </subNode:stmts>
+   <subNode:name>
+    <scalar:string>Swift_Authenticator</scalar:string>
+   </subNode:name>
+   <subNode:namespacedName>
+    <node:Name>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="true" line="3">/**
+ * Swift Mailer Authenticator Interface
+ * Please read the LICENSE file
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Authenticator
+ * @license GNU Lesser General Public License
+ */</comment>
+       <comment isDocComment="true" line="11">/**
+ * Swift Authenticator Interface
+ * Lists the methods all authenticators must implement
+ * @package Swift_Authenticator
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>17</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>33</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>Swift_Authenticator</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name>
+   </subNode:namespacedName>
+  </node:Stmt_Interface>
+ </scalar:array>
+</AST>

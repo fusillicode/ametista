@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+ <scalar:array>
+  <node:Expr_Include>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="false" line="2">/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */</comment>
+     <comment isDocComment="true" line="4">/**
+ * Keeps the exception class for XML_Feed_Parser.
+ *
+ * PHP versions 5
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   XML
+ * @package    XML_Feed_Parser
+ * @author     James Stewart &lt;james@jystewart.net&gt;
+ * @copyright  2005 James Stewart &lt;james@jystewart.net&gt;
+ * @license    http://www.gnu.org/copyleft/lesser.html  GNU LGPL
+ * @version    CVS: $Id: Exception.php 6844 2011-06-03 14:46:51Z dMetzger $
+ * @link       http://pear.php.net/package/XML_Feed_Parser/
+ */</comment>
+     <comment isDocComment="true" line="24">/**
+ * We are extending PEAR_Exception
+ */</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>27</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>27</scalar:int>
+   </attribute:endLine>
+   <subNode:expr>
+    <node:Expr_Concat>
+     <attribute:startLine>
+      <scalar:int>27</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>27</scalar:int>
+     </attribute:endLine>
+     <subNode:left>
+      <node:Expr_FuncCall>
+       <attribute:startLine>
+        <scalar:int>27</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>27</scalar:int>
+       </attribute:endLine>
+       <subNode:name>
+        <node:Name>
+         <attribute:startLine>
+          <scalar:int>27</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>27</scalar:int>
+         </attribute:endLine>
+         <subNode:parts>
+          <scalar:array>
+           <scalar:string>dirname</scalar:string>
+          </scalar:array>
+         </subNode:parts>
+        </node:Name>
+       </subNode:name>
+       <subNode:args>
+        <scalar:array>
+         <node:Arg>
+          <attribute:startLine>
+           <scalar:int>27</scalar:int>
+          </attribute:startLine>
+          <attribute:endLine>
+           <scalar:int>27</scalar:int>
+          </attribute:endLine>
+          <subNode:value>
+           <node:Scalar_FileConst>
+            <attribute:startLine>
+             <scalar:int>27</scalar:int>
+            </attribute:startLine>
+            <attribute:endLine>
+             <scalar:int>27</scalar:int>
+            </attribute:endLine>
+           </node:Scalar_FileConst>
+          </subNode:value>
+          <subNode:byRef>
+           <scalar:false/>
+          </subNode:byRef>
+         </node:Arg>
+        </scalar:array>
+       </subNode:args>
+      </node:Expr_FuncCall>
+     </subNode:left>
+     <subNode:right>
+      <node:Scalar_String>
+       <attribute:startLine>
+        <scalar:int>27</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>27</scalar:int>
+       </attribute:endLine>
+       <subNode:value>
+        <scalar:string>/../../pear/PEAR.php</scalar:string>
+       </subNode:value>
+      </node:Scalar_String>
+     </subNode:right>
+    </node:Expr_Concat>
+   </subNode:expr>
+   <subNode:type>
+    <scalar:int>4</scalar:int>
+   </subNode:type>
+  </node:Expr_Include>
+  <node:Stmt_Class>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="true" line="29">/**
+ * XML_Feed_Parser_Exception is a simple extension of PEAR_Exception, existing
+ * to help with identification of the source of exceptions.
+ *
+ * @author  James Stewart &lt;james@jystewart.net&gt;
+ * @version Release: @package_version@
+ * @package XML_Feed_Parser
+ */</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>37</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>40</scalar:int>
+   </attribute:endLine>
+   <subNode:type>
+    <scalar:int>0</scalar:int>
+   </subNode:type>
+   <subNode:extends>
+    <node:Name_FullyQualified>
+     <attribute:startLine>
+      <scalar:int>37</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>37</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>PEAR_Exception</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name_FullyQualified>
+   </subNode:extends>
+   <subNode:implements>
+    <scalar:array/>
+   </subNode:implements>
+   <subNode:stmts>
+    <scalar:array/>
+   </subNode:stmts>
+   <subNode:name>
+    <scalar:string>XML_Feed_Parser_Exception</scalar:string>
+   </subNode:name>
+   <subNode:namespacedName>
+    <node:Name>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="true" line="29">/**
+ * XML_Feed_Parser_Exception is a simple extension of PEAR_Exception, existing
+ * to help with identification of the source of exceptions.
+ *
+ * @author  James Stewart &lt;james@jystewart.net&gt;
+ * @version Release: @package_version@
+ * @package XML_Feed_Parser
+ */</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>37</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>40</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>XML_Feed_Parser_Exception</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name>
+   </subNode:namespacedName>
+  </node:Stmt_Class>
+ </scalar:array>
+</AST>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+ <scalar:array>
+  <node:Stmt_Interface>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="true" line="3">/**
+ * Swift Mailer Response Event Listener Interface
+ * Please read the LICENSE file
+ * @copyright Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Events
+ * @license GNU Lesser General Public License
+ */</comment>
+     <comment isDocComment="true" line="13">/**
+ * Contains the list of methods a plugin requiring the use of a ResponseEvent must implement
+ * @package Swift_Events
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>18</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>25</scalar:int>
+   </attribute:endLine>
+   <subNode:extends>
+    <scalar:array>
+     <node:Name_FullyQualified>
+      <attribute:startLine>
+       <scalar:int>18</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>18</scalar:int>
+      </attribute:endLine>
+      <subNode:parts>
+       <scalar:array>
+        <scalar:string>Swift_Events_Listener</scalar:string>
+       </scalar:array>
+      </subNode:parts>
+     </node:Name_FullyQualified>
+    </scalar:array>
+   </subNode:extends>
+   <subNode:stmts>
+    <scalar:array>
+     <node:Stmt_ClassMethod>
+      <attribute:comments>
+       <scalar:array>
+        <comment isDocComment="true" line="20">/**
+   * Executes when Swift receives a response
+   * @param Swift_Events_ResponseEvent Information about the response
+   */</comment>
+       </scalar:array>
+      </attribute:comments>
+      <attribute:startLine>
+       <scalar:int>24</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>24</scalar:int>
+      </attribute:endLine>
+      <subNode:type>
+       <scalar:int>1</scalar:int>
+      </subNode:type>
+      <subNode:byRef>
+       <scalar:false/>
+      </subNode:byRef>
+      <subNode:params>
+       <scalar:array>
+        <node:Param>
+         <attribute:startLine>
+          <scalar:int>24</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>24</scalar:int>
+         </attribute:endLine>
+         <subNode:name>
+          <scalar:string>e</scalar:string>
+         </subNode:name>
+         <subNode:default>
+          <scalar:null/>
+         </subNode:default>
+         <subNode:type>
+          <node:Name_FullyQualified>
+           <attribute:startLine>
+            <scalar:int>24</scalar:int>
+           </attribute:startLine>
+           <attribute:endLine>
+            <scalar:int>24</scalar:int>
+           </attribute:endLine>
+           <subNode:parts>
+            <scalar:array>
+             <scalar:string>Swift_Events_ResponseEvent</scalar:string>
+            </scalar:array>
+           </subNode:parts>
+          </node:Name_FullyQualified>
+         </subNode:type>
+         <subNode:byRef>
+          <scalar:false/>
+         </subNode:byRef>
+        </node:Param>
+       </scalar:array>
+      </subNode:params>
+      <subNode:stmts>
+       <scalar:null/>
+      </subNode:stmts>
+      <subNode:name>
+       <scalar:string>responseReceived</scalar:string>
+      </subNode:name>
+     </node:Stmt_ClassMethod>
+    </scalar:array>
+   </subNode:stmts>
+   <subNode:name>
+    <scalar:string>Swift_Events_ResponseListener</scalar:string>
+   </subNode:name>
+   <subNode:namespacedName>
+    <node:Name>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="true" line="3">/**
+ * Swift Mailer Response Event Listener Interface
+ * Please read the LICENSE file
+ * @copyright Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Events
+ * @license GNU Lesser General Public License
+ */</comment>
+       <comment isDocComment="true" line="13">/**
+ * Contains the list of methods a plugin requiring the use of a ResponseEvent must implement
+ * @package Swift_Events
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>18</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>25</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>Swift_Events_ResponseListener</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name>
+   </subNode:namespacedName>
+  </node:Stmt_Interface>
+ </scalar:array>
+</AST>

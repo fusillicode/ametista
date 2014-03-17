@@ -1,13 +1,9 @@
 #!/usr/bin/env ruby
 
 require "redis"
-require "ox"
+require "nokogiri"
 
 redis = Redis.new
-redis.keys.each do |key|
-  xml = Ox.parse redis.get key
-  p xml.nodes
-  exit
-end
 
-
+xml = Ox.parse redis.get './test_codebase/classes/log/AbstractLogger.php'
+p xml.nodes[0]

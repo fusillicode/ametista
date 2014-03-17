@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+ <scalar:array>
+  <node:Stmt_Class>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="true" line="3">/**
+ * Swift Mailer Verbose-sending Plugin View Layer.
+ * Please read the LICENSE file
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Plugin
+ * @subpackage VerboseSending
+ * @license GNU Lesser General Public License
+ */</comment>
+     <comment isDocComment="true" line="12">/**
+ * The View layer for the Verbose Sending Plugin
+ * @package Swift_Plugin
+ * @subpackage VerboseSending
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>18</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>26</scalar:int>
+   </attribute:endLine>
+   <subNode:type>
+    <scalar:int>16</scalar:int>
+   </subNode:type>
+   <subNode:extends>
+    <scalar:null/>
+   </subNode:extends>
+   <subNode:implements>
+    <scalar:array/>
+   </subNode:implements>
+   <subNode:stmts>
+    <scalar:array>
+     <node:Stmt_ClassMethod>
+      <attribute:comments>
+       <scalar:array>
+        <comment isDocComment="true" line="20">/**
+   * Paint the result of a send operation
+   * @param string The email address that was tried
+   * @param boolean True if the message was successfully sent
+   */</comment>
+       </scalar:array>
+      </attribute:comments>
+      <attribute:startLine>
+       <scalar:int>25</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>25</scalar:int>
+      </attribute:endLine>
+      <subNode:type>
+       <scalar:int>17</scalar:int>
+      </subNode:type>
+      <subNode:byRef>
+       <scalar:false/>
+      </subNode:byRef>
+      <subNode:params>
+       <scalar:array>
+        <node:Param>
+         <attribute:startLine>
+          <scalar:int>25</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>25</scalar:int>
+         </attribute:endLine>
+         <subNode:name>
+          <scalar:string>address</scalar:string>
+         </subNode:name>
+         <subNode:default>
+          <scalar:null/>
+         </subNode:default>
+         <subNode:type>
+          <scalar:null/>
+         </subNode:type>
+         <subNode:byRef>
+          <scalar:false/>
+         </subNode:byRef>
+        </node:Param>
+        <node:Param>
+         <attribute:startLine>
+          <scalar:int>25</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>25</scalar:int>
+         </attribute:endLine>
+         <subNode:name>
+          <scalar:string>result</scalar:string>
+         </subNode:name>
+         <subNode:default>
+          <scalar:null/>
+         </subNode:default>
+         <subNode:type>
+          <scalar:null/>
+         </subNode:type>
+         <subNode:byRef>
+          <scalar:false/>
+         </subNode:byRef>
+        </node:Param>
+       </scalar:array>
+      </subNode:params>
+      <subNode:stmts>
+       <scalar:null/>
+      </subNode:stmts>
+      <subNode:name>
+       <scalar:string>paintResult</scalar:string>
+      </subNode:name>
+     </node:Stmt_ClassMethod>
+    </scalar:array>
+   </subNode:stmts>
+   <subNode:name>
+    <scalar:string>Swift_Plugin_VerboseSending_AbstractView</scalar:string>
+   </subNode:name>
+   <subNode:namespacedName>
+    <node:Name>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="true" line="3">/**
+ * Swift Mailer Verbose-sending Plugin View Layer.
+ * Please read the LICENSE file
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Plugin
+ * @subpackage VerboseSending
+ * @license GNU Lesser General Public License
+ */</comment>
+       <comment isDocComment="true" line="12">/**
+ * The View layer for the Verbose Sending Plugin
+ * @package Swift_Plugin
+ * @subpackage VerboseSending
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>18</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>26</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>Swift_Plugin_VerboseSending_AbstractView</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name>
+   </subNode:namespacedName>
+  </node:Stmt_Class>
+ </scalar:array>
+</AST>

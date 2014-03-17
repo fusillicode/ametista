@@ -103,10 +103,18 @@ class Populator
       // var_dump($statements, $this->serializer->serialize($statements));
       // var_dump(json_encode(array(array('asd' => 2, 'asdasd' => new Populator()),2)));
       // die();
+      $xml = $this->serializer->serialize($statements);
       $this->_redis->set("{$file}", $this->serializer->serialize($statements));
+      file_put_contents('./test_codebase_xml/'.$this->replaceExtension($file, 'xml'), $xml);
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";
     }
+  }
+
+  private function replaceExtension($file_path, $new_extension)
+  {
+    $path_information = pathinfo($file_path);
+    return "{$path_information['filename']}.{$new_extension}";
   }
 
   private function getFiles($root_directory, $recursive)

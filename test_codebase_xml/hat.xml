@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+ <scalar:array>
+  <node:Stmt_Global>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="false" line="2">//============================================================+
+</comment>
+     <comment isDocComment="false" line="3">// File name   : hat.php
+</comment>
+     <comment isDocComment="false" line="4">// Begin       : 2004-03-03
+</comment>
+     <comment isDocComment="false" line="5">// Last Update : 2010-10-26
+</comment>
+     <comment isDocComment="false" line="6">//
+</comment>
+     <comment isDocComment="false" line="7">// Description : Language module for TCPDF
+</comment>
+     <comment isDocComment="false" line="8">//               (contains translated texts)
+</comment>
+     <comment isDocComment="false" line="9">//               Haitian Creole
+</comment>
+     <comment isDocComment="false" line="10">//
+</comment>
+     <comment isDocComment="false" line="11">// Author: Nicola Asuni
+</comment>
+     <comment isDocComment="false" line="12">//
+</comment>
+     <comment isDocComment="false" line="13">// (c) Copyright:
+</comment>
+     <comment isDocComment="false" line="14">//               Nicola Asuni
+</comment>
+     <comment isDocComment="false" line="15">//               Tecnick.com LTD
+</comment>
+     <comment isDocComment="false" line="16">//               Manor Coach House, Church Hill
+</comment>
+     <comment isDocComment="false" line="17">//               Aldershot, Hants, GU12 4RQ
+</comment>
+     <comment isDocComment="false" line="18">//               UK
+</comment>
+     <comment isDocComment="false" line="19">//               www.tecnick.com
+</comment>
+     <comment isDocComment="false" line="20">//               info@tecnick.com
+</comment>
+     <comment isDocComment="false" line="21">//============================================================+
+</comment>
+     <comment isDocComment="true" line="23">/**
+ * TCPDF language file (contains translated texts).
+ * @package com.tecnick.tcpdf
+ * @brief TCPDF language file: Haitian Creole
+ * @author Nicola Asuni
+ * @since 2004-03-03
+ */</comment>
+     <comment isDocComment="false" line="31">// Haitian Creole
+</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>33</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>33</scalar:int>
+   </attribute:endLine>
+   <subNode:vars>
+    <scalar:array>
+     <node:Expr_Variable>
+      <attribute:startLine>
+       <scalar:int>33</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>33</scalar:int>
+      </attribute:endLine>
+      <subNode:name>
+       <scalar:string>l</scalar:string>
+      </subNode:name>
+     </node:Expr_Variable>
+    </scalar:array>
+   </subNode:vars>
+  </node:Stmt_Global>
+  <node:Expr_Assign>
+   <attribute:startLine>
+    <scalar:int>34</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>34</scalar:int>
+   </attribute:endLine>
+   <subNode:var>
+    <node:Expr_Variable>
+     <attribute:startLine>
+      <scalar:int>34</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>34</scalar:int>
+     </attribute:endLine>
+     <subNode:name>
+      <scalar:string>l</scalar:string>
+     </subNode:name>
+    </node:Expr_Variable>
+   </subNode:var>
+   <subNode:expr>
+    <node:Expr_Array>
+     <attribute:startLine>
+      <scalar:int>34</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>34</scalar:int>
+     </attribute:endLine>
+     <subNode:items>
+      <scalar:array/>
+     </subNode:items>
+    </node:Expr_Array>
+   </subNode:expr>
+  </node:Expr_Assign>
+  <node:Expr_Assign>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="false" line="36">// PAGE META DESCRIPTORS --------------------------------------
+</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>38</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>38</scalar:int>
+   </attribute:endLine>
+   <subNode:var>
+    <node:Expr_ArrayDimFetch>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="false" line="36">// PAGE META DESCRIPTORS --------------------------------------
+</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>38</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>38</scalar:int>
+     </attribute:endLine>
+     <subNode:var>
+      <node:Expr_Variable>
+       <attribute:comments>
+        <scalar:array>
+         <comment isDocComment="false" line="36">// PAGE META DESCRIPTORS --------------------------------------
+</comment>
+        </scalar:array>
+       </attribute:comments>
+       <attribute:startLine>
+        <scalar:int>38</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>38</scalar:int>
+       </attribute:endLine>
+       <subNode:name>
+        <scalar:string>l</scalar:string>
+       </subNode:name>
+      </node:Expr_Variable>
+     </subNode:var>
+     <subNode:dim>
+      <node:Scalar_String>
+       <attribute:startLine>
+        <scalar:int>38</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>38</scalar:int>
+       </attribute:endLine>
+       <subNode:value>
+        <scalar:string>a_meta_charset</scalar:string>
+       </subNode:value>
+      </node:Scalar_String>
+     </subNode:dim>
+    </node:Expr_ArrayDimFetch>
+   </subNode:var>
+   <subNode:expr>
+    <node:Scalar_String>
+     <attribute:startLine>
+      <scalar:int>38</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>38</scalar:int>
+     </attribute:endLine>
+     <subNode:value>
+      <scalar:string>UTF-8</scalar:string>
+     </subNode:value>
+    </node:Scalar_String>
+   </subNode:expr>
+  </node:Expr_Assign>
+  <node:Expr_Assign>
+   <attribute:startLine>
+    <scalar:int>39</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>39</scalar:int>
+   </attribute:endLine>
+   <subNode:var>
+    <node:Expr_ArrayDimFetch>
+     <attribute:startLine>
+      <scalar:int>39</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>39</scalar:int>
+     </attribute:endLine>
+     <subNode:var>
+      <node:Expr_Variable>
+       <attribute:startLine>
+        <scalar:int>39</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>39</scalar:int>
+       </attribute:endLine>
+       <subNode:name>
+        <scalar:string>l</scalar:string>
+       </subNode:name>
+      </node:Expr_Variable>
+     </subNode:var>
+     <subNode:dim>
+      <node:Scalar_String>
+       <attribute:startLine>
+        <scalar:int>39</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>39</scalar:int>
+       </attribute:endLine>
+       <subNode:value>
+        <scalar:string>a_meta_dir</scalar:string>
+       </subNode:value>
+      </node:Scalar_String>
+     </subNode:dim>
+    </node:Expr_ArrayDimFetch>
+   </subNode:var>
+   <subNode:expr>
+    <node:Scalar_String>
+     <attribute:startLine>
+      <scalar:int>39</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>39</scalar:int>
+     </attribute:endLine>
+     <subNode:value>
+      <scalar:string>ltr</scalar:string>
+     </subNode:value>
+    </node:Scalar_String>
+   </subNode:expr>
+  </node:Expr_Assign>
+  <node:Expr_Assign>
+   <attribute:startLine>
+    <scalar:int>40</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>40</scalar:int>
+   </attribute:endLine>
+   <subNode:var>
+    <node:Expr_ArrayDimFetch>
+     <attribute:startLine>
+      <scalar:int>40</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>40</scalar:int>
+     </attribute:endLine>
+     <subNode:var>
+      <node:Expr_Variable>
+       <attribute:startLine>
+        <scalar:int>40</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>40</scalar:int>
+       </attribute:endLine>
+       <subNode:name>
+        <scalar:string>l</scalar:string>
+       </subNode:name>
+      </node:Expr_Variable>
+     </subNode:var>
+     <subNode:dim>
+      <node:Scalar_String>
+       <attribute:startLine>
+        <scalar:int>40</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>40</scalar:int>
+       </attribute:endLine>
+       <subNode:value>
+        <scalar:string>a_meta_language</scalar:string>
+       </subNode:value>
+      </node:Scalar_String>
+     </subNode:dim>
+    </node:Expr_ArrayDimFetch>
+   </subNode:var>
+   <subNode:expr>
+    <node:Scalar_String>
+     <attribute:startLine>
+      <scalar:int>40</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>40</scalar:int>
+     </attribute:endLine>
+     <subNode:value>
+      <scalar:string>ht</scalar:string>
+     </subNode:value>
+    </node:Scalar_String>
+   </subNode:expr>
+  </node:Expr_Assign>
+  <node:Expr_Assign>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="false" line="42">// TRANSLATIONS --------------------------------------
+</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>43</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>43</scalar:int>
+   </attribute:endLine>
+   <subNode:var>
+    <node:Expr_ArrayDimFetch>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="false" line="42">// TRANSLATIONS --------------------------------------
+</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>43</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>43</scalar:int>
+     </attribute:endLine>
+     <subNode:var>
+      <node:Expr_Variable>
+       <attribute:comments>
+        <scalar:array>
+         <comment isDocComment="false" line="42">// TRANSLATIONS --------------------------------------
+</comment>
+        </scalar:array>
+       </attribute:comments>
+       <attribute:startLine>
+        <scalar:int>43</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>43</scalar:int>
+       </attribute:endLine>
+       <subNode:name>
+        <scalar:string>l</scalar:string>
+       </subNode:name>
+      </node:Expr_Variable>
+     </subNode:var>
+     <subNode:dim>
+      <node:Scalar_String>
+       <attribute:startLine>
+        <scalar:int>43</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>43</scalar:int>
+       </attribute:endLine>
+       <subNode:value>
+        <scalar:string>w_page</scalar:string>
+       </subNode:value>
+      </node:Scalar_String>
+     </subNode:dim>
+    </node:Expr_ArrayDimFetch>
+   </subNode:var>
+   <subNode:expr>
+    <node:Scalar_String>
+     <attribute:startLine>
+      <scalar:int>43</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>43</scalar:int>
+     </attribute:endLine>
+     <subNode:value>
+      <scalar:string>paj</scalar:string>
+     </subNode:value>
+    </node:Scalar_String>
+   </subNode:expr>
+  </node:Expr_Assign>
+ </scalar:array>
+</AST>

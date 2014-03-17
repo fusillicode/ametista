@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+ <scalar:array>
+  <node:Stmt_Interface>
+   <attribute:comments>
+    <scalar:array>
+     <comment isDocComment="true" line="3">/**
+ * Swift Mailer Event Interface
+ * Please read the LICENSE file
+ * @copyright Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Events
+ * @license GNU Lesser General Public License
+ */</comment>
+     <comment isDocComment="true" line="12">/**
+ * Used for identity only
+ * @package Swift_Events
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+    </scalar:array>
+   </attribute:comments>
+   <attribute:startLine>
+    <scalar:int>17</scalar:int>
+   </attribute:startLine>
+   <attribute:endLine>
+    <scalar:int>17</scalar:int>
+   </attribute:endLine>
+   <subNode:extends>
+    <scalar:array/>
+   </subNode:extends>
+   <subNode:stmts>
+    <scalar:array/>
+   </subNode:stmts>
+   <subNode:name>
+    <scalar:string>Swift_Events_Listener</scalar:string>
+   </subNode:name>
+   <subNode:namespacedName>
+    <node:Name>
+     <attribute:comments>
+      <scalar:array>
+       <comment isDocComment="true" line="3">/**
+ * Swift Mailer Event Interface
+ * Please read the LICENSE file
+ * @copyright Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ * @package Swift_Events
+ * @license GNU Lesser General Public License
+ */</comment>
+       <comment isDocComment="true" line="12">/**
+ * Used for identity only
+ * @package Swift_Events
+ * @author Chris Corbyn &lt;chris@w3style.co.uk&gt;
+ */</comment>
+      </scalar:array>
+     </attribute:comments>
+     <attribute:startLine>
+      <scalar:int>17</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>17</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>Swift_Events_Listener</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name>
+   </subNode:namespacedName>
+  </node:Stmt_Interface>
+ </scalar:array>
+</AST>
