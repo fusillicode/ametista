@@ -5,5 +5,5 @@ require "nokogiri"
 
 redis = Redis.new
 
-xml = Ox.parse redis.get './test_codebase/classes/log/AbstractLogger.php'
-p xml.nodes[0]
+xml = Nokogiri.parse redis.get './test_codebase/classes/log/AbstractLogger.php'
+p xml.xpath('//node:*').first
