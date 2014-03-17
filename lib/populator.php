@@ -8,7 +8,7 @@ class Populator
                               $server_executable = 'redis-server',
                               $address = '', $parser = null, $lexer = null,
                               $traverser = null, $visitors = array(),
-                              $memory_limit = 512)
+                              $memory_limit = 1024)
   {
     $this->startRedisServer($server_path, $server_executable);
     $this->connectTo($address);
@@ -89,6 +89,7 @@ class Populator
   {
     $files = $this->getFiles($path, $recursive);
     $this->node_dumper = new PHPParser_NodeDumper;
+    $this->serializer = new PHPParser_Serializer_XML;
     foreach ($files as $file)
       $this->populateForFile($file);
   }
@@ -99,9 +100,10 @@ class Populator
       echo "{$file}\n";
       $source_code = file_get_contents($file);
       $statements = $this->traverser->traverse($this->parser->parse($source_code));
-      var_dump($statements, json_encode($statements));
-      die();
-      $this->_redis->set("{$file}", json_encode($statements));
+      // var_dump($statements, $this->serializer->serialize($statements));
+      // var_dump(json_encode(array(array('asd' => 2, 'asdasd' => new Populator()),2)));
+      // die();
+      $this->_redis->set("{$file}", $this->serializer->serialize($statements));
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";
     }
