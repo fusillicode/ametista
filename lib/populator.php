@@ -99,6 +99,8 @@ class Populator
       echo "{$file}\n";
       $source_code = file_get_contents($file);
       $statements = $this->traverser->traverse($this->parser->parse($source_code));
+      var_dump($statements, json_encode($statements));
+      die();
       $this->_redis->set("{$file}", json_encode($statements));
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";
