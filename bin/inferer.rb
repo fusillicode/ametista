@@ -44,11 +44,66 @@ require "ohm"
 #   reference :scope, :ProcedureModel
 # end
 
-Ohm.connect :url => "redis://127.0.0.1:6379"
+# Ohm.connect :url => "redis://127.0.0.1:6379"
 
-# xml = Nokogiri.parse redis.get './test_codebase/classes/log/AbstractLogger.php'
-# xml.xpath('//node:*').first
+redis = Redis.new
 
-event = Event.create :name => "Ohm Worldwide Conference 2031"
-event = Event[3]
-p Event.all
+xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
+
+# Classes
+xml.xpath('.//node:Stmt_Class').each do |classInXML|
+
+  # Class name
+  puts 'C --- ' + classInXML.xpath('.//subNode:namespacedName//scalar:string').text
+
+  # Class methods
+  classInXML.xpath('.//node:Stmt_ClassMethod').each do |method|
+
+    # Class method name
+    puts 'M --- ' + method.xpath('./subNode:name/scalar:string').text
+
+    # Class method args
+    method.xpath('.//node:Param').each do |param|
+      puts 'P --- ' + param.xpath('.//subNode:name//scalar:string').text
+    end
+
+  end
+
+end
+
+# Class properties (e.g. $this->*)
+xml.xpath('.//node:Expr_Assign/subNode:var/node:Expr_PropertyFetch').each do |lhs|
+
+end
+
+# Functions
+xml.xpath('.//node:Stmt_Function').each do |function|
+
+  # Function name
+  puts 'F --- ' + function.xpath('.//subNode:namespacedName//scalar:string').text
+
+  # Function args
+  function.xpath('.//node:Param').each do |param|
+    puts 'P --- ' + param.xpath('.//subNode:name//scalar:string').text
+  end
+
+end
+
+# # Assignements
+# xml.xpath('.//node:Expr_Assign').each do |assignement|
+
+#   # LHS
+#   assignement.xpath('.//subNode:var')
+
+#   # RHS
+
+# end
+
+
+# xml.xpath('//node:Stmt_Class').children.xpath('//node:Stmt_ClassMethod').each do |method|
+#   puts method.children.xpath('//subNode:name').last
+# end
+
+# event = Event.create :name => "Ohm Worldwide Conference 2031"
+# event = Event[3]
+# p Event.all
