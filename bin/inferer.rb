@@ -4,21 +4,40 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
-class Event < Ohm::Model
+class NamespaceModel < Ohm::Model
   attribute :name
-  reference :venue, :Venue
-  set :participants, :Person
-  counter :votes
-
-  index :name
+  reference :parent, :NamespaceModel
 end
 
-class Venue < Ohm::Model
+class ClassModel < Ohm::Model
   attribute :name
-  collection :events, :Event
+  reference :namespace, :NamespaceModel
+  set :methods, :MethodModel
 end
 
-class Person < Ohm::Model
+class ProcedureModel < Ohm::Model
+  attribute :name
+end
+
+class MethodModel < Ohm::Model
+  attribute :name
+  reference :class, :ClassModel
+end
+
+class FunctionModel < Ohm::Model
+  attribute :name
+  reference :namespace, :NamespaceModel
+end
+
+class PropertyModel < Ohm::Model
+  attribute :name
+end
+
+class RawStatements < Ohm::Model
+  reference :procedure, :ProcedureModel
+end
+
+class VariableModel < Ohm::Model
   attribute :name
 end
 
