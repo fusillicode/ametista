@@ -17,15 +17,7 @@ end
 
 class ProcedureModel < Ohm::Model
   attribute :name
-end
-
-class MethodModel < Ohm::Model
-  attribute :name
   reference :class, :ClassModel
-end
-
-class FunctionModel < Ohm::Model
-  attribute :name
   reference :namespace, :NamespaceModel
 end
 
@@ -39,6 +31,7 @@ end
 
 class VariableModel < Ohm::Model
   attribute :name
+  reference :scope, :ProcedureModel
 end
 
 Ohm.connect :url => "redis://127.0.0.1:6379"
