@@ -4,35 +4,45 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
-class NamespaceModel < Ohm::Model
-  attribute :name
-  reference :parent, :NamespaceModel
-end
+# class NamespaceModel < Ohm::Model
+#   attribute :name
 
-class ClassModel < Ohm::Model
-  attribute :name
-  reference :namespace, :NamespaceModel
-  set :methods, :MethodModel
-end
+#   reference :parentNamespace, :NamespaceModel
 
-class ProcedureModel < Ohm::Model
-  attribute :name
-  reference :class, :ClassModel
-  reference :namespace, :NamespaceModel
-end
+#   collection :classes, :ClassModel
+#   collection :functions, :ProcedureModel
+# end
 
-class PropertyModel < Ohm::Model
-  attribute :name
-end
+# class ClassModel < Ohm::Model
+#   attribute :name
 
-class RawStatements < Ohm::Model
-  reference :procedure, :ProcedureModel
-end
+#   reference :namespace, :NamespaceModel
+#   set :methods, :MethodModel
+#   set :properties, :PropertyModel
 
-class VariableModel < Ohm::Model
-  attribute :name
-  reference :scope, :ProcedureModel
-end
+# end
+
+# class ProcedureModel < Ohm::Model
+#   attribute :name
+
+#   reference :class, :ClassModel
+#   reference :namespace, :NamespaceModel
+#   reference :statements, :RawStatements
+
+# end
+
+# class PropertyModel < Ohm::Model
+#   attribute :name
+# end
+
+# class RawStatements < Ohm::Model
+#   reference :procedure, :ProcedureModel
+# end
+
+# class VariableModel < Ohm::Model
+#   attribute :name
+#   reference :scope, :ProcedureModel
+# end
 
 Ohm.connect :url => "redis://127.0.0.1:6379"
 
