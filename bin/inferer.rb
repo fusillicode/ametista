@@ -64,15 +64,14 @@ xml.xpath('.//node:Stmt_Class').each do |classInXML|
 
     # Class method args
     method.xpath('.//node:Param').each do |param|
-      puts 'P --- ' + param.xpath('.//subNode:name//scalar:string').text
+      puts 'A --- ' + param.xpath('.//subNode:name//scalar:string').text
     end
 
+    # Class properties
+    puts method.xpath(".//node:Expr_Assign/subNode:var/node:Expr_PropertyFetch/subNode:var[1]//subNode:name/scalar:string[. = 'this']")
+    # puts method.xpath(".//node:Expr_Assign/subNode:var/node:Expr_ArrayDimFetch/subNode:var[1]//subNode:name/scalar:string[. = 'this']")
+
   end
-
-end
-
-# Class properties (e.g. $this->*)
-xml.xpath('.//node:Expr_Assign/subNode:var/node:Expr_PropertyFetch').each do |lhs|
 
 end
 
