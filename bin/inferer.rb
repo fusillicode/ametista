@@ -72,6 +72,10 @@ xml.xpath('.//node:Stmt_Class').each do |classInXML|
     # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
     # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
+    p method.xpath('.//node:Expr_Assign//subNode:dim//scalar:int').text
+    #   p
+    #   # p lhs.xpath('.//node:Expr_ArrayDimFetch/subNode[local-name() = \'name\' or local-name() = \'dim\']/scalar[local-name() = \'string\' or local-name() = \'string\']').text
+    # end
 
   end
 
