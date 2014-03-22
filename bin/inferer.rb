@@ -56,7 +56,7 @@ def getLHS node
       node.xpath('./subNode:name/scalar:string').text
 
     when 'Expr_PropertyFetch'
-      getLHS(node.xpath('./subNode:var')) + '->' + node.xpath('./subNode:name/scalar:string').text
+      getLHS(node.xpath('./subNode:var')) + '->' + getLHS(node.xpath('./subNode:name'))
 
     when 'Expr_ArrayDimFetch'
       getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
@@ -67,7 +67,15 @@ def getLHS node
     # when 'Expr_Assign'
     #   getLHS node.xpath('./subNode:name/scalar:string')
 
-    # when 'Expr_Concat'
+    when 'Expr_Concat'
+      getLHS(node.xpath('./subNode:left')) + '.' + getLHS(node.xpath('./subNode:right'))
+
+    when 'Scalar_String'
+      node.xpath('./subNode:value/*').text
+
+    when 'string'
+      node.text
+
     else
       'NULLA'
 
