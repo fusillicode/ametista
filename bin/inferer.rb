@@ -56,16 +56,16 @@ def getLHS node
       node.xpath('./subNode:name/scalar:string').text
 
     when 'Expr_PropertyFetch'
-      getLHS(node.xpath('./subNode:var')) + '->'
+      getLHS(node.xpath('./subNode:var')) + '->' + node.xpath('./subNode:name/scalar:string').text
 
     when 'Expr_ArrayDimFetch'
       getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
 
+    when 'Expr_StaticPropertyFetch'
+      node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+
     # when 'Expr_Assign'
     #   getLHS node.xpath('./subNode:name/scalar:string')
-
-    # when 'Expr_StaticPropertyFetch'
-    #   node.xpath('./subNode:class//scalar:string') + '::' + node.xpath('./subNode:name/scalar:string')
 
     # when 'Expr_Concat'
     else
