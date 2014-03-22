@@ -46,6 +46,34 @@ require "ohm"
 
 # Ohm.connect :url => "redis://127.0.0.1:6379"
 
+def getVarNode node
+
+  p node.xpath('./*[1]')[0].name
+
+  case node.xpath('./*[1]')[0].name
+
+  when 'Expr_Variable'
+    node.xpath('./subNode:name/scalar:string').text
+
+    # when 'Expr_PropertyFetch'
+    #   getLHS node.xpath('./subNode:var') + '->'
+
+    # when 'Expr_ArrayDimFetch'
+    #   getLHS node.xpath('./subNode:var') + '[' + node.xpath('./subNode:dim/subNode:value/*[1]').text + ']'
+
+    # when 'Expr_Assign'
+    #   getLHS node.xpath('./subNode:name/scalar:string')
+
+    # when 'Expr_StaticPropertyFetch'
+    #   node.xpath('./subNode:class//scalar:string') + '::' + node.xpath('./subNode:name/scalar:string')
+
+    # when 'Expr_Concat'
+
+
+  end
+
+end
+
 redis = Redis.new
 
 xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
@@ -72,7 +100,10 @@ xml.xpath('.//node:Stmt_Class').each do |classInXML|
     # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
     # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
-    p method.xpath('.//node:Expr_Assign//subNode:dim//scalar:int').text
+    method.xpath('.//node:Expr_Assign/subNode:var').each do |varNode|
+      getVarNode varNode
+    end
+
     #   p
     #   # p lhs.xpath('.//node:Expr_ArrayDimFetch/subNode[local-name() = \'name\' or local-name() = \'dim\']/scalar[local-name() = \'string\' or local-name() = \'string\']').text
     # end
