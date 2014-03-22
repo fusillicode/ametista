@@ -64,8 +64,8 @@ def getLHS node
     when 'Expr_StaticPropertyFetch'
       node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
 
-    # when 'Expr_Assign'
-    #   getLHS node.xpath('./subNode:name/scalar:string')
+    when 'Expr_Assign'
+      getLHS node.xpath('./subNode:var')
 
     when 'Expr_Concat'
       getLHS(node.xpath('./subNode:left')) + '.' + getLHS(node.xpath('./subNode:right'))
