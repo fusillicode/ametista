@@ -46,20 +46,20 @@ require "ohm"
 
 # Ohm.connect :url => "redis://127.0.0.1:6379"
 
-def getVarNode node
+def getLHS node
 
-  p node.xpath('./*[1]')[0].name
+  node = node.xpath('./*[1]')[0]
 
-  case node.xpath('./*[1]')[0].name
+  case node.name
 
-  when 'Expr_Variable'
-    node.xpath('./subNode:name/scalar:string').text
+    when 'Expr_Variable'
+      node.xpath('./subNode:name/scalar:string').text
 
-    # when 'Expr_PropertyFetch'
-    #   getLHS node.xpath('./subNode:var') + '->'
+    when 'Expr_PropertyFetch'
+      getLHS(node.xpath('./subNode:var')) + '->'
 
-    # when 'Expr_ArrayDimFetch'
-    #   getLHS node.xpath('./subNode:var') + '[' + node.xpath('./subNode:dim/subNode:value/*[1]').text + ']'
+    when 'Expr_ArrayDimFetch'
+      getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim/subNode:value/*[1]').text + ']'
 
     # when 'Expr_Assign'
     #   getLHS node.xpath('./subNode:name/scalar:string')
@@ -68,7 +68,8 @@ def getVarNode node
     #   node.xpath('./subNode:class//scalar:string') + '::' + node.xpath('./subNode:name/scalar:string')
 
     # when 'Expr_Concat'
-
+    else
+      'NULLA'
 
   end
 
@@ -100,8 +101,8 @@ xml.xpath('.//node:Stmt_Class').each do |classInXML|
     # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
     # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
-    method.xpath('.//node:Expr_Assign/subNode:var').each do |varNode|
-      getVarNode varNode
+    method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
+      p getLHS lhs
     end
 
     #   p
