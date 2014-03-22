@@ -59,7 +59,7 @@ def getLHS node
       getLHS(node.xpath('./subNode:var')) + '->'
 
     when 'Expr_ArrayDimFetch'
-      getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim/subNode:value/*[1]').text + ']'
+      getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
 
     # when 'Expr_Assign'
     #   getLHS node.xpath('./subNode:name/scalar:string')
