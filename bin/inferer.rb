@@ -77,7 +77,7 @@ def getLHS node
       node.text
 
     else
-      'NULLA'
+      '✘'
 
   end
 
@@ -86,6 +86,11 @@ end
 redis = Redis.new
 
 xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
+
+# Namespace
+xml.xpath('.//node:Stmt_Namespace').each do |namespace|
+  puts 'N --- ' + namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').text
+end
 
 # Classes
 xml.xpath('.//node:Stmt_Class').each do |classInXML|
