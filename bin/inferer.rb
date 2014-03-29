@@ -4,47 +4,49 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
-class MyNamespace < Ohm::Model
+class iClass < Ohm::Model
   attribute :name
-  reference :parent_namespace, :Namespace
-  collection :classes, :Class
-  collection :functions, :Procedure
-  collection :raw_statements, :RawStatements
+  reference :namespace, :iNamespace
+  collection :methods, :iProcedure
+  collection :properties, :iProperty
 end
 
-class MyClass < Ohm::Model
+class iProperty < Ohm::Model
   attribute :name
-  reference :namespace, :Namespace
-  collection :methods, :Procedure
-  collection :properties, :Property
+  reference :class, :iClass
 end
 
-class MyProperty < Ohm::Model
+class iScope < Ohm::Model
   attribute :name
-  reference :class, :MyClass
+end
+class iNamespace < Ohm::Model
+  reference :parent_namespace, :iNamespace
+  collection :classes, :iClass
+  collection :functions, :iProcedure
+  collection :raw_statements, :iRawStatements
+end
+class iProcedure < Ohm::Model
+  collection :parameters, :iVariableModel
+  collection :statements, :iRawStatements
+  collection :local_variables, :iVariableModel
+end
+class iMethod < Ohm::Model
+  reference :class, :iClass
+end
+class iFunction < Ohm::Model
+  reference :namespace, :iNamespace
 end
 
-class MyProcedure < Ohm::Model
-  attribute :name
-  reference :class, :Class
-  reference :namespace, :Namespace
-  collection :parameters, :VariableModel
-  collection :statements, :RawStatements
-  collection :local_variables, :VariableModel
+class iRawStatements < Ohm::Model
+  reference :procedure, :iProcedure
 end
 
-class MyRawStatements < Ohm::Model
-  reference :procedure, :Procedure
-end
-
-class MyVariable < Ohm::Model
+class iVariable < Ohm::Model
   attribute :name
-  reference :method, :Procedure
-  reference :function, :Procedure
-  reference :namespace, :Namespace
+  reference :scope, :iScope
 
   def local?
-    self.type === :local
+    self.scope.type in ['iProcedure', '']
   end
 
   def global?
@@ -62,10 +64,7 @@ class MyVariable < Ohm::Model
   end
 
   def scope
-    if self.local?
-      self.method or self.function
-    elsif self.global?
-      '\\'
+    self.namespace or self.method or self.function
   end
 
 end
@@ -123,16 +122,16 @@ exit
 # # Classes
 # xml.xpath('.//node:Stmt_Class').each do |classInXML|
 
-#   # class Myname
+#   # class iname
 #   puts 'C --- ' + classInXML.xpath('.//subNode:namespacedName//scalar:string')[0..-1].to_a.join('/')
 
-#   # class Mymethods
+#   # class imethods
 #   classInXML.xpath('.//node:Stmt_ClassMethod').each do |method|
 
-#     # class Mymethod name
+#     # class imethod name
 #     puts 'M --- ' + method.xpath('./subNode:name/scalar:string').text
 
-#     # class Mymethod args
+#     # class imethod args
 #     method.xpath('.//node:Param').each do |param|
 #       puts 'A --- ' + param.xpath('./subNode:name/scalar:string').text
 #     end
