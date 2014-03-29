@@ -4,49 +4,49 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
-# class NamespaceModel < Ohm::Model
-#   attribute :name
+class NamespaceModel < Ohm::Model
+  attribute :name
+  reference :parent_namespace, :NamespaceModel
+  collection :classes, :ClassModel
+  collection :functions, :ProcedureModel
+  collection :raw_statements, :RawStatements
+end
 
-#   reference :parentNamespace, :NamespaceModel
+class ClassModel < Ohm::Model
+  attribute :name
+  reference :namespace, :NamespaceModel
+  collection :methods, :ProcedureModel
+  collection :properties, :PropertyModel
+end
 
-#   collection :classes, :ClassModel
-#   collection :functions, :ProcedureModel
-# end
+class PropertyModel < Ohm::Model
+  attribute :name
+  reference :class
+end
 
-# class ClassModel < Ohm::Model
-#   attribute :name
+class ProcedureModel < Ohm::Model
+  attribute :name
+  reference :class, :ClassModel
+  reference :namespace, :NamespaceModel
+  collection :parameters, :VariableModel
+  collection :statements, :RawStatements
+  collection :local_variables, :VariableModel
+end
 
-#   reference :namespace, :NamespaceModel
-#   set :methods, :MethodModel
-#   set :properties, :PropertyModel
+class RawStatements < Ohm::Model
+  reference :procedure, :ProcedureModel
+end
 
-# end
+class VariableModel < Ohm::Model
+  attribute :name
+  reference :method, :ProcedureModel
+  reference :function, :ProcedureModel
+  reference :namespace, :NamespaceModel
+end
 
-# class ProcedureModel < Ohm::Model
-#   attribute :name
+Ohm.connect :url => "redis://127.0.0.1:6379"
 
-#   reference :class, :ClassModel
-#   reference :namespace, :NamespaceModel
-#   reference :statements, :RawStatements
-
-# end
-
-# class PropertyModel < Ohm::Model
-#   attribute :name
-# end
-
-# class RawStatements < Ohm::Model
-#   reference :procedure, :ProcedureModel
-# end
-
-# class VariableModel < Ohm::Model
-#   attribute :name
-#   reference :scope, :ProcedureModel
-# end
-
-# Ohm.connect :url => "redis://127.0.0.1:6379"
-
-def getLHS node
+def get_lhs node
 
   node = node.xpath('./*[1]')[0]
 
@@ -56,19 +56,19 @@ def getLHS node
       node.xpath('./subNode:name/scalar:string').text
 
     when 'Expr_PropertyFetch'
-      getLHS(node.xpath('./subNode:var')) + '->' + getLHS(node.xpath('./subNode:name'))
+      get_lhs(node.xpath('./subNode:var')) + '->' + get_lhs(node.xpath('./subNode:name'))
 
     when 'Expr_ArrayDimFetch'
-      getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
+      get_lhs(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
 
     when 'Expr_StaticPropertyFetch'
       node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
 
     when 'Expr_Assign'
-      getLHS node.xpath('./subNode:var')
+      get_lhs node.xpath('./subNode:var')
 
     when 'Expr_Concat'
-      getLHS(node.xpath('./subNode:left')) + '.' + getLHS(node.xpath('./subNode:right'))
+      get_lhs(node.xpath('./subNode:left')) + '.' + get_lhs(node.xpath('./subNode:right'))
 
     when 'Scalar_String'
       node.xpath('./subNode:value/*').text
@@ -115,7 +115,7 @@ xml.xpath('.//node:Stmt_Class').each do |classInXML|
     # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
     method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
-      p getLHS lhs
+      p get_lhs lhs
     end
 
     #   p
