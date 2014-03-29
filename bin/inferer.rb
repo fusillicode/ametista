@@ -4,6 +4,14 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
+class iNamespace < Ohm::Model
+  attribute :name
+  reference :parent_namespace, :iNamespace
+  collection :classes, :iClass
+  collection :functions, :iProcedure
+  collection :raw_statements, :iRawStatements
+end
+
 class iClass < Ohm::Model
   attribute :name
   reference :namespace, :iNamespace
@@ -16,55 +24,42 @@ class iProperty < Ohm::Model
   reference :class, :iClass
 end
 
-class iScope < Ohm::Model
+class iMethod < Ohm::Model
   attribute :name
+  reference :class, :iClass
+  collection :parameters, :iVariable
+  collection :statements, :iRawStatements
+  collection :local_variables, :iVariable
+  reference :return_value, :iRawStatements
 end
-class iNamespace < Ohm::Model
-  reference :parent_namespace, :iNamespace
-  collection :classes, :iClass
-  collection :functions, :iProcedure
-  collection :raw_statements, :iRawStatements
-end
-class iProcedure < Ohm::Model
+
+class iFunction < Ohm::Model
+  attribute :name
+  reference :namespace, :iNamespace
   collection :parameters, :iVariableModel
   collection :statements, :iRawStatements
   collection :local_variables, :iVariableModel
-end
-class iMethod < Ohm::Model
-  reference :class, :iClass
-end
-class iFunction < Ohm::Model
-  reference :namespace, :iNamespace
+  reference :return_value, :iRawStatements
 end
 
 class iRawStatements < Ohm::Model
-  reference :procedure, :iProcedure
+  reference :namespace, :iNamespace
+  reference :method, :iMethod
+  reference :function, :iFunction
 end
 
 class iVariable < Ohm::Model
   attribute :name
-  reference :scope, :iScope
+  reference :namespace, :iNamespace
+  reference :method, :iMethod
+  reference :function, :iFunction
 
   def local?
-    self.scope.type in ['iProcedure', '']
+    self.method or self.function or self.namespace.name === '\\'
   end
 
   def global?
     not self.local?
-  end
-
-  def type
-    if self.method or self.function
-      :local
-    elsif self.namespace
-      :global
-    else
-      "are you fucking kiddin' me?!"
-    end
-  end
-
-  def scope
-    self.namespace or self.method or self.function
   end
 
 end
