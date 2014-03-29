@@ -4,138 +4,166 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
-class NamespaceModel < Ohm::Model
+class MyNamespace < Ohm::Model
   attribute :name
-  reference :parent_namespace, :NamespaceModel
-  collection :classes, :ClassModel
-  collection :functions, :ProcedureModel
+  reference :parent_namespace, :Namespace
+  collection :classes, :Class
+  collection :functions, :Procedure
   collection :raw_statements, :RawStatements
 end
 
-class ClassModel < Ohm::Model
+class MyClass < Ohm::Model
   attribute :name
-  reference :namespace, :NamespaceModel
-  collection :methods, :ProcedureModel
-  collection :properties, :PropertyModel
+  reference :namespace, :Namespace
+  collection :methods, :Procedure
+  collection :properties, :Property
 end
 
-class PropertyModel < Ohm::Model
+class MyProperty < Ohm::Model
   attribute :name
-  reference :class
+  reference :class, :MyClass
 end
 
-class ProcedureModel < Ohm::Model
+class MyProcedure < Ohm::Model
   attribute :name
-  reference :class, :ClassModel
-  reference :namespace, :NamespaceModel
+  reference :class, :Class
+  reference :namespace, :Namespace
   collection :parameters, :VariableModel
   collection :statements, :RawStatements
   collection :local_variables, :VariableModel
 end
 
-class RawStatements < Ohm::Model
-  reference :procedure, :ProcedureModel
+class MyRawStatements < Ohm::Model
+  reference :procedure, :Procedure
 end
 
-class VariableModel < Ohm::Model
+class MyVariable < Ohm::Model
   attribute :name
-  reference :method, :ProcedureModel
-  reference :function, :ProcedureModel
-  reference :namespace, :NamespaceModel
+  reference :method, :Procedure
+  reference :function, :Procedure
+  reference :namespace, :Namespace
+
+  def local?
+    self.type === :local
+  end
+
+  def global?
+    not self.local?
+  end
+
+  def type
+    if self.method or self.function
+      :local
+    elsif self.namespace
+      :global
+    else
+      "are you fucking kiddin' me?!"
+    end
+  end
+
+  def scope
+    if self.local?
+      self.method or self.function
+    elsif self.global?
+      '\\'
+  end
+
 end
 
 Ohm.connect :url => "redis://127.0.0.1:6379"
 
-def get_lhs node
+exit
 
-  node = node.xpath('./*[1]')[0]
+# def get_lhs node
 
-  case node.name
+#   node = node.xpath('./*[1]')[0]
 
-    when 'Expr_Variable'
-      node.xpath('./subNode:name/scalar:string').text
+#   case node.name
 
-    when 'Expr_PropertyFetch'
-      get_lhs(node.xpath('./subNode:var')) + '->' + get_lhs(node.xpath('./subNode:name'))
+#     when 'Expr_Variable'
+#       node.xpath('./subNode:name/scalar:string').text
 
-    when 'Expr_ArrayDimFetch'
-      get_lhs(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
+#     when 'Expr_PropertyFetch'
+#       get_lhs(node.xpath('./subNode:var')) + '->' + get_lhs(node.xpath('./subNode:name'))
 
-    when 'Expr_StaticPropertyFetch'
-      node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+#     when 'Expr_ArrayDimFetch'
+#       get_lhs(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
 
-    when 'Expr_Assign'
-      get_lhs node.xpath('./subNode:var')
+#     when 'Expr_StaticPropertyFetch'
+#       node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
 
-    when 'Expr_Concat'
-      get_lhs(node.xpath('./subNode:left')) + '.' + get_lhs(node.xpath('./subNode:right'))
+#     when 'Expr_Assign'
+#       get_lhs node.xpath('./subNode:var')
 
-    when 'Scalar_String'
-      node.xpath('./subNode:value/*').text
+#     when 'Expr_Concat'
+#       get_lhs(node.xpath('./subNode:left')) + '.' + get_lhs(node.xpath('./subNode:right'))
 
-    when 'string'
-      node.text
+#     when 'Scalar_String'
+#       node.xpath('./subNode:value/*').text
 
-    else
-      '✘'
+#     when 'string'
+#       node.text
 
-  end
+#     else
+#       '✘'
 
-end
+#   end
 
-redis = Redis.new
+# end
 
-xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
+# redis = Redis.new
 
-# Namespace
-xml.xpath('.//node:Stmt_Namespace').each do |namespace|
-  puts 'N --- ' + namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').text
-end
+# xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
 
-# Classes
-xml.xpath('.//node:Stmt_Class').each do |classInXML|
+# # Namespace
+# xml.xpath('.//node:Stmt_Namespace').each do |namespace|
+#   puts 'N --- ' + namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').text
+# end
 
-  # Class name
-  puts 'C --- ' + classInXML.xpath('.//subNode:namespacedName//scalar:string')[0..-1].to_a.join('/')
+# # Classes
+# xml.xpath('.//node:Stmt_Class').each do |classInXML|
 
-  # Class methods
-  classInXML.xpath('.//node:Stmt_ClassMethod').each do |method|
+#   # class Myname
+#   puts 'C --- ' + classInXML.xpath('.//subNode:namespacedName//scalar:string')[0..-1].to_a.join('/')
 
-    # Class method name
-    puts 'M --- ' + method.xpath('./subNode:name/scalar:string').text
+#   # class Mymethods
+#   classInXML.xpath('.//node:Stmt_ClassMethod').each do |method|
 
-    # Class method args
-    method.xpath('.//node:Param').each do |param|
-      puts 'A --- ' + param.xpath('./subNode:name/scalar:string').text
-    end
+#     # class Mymethod name
+#     puts 'M --- ' + method.xpath('./subNode:name/scalar:string').text
 
-    # devo prendere prima tutti gli Expr_PropertyFetch e gli Expr_ArrayDimFetch all'interno di ciascun singolo Expr_Assign.
-    # ogni Expr_PropertyFetch o Expr_ArrayDimFetch ha un subNode:var e un subNode:name.
-    # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
-    # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
+#     # class Mymethod args
+#     method.xpath('.//node:Param').each do |param|
+#       puts 'A --- ' + param.xpath('./subNode:name/scalar:string').text
+#     end
 
-    method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
-      p get_lhs lhs
-    end
+#     # devo prendere prima tutti gli Expr_PropertyFetch e gli Expr_ArrayDimFetch all'interno di ciascun singolo Expr_Assign.
+#     # ogni Expr_PropertyFetch o Expr_ArrayDimFetch ha un subNode:var e un subNode:name.
+#     # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
+#     # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
-    #   p
-    #   # p lhs.xpath('.//node:Expr_ArrayDimFetch/subNode[local-name() = \'name\' or local-name() = \'dim\']/scalar[local-name() = \'string\' or local-name() = \'string\']').text
-    # end
+#     method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
+#       p get_lhs lhs
+#     end
 
-  end
+#     #   p
+#     #   # p lhs.xpath('.//node:Expr_ArrayDimFetch/subNode[local-name() = \'name\' or local-name() = \'dim\']/scalar[local-name() = \'string\' or local-name() = \'string\']').text
+#     # end
 
-end
+#   end
 
-# Functions
-xml.xpath('.//node:Stmt_Function').each do |function|
+# end
 
-  # Function name
-  puts 'F --- ' + function.xpath('.//subNode:namespacedName//scalar:string').text
+# # Functions
+# xml.xpath('.//node:Stmt_Function').each do |function|
 
-  # Function args
-  function.xpath('.//node:Param').each do |param|
-    puts 'A --- ' + param.xpath('.//node:Name_FullyQualified/subNode:parts//scalar:string[position() < last()]')[0..-1].to_a.join('/') + '/' + param.xpath('./subNode:name/scalar:string').text
-  end
+#   # Function name
+#   puts 'F --- ' + function.xpath('.//subNode:namespacedName//scalar:string').text
 
-end
+#   # Function args
+#   function.xpath('.//node:Param').each do |param|
+#     puts 'A --- ' + param.xpath('.//node:Name_FullyQualified/subNode:parts//scalar:string[position() < last()]')[0..-1].to_a.join('/') + '/' + param.xpath('./subNode:name/scalar:string').text
+#   end
+
+# end
 
