@@ -4,55 +4,61 @@ require "redis"
 require "nokogiri"
 require "ohm"
 
-class iNamespace < Ohm::Model
+class INamespace < Ohm::Model
+  index :name
   attribute :name
-  reference :parent_namespace, :iNamespace
-  collection :classes, :iClass
-  collection :functions, :iProcedure
-  collection :raw_statements, :iRawStatements
+  reference :parent_namespace, :INamespace
+  collection :classes, :IClass
+  collection :functions, :IProcedure
+  collection :raw_statements, :IRawStatements
 end
 
-class iClass < Ohm::Model
+class IClass < Ohm::Model
+  index :name
   attribute :name
-  reference :namespace, :iNamespace
-  collection :methods, :iProcedure
-  collection :properties, :iProperty
+  reference :namespace, :INamespace
+  collection :methods, :IProcedure
+  collection :properties, :IProperty
 end
 
-class iProperty < Ohm::Model
+class IProperty < Ohm::Model
+  index :name
   attribute :name
-  reference :class, :iClass
+  reference :class, :IClass
 end
 
-class iMethod < Ohm::Model
+class IMethod < Ohm::Model
+  index :name
   attribute :name
-  reference :class, :iClass
-  collection :parameters, :iVariable
-  collection :statements, :iRawStatements
-  collection :local_variables, :iVariable
-  reference :return_value, :iRawStatements
+  reference :class, :IClass
+  collection :parameters, :IVariable
+  collection :statements, :IRawStatements
+  collection :local_variables, :IVariable
+  reference :return_value, :IRawStatements
 end
 
-class iFunction < Ohm::Model
+class IFunction < Ohm::Model
+  index :name
   attribute :name
-  reference :namespace, :iNamespace
-  collection :parameters, :iVariableModel
-  collection :statements, :iRawStatements
-  collection :local_variables, :iVariableModel
-  reference :return_value, :iRawStatements
+  reference :namespace, :INamespace
+  collection :parameters, :IVariableModel
+  collection :statements, :IRawStatements
+  collection :local_variables, :IVariableModel
+  reference :return_value, :IRawStatements
 end
 
-class iRawStatements < Ohm::Model
-  reference :namespace, :iNamespace
-  reference :method, :iMethod
-  reference :function, :iFunction
+class IRawStatements < Ohm::Model
+  reference :namespace, :INamespace
+  reference :method, :IMethod
+  reference :function, :IFunction
 end
 
-class iVariable < Ohm::Model
+class IVariable < Ohm::Model
+  index :name
   attribute :name
-  reference :namespace, :iNamespace
-  reference :method, :iMethod
-  reference :function, :iFunction
+  reference :namespace, :INamespace
+  reference :method, :IMethod
+  reference :function, :IFunction
 
   def local?
     self.method or self.function or self.namespace.name === '\\'
@@ -65,6 +71,19 @@ class iVariable < Ohm::Model
 end
 
 Ohm.connect :url => "redis://127.0.0.1:6379"
+
+redis = Redis.new
+
+xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
+
+
+
+# Namespace
+xml.xpath('.//node:Stmt_Namespace').each do |namespace|
+  INamespace.create :name => namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').text
+end
+
+
 
 exit
 
@@ -105,28 +124,19 @@ exit
 
 # end
 
-# redis = Redis.new
-
-# xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
-
-# # Namespace
-# xml.xpath('.//node:Stmt_Namespace').each do |namespace|
-#   puts 'N --- ' + namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').text
-# end
-
 # # Classes
 # xml.xpath('.//node:Stmt_Class').each do |classInXML|
 
-#   # class iname
+#   # class Iname
 #   puts 'C --- ' + classInXML.xpath('.//subNode:namespacedName//scalar:string')[0..-1].to_a.join('/')
 
-#   # class imethods
+#   # class Imethods
 #   classInXML.xpath('.//node:Stmt_ClassMethod').each do |method|
 
-#     # class imethod name
+#     # class Imethod name
 #     puts 'M --- ' + method.xpath('./subNode:name/scalar:string').text
 
-#     # class imethod args
+#     # class Imethod args
 #     method.xpath('.//node:Param').each do |param|
 #       puts 'A --- ' + param.xpath('./subNode:name/scalar:string').text
 #     end

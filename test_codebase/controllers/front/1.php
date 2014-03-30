@@ -7,7 +7,7 @@
 // $$vv = 'pippo';
 // $a[1][2] = 'pippa';
 
-namespace ciao;
+namespace ciao\asd\asdasdasd\iei;
 
 $GLOBALS['a'] = 1;
 $GLOBALS['a']->b = 1;
