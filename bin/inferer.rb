@@ -70,20 +70,25 @@ class IVariable < Ohm::Model
 
 end
 
-Ohm.connect :url => "redis://127.0.0.1:6379"
-
 redis = Redis.new
+redis.flushall
+
+exec 'php ./bin/populate.php'
+
+Ohm.connect :url => "redis://127.0.0.1:6379"
 
 xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
 
-
-
 # Namespace
 xml.xpath('.//node:Stmt_Namespace').each do |namespace|
-  INamespace.create :name => namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').text
+  parent_namespace = INamespace.find(:name => '\\').first or INamespace.create :name => '\\'
+  namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').each do |subnamespace|
+    INamespace.create :name => subnamespace.text,
+                      :parent_namespace => parent_namespace
+  end
 end
 
-
+puts INamespace.all
 
 exit
 

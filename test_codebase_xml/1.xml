@@ -43,6 +43,9 @@
      <subNode:parts>
       <scalar:array>
        <scalar:string>ciao</scalar:string>
+       <scalar:string>asd</scalar:string>
+       <scalar:string>asdasdasd</scalar:string>
+       <scalar:string>iei</scalar:string>
       </scalar:array>
      </subNode:parts>
     </node:Name>
@@ -2813,6 +2816,9 @@
         <subNode:parts>
          <scalar:array>
           <scalar:string>ciao</scalar:string>
+          <scalar:string>asd</scalar:string>
+          <scalar:string>asdasdasd</scalar:string>
+          <scalar:string>iei</scalar:string>
           <scalar:string>Sole</scalar:string>
          </scalar:array>
         </subNode:parts>
@@ -2865,6 +2871,9 @@
            <subNode:parts>
             <scalar:array>
              <scalar:string>ciao</scalar:string>
+             <scalar:string>asd</scalar:string>
+             <scalar:string>asdasdasd</scalar:string>
+             <scalar:string>iei</scalar:string>
              <scalar:string>bool</scalar:string>
             </scalar:array>
            </subNode:parts>
@@ -2898,6 +2907,9 @@
            <subNode:parts>
             <scalar:array>
              <scalar:string>ciao</scalar:string>
+             <scalar:string>asd</scalar:string>
+             <scalar:string>asdasdasd</scalar:string>
+             <scalar:string>iei</scalar:string>
              <scalar:string>int</scalar:string>
             </scalar:array>
            </subNode:parts>
@@ -4931,6 +4943,9 @@
              <subNode:parts>
               <scalar:array>
                <scalar:string>ciao</scalar:string>
+               <scalar:string>asd</scalar:string>
+               <scalar:string>asdasdasd</scalar:string>
+               <scalar:string>iei</scalar:string>
                <scalar:string>AClass</scalar:string>
               </scalar:array>
              </subNode:parts>
@@ -4981,6 +4996,9 @@
              <subNode:parts>
               <scalar:array>
                <scalar:string>ciao</scalar:string>
+               <scalar:string>asd</scalar:string>
+               <scalar:string>asdasdasd</scalar:string>
+               <scalar:string>iei</scalar:string>
                <scalar:string>AClass</scalar:string>
               </scalar:array>
              </subNode:parts>
@@ -5039,6 +5057,9 @@
                <subNode:parts>
                 <scalar:array>
                  <scalar:string>ciao</scalar:string>
+                 <scalar:string>asd</scalar:string>
+                 <scalar:string>asdasdasd</scalar:string>
+                 <scalar:string>iei</scalar:string>
                  <scalar:string>AClass</scalar:string>
                 </scalar:array>
                </subNode:parts>
@@ -5110,6 +5131,9 @@
                  <subNode:parts>
                   <scalar:array>
                    <scalar:string>ciao</scalar:string>
+                   <scalar:string>asd</scalar:string>
+                   <scalar:string>asdasdasd</scalar:string>
+                   <scalar:string>iei</scalar:string>
                    <scalar:string>AClass</scalar:string>
                   </scalar:array>
                  </subNode:parts>
@@ -5196,6 +5220,9 @@
                  <subNode:parts>
                   <scalar:array>
                    <scalar:string>ciao</scalar:string>
+                   <scalar:string>asd</scalar:string>
+                   <scalar:string>asdasdasd</scalar:string>
+                   <scalar:string>iei</scalar:string>
                    <scalar:string>AClass</scalar:string>
                   </scalar:array>
                  </subNode:parts>
@@ -5290,6 +5317,9 @@
                    <subNode:parts>
                     <scalar:array>
                      <scalar:string>ciao</scalar:string>
+                     <scalar:string>asd</scalar:string>
+                     <scalar:string>asdasdasd</scalar:string>
+                     <scalar:string>iei</scalar:string>
                      <scalar:string>AClass</scalar:string>
                     </scalar:array>
                    </subNode:parts>
@@ -5399,6 +5429,9 @@
                    <subNode:parts>
                     <scalar:array>
                      <scalar:string>ciao</scalar:string>
+                     <scalar:string>asd</scalar:string>
+                     <scalar:string>asdasdasd</scalar:string>
+                     <scalar:string>iei</scalar:string>
                      <scalar:string>AClass</scalar:string>
                     </scalar:array>
                    </subNode:parts>
@@ -5508,6 +5541,9 @@
                    <subNode:parts>
                     <scalar:array>
                      <scalar:string>ciao</scalar:string>
+                     <scalar:string>asd</scalar:string>
+                     <scalar:string>asdasdasd</scalar:string>
+                     <scalar:string>iei</scalar:string>
                      <scalar:string>AClass</scalar:string>
                     </scalar:array>
                    </subNode:parts>
@@ -6968,6 +7004,9 @@
         <subNode:parts>
          <scalar:array>
           <scalar:string>ciao</scalar:string>
+          <scalar:string>asd</scalar:string>
+          <scalar:string>asdasdasd</scalar:string>
+          <scalar:string>iei</scalar:string>
           <scalar:string>prova</scalar:string>
          </scalar:array>
         </subNode:parts>
@@ -6995,6 +7034,9 @@
         <subNode:parts>
          <scalar:array>
           <scalar:string>ciao</scalar:string>
+          <scalar:string>asd</scalar:string>
+          <scalar:string>asdasdasd</scalar:string>
+          <scalar:string>iei</scalar:string>
           <scalar:string>pippo</scalar:string>
          </scalar:array>
         </subNode:parts>
@@ -7107,6 +7149,9 @@
               <subNode:parts>
                <scalar:array>
                 <scalar:string>ciao</scalar:string>
+                <scalar:string>asd</scalar:string>
+                <scalar:string>asdasdasd</scalar:string>
+                <scalar:string>iei</scalar:string>
                 <scalar:string>int</scalar:string>
                </scalar:array>
               </subNode:parts>
@@ -7199,6 +7244,9 @@
         <subNode:parts>
          <scalar:array>
           <scalar:string>ciao</scalar:string>
+          <scalar:string>asd</scalar:string>
+          <scalar:string>asdasdasd</scalar:string>
+          <scalar:string>iei</scalar:string>
           <scalar:string>mondo</scalar:string>
          </scalar:array>
         </subNode:parts>
@@ -7288,6 +7336,9 @@
         <subNode:parts>
          <scalar:array>
           <scalar:string>ciao</scalar:string>
+          <scalar:string>asd</scalar:string>
+          <scalar:string>asdasdasd</scalar:string>
+          <scalar:string>iei</scalar:string>
           <scalar:string>cizza</scalar:string>
          </scalar:array>
         </subNode:parts>
