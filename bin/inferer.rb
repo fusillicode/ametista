@@ -3,10 +3,12 @@
 require "redis"
 require "nokogiri"
 require "ohm"
+require "ohm/contrib"
 
 class INamespace < Ohm::Model
   index :name
   attribute :name
+  unique :name
   reference :parent_namespace, :INamespace
   collection :classes, :IClass
   collection :functions, :IProcedure
@@ -16,6 +18,7 @@ end
 class IClass < Ohm::Model
   index :name
   attribute :name
+  unique :name
   reference :namespace, :INamespace
   collection :methods, :IProcedure
   collection :properties, :IProperty
@@ -24,12 +27,14 @@ end
 class IProperty < Ohm::Model
   index :name
   attribute :name
+  unique :name
   reference :class, :IClass
 end
 
 class IMethod < Ohm::Model
   index :name
   attribute :name
+  unique :name
   reference :class, :IClass
   collection :parameters, :IVariable
   collection :statements, :IRawStatements
@@ -40,6 +45,7 @@ end
 class IFunction < Ohm::Model
   index :name
   attribute :name
+  unique :name
   reference :namespace, :INamespace
   collection :parameters, :IVariableModel
   collection :statements, :IRawStatements
@@ -56,6 +62,7 @@ end
 class IVariable < Ohm::Model
   index :name
   attribute :name
+  unique :name
   reference :namespace, :INamespace
   reference :method, :IMethod
   reference :function, :IFunction
@@ -71,13 +78,8 @@ class IVariable < Ohm::Model
 end
 
 redis = Redis.new
-redis.flushall
 
-exec 'php ./bin/populate.php'
-
-Ohm.connect :url => "redis://127.0.0.1:6379"
-
-xml = Nokogiri::XML redis.get './test_codebase/controllers/front/1.php'
+xml = Nokogiri::XML redis.get './test_simple_file/1.php'
 
 # Namespace
 xml.xpath('.//node:Stmt_Namespace').each do |namespace|
@@ -88,7 +90,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   end
 end
 
-puts INamespace.all
+INamespace.all.to_a.each { |namespace| puts namespace.name }
 
 exit
 

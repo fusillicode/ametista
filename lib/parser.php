@@ -2,7 +2,7 @@
 
 include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
-class Populator
+class Parser
 {
   public function __construct($server_path = 'vendor/redis-2.8.5/src/',
                               $server_executable = 'redis-server',
@@ -85,16 +85,16 @@ class Populator
     return $this->_redis;
   }
 
-  public function populate($path, $recursive = true)
+  public function parse($path, $recursive = true)
   {
     $files = $this->getFiles($path, $recursive);
     $this->node_dumper = new PHPParser_NodeDumper;
     $this->serializer = new PHPParser_Serializer_XML;
     foreach ($files as $file)
-      $this->populateForFile($file);
+      $this->parseFile($file);
   }
 
-  public function populateForFile($file)
+  public function parseFile($file)
   {
     try {
       echo "{$file}\n";
