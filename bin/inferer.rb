@@ -83,14 +83,33 @@ xml = Nokogiri::XML redis.get './test_simple_file/1.php'
 
 # Namespace
 xml.xpath('.//node:Stmt_Namespace').each do |namespace|
-  parent_namespace = INamespace.find(:name => '\\').first or INamespace.create :name => '\\'
+
+  parent_namespace = INamespace.with(:name, '\\') || INamespace.create(:name => '\\')
+
   namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').each do |subnamespace|
-    INamespace.create :name => subnamespace.text,
-                      :parent_namespace => parent_namespace
+
+    current_namespace_name = "#{parent_namespace.name}\\#{subnamespace.text}"
+
+    if current_namespace = INamespace.with(:name, current_namespace_name)
+
+      current_namespace.parent_namespace = parent_namespace
+      parent_namespace = current_namespace
+
+    else
+
+      parent_namespace = INamespace.create(:name => current_namespace_name,
+                                           :parent_namespace => parent_namespace)
+
+    end
+
   end
+
 end
 
-INamespace.all.to_a.each { |namespace| puts namespace.name }
+INamespace.all.to_a.each do |namespace|
+  puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
+  # puts namespace.parent_namespace.name if namespace.parent_namespace
+end
 
 exit
 
