@@ -2848,7 +2848,7 @@
           <scalar:string>ella</scalar:string>
          </subNode:name>
          <subNode:default>
-          <node:Scalar_LNumber>
+          <node:Scalar_String>
            <attribute:startLine>
             <scalar:int>57</scalar:int>
            </attribute:startLine>
@@ -2856,9 +2856,9 @@
             <scalar:int>57</scalar:int>
            </attribute:endLine>
            <subNode:value>
-            <scalar:int>1</scalar:int>
+            <scalar:string>null</scalar:string>
            </subNode:value>
-          </node:Scalar_LNumber>
+          </node:Scalar_String>
          </subNode:default>
          <subNode:type>
           <node:Name_FullyQualified>
