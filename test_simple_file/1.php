@@ -54,7 +54,9 @@ class Sole {
 
 }
 
-function prova(bool $ella = 'null', int $peppa)
+// true, false, null, 1, 1.3, 'asd', array(1,2)
+
+function prova(bool $ella = true, int $peppa)
 {
   $a = 1;
   $a[1] = 1;

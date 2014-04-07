@@ -61,7 +61,7 @@ class IVariable < Ohm::Model
   index :name
   attribute :name
   attribute :value
-  reference :type, :IType
+  attribute :type
   reference :namespace, :INamespace
   reference :method, :IMethod
   reference :function, :IFunction
@@ -76,9 +76,45 @@ class IVariable < Ohm::Model
 
 end
 
+
+def getParameterType parameter, scalar_types, magic_constants
+
+  # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
+  type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last.text
+
+  return type_hint if scalar_types.include? type_hint
+
+  default_value = parameter.xpath('./subNode:default/*[1]').first.name
+
+  case default_value
+  # 1.2 -> node:Scalar_DNumber
+  when 'Scalar_DNumber'
+    'double'
+  # 1 -> node:Scalar_LNumber
+  when 'Scalar_LNumber'
+    'int'
+  # true, false, null -> node:Expr_ConstFetch
+  when 'Expr_ConstFetch'
+    'bool'
+  # array() -> node:Expr_Array
+  when 'Expr_Array'
+    'array'
+  # 'asd' -> node:Scalar_String
+  # __FILE__ -> node:Scalar_FileConst
+  when 'Scalar_String', ('Scalar_FileConst' and magic_constants.include? scalar_types)
+    'string'
+  else
+    'DON\'T KNOW'
+  end
+
+end
+
+scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
+magic_constants = ['__LINE__', '__FILE__', '__DIR__', '__FUNCTION__', '__CLASS__', '__TRAIT__', '__METHOD__', '__NAMESPACE__']
+
 redis = Redis.new
 
-redis.sadd :types, ['boolean', 'int', 'double', 'string', 'array']
+redis.sadd :scalar_types, scalar_types
 
 xml = Nokogiri::XML redis.get './test_simple_file/1.php'
 
@@ -115,11 +151,12 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params//node:Param').each do |parameter|
 
-      # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
-      type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last.text
+      p getParameterType(parameter, scalar_types, magic_constants)
 
+      # Cosa setto come tipo se non ho type hint?
       parameter = IVariable.create(:name  => parameter.xpath('./subNode:name/scalar:string').text,
-                                   :value => parameter.xpath('./subNode:default//subNode:name'))
+                                   :type  => getParameterType(parameter, scalar_types, magic_constants),
+                                   :function => current_function)
 
     end
 
@@ -133,6 +170,8 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   end
 
 end
+
+
 
 INamespace.all.to_a.each do |namespace|
   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
