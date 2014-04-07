@@ -76,6 +76,8 @@ class IVariable < Ohm::Model
 
 end
 
+scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
+magic_constants = ['__LINE__', '__FILE__', '__DIR__', '__FUNCTION__', '__CLASS__', '__TRAIT__', '__METHOD__', '__NAMESPACE__']
 
 def getParameterType parameter, scalar_types, magic_constants
 
@@ -109,12 +111,7 @@ def getParameterType parameter, scalar_types, magic_constants
 
 end
 
-scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
-magic_constants = ['__LINE__', '__FILE__', '__DIR__', '__FUNCTION__', '__CLASS__', '__TRAIT__', '__METHOD__', '__NAMESPACE__']
-
 redis = Redis.new
-
-redis.sadd :scalar_types, scalar_types
 
 xml = Nokogiri::XML redis.get './test_simple_file/1.php'
 
