@@ -12,43 +12,50 @@ class INamespace < Ohm::Model
   # questo perchè sono le entità a livello maggiore
   unique :name
   reference :parent_namespace, :INamespace
-  collection :classes, :IClass
-  collection :functions, :IProcedure
-  collection :raw_statements, :IRawStatements
+  collection :classes, :IClass, :namespace
+  collection :functions, :IProcedure, :namespace
+  collection :raw_statements, :IRawStatements, :namespace
 end
 
 class IClass < Ohm::Model
   index :name
   attribute :name
+
   reference :namespace, :INamespace
-  collection :methods, :IProcedure
-  collection :properties, :IProperty
+
+  collection :methods, :IProcedure, :class
+  collection :properties, :IProperty, :class
 end
 
 class IProperty < Ohm::Model
   index :name
   attribute :name
+
   reference :class, :IClass
 end
 
 class IMethod < Ohm::Model
   index :name
   attribute :name
+
   reference :class, :IClass
-  collection :parameters, :IVariable
-  collection :statements, :IRawStatements
-  collection :local_variables, :IVariable
+  reference :statements, :IRawStatements
   reference :return_value, :IRawStatements
+
+  collection :parameters, :IVariable, :method
+  collection :local_variables, :IVariable, :method
 end
 
 class IFunction < Ohm::Model
   index :name
   attribute :name
+
   reference :namespace, :INamespace
-  collection :parameters, :IVariable
-  collection :statements, :IRawStatements
-  collection :local_variables, :IVariable
+  reference :statements, :IRawStatements
   reference :return_value, :IRawStatements
+
+  collection :parameters, :IVariable, :function
+  collection :local_variables, :IVariable, :function
 end
 
 class IRawStatements < Ohm::Model
@@ -62,6 +69,7 @@ class IVariable < Ohm::Model
   attribute :name
   attribute :value
   attribute :type
+
   reference :namespace, :INamespace
   reference :method, :IMethod
   reference :function, :IFunction
@@ -148,12 +156,12 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params//node:Param').each do |parameter|
 
-      p getParameterType(parameter, scalar_types, magic_constants)
-
       # Cosa setto come tipo se non ho type hint?
       parameter = IVariable.create(:name  => parameter.xpath('./subNode:name/scalar:string').text,
                                    :type  => getParameterType(parameter, scalar_types, magic_constants),
                                    :function => current_function)
+
+      p current_function.parameters
 
     end
 
@@ -167,8 +175,6 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   end
 
 end
-
-
 
 INamespace.all.to_a.each do |namespace|
   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
