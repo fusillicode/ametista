@@ -2836,7 +2836,7 @@
        <scalar:int>59</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>122</scalar:int>
+       <scalar:int>124</scalar:int>
       </attribute:endLine>
       <subNode:byRef>
        <scalar:false/>
@@ -6994,6 +6994,35 @@
           </scalar:array>
          </subNode:vars>
         </node:Stmt_Global>
+        <node:Stmt_Return>
+         <attribute:comments>
+          <scalar:array>
+           <comment isDocComment="false" line="119">// NON VIENE SUPPORTATO PRATICAMENTE DA NESSUNO...questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
+</comment>
+           <comment isDocComment="false" line="120">// $$vv1 = 'pippo';
+</comment>
+          </scalar:array>
+         </attribute:comments>
+         <attribute:startLine>
+          <scalar:int>122</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>122</scalar:int>
+         </attribute:endLine>
+         <subNode:expr>
+          <node:Expr_Variable>
+           <attribute:startLine>
+            <scalar:int>122</scalar:int>
+           </attribute:startLine>
+           <attribute:endLine>
+            <scalar:int>122</scalar:int>
+           </attribute:endLine>
+           <subNode:name>
+            <scalar:string>ad</scalar:string>
+           </subNode:name>
+          </node:Expr_Variable>
+         </subNode:expr>
+        </node:Stmt_Return>
        </scalar:array>
       </subNode:stmts>
       <subNode:name>
@@ -7033,10 +7062,10 @@
      </node:Stmt_Function>
      <node:Stmt_Class>
       <attribute:startLine>
-       <scalar:int>124</scalar:int>
+       <scalar:int>126</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>139</scalar:int>
+       <scalar:int>141</scalar:int>
       </attribute:endLine>
       <subNode:type>
        <scalar:int>0</scalar:int>
@@ -7044,10 +7073,10 @@
       <subNode:extends>
        <node:Name_FullyQualified>
         <attribute:startLine>
-         <scalar:int>124</scalar:int>
+         <scalar:int>126</scalar:int>
         </attribute:startLine>
         <attribute:endLine>
-         <scalar:int>124</scalar:int>
+         <scalar:int>126</scalar:int>
         </attribute:endLine>
         <subNode:parts>
          <scalar:array>
@@ -7067,10 +7096,10 @@
        <scalar:array>
         <node:Stmt_Property>
          <attribute:startLine>
-          <scalar:int>126</scalar:int>
+          <scalar:int>128</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>126</scalar:int>
+          <scalar:int>128</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>9</scalar:int>
@@ -7079,10 +7108,10 @@
           <scalar:array>
            <node:Stmt_PropertyProperty>
             <attribute:startLine>
-             <scalar:int>126</scalar:int>
+             <scalar:int>128</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>126</scalar:int>
+             <scalar:int>128</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>a</scalar:string>
@@ -7090,10 +7119,10 @@
             <subNode:default>
              <node:Scalar_String>
               <attribute:startLine>
-               <scalar:int>126</scalar:int>
+               <scalar:int>128</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
-               <scalar:int>126</scalar:int>
+               <scalar:int>128</scalar:int>
               </attribute:endLine>
               <subNode:value>
                <scalar:string>12</scalar:string>
@@ -7103,10 +7132,10 @@
            </node:Stmt_PropertyProperty>
            <node:Stmt_PropertyProperty>
             <attribute:startLine>
-             <scalar:int>126</scalar:int>
+             <scalar:int>128</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>126</scalar:int>
+             <scalar:int>128</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>b</scalar:string>
@@ -7114,10 +7143,10 @@
             <subNode:default>
              <node:Scalar_String>
               <attribute:startLine>
-               <scalar:int>126</scalar:int>
+               <scalar:int>128</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
-               <scalar:int>126</scalar:int>
+               <scalar:int>128</scalar:int>
               </attribute:endLine>
               <subNode:value>
                <scalar:string>asd</scalar:string>
@@ -7130,10 +7159,10 @@
         </node:Stmt_Property>
         <node:Stmt_ClassMethod>
          <attribute:startLine>
-          <scalar:int>128</scalar:int>
+          <scalar:int>130</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>130</scalar:int>
+          <scalar:int>132</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>4</scalar:int>
@@ -7145,10 +7174,10 @@
           <scalar:array>
            <node:Param>
             <attribute:startLine>
-             <scalar:int>128</scalar:int>
+             <scalar:int>130</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>128</scalar:int>
+             <scalar:int>130</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>a</scalar:string>
@@ -7159,10 +7188,10 @@
             <subNode:type>
              <node:Name_FullyQualified>
               <attribute:startLine>
-               <scalar:int>128</scalar:int>
+               <scalar:int>130</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
-               <scalar:int>128</scalar:int>
+               <scalar:int>130</scalar:int>
               </attribute:endLine>
               <subNode:parts>
                <scalar:array>
@@ -7190,10 +7219,10 @@
         </node:Stmt_ClassMethod>
         <node:Stmt_ClassMethod>
          <attribute:startLine>
-          <scalar:int>132</scalar:int>
+          <scalar:int>134</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>134</scalar:int>
+          <scalar:int>136</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>4</scalar:int>
@@ -7213,10 +7242,10 @@
         </node:Stmt_ClassMethod>
         <node:Stmt_ClassMethod>
          <attribute:startLine>
-          <scalar:int>136</scalar:int>
+          <scalar:int>138</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>138</scalar:int>
+          <scalar:int>140</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>1</scalar:int>
@@ -7273,27 +7302,27 @@
      </node:Stmt_Class>
      <node:Stmt_Use>
       <attribute:startLine>
-       <scalar:int>141</scalar:int>
+       <scalar:int>143</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>141</scalar:int>
+       <scalar:int>143</scalar:int>
       </attribute:endLine>
       <subNode:uses>
        <scalar:array>
         <node:Stmt_UseUse>
          <attribute:startLine>
-          <scalar:int>141</scalar:int>
+          <scalar:int>143</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>141</scalar:int>
+          <scalar:int>143</scalar:int>
          </attribute:endLine>
          <subNode:name>
           <node:Name>
            <attribute:startLine>
-            <scalar:int>141</scalar:int>
+            <scalar:int>143</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>141</scalar:int>
+            <scalar:int>143</scalar:int>
            </attribute:endLine>
            <subNode:parts>
             <scalar:array>
@@ -7314,10 +7343,10 @@
      </node:Stmt_Use>
      <node:Stmt_Function>
       <attribute:startLine>
-       <scalar:int>143</scalar:int>
+       <scalar:int>145</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>145</scalar:int>
+       <scalar:int>147</scalar:int>
       </attribute:endLine>
       <subNode:byRef>
        <scalar:false/>

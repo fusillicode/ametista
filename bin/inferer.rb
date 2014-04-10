@@ -11,10 +11,12 @@ class INamespace < Ohm::Model
   # I namespace hanno nome univoco ed è quello completo di tutta la loro gerarchia
   # questo perchè sono le entità a livello maggiore
   unique :name
+
   reference :parent_namespace, :INamespace
+  reference :statements, :IRawContent
+
   collection :classes, :IClass, :namespace
   collection :functions, :IProcedure, :namespace
-  collection :raw_statements, :IRawStatements, :namespace
 end
 
 class IClass < Ohm::Model
@@ -39,8 +41,8 @@ class IMethod < Ohm::Model
   attribute :name
 
   reference :class, :IClass
-  reference :statements, :IRawStatements
-  reference :return_value, :IRawStatements
+  reference :statements, :IRawContent
+  reference :return_value, :IRawContent
 
   collection :parameters, :IVariable, :method
   collection :local_variables, :IVariable, :method
@@ -51,14 +53,16 @@ class IFunction < Ohm::Model
   attribute :name
 
   reference :namespace, :INamespace
-  reference :statements, :IRawStatements
-  reference :return_value, :IRawStatements
+  reference :statements, :IRawContent
+  reference :return_value, :IRawContent
 
   collection :parameters, :IVariable, :function
   collection :local_variables, :IVariable, :function
 end
 
-class IRawStatements < Ohm::Model
+class IRawContent < Ohm::Model
+  attribute :content
+
   reference :namespace, :INamespace
   reference :method, :IMethod
   reference :function, :IFunction
@@ -147,37 +151,35 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
   end
 
-  # Prendo tutte le funzioni all'interno del namespace corrente
-  namespace.xpath('./subNode:stmts//node:Stmt_Function').each do |function|
+  # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
+  parent_namespace.statements = IRawContent.create(:content => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'), :namespace => parent_namespace)
+  # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
+  parent_namespace.save
 
-    current_function = IFunction.create(:name      => function.xpath('./subNode:name/scalar:string').text,
-                                        :namespace => parent_namespace)
+  # Prendo tutte le funzioni all'interno del namespace corrente
+  namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
+
+    current_function = IFunction.create(:name       => function.xpath('./subNode:name/scalar:string').text,
+                                        :namespace  => parent_namespace,
+                                        :statements => IRawContent.create(:content  => function.xpath('./subNode:stmts'),
+                                                                          :function => current_function))
 
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params//node:Param').each do |parameter|
 
-      # Cosa setto come tipo se non ho type hint?
-      parameter = IVariable.create(:name  => parameter.xpath('./subNode:name/scalar:string').text,
-                                   :type  => getParameterType(parameter, scalar_types, magic_constants),
-                                   :function => current_function)
-
-      p current_function.parameters
+      IVariable.create(:name     => parameter.xpath('./subNode:name/scalar:string').text,
+                       :type     => getParameterType(parameter, scalar_types, magic_constants),
+                       :function => current_function)
 
     end
 
-
-    # Ifunction.create(:name            => function.xpath('./subNode:name/scalar:string'),
-    #                  :namespace       => parent_namespace,
-    #                  :parameters      =>
-    #                  :statements      =>
-    #                  :local_variables =>
-    #                  :return_value    => )
   end
 
 end
 
 INamespace.all.to_a.each do |namespace|
   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
+  p namespace.statements.content unless namespace.statements.nil?
 end
 
 exit

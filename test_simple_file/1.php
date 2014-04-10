@@ -119,6 +119,8 @@ function prova(bool $ella = true, int $peppa)
   // NON VIENE SUPPORTATO PRATICAMENTE DA NESSUNO...questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
 	// $$vv1 = 'pippo';
 
+  return $ad;
+
 }
 
 class mondo extends pippo {
