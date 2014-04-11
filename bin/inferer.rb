@@ -91,6 +91,7 @@ end
 scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
 magic_constants = ['__LINE__', '__FILE__', '__DIR__', '__FUNCTION__', '__CLASS__', '__TRAIT__', '__METHOD__', '__NAMESPACE__']
 
+
 def getParameterType parameter, scalar_types, magic_constants
 
   # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
@@ -152,7 +153,10 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   end
 
   # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
-  parent_namespace.statements = IRawContent.create(:content => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'), :namespace => parent_namespace)
+  parent_namespace.statements = IRawContent.create(
+    :content   => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
+    :namespace => parent_namespace)
+
   # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
   parent_namespace.save
 
@@ -161,15 +165,56 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
     current_function = IFunction.create(:name       => function.xpath('./subNode:name/scalar:string').text,
                                         :namespace  => parent_namespace,
-                                        :statements => IRawContent.create(:content  => function.xpath('./subNode:stmts'),
+                                        :statements => IRawContent.create(:content  => function.xpath('./subNode:stmts/scalar:array'),
                                                                           :function => current_function))
 
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params//node:Param').each do |parameter|
 
-      IVariable.create(:name     => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type     => getParameterType(parameter, scalar_types, magic_constants),
-                       :function => current_function)
+      p = IVariable.create(:name     => parameter.xpath('./subNode:name/scalar:string').text,
+                           :type     => getParameterType(parameter, scalar_types, magic_constants),
+                           :function => current_function)
+
+      # current_function.parameters << p
+
+    end
+
+  end
+
+  # Prendo tutte le classi all'interno del namespace corrente
+  namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Class').each do |class_in_xml|
+
+    current_class = IClass.create(:name      => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
+                                  :namespace => parent_namespace)
+
+    # Prendo tutti i metodi all'interno della classe corrente
+    class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
+
+
+      current_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
+                                      :class => current_class)
+
+      # Prento tutti i parametri del metodo corrente
+      method.xpath('./subNode:params/scalar:array/node:Param').each do |param|
+
+        p = IVariable.create(:name     => parameter.xpath('./subNode:name/scalar:string').text,
+                             :type     => getParameterType(parameter, scalar_types, magic_constants),
+                             :function => current_class)
+
+      end
+
+      # devo prendere prima tutti gli Expr_PropertyFetch e gli Expr_ArrayDimFetch all'interno di ciascun singolo Expr_Assign.
+      # ogni Expr_PropertyFetch o Expr_ArrayDimFetch ha un subNode:var e un subNode:name.
+      # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
+      # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
+
+      method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
+        p get_lhs lhs
+      end
+
+      #   p
+      #   # p lhs.xpath('.//node:Expr_ArrayDimFetch/subNode[local-name() = \'name\' or local-name() = \'dim\']/scalar[local-name() = \'string\' or local-name() = \'string\']').text
+      # end
 
     end
 
@@ -216,40 +261,6 @@ exit
 
 #     else
 #       '✘'
-
-#   end
-
-# end
-
-# # Classes
-# xml.xpath('.//node:Stmt_Class').each do |classInXML|
-
-#   # class Iname
-#   puts 'C --- ' + classInXML.xpath('.//subNode:namespacedName//scalar:string')[0..-1].to_a.join('/')
-
-#   # class Imethods
-#   classInXML.xpath('.//node:Stmt_ClassMethod').each do |method|
-
-#     # class Imethod name
-#     puts 'M --- ' + method.xpath('./subNode:name/scalar:string').text
-
-#     # class Imethod args
-#     method.xpath('.//node:Param').each do |param|
-#       puts 'A --- ' + param.xpath('./subNode:name/scalar:string').text
-#     end
-
-#     # devo prendere prima tutti gli Expr_PropertyFetch e gli Expr_ArrayDimFetch all'interno di ciascun singolo Expr_Assign.
-#     # ogni Expr_PropertyFetch o Expr_ArrayDimFetch ha un subNode:var e un subNode:name.
-#     # il subNode:var può essere a sua volta un Expr_PropertyFetch o un Expr_ArrayDimFetch mentre il subNode:name è quello che è
-#     # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
-
-#     method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
-#       p get_lhs lhs
-#     end
-
-#     #   p
-#     #   # p lhs.xpath('.//node:Expr_ArrayDimFetch/subNode[local-name() = \'name\' or local-name() = \'dim\']/scalar[local-name() = \'string\' or local-name() = \'string\']').text
-#     # end
 
 #   end
 
