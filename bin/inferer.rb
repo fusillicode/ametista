@@ -12,60 +12,60 @@ class INamespace < Ohm::Model
   # questo perchè sono le entità a livello maggiore
   unique :name
 
-  reference :parent_namespace, :INamespace
+  reference :parent_inamespace, :INamespace
   reference :statements, :IRawContent
 
-  collection :classes, :IClass, :namespace
-  collection :functions, :IFunction, :namespace
+  collection :iclasses, :IClass, :inamespace
+  collection :ifunctions, :IFunction, :inamespace
 end
 
 class IClass < Ohm::Model
   index :name
   attribute :name
 
-  reference :namespace, :INamespace
+  reference :inamespace, :INamespace
 
-  collection :methods, :IMethod, :class
-  collection :properties, :IProperty, :class
+  collection :imethods, :IMethod, :iclass
+  collection :properties, :IProperty, :iclass
 end
 
 class IProperty < Ohm::Model
   index :name
   attribute :name
 
-  reference :class, :IClass
+  reference :iclass, :IClass
 end
 
 class IMethod < Ohm::Model
   index :name
   attribute :name
 
-  reference :class, :IClass
+  reference :iclass, :IClass
   reference :statements, :IRawContent
   reference :return_value, :IRawContent
 
-  collection :parameters, :IVariable, :method
-  collection :local_variables, :IVariable, :method
+  collection :parameters, :IVariable, :imethod
+  collection :local_variables, :IVariable, :imethod
 end
 
 class IFunction < Ohm::Model
   index :name
   attribute :name
 
-  reference :namespace, :INamespace
+  reference :inamespace, :INamespace
   reference :statements, :IRawContent
   reference :return_value, :IRawContent
 
-  collection :parameters, :IVariable, :function
-  collection :local_variables, :IVariable, :function
+  collection :parameters, :IVariable, :ifunction
+  collection :local_variables, :IVariable, :ifunction
 end
 
 class IRawContent < Ohm::Model
   attribute :content
 
-  reference :namespace, :INamespace
-  reference :method, :IMethod
-  reference :function, :IFunction
+  reference :inamespace, :INamespace
+  reference :imethod, :IMethod
+  reference :ifunction, :IFunction
 end
 
 class IVariable < Ohm::Model
@@ -74,9 +74,9 @@ class IVariable < Ohm::Model
   attribute :value
   attribute :type
 
-  reference :namespace, :INamespace
-  reference :method, :IMethod
-  reference :function, :IFunction
+  reference :inamespace, :INamespace
+  reference :imethod, :IMethod
+  reference :ifunction, :IFunction
 
   def local?
     self.method or self.function or self.namespace.name === '\\'
@@ -146,7 +146,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     else
 
       parent_namespace = INamespace.create(:name             => current_namespace_name,
-                                           :parent_namespace => parent_namespace)
+                                           :parent_inamespace => parent_namespace)
 
     end
 
@@ -155,7 +155,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
   parent_namespace.statements = IRawContent.create(
     :content   => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
-    :namespace => parent_namespace)
+    :inamespace => parent_namespace)
 
   # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
   parent_namespace.save
@@ -164,16 +164,16 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
 
     current_function = IFunction.create(:name       => function.xpath('./subNode:name/scalar:string').text,
-                                        :namespace  => parent_namespace,
+                                        :inamespace  => parent_namespace,
                                         :statements => IRawContent.create(:content  => function.xpath('./subNode:stmts/scalar:array'),
-                                                                          :function => current_function))
+                                                                          :ifunction => current_function))
 
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params//node:Param').each do |parameter|
 
       IVariable.create(:name     => parameter.xpath('./subNode:name/scalar:string').text,
                        :type     => getParameterType(parameter, scalar_types, magic_constants),
-                       :function => current_function)
+                       :ifunction => current_function)
 
     end
 
@@ -183,20 +183,20 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Class').each do |class_in_xml|
 
     current_class = IClass.create(:name      => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
-                                  :namespace => parent_namespace)
+                                  :inamespace => parent_namespace)
 
     # Prendo tutti i metodi all'interno della classe corrente
     class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
 
       current_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
-                                      :class => current_class)
+                                      :iclass => current_class)
 
       # Prento tutti i parametri del metodo corrente
       # method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       #   IVariable.create(:name   => parameter.xpath('./subNode:name/scalar:string').text,
       #                    :type   => getParameterType(parameter, scalar_types, magic_constants),
-      #                    :method => current_method)
+      #                    :imethod => current_method)
 
       # end
 
