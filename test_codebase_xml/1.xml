@@ -2854,48 +2854,17 @@
           <scalar:string>ella</scalar:string>
          </subNode:name>
          <subNode:default>
-          <node:Expr_ConstFetch>
+          <node:Scalar_NSConst>
            <attribute:startLine>
             <scalar:int>59</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
             <scalar:int>59</scalar:int>
            </attribute:endLine>
-           <subNode:name>
-            <node:Name>
-             <attribute:startLine>
-              <scalar:int>59</scalar:int>
-             </attribute:startLine>
-             <attribute:endLine>
-              <scalar:int>59</scalar:int>
-             </attribute:endLine>
-             <subNode:parts>
-              <scalar:array>
-               <scalar:string>true</scalar:string>
-              </scalar:array>
-             </subNode:parts>
-            </node:Name>
-           </subNode:name>
-          </node:Expr_ConstFetch>
+          </node:Scalar_NSConst>
          </subNode:default>
          <subNode:type>
-          <node:Name_FullyQualified>
-           <attribute:startLine>
-            <scalar:int>59</scalar:int>
-           </attribute:startLine>
-           <attribute:endLine>
-            <scalar:int>59</scalar:int>
-           </attribute:endLine>
-           <subNode:parts>
-            <scalar:array>
-             <scalar:string>ciao</scalar:string>
-             <scalar:string>asd</scalar:string>
-             <scalar:string>asdasdasd</scalar:string>
-             <scalar:string>iei</scalar:string>
-             <scalar:string>bool</scalar:string>
-            </scalar:array>
-           </subNode:parts>
-          </node:Name_FullyQualified>
+          <scalar:null/>
          </subNode:type>
          <subNode:byRef>
           <scalar:false/>

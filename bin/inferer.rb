@@ -89,40 +89,53 @@ class IVariable < Ohm::Model
 end
 
 scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
-magic_constants = ['__LINE__', '__FILE__', '__DIR__', '__FUNCTION__', '__CLASS__', '__TRAIT__', '__METHOD__', '__NAMESPACE__']
-
+magic_constants = ['Scalar_LineConst', 'Scalar_FileConst', 'Scalar_DirConst',
+                   'Scalar_FuncConst', 'Scalar_ClassConst', 'Scalar_TraitConst',
+                   'Scalar_MethodConst', 'Scalar_NSConst']
 
 def getParameterType parameter, scalar_types, magic_constants
 
   # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
-  type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last.text
+  type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
 
-  return type_hint if scalar_types.include? type_hint
+  return type_hint.text if type_hint and scalar_types.include? type_hint.text
 
   default_value = parameter.xpath('./subNode:default/*[1]').first.name
 
-  case default_value
   # 1.2 -> node:Scalar_DNumber
-  when 'Scalar_DNumber'
+  if default_value === 'Scalar_DNumber'
     'double'
   # 1 -> node:Scalar_LNumber
-  when 'Scalar_LNumber'
+  elsif default_value === 'Scalar_LNumber'
     'int'
   # true, false, null -> node:Expr_ConstFetch
-  when 'Expr_ConstFetch'
+  elsif default_value === 'Expr_ConstFetch'
     'bool'
   # array() -> node:Expr_Array
-  when 'Expr_Array'
+  elsif default_value === 'Expr_Array'
     'array'
   # 'asd' -> node:Scalar_String
   # __FILE__ -> node:Scalar_FileConst
-  when 'Scalar_String', ('Scalar_FileConst' and magic_constants.include? scalar_types)
+  elsif default_value === 'Scalar_String' or magic_constants.include? default_value
     'string'
   else
     'DON\'T KNOW'
   end
 
 end
+
+get = { :namespaces => './/node:Stmt_Namespace',
+        :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
+        :namespace_statements => './subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]',
+        :functions => './subNode:stmts/scalar:array/node:Stmt_Function',
+        :function_name => './subNode:name/scalar:string',
+        :function_statement => './subNode:stmts/scalar:array',
+        :function_parameters => './subNode:params//node:Param',
+        :parameter_name => './subNode:name/scalar:string',
+        :classes => './subNode:stmts/scalar:array/node:Stmt_Class',
+        :class_name => './subNode:namespacedName/node:Name/subNode:parts//scalar:string',
+        :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
+        :method_name => './subNode:name/scalar:string' }
 
 redis = Redis.new
 
@@ -145,7 +158,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
     else
 
-      parent_namespace = INamespace.create(:name             => current_namespace_name,
+      parent_namespace = INamespace.create(:name              => current_namespace_name,
                                            :parent_inamespace => parent_namespace)
 
     end
@@ -154,7 +167,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
   # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
   parent_namespace.statements = IRawContent.create(
-    :content   => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
+    :content    => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
     :inamespace => parent_namespace)
 
   # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
@@ -164,15 +177,15 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
 
     current_function = IFunction.create(:name       => function.xpath('./subNode:name/scalar:string').text,
-                                        :inamespace  => parent_namespace,
-                                        :statements => IRawContent.create(:content  => function.xpath('./subNode:stmts/scalar:array'),
+                                        :inamespace => parent_namespace,
+                                        :statements => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array'),
                                                                           :ifunction => current_function))
 
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params//node:Param').each do |parameter|
 
-      IVariable.create(:name     => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type     => getParameterType(parameter, scalar_types, magic_constants),
+      IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
+                       :type      => getParameterType(parameter, scalar_types, magic_constants),
                        :ifunction => current_function)
 
     end
@@ -182,20 +195,20 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutte le classi all'interno del namespace corrente
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Class').each do |class_in_xml|
 
-    current_class = IClass.create(:name      => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
+    current_class = IClass.create(:name       => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
                                   :inamespace => parent_namespace)
 
     # Prendo tutti i metodi all'interno della classe corrente
     class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
 
-      current_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
+      current_method = IMethod.create(:name   => method.xpath('./subNode:name/scalar:string').text,
                                       :iclass => current_class)
 
       # Prento tutti i parametri del metodo corrente
       # method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
-      #   IVariable.create(:name   => parameter.xpath('./subNode:name/scalar:string').text,
-      #                    :type   => getParameterType(parameter, scalar_types, magic_constants),
+      #   IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
+      #                    :type    => getParameterType(parameter, scalar_types, magic_constants),
       #                    :imethod => current_method)
 
       # end

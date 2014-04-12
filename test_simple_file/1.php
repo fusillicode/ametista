@@ -56,7 +56,7 @@ class Sole {
 
 // true, false, null, 1, 1.3, 'asd', array(1,2)
 
-function prova(bool $ella = true, int $peppa)
+function prova($ella = __NAMESPACE__, int $peppa)
 {
   $a = 1;
   $a[1] = 1;
