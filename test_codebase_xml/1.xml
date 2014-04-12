@@ -2864,7 +2864,23 @@
           </node:Scalar_NSConst>
          </subNode:default>
          <subNode:type>
-          <scalar:null/>
+          <node:Name_FullyQualified>
+           <attribute:startLine>
+            <scalar:int>59</scalar:int>
+           </attribute:startLine>
+           <attribute:endLine>
+            <scalar:int>59</scalar:int>
+           </attribute:endLine>
+           <subNode:parts>
+            <scalar:array>
+             <scalar:string>ciao</scalar:string>
+             <scalar:string>asd</scalar:string>
+             <scalar:string>asdasdasd</scalar:string>
+             <scalar:string>iei</scalar:string>
+             <scalar:string>int</scalar:string>
+            </scalar:array>
+           </subNode:parts>
+          </node:Name_FullyQualified>
          </subNode:type>
          <subNode:byRef>
           <scalar:false/>

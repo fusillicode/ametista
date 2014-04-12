@@ -96,6 +96,7 @@ magic_constants = ['Scalar_LineConst', 'Scalar_FileConst', 'Scalar_DirConst',
 def getParameterType parameter, scalar_types, magic_constants
 
   # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
+  # type_hint può essere Nil
   type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
 
   return type_hint.text if type_hint and scalar_types.include? type_hint.text
@@ -114,8 +115,7 @@ def getParameterType parameter, scalar_types, magic_constants
   # array() -> node:Expr_Array
   elsif default_value === 'Expr_Array'
     'array'
-  # 'asd' -> node:Scalar_String
-  # __FILE__ -> node:Scalar_FileConst
+  # 'asd' -> node:Scalar_String or __FILE__ -> node:Scalar_FileConst
   elsif default_value === 'Scalar_String' or magic_constants.include? default_value
     'string'
   else
