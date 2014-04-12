@@ -188,6 +188,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
       IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
                        :type      => getParameterType(parameter, scalar_types, magic_constants),
+                       :value     => parameter.xpath('./subNode:default'),
                        :ifunction => current_function)
 
     end
@@ -205,16 +206,17 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
       current_method = IMethod.create(:name          => method.xpath('./subNode:name/scalar:string').text,
                                       :iclass        => current_class,
-                                      :statements    => IRawContent.create(:content   => method.xpath('./subNode:stmts/scalar:array'),
-                                                                           :ifunction => current_method),
-                                      :return_values => IRawContent.create(:content   => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
-                                                                           :ifunction => current_method))
+                                      :statements    => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
+                                                                           :imethod => current_method),
+                                      :return_values => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+                                                                           :imethod => current_method))
 
-      # Prento tutti i parametri del metodo corrente
+      # Prendo tutti i parametri del metodo corrente
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
         IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
                          :type    => getParameterType(parameter, scalar_types, magic_constants),
+                         :value   => parameter.xpath('./subNode:default'),
                          :imethod => current_method)
 
       end
