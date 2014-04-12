@@ -139,8 +139,9 @@ def getLHS node
     when 'Expr_ArrayDimFetch'
       getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
 
+    # sia self:: che AClass::
     when 'Expr_StaticPropertyFetch'
-      node.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+      node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
 
     when 'Expr_Assign'
       getLHS node.xpath('./subNode:var')
@@ -227,9 +228,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
                                         :return_values => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                              :ifunction => current_function))
 
-
-    # puts function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
-
+    # Prendo tutti gli assegnamenti all'interno della funzione corrente
     function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
       puts getLHS assignement
@@ -263,6 +262,13 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
                                                                            :imethod => current_method),
                                       :return_values => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                            :imethod => current_method))
+
+      # Prendo tutti gli assegnamenti all'interno del metodo corrente
+      method.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
+
+        puts getLHS assignement
+
+      end
 
       # Prendo tutti i parametri del metodo corrente
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
@@ -308,18 +314,5 @@ end
 # INamespace.all.to_a.each do |namespace|
 #   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
 #   p namespace.statements.content unless namespace.statements.nil?
-# end
-
-# # Functions
-# xml.xpath('.//node:Stmt_Function').each do |function|
-
-#   # Function name
-#   puts 'F --- ' + function.xpath('.//subNode:namespacedName//scalar:string').text
-
-#   # Function args
-#   function.xpath('.//node:Param').each do |param|
-#     puts 'A --- ' + param.xpath('.//node:Name_FullyQualified/subNode:parts//scalar:string[position() < last()]')[0..-1].to_a.join('/') + '/' + param.xpath('./subNode:name/scalar:string').text
-#   end
-
 # end
 
