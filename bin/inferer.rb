@@ -208,9 +208,9 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     :content    => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
     :inamespace => parent_namespace)
 
-  namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign').each do |assignement|
+  namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-    assignement.xpath('./subNode:var/')
+    puts getLHS assignement
 
   end
 
