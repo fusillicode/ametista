@@ -140,7 +140,7 @@ def getLHS node
       getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
 
     when 'Expr_StaticPropertyFetch'
-      node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+      node.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
 
     when 'Expr_Assign'
       getLHS node.xpath('./subNode:var')
@@ -214,8 +214,6 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
   end
 
-  exit
-
   # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
   parent_namespace.save
 
@@ -228,6 +226,15 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
                                                                              :ifunction => current_function),
                                         :return_values => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                              :ifunction => current_function))
+
+
+    # puts function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+
+    function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
+
+      puts getLHS assignement
+
+    end
 
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
@@ -286,9 +293,9 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
 end
 
-IClass.all.to_a.each do |class_in_xml|
-  puts class_in_xml.name
-end
+# IClass.all.to_a.each do |class_in_xml|
+#   puts class_in_xml.name
+# end
 
 # IMethod.all.to_a.each do |method|
 #   puts method.name
