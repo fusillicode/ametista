@@ -2864,23 +2864,7 @@
           </node:Scalar_NSConst>
          </subNode:default>
          <subNode:type>
-          <node:Name_FullyQualified>
-           <attribute:startLine>
-            <scalar:int>59</scalar:int>
-           </attribute:startLine>
-           <attribute:endLine>
-            <scalar:int>59</scalar:int>
-           </attribute:endLine>
-           <subNode:parts>
-            <scalar:array>
-             <scalar:string>ciao</scalar:string>
-             <scalar:string>asd</scalar:string>
-             <scalar:string>asdasdasd</scalar:string>
-             <scalar:string>iei</scalar:string>
-             <scalar:string>int</scalar:string>
-            </scalar:array>
-           </subNode:parts>
-          </node:Name_FullyQualified>
+          <scalar:null/>
          </subNode:type>
          <subNode:byRef>
           <scalar:false/>
@@ -6995,17 +6979,30 @@
           <scalar:int>122</scalar:int>
          </attribute:endLine>
          <subNode:expr>
-          <node:Expr_Variable>
+          <node:Expr_PropertyFetch>
            <attribute:startLine>
             <scalar:int>122</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
             <scalar:int>122</scalar:int>
            </attribute:endLine>
+           <subNode:var>
+            <node:Expr_Variable>
+             <attribute:startLine>
+              <scalar:int>122</scalar:int>
+             </attribute:startLine>
+             <attribute:endLine>
+              <scalar:int>122</scalar:int>
+             </attribute:endLine>
+             <subNode:name>
+              <scalar:string>this</scalar:string>
+             </subNode:name>
+            </node:Expr_Variable>
+           </subNode:var>
            <subNode:name>
             <scalar:string>ad</scalar:string>
            </subNode:name>
-          </node:Expr_Variable>
+          </node:Expr_PropertyFetch>
          </subNode:expr>
         </node:Stmt_Return>
        </scalar:array>

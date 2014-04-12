@@ -42,7 +42,7 @@ class IMethod < Ohm::Model
 
   reference :iclass, :IClass
   reference :statements, :IRawContent
-  reference :return_value, :IRawContent
+  reference :return_values, :IRawContent
 
   collection :parameters, :IVariable, :imethod
   collection :local_variables, :IVariable, :imethod
@@ -54,7 +54,7 @@ class IFunction < Ohm::Model
 
   reference :inamespace, :INamespace
   reference :statements, :IRawContent
-  reference :return_value, :IRawContent
+  reference :return_values, :IRawContent
 
   collection :parameters, :IVariable, :ifunction
   collection :local_variables, :IVariable, :ifunction
@@ -96,9 +96,9 @@ magic_constants = ['Scalar_LineConst', 'Scalar_FileConst', 'Scalar_DirConst',
 def getParameterType parameter, scalar_types, magic_constants
 
   # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
-  # type_hint può essere Nil
   type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
 
+  # type_hint può essere Nil
   return type_hint.text if type_hint and scalar_types.include? type_hint.text
 
   default_value = parameter.xpath('./subNode:default/*[1]').first.name
@@ -176,13 +176,15 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutte le funzioni all'interno del namespace corrente
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
 
-    current_function = IFunction.create(:name       => function.xpath('./subNode:name/scalar:string').text,
-                                        :inamespace => parent_namespace,
-                                        :statements => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array'),
-                                                                          :ifunction => current_function))
+    current_function = IFunction.create(:name          => function.xpath('./subNode:name/scalar:string').text,
+                                        :inamespace    => parent_namespace,
+                                        :statements    => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array'),
+                                                                             :ifunction => current_function),
+                                        :return_values => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+                                                                             :ifunction => current_function))
 
     # Prendo tutti i parametri della funzione corrente
-    function.xpath('./subNode:params//node:Param').each do |parameter|
+    function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
                        :type      => getParameterType(parameter, scalar_types, magic_constants),
@@ -201,17 +203,21 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     # Prendo tutti i metodi all'interno della classe corrente
     class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
 
-      current_method = IMethod.create(:name   => method.xpath('./subNode:name/scalar:string').text,
-                                      :iclass => current_class)
+      current_method = IMethod.create(:name          => method.xpath('./subNode:name/scalar:string').text,
+                                      :iclass        => current_class,
+                                      :statements    => IRawContent.create(:content   => method.xpath('./subNode:stmts/scalar:array'),
+                                                                           :ifunction => current_method),
+                                      :return_values => IRawContent.create(:content   => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+                                                                           :ifunction => current_method))
 
       # Prento tutti i parametri del metodo corrente
-      # method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
+      method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
-      #   IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
-      #                    :type    => getParameterType(parameter, scalar_types, magic_constants),
-      #                    :imethod => current_method)
+        IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
+                         :type    => getParameterType(parameter, scalar_types, magic_constants),
+                         :imethod => current_method)
 
-      # end
+      end
 
       # devo prendere prima tutti gli Expr_PropertyFetch e gli Expr_ArrayDimFetch all'interno di ciascun singolo Expr_Assign.
       # ogni Expr_PropertyFetch o Expr_ArrayDimFetch ha un subNode:var e un subNode:name.
@@ -231,6 +237,18 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   end
 
 end
+
+# IClass.all.to_a.each do |class_in_xml|
+#   puts class_in_xml.name
+# end
+
+IMethod.all.to_a.each do |method|
+  puts method.name
+end
+
+# IVariable.all.to_a.each do |local_variables|
+#   puts local_variables.name
+# end
 
 # INamespace.all.to_a.each do |namespace|
 #   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
