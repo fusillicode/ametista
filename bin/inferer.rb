@@ -119,10 +119,48 @@ def getParameterType parameter, scalar_types, magic_constants
   elsif default_value === 'Scalar_String' or magic_constants.include? default_value
     'string'
   else
-    'DON\'T KNOW'
+    '✘'
   end
 
 end
+
+def getLHS node
+
+  node = node.xpath('./*[1]')[0]
+
+  case node.name
+
+    when 'Expr_Variable'
+      node.xpath('./subNode:name/scalar:string').text
+
+    when 'Expr_PropertyFetch'
+      getLHS(node.xpath('./subNode:var')) + '->' + getLHS(node.xpath('./subNode:name'))
+
+    when 'Expr_ArrayDimFetch'
+      getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
+
+    when 'Expr_StaticPropertyFetch'
+      node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+
+    when 'Expr_Assign'
+      getLHS node.xpath('./subNode:var')
+
+    when 'Expr_Concat'
+      getLHS(node.xpath('./subNode:left')) + '.' + getLHS(node.xpath('./subNode:right'))
+
+    when 'Scalar_String'
+      node.xpath('./subNode:value/*').text
+
+    when 'string'
+      node.text
+
+    else
+      '✘'
+
+  end
+
+end
+
 
 get = { :namespaces => './/node:Stmt_Namespace',
         :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
@@ -169,6 +207,14 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   parent_namespace.statements = IRawContent.create(
     :content    => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
     :inamespace => parent_namespace)
+
+  namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign').each do |assignement|
+
+    assignement.xpath('./subNode:var/')
+
+  end
+
+  exit
 
   # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
   parent_namespace.save
@@ -227,7 +273,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
       # method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
-      #   p get_lhs lhs
+      #   p getLHS lhs
       # end
 
       #   p
@@ -240,13 +286,13 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
 end
 
-# IClass.all.to_a.each do |class_in_xml|
-#   puts class_in_xml.name
-# end
-
-IMethod.all.to_a.each do |method|
-  puts method.name
+IClass.all.to_a.each do |class_in_xml|
+  puts class_in_xml.name
 end
+
+# IMethod.all.to_a.each do |method|
+#   puts method.name
+# end
 
 # IVariable.all.to_a.each do |local_variables|
 #   puts local_variables.name
@@ -255,45 +301,6 @@ end
 # INamespace.all.to_a.each do |namespace|
 #   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
 #   p namespace.statements.content unless namespace.statements.nil?
-# end
-
-exit
-
-# def get_lhs node
-
-#   node = node.xpath('./*[1]')[0]
-
-#   case node.name
-
-#     when 'Expr_Variable'
-#       node.xpath('./subNode:name/scalar:string').text
-
-#     when 'Expr_PropertyFetch'
-#       get_lhs(node.xpath('./subNode:var')) + '->' + get_lhs(node.xpath('./subNode:name'))
-
-#     when 'Expr_ArrayDimFetch'
-#       get_lhs(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
-
-#     when 'Expr_StaticPropertyFetch'
-#       node.xpath('./subNode:class/node:Name//scalar:string')[0].text + '::' + node.xpath('./subNode:name/scalar:string')[0].text
-
-#     when 'Expr_Assign'
-#       get_lhs node.xpath('./subNode:var')
-
-#     when 'Expr_Concat'
-#       get_lhs(node.xpath('./subNode:left')) + '.' + get_lhs(node.xpath('./subNode:right'))
-
-#     when 'Scalar_String'
-#       node.xpath('./subNode:value/*').text
-
-#     when 'string'
-#       node.text
-
-#     else
-#       '✘'
-
-#   end
-
 # end
 
 # # Functions
