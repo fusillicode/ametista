@@ -15,57 +15,57 @@ class INamespace < Ohm::Model
   reference :parent_inamespace, :INamespace
   reference :statements, :IRawContent
 
-  collection :iclasses, :IClass, :inamespace
-  collection :ifunctions, :IFunction, :inamespace
+  collection :i_classes, :IClass, :i_namespace
+  collection :i_functions, :IFunction, :i_namespace
 end
 
 class IClass < Ohm::Model
   index :name
   attribute :name
 
-  reference :inamespace, :INamespace
+  reference :i_namespace, :INamespace
 
-  collection :imethods, :IMethod, :iclass
-  collection :properties, :IProperty, :iclass
+  collection :i_methods, :IMethod, :i_class
+  collection :properties, :IProperty, :i_class
 end
 
 class IProperty < Ohm::Model
   index :name
   attribute :name
 
-  reference :iclass, :IClass
+  reference :i_class, :IClass
 end
 
 class IMethod < Ohm::Model
   index :name
   attribute :name
 
-  reference :iclass, :IClass
+  reference :i_class, :IClass
   reference :statements, :IRawContent
   reference :return_values, :IRawContent
 
-  collection :parameters, :IVariable, :imethod
-  collection :local_variables, :IVariable, :imethod
+  collection :parameters, :IVariable, :i_method
+  collection :local_variables, :IVariable, :i_method
 end
 
 class IFunction < Ohm::Model
   index :name
   attribute :name
 
-  reference :inamespace, :INamespace
+  reference :i_namespace, :INamespace
   reference :statements, :IRawContent
   reference :return_values, :IRawContent
 
-  collection :parameters, :IVariable, :ifunction
-  collection :local_variables, :IVariable, :ifunction
+  collection :parameters, :IVariable, :i_function
+  collection :local_variables, :IVariable, :i_function
 end
 
 class IRawContent < Ohm::Model
   attribute :content
 
-  reference :inamespace, :INamespace
-  reference :imethod, :IMethod
-  reference :ifunction, :IFunction
+  reference :i_namespace, :INamespace
+  reference :i_method, :IMethod
+  reference :i_function, :IFunction
 end
 
 class IVariable < Ohm::Model
@@ -74,9 +74,9 @@ class IVariable < Ohm::Model
   attribute :value
   attribute :type
 
-  reference :inamespace, :INamespace
-  reference :imethod, :IMethod
-  reference :ifunction, :IFunction
+  reference :i_namespace, :INamespace
+  reference :i_method, :IMethod
+  reference :i_function, :IFunction
 
   def local?
     self.method or self.function or self.namespace.name === '\\'
@@ -88,75 +88,75 @@ class IVariable < Ohm::Model
 
 end
 
-scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
-magic_constants = ['Scalar_LineConst', 'Scalar_FileConst', 'Scalar_DirConst',
-                   'Scalar_FuncConst', 'Scalar_ClassConst', 'Scalar_TraitConst',
-                   'Scalar_MethodConst', 'Scalar_NSConst']
+class IParser
 
-def getParameterType parameter, scalar_types, magic_constants
+  @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
 
-  # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
-  type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
+  @magic_constants = ['Scalar_LineConst',
+                     'Scalar_FileConst',
+                     'Scalar_DirConst',
+                     'Scalar_FuncConst',
+                     'Scalar_ClassConst',
+                     'Scalar_TraitConst',
+                     'Scalar_MethodConst',
+                     'Scalar_NSConst']
 
-  # type_hint può essere Nil
-  return type_hint.text if type_hint and scalar_types.include? type_hint.text
+  def self.get_parameter_type parameter
 
-  default_value = parameter.xpath('./subNode:default/*[1]').first.name
+    # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
+    type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
 
-  # 1.2 -> node:Scalar_DNumber
-  if default_value === 'Scalar_DNumber'
-    'double'
-  # 1 -> node:Scalar_LNumber
-  elsif default_value === 'Scalar_LNumber'
-    'int'
-  # true, false, null -> node:Expr_ConstFetch
-  elsif default_value === 'Expr_ConstFetch'
-    'bool'
-  # array() -> node:Expr_Array
-  elsif default_value === 'Expr_Array'
-    'array'
-  # 'asd' -> node:Scalar_String or __FILE__ -> node:Scalar_FileConst
-  elsif default_value === 'Scalar_String' or magic_constants.include? default_value
-    'string'
-  else
-    '✘'
+    # type_hint può essere Nil
+    return type_hint.text if type_hint and @scalar_types.include? type_hint.text
+
+    default_value = parameter.xpath('./subNode:default/*[1]').first.name
+
+    # 1.2 -> node:Scalar_DNumber
+    if default_value === 'Scalar_DNumber'
+      'double'
+    # 1 -> node:Scalar_LNumber
+    elsif default_value === 'Scalar_LNumber'
+      'int'
+    # true, false, null -> node:Expr_ConstFetch
+    elsif default_value === 'Expr_ConstFetch'
+      'bool'
+    # array() -> node:Expr_Array
+    elsif default_value === 'Expr_Array'
+      'array'
+    # 'asd' -> node:Scalar_String or __FILE__ -> node:Scalar_FileConst
+    elsif default_value === 'Scalar_String' or @magic_constants.include? default_value
+      'string'
+    else
+      '✘'
+    end
+
   end
 
-end
+  def self.get_LHS node
 
-def getLHS node
+    node = node.xpath('./*[1]')[0]
 
-  node = node.xpath('./*[1]')[0]
-
-  case node.name
-
+    case node.name
     when 'Expr_Variable'
       node.xpath('./subNode:name/scalar:string').text
-
     when 'Expr_PropertyFetch'
-      getLHS(node.xpath('./subNode:var')) + '->' + getLHS(node.xpath('./subNode:name'))
-
+      self.get_LHS(node.xpath('./subNode:var')) + '->' + self.get_LHS(node.xpath('./subNode:name'))
     when 'Expr_ArrayDimFetch'
-      getLHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
-
+      self.get_LHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
     # sia self:: che AClass::
     when 'Expr_StaticPropertyFetch'
       node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
-
     when 'Expr_Assign'
-      getLHS node.xpath('./subNode:var')
-
+      self.get_LHS node.xpath('./subNode:var')
     when 'Expr_Concat'
-      getLHS(node.xpath('./subNode:left')) + '.' + getLHS(node.xpath('./subNode:right'))
-
+      self.get_LHS(node.xpath('./subNode:left')) + '.' + self.get_LHS(node.xpath('./subNode:right'))
     when 'Scalar_String'
       node.xpath('./subNode:value/*').text
-
     when 'string'
       node.text
-
     else
       '✘'
+    end
 
   end
 
@@ -207,11 +207,11 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
   parent_namespace.statements = IRawContent.create(
     :content    => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
-    :inamespace => parent_namespace)
+    :i_namespace => parent_namespace)
 
   namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-    puts getLHS assignement
+    puts IParser::get_LHS assignement
 
   end
 
@@ -222,16 +222,16 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
 
     current_function = IFunction.create(:name          => function.xpath('./subNode:name/scalar:string').text,
-                                        :inamespace    => parent_namespace,
+                                        :i_namespace    => parent_namespace,
                                         :statements    => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array'),
-                                                                             :ifunction => current_function),
+                                                                             :i_function => current_function),
                                         :return_values => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
-                                                                             :ifunction => current_function))
+                                                                             :i_function => current_function))
 
     # Prendo tutti gli assegnamenti all'interno della funzione corrente
     function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-      puts getLHS assignement
+      puts IParser::get_LHS assignement
 
     end
 
@@ -239,9 +239,9 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type      => getParameterType(parameter, scalar_types, magic_constants),
+                       :type      => IParser::get_parameter_type(parameter),
                        :value     => parameter.xpath('./subNode:default'),
-                       :ifunction => current_function)
+                       :i_function => current_function)
 
     end
 
@@ -251,22 +251,22 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Class').each do |class_in_xml|
 
     current_class = IClass.create(:name       => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
-                                  :inamespace => parent_namespace)
+                                  :i_namespace => parent_namespace)
 
     # Prendo tutti i metodi all'interno della classe corrente
     class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
 
       current_method = IMethod.create(:name          => method.xpath('./subNode:name/scalar:string').text,
-                                      :iclass        => current_class,
+                                      :i_class        => current_class,
                                       :statements    => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
-                                                                           :imethod => current_method),
+                                                                           :i_method => current_method),
                                       :return_values => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
-                                                                           :imethod => current_method))
+                                                                           :i_method => current_method))
 
       # Prendo tutti gli assegnamenti all'interno del metodo corrente
       method.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-        puts getLHS assignement
+        puts IParser::get_LHS assignement
 
       end
 
@@ -274,9 +274,9 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
         IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
-                         :type    => getParameterType(parameter, scalar_types, magic_constants),
+                         :type    => IParser::get_parameter_type(parameter),
                          :value   => parameter.xpath('./subNode:default'),
-                         :imethod => current_method)
+                         :i_method => current_method)
 
       end
 
@@ -286,7 +286,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       # posto alla destra del Expr_PropertyFetch o del Expr_ArrayDimFetch a seconda dei casi
 
       # method.xpath('.//node:Expr_Assign/subNode:var').each do |lhs|
-      #   p getLHS lhs
+      #   p get_LHS lhs
       # end
 
       #   p
