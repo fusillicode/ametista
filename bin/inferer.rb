@@ -82,7 +82,7 @@ class IVariable < Ohm::Model
 
 end
 
-class ModelBuilder < Nokogiri::XML::SAX::Document
+class ModelBuilder
 
   @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
 
@@ -110,18 +110,6 @@ class ModelBuilder < Nokogiri::XML::SAX::Document
               :class_name => './subNode:namespacedName/node:Name/subNode:parts//scalar:string',
               :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
               :method_name => './subNode:name/scalar:string' }
-
-  def start_element name, attrs = []
-
-    puts "#{name} started!"
-
-  end
-
-  def end_element name
-
-    puts "#{name} ended"
-
-  end
 
   def self.get_variable_type variable
 
