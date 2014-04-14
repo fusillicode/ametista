@@ -66,6 +66,7 @@ class IVariable < Ohm::Model
   attribute :name
   attribute :value
   attribute :type
+  attribute :scope
 
   reference :i_namespace, :INamespace
   reference :i_class, :IClass
@@ -73,7 +74,7 @@ class IVariable < Ohm::Model
   reference :i_function, :IFunction
 
   def local?
-    @method or @function or @namespace.name === '\\'
+    @scope == 'local'
   end
 
   def global?
@@ -193,7 +194,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
     else
 
-      parent_namespace = INamespace.create(:name              => current_namespace_name,
+      parent_namespace = INamespace.create(:name => current_namespace_name,
                                            :parent_inamespace => parent_namespace)
 
     end
@@ -202,9 +203,10 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
   # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
   parent_namespace.statements = IRawContent.create(
-    :content    => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
+    :content => namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]'),
     :i_namespace => parent_namespace)
 
+  # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
   namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
     puts ModelBuilder::get_LHS assignement
@@ -217,26 +219,41 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutte le funzioni all'interno del namespace corrente
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
 
-    current_function = IFunction.create(:name          => function.xpath('./subNode:name/scalar:string').text,
-                                        :i_namespace    => parent_namespace,
-                                        :statements    => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array'),
-                                                                             :i_function => current_function),
-                                        :return_values => IRawContent.create(:content   => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+    current_function = IFunction.create(:name => function.xpath('./subNode:name/scalar:string').text,
+                                        :i_namespace => parent_namespace,
+                                        :statements => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array'),
+                                                                          :i_function => current_function),
+                                        :return_values => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                              :i_function => current_function))
 
-    # Prendo tutti gli assegnamenti all'interno della funzione corrente
-    function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
+    # Prendo tutti gli statements della funzione corrente
+    function.xpath('./subNode:stmts/scalar:array').each do |statements|
 
-      puts ModelBuilder::get_LHS assignement
+      # Prendo tutti le variabili globali definite tramite global
+      statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
+
+        IVariable.create(:name => global_variable.xpath('./subNode:name/scalar:string').text,
+                         :scope => 'global',
+                         :i_function => current_function)
+
+      end
+
+      # Prendo tutti gli assegnamenti all'interno della funzione corrente
+      statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
+
+        puts ModelBuilder::get_LHS assignement
+
+      end
 
     end
 
     # Prendo tutti i parametri della funzione corrente
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
-      IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type      => ModelBuilder::get_variable_type(parameter),
-                       :value     => parameter.xpath('./subNode:default'),
+      IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
+                       :type => ModelBuilder::get_variable_type(parameter),
+                       :scope => 'global',
+                       :value => parameter.xpath('./subNode:default'),
                        :i_function => current_function)
 
     end
@@ -246,7 +263,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutte le classi all'interno del namespace corrente
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Class').each do |class_in_xml|
 
-    current_class = IClass.create(:name       => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
+    current_class = IClass.create(:name => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
                                   :i_namespace => parent_namespace)
 
     # Prendo tutte le proprietà della classe corrente
@@ -254,9 +271,9 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
 
-        IVariable.create(:name    => property.xpath('./subNode:name/scalar:string').text,
-                         :type    => ModelBuilder::get_variable_type(property),
-                         :value   => property.xpath('./subNode:default'),
+        IVariable.create(:name => property.xpath('./subNode:name/scalar:string').text,
+                         :type => ModelBuilder::get_variable_type(property),
+                         :value => property.xpath('./subNode:default'),
                          :i_class => current_class)
 
       end
@@ -269,26 +286,41 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     # Prendo tutti i metodi all'interno della classe corrente
     class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
 
-      current_method = IMethod.create(:name          => method.xpath('./subNode:name/scalar:string').text,
-                                      :i_class        => current_class,
-                                      :statements    => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
+      current_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
+                                      :i_class => current_class,
+                                      :statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
                                                                            :i_method => current_method),
                                       :return_values => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                            :i_method => current_method))
 
-      # Prendo tutti gli assegnamenti all'interno del metodo corrente
-      method.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
+      # Prendo tutti gli statements del metodo corrente
+      method.xpath('./subNode:stmts/scalar:array').each do |statements|
 
-        puts ModelBuilder::get_LHS assignement
+        # Prendo tutti le variabili globali definite tramite global
+        statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
+
+          IVariable.create(:name => global_variable.xpath('./subNode:name/scalar:string').text,
+                           :scope => 'global',
+                           :i_function => current_method)
+
+        end
+
+        # Prendo tutti gli assegnamenti all'interno del metodo corrente
+        statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
+
+          puts ModelBuilder::get_LHS assignement
+
+        end
 
       end
 
       # Prendo tutti i parametri del metodo corrente
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
-        IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
-                         :type    => ModelBuilder::get_variable_type(parameter),
-                         :value   => parameter.xpath('./subNode:default'),
+        IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
+                         :type => ModelBuilder::get_variable_type(parameter),
+                         :scope => 'global',
+                         :value => parameter.xpath('./subNode:default'),
                          :i_method => current_method)
 
       end
