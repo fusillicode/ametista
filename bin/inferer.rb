@@ -108,7 +108,7 @@ class IParser
               :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
               :method_name => './subNode:name/scalar:string' }
 
-  def self.get_parameter_type parameter
+  def self.get_variable_type parameter
 
     # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
     type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
@@ -232,7 +232,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type      => IParser::get_parameter_type(parameter),
+                       :type      => IParser::get_variable_type(parameter),
                        :value     => parameter.xpath('./subNode:default'),
                        :i_function => current_function)
 
@@ -252,7 +252,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
 
         IVariable.create(:name    => property.xpath('./subNode:name/scalar:string').text,
-                         :type    => IParser::get_parameter_type(property),
+                         :type    => IParser::get_variable_type(property),
                          :value   => property.xpath('./subNode:default'),
                          :i_class => current_class)
 
@@ -284,7 +284,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
         IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
-                         :type    => IParser::get_parameter_type(parameter),
+                         :type    => IParser::get_variable_type(parameter),
                          :value   => parameter.xpath('./subNode:default'),
                          :i_method => current_method)
 
