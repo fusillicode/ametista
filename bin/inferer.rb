@@ -114,11 +114,19 @@ class ModelBuilder
 
   def self.get_variable_type variable
 
+    self.get_type_hint(variable) or self.get_default_value_type(variable)
+
+  end
+
+  def self.get_type_hint variable
     # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
     type_hint = variable.xpath('./subNode:type//subNode:parts//scalar:string').last
 
     # type_hint può essere Nil
-    return type_hint.text if type_hint and @scalar_types.include? type_hint.text
+    type_hint.text if type_hint and @scalar_types.include? type_hint.text
+  end
+
+  def self.get_default_value_type variable
 
     default_value = variable.xpath('./subNode:default/*[1]').first.name
 
@@ -209,7 +217,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
   namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-    puts ModelBuilder::get_LHS assignement
+    # puts ModelBuilder::get_LHS assignement
 
   end
 
@@ -241,7 +249,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       # Prendo tutti gli assegnamenti all'interno della funzione corrente
       statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
 
-        puts ModelBuilder::get_LHS assignement
+        # puts ModelBuilder::get_LHS assignement
 
       end
 
@@ -308,7 +316,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
         # Prendo tutti gli assegnamenti all'interno del metodo corrente
         statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
 
-          puts ModelBuilder::get_LHS assignement
+          # puts ModelBuilder::get_LHS assignement
 
         end
 
