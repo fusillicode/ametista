@@ -112,7 +112,7 @@ class ModelBuilder
               :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
               :method_name => './subNode:name/scalar:string' }
 
-  def self.get_variable_type variable
+  def self.get_type variable
 
     self.get_type_hint(variable) or self.get_default_value_type(variable)
 
@@ -259,7 +259,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type => ModelBuilder::get_variable_type(parameter),
+                       :type => ModelBuilder::get_type(parameter),
                        :scope => 'global',
                        :value => parameter.xpath('./subNode:default'),
                        :i_function => current_function)
@@ -280,7 +280,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
 
         IVariable.create(:name => property.xpath('./subNode:name/scalar:string').text,
-                         :type => ModelBuilder::get_variable_type(property),
+                         :type => ModelBuilder::get_type(property),
                          :value => property.xpath('./subNode:default'),
                          :i_class => current_class)
 
@@ -326,7 +326,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
         IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
-                         :type => ModelBuilder::get_variable_type(parameter),
+                         :type => ModelBuilder::get_type(parameter),
                          :scope => 'global',
                          :value => parameter.xpath('./subNode:default'),
                          :i_method => current_method)
