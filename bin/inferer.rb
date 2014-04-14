@@ -108,15 +108,15 @@ class IParser
               :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
               :method_name => './subNode:name/scalar:string' }
 
-  def self.get_variable_type parameter
+  def self.get_variable_type variable
 
     # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
-    type_hint = parameter.xpath('./subNode:type//subNode:parts//scalar:string').last
+    type_hint = variable.xpath('./subNode:type//subNode:parts//scalar:string').last
 
     # type_hint può essere Nil
     return type_hint.text if type_hint and @scalar_types.include? type_hint.text
 
-    default_value = parameter.xpath('./subNode:default/*[1]').first.name
+    default_value = variable.xpath('./subNode:default/*[1]').first.name
 
     # 1.2 -> node:Scalar_DNumber
     if default_value === 'Scalar_DNumber'
