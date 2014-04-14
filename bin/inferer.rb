@@ -26,14 +26,7 @@ class IClass < Ohm::Model
   reference :i_namespace, :INamespace
 
   collection :i_methods, :IMethod, :i_class
-  collection :properties, :IProperty, :i_class
-end
-
-class IProperty < Ohm::Model
-  index :name
-  attribute :name
-
-  reference :i_class, :IClass
+  collection :properties, :IVariable, :i_class
 end
 
 class IMethod < Ohm::Model
@@ -75,6 +68,7 @@ class IVariable < Ohm::Model
   attribute :type
 
   reference :i_namespace, :INamespace
+  reference :i_class, :IClass
   reference :i_method, :IMethod
   reference :i_function, :IFunction
 
@@ -93,13 +87,26 @@ class IParser
   @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
 
   @magic_constants = ['Scalar_LineConst',
-                     'Scalar_FileConst',
-                     'Scalar_DirConst',
-                     'Scalar_FuncConst',
-                     'Scalar_ClassConst',
-                     'Scalar_TraitConst',
-                     'Scalar_MethodConst',
-                     'Scalar_NSConst']
+                      'Scalar_FileConst',
+                      'Scalar_DirConst',
+                      'Scalar_FuncConst',
+                      'Scalar_ClassConst',
+                      'Scalar_TraitConst',
+                      'Scalar_MethodConst',
+                      'Scalar_NSConst']
+
+  @xpaths = { :namespaces => './/node:Stmt_Namespace',
+              :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
+              :namespace_statements => './subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]',
+              :functions => './subNode:stmts/scalar:array/node:Stmt_Function',
+              :function_name => './subNode:name/scalar:string',
+              :function_statement => './subNode:stmts/scalar:array',
+              :function_parameters => './subNode:params//node:Param',
+              :parameter_name => './subNode:name/scalar:string',
+              :classes => './subNode:stmts/scalar:array/node:Stmt_Class',
+              :class_name => './subNode:namespacedName/node:Name/subNode:parts//scalar:string',
+              :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
+              :method_name => './subNode:name/scalar:string' }
 
   def self.get_parameter_type parameter
 
@@ -161,20 +168,6 @@ class IParser
   end
 
 end
-
-
-get = { :namespaces => './/node:Stmt_Namespace',
-        :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
-        :namespace_statements => './subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]',
-        :functions => './subNode:stmts/scalar:array/node:Stmt_Function',
-        :function_name => './subNode:name/scalar:string',
-        :function_statement => './subNode:stmts/scalar:array',
-        :function_parameters => './subNode:params//node:Param',
-        :parameter_name => './subNode:name/scalar:string',
-        :classes => './subNode:stmts/scalar:array/node:Stmt_Class',
-        :class_name => './subNode:namespacedName/node:Name/subNode:parts//scalar:string',
-        :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
-        :method_name => './subNode:name/scalar:string' }
 
 redis = Redis.new
 
@@ -253,6 +246,23 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     current_class = IClass.create(:name       => class_in_xml.xpath('./subNode:namespacedName/node:Name/subNode:parts//scalar:string')[0..-1].to_a.join('/'),
                                   :i_namespace => parent_namespace)
 
+    # Prendo tutte le proprietà della classe corrente
+    class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_Property').each do |one_line_property|
+
+      one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
+
+        IVariable.create(:name    => property.xpath('./subNode:name/scalar:string').text,
+                         :type    => IParser::get_parameter_type(property),
+                         :value   => property.xpath('./subNode:default'),
+                         :i_class => current_class)
+
+      end
+
+    end
+
+    # Il save serve per aggiornare effettivamente l'istanza INamespace parent_namespace!
+    current_class.save
+
     # Prendo tutti i metodi all'interno della classe corrente
     class_in_xml.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod').each do |method|
 
@@ -299,6 +309,11 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
 end
 
+# INamespace.all.to_a.each do |namespace|
+#   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
+#   p namespace.statements.content unless namespace.statements.nil?
+# end
+
 # IClass.all.to_a.each do |class_in_xml|
 #   puts class_in_xml.name
 # end
@@ -310,9 +325,3 @@ end
 # IVariable.all.to_a.each do |local_variables|
 #   puts local_variables.name
 # end
-
-# INamespace.all.to_a.each do |namespace|
-#   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
-#   p namespace.statements.content unless namespace.statements.nil?
-# end
-

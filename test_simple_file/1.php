@@ -125,7 +125,8 @@ function prova($ella = __NAMESPACE__, int $peppa)
 
 class mondo extends pippo {
 
-  public static $a = '12', $b = 'asd';
+  public static $a = '12';
+  private $b = 'asd';
 
   private function ciao(int $a){
 
