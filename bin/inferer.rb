@@ -316,6 +316,9 @@ end
 
 # IClass.all.to_a.each do |class_in_xml|
 #   puts class_in_xml.name
+#   class_in_xml.properties.each do |p|
+#     puts p.name
+#   end
 # end
 
 # IMethod.all.to_a.each do |method|
