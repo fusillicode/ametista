@@ -73,11 +73,11 @@ class IVariable < Ohm::Model
   reference :i_function, :IFunction
 
   def local?
-    self.method or self.function or self.namespace.name === '\\'
+    @method or @function or @namespace.name === '\\'
   end
 
   def global?
-    not self.local?
+    not local?
   end
 
 end
