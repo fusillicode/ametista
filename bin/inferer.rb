@@ -65,7 +65,6 @@ class IVariable < Ohm::Model
   index :name
   attribute :name
   attribute :value
-  attribute :type
   attribute :scope
 
   reference :i_namespace, :INamespace
@@ -259,7 +258,6 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type => ModelBuilder::get_type(parameter),
                        :scope => 'global',
                        :value => parameter.xpath('./subNode:default'),
                        :i_function => current_function)
@@ -279,10 +277,9 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
 
-        IVariable.create(:name => property.xpath('./subNode:name/scalar:string').text,
-                         :type => ModelBuilder::get_type(property),
-                         :value => property.xpath('./subNode:default'),
-                         :i_class => current_class)
+        variable = IVariable.create(:name => property.xpath('./subNode:name/scalar:string').text,
+                                    :value => property.xpath('./subNode:default'),
+                                    :i_class => current_class)
 
       end
 
@@ -326,7 +323,6 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
         IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
-                         :type => ModelBuilder::get_type(parameter),
                          :scope => 'global',
                          :value => parameter.xpath('./subNode:default'),
                          :i_method => current_method)
