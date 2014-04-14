@@ -82,7 +82,7 @@ class IVariable < Ohm::Model
 
 end
 
-class IParser
+class ModelBuilder < Nokogiri::XML::SAX::Document
 
   @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
 
@@ -94,6 +94,9 @@ class IParser
                       'Scalar_TraitConst',
                       'Scalar_MethodConst',
                       'Scalar_NSConst']
+
+  @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION', '_ENV', '_COOKIE']
+
 
   @xpaths = { :namespaces => './/node:Stmt_Namespace',
               :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
@@ -107,6 +110,18 @@ class IParser
               :class_name => './subNode:namespacedName/node:Name/subNode:parts//scalar:string',
               :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
               :method_name => './subNode:name/scalar:string' }
+
+  def start_element name, attrs = []
+
+    puts "#{name} started!"
+
+  end
+
+  def end_element name
+
+    puts "#{name} ended"
+
+  end
 
   def self.get_variable_type variable
 
@@ -204,7 +219,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
   namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-    puts IParser::get_LHS assignement
+    puts ModelBuilder::get_LHS assignement
 
   end
 
@@ -224,7 +239,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     # Prendo tutti gli assegnamenti all'interno della funzione corrente
     function.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-      puts IParser::get_LHS assignement
+      puts ModelBuilder::get_LHS assignement
 
     end
 
@@ -232,7 +247,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
       IVariable.create(:name      => parameter.xpath('./subNode:name/scalar:string').text,
-                       :type      => IParser::get_variable_type(parameter),
+                       :type      => ModelBuilder::get_variable_type(parameter),
                        :value     => parameter.xpath('./subNode:default'),
                        :i_function => current_function)
 
@@ -252,7 +267,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
 
         IVariable.create(:name    => property.xpath('./subNode:name/scalar:string').text,
-                         :type    => IParser::get_variable_type(property),
+                         :type    => ModelBuilder::get_variable_type(property),
                          :value   => property.xpath('./subNode:default'),
                          :i_class => current_class)
 
@@ -276,7 +291,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       # Prendo tutti gli assegnamenti all'interno del metodo corrente
       method.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-        puts IParser::get_LHS assignement
+        puts ModelBuilder::get_LHS assignement
 
       end
 
@@ -284,7 +299,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
         IVariable.create(:name    => parameter.xpath('./subNode:name/scalar:string').text,
-                         :type    => IParser::get_variable_type(parameter),
+                         :type    => ModelBuilder::get_variable_type(parameter),
                          :value   => parameter.xpath('./subNode:default'),
                          :i_method => current_method)
 
