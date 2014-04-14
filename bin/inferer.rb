@@ -17,6 +17,15 @@ class INamespace < Ohm::Model
 
   collection :i_classes, :IClass, :i_namespace
   collection :i_functions, :IFunction, :i_namespace
+
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+
+    end
+  end
+
 end
 
 class IClass < Ohm::Model
@@ -63,6 +72,7 @@ end
 
 class IVariable < Ohm::Model
   index :name
+  unique :name
   attribute :name
   attribute :value
   attribute :scope
@@ -71,6 +81,14 @@ class IVariable < Ohm::Model
   reference :i_class, :IClass
   reference :i_method, :IMethod
   reference :i_function, :IFunction
+
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      puts self.with :name, atts[:name]
+    end
+  end
 
   def local?
     @scope == 'local'
