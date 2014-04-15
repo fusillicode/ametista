@@ -92,6 +92,7 @@ class Parser
     $this->serializer = new PHPParser_Serializer_XML;
     foreach ($files as $file)
       $this->parseFile($file);
+    $this->_redis->lpush('xmls_asts', "THAT'S ALL FOLKS!");
   }
 
   public function parseFile($file)
@@ -101,7 +102,7 @@ class Parser
       $source_code = file_get_contents($file);
       $statements = $this->traverser->traverse($this->parser->parse($source_code));
       $xml = $this->serializer->serialize($statements);
-      $this->_redis->set("{$file}", $this->serializer->serialize($statements));
+      $this->_redis->lpush('xmls_asts', $this->serializer->serialize($statements));
       file_put_contents('./test_codebase_xml/'.$this->replaceExtension($file, 'xml'), $xml);
     } catch (PHPParser_Error $e) {
       echo "Parse Error: {$e->getMessage()}";

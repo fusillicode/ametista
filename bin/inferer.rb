@@ -236,6 +236,14 @@ end
 
 redis = Redis.new
 
+while ast = redis.brpoplpush('xmls_asts', 'done', :timeout => 0) and ast != "THAT'S ALL FOLKS!"
+
+ puts ast
+
+end
+
+exit
+
 xml = Nokogiri::XML redis.get './test_simple_file/1.php'
 
 # Prendo ogni namespace
