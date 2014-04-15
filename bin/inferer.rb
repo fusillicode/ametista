@@ -330,9 +330,12 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty').each do |property|
 
-        variable = IVariable.create(:name => property.xpath('./subNode:name/scalar:string').text,
-                                    :value => property.xpath('./subNode:default'),
-                                    :i_class => current_class)
+        property_name = property.xpath('./subNode:name/scalar:string').text
+
+        IVariable.create(:unique_name => "#{current_class.unique_name}\\#{property_name}",
+                         :name => property.xpath('./subNode:name/scalar:string').text,
+                         :value => property.xpath('./subNode:default'),
+                         :i_class => current_class)
 
       end
 
