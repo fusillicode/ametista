@@ -119,13 +119,13 @@ class IVariable < Ohm::Model
   reference :i_method, :IMethod
   reference :i_function, :IFunction
 
-  # def self.create atts = {}
-  #   begin
-  #     super
-  #   rescue Ohm::UniqueIndexViolation => e
-  #     puts self.with :name, atts[:name]
-  #   end
-  # end
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
 
   def local?
     @scope == 'local'
@@ -305,11 +305,14 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
     end
 
     # Prendo tutti i parametri della funzione corrente
-    function.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
+    function.xpath('./subNode:params/scalar:array/node:Param').each do |global_variable|
 
-      IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
+      global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+
+      IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+                       :name => global_variable.xpath('./subNode:name/scalar:string').text,
                        :scope => 'global',
-                       :value => parameter.xpath('./subNode:default'),
+                       :value => global_variable.xpath('./subNode:default'),
                        :i_function => current_function)
 
     end
