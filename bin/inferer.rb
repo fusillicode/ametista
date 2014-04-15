@@ -5,14 +5,26 @@ require "nokogiri"
 require "ohm"
 require "ohm/contrib"
 
+
+def self.create atts = {}
+  begin
+    super
+  rescue Ohm::UniqueIndexViolation => e
+    self.with :unique_name, atts[:unique_name]
+  end
+end
+
+
 class INamespace < Ohm::Model
+
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
   index :name
   attribute :name
-  # I namespace hanno nome univoco ed è quello completo di tutta la loro gerarchia
-  # questo perchè sono le entità a livello maggiore
-  unique :name
 
-  reference :parent_inamespace, :INamespace
+  reference :parent_i_namespace, :INamespace
   reference :statements, :IRawContent
 
   collection :i_classes, :IClass, :i_namespace
@@ -22,13 +34,18 @@ class INamespace < Ohm::Model
     begin
       super
     rescue Ohm::UniqueIndexViolation => e
-
+      self.with :unique_name, atts[:unique_name]
     end
   end
 
 end
 
 class IClass < Ohm::Model
+
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
   index :name
   attribute :name
 
@@ -36,9 +53,15 @@ class IClass < Ohm::Model
 
   collection :i_methods, :IMethod, :i_class
   collection :properties, :IVariable, :i_class
+
 end
 
 class IMethod < Ohm::Model
+
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
   index :name
   attribute :name
 
@@ -48,9 +71,15 @@ class IMethod < Ohm::Model
 
   collection :parameters, :IVariable, :i_method
   collection :local_variables, :IVariable, :i_method
+
 end
 
 class IFunction < Ohm::Model
+
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
   index :name
   attribute :name
 
@@ -60,20 +89,28 @@ class IFunction < Ohm::Model
 
   collection :parameters, :IVariable, :i_function
   collection :local_variables, :IVariable, :i_function
+
 end
 
 class IRawContent < Ohm::Model
+
   attribute :content
 
   reference :i_namespace, :INamespace
   reference :i_method, :IMethod
   reference :i_function, :IFunction
+
 end
 
 class IVariable < Ohm::Model
+
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
   index :name
-  unique :name
   attribute :name
+
   attribute :value
   attribute :scope
 
@@ -82,13 +119,13 @@ class IVariable < Ohm::Model
   reference :i_method, :IMethod
   reference :i_function, :IFunction
 
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      puts self.with :name, atts[:name]
-    end
-  end
+  # def self.create atts = {}
+  #   begin
+  #     super
+  #   rescue Ohm::UniqueIndexViolation => e
+  #     puts self.with :name, atts[:name]
+  #   end
+  # end
 
   def local?
     @scope == 'local'
@@ -114,7 +151,6 @@ class ModelBuilder
                       'Scalar_NSConst']
 
   @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION', '_ENV', '_COOKIE']
-
 
   @xpaths = { :namespaces => './/node:Stmt_Namespace',
               :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
@@ -205,24 +241,14 @@ xml = Nokogiri::XML redis.get './test_simple_file/1.php'
 # Prendo ogni namespace
 xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
-  parent_namespace = INamespace.with(:name, '\\') || INamespace.create(:name => '\\')
+  parent_namespace = INamespace.with(:unique_name, '\\') || INamespace.create(:unique_name => '\\', :name => '\\')
 
   # Costruisco ogni namespace con il suo nome e parent
   namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string').each do |subnamespace|
 
-    current_namespace_name = "#{parent_namespace.name}\\#{subnamespace.text}"
-
-    if current_namespace = INamespace.with(:name, current_namespace_name)
-
-      current_namespace.parent_namespace = parent_namespace
-      parent_namespace = current_namespace
-
-    else
-
-      parent_namespace = INamespace.create(:name => current_namespace_name,
-                                           :parent_inamespace => parent_namespace)
-
-    end
+    parent_namespace = INamespace.create(:unique_name => "#{parent_namespace.unique_name}\\#{subnamespace.text}",
+                                         :name => subnamespace.text,
+                                         :parent_i_namespace => parent_namespace)
 
   end
 
@@ -244,7 +270,10 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutte le funzioni all'interno del namespace corrente
   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function').each do |function|
 
-    current_function = IFunction.create(:name => function.xpath('./subNode:name/scalar:string').text,
+    function_name = function.xpath('./subNode:name/scalar:string').text
+
+    current_function = IFunction.create(:unique_name => "#{parent_namespace.unique_name}\\#{function_name}",
+                                        :name => function_name,
                                         :i_namespace => parent_namespace,
                                         :statements => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array'),
                                                                           :i_function => current_function),
@@ -257,7 +286,10 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       # Prendo tutti le variabili globali definite tramite global
       statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
 
-        IVariable.create(:name => global_variable.xpath('./subNode:name/scalar:string').text,
+        global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+
+        IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+                         :name => global_variable_name,
                          :scope => 'global',
                          :i_function => current_function)
 
@@ -366,10 +398,10 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
 
 end
 
-# INamespace.all.to_a.each do |namespace|
-#   puts namespace.name + ' with parent ' + (namespace.parent_namespace ? namespace.parent_namespace.name : '')
-#   p namespace.statements.content unless namespace.statements.nil?
-# end
+INamespace.all.to_a.each do |namespace|
+  puts namespace.name + ' with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
+  # p namespace.statements.content unless namespace.statements.nil?
+end
 
 # IClass.all.to_a.each do |class_in_xml|
 #   puts class_in_xml.name
@@ -377,6 +409,10 @@ end
 #     puts p.name
 #   end
 # end
+
+IFunction.all.to_a.each do |function|
+  puts function.unique_name + ' with name ' + function.name
+end
 
 # IMethod.all.to_a.each do |method|
 #   puts method.name
