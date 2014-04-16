@@ -166,34 +166,29 @@ class ModelBuilder
 
   def build
     while parse asts
-      set_namespaces
+      build_namespaces
     end
   end
 
   def parse ast
-    @current_ast = Nokogiri::XML ast unless last? ast
+    @current_ast = Nokogiri::XML ast unless last_ast? ast
   end
 
   def asts
     @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
   end
 
-  def last? ast
+  def last_ast? ast
     ast == "THAT'S ALL FOLKS!"
   end
 
-  def set_global_namespace
-    @current_namespace = INamespace.with(:unique_name, '\\') ||
-                         INamespace.create(:unique_name => '\\', :name => '\\')
-  end
-
-  def set_namespaces
+  def build_namespaces
     namespaces.each do |namespace|
       set_global_namespace
-      set_namespace_hierarchy namespace
-      set_namespace_assignements namespace
-      set_namespace_raw_content namespace
-      # set_namespace_functions namespace
+      build_namespace_hierarchy namespace
+      build_namespace_assignements namespace
+      build_namespace_raw_content namespace
+      # build_namespace_functions namespace
       # Il save serve per aggiornare effettivamente l'istanza INamespace @current_namespace!
       @current_namespace.save
     end
@@ -203,8 +198,13 @@ class ModelBuilder
     @current_ast.xpath('.//node:Stmt_Namespace')
   end
 
+  def set_global_namespace
+    @current_namespace = INamespace.with(:unique_name, '\\') ||
+                         INamespace.create(:unique_name => '\\', :name => '\\')
+  end
+
   # Costruisco ogni namespace con il suo nome e parent
-  def set_namespace_hierarchy namespace
+  def build_namespace_hierarchy namespace
     sub_namespaces(namespace).each do |sub_namespace|
       @current_namespace = INamespace.create(:unique_name => "#{@current_namespace.unique_name}\\#{sub_namespace.text}",
                                              :name => sub_namespace.text,
@@ -216,39 +216,39 @@ class ModelBuilder
     namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string')
   end
 
-  def set_namespace_assignements namespace
+  def build_namespace_assignements namespace
     # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
-    get_namespace_assignements(namespace).each do |assignement|
+    namespace_assignements(namespace).each do |assignement|
       # puts ModelBuilder::get_LHS assignement
     end
   end
 
-  def get_namespace_assignements namespace
+  def namespace_assignements namespace
     namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
   end
 
-  def set_namespace_raw_content namespace
+  def build_namespace_raw_content namespace
     # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
-    @current_namespace.statements = IRawContent.create(:content => get_namespace_raw_content(namespace),
+    @current_namespace.statements = IRawContent.create(:content => namespace_raw_content(namespace),
                                                        :i_namespace => @current_namespace)
   end
 
-  def get_namespace_raw_content namespace
+  def namespace_raw_content namespace
     namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
   end
 
 
 
-  # def get_namespace_functions namespace
+  # def namespace_functions namespace
   #   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
   # end
 
-  # def get_function_name function
+  # def function_name function
   #   function.xpath('./subNode:name/scalar:string').text
   # end
 
-  # def set_function function
-  #   function_name = get_function_name
+  # def build_function function
+  #   function_name = function_name
   #   current_function = IFunction.create(:unique_name => "#{parent_namespace.unique_name}\\#{function_name}",
   #                                       :name => function_name,
   #                                       :i_namespace => parent_namespace,
@@ -258,16 +258,16 @@ class ModelBuilder
   #                                                                            :i_function => current_function))
   # end
 
-  # def set_function_raw_content
+  # def build_function_raw_content
 
   # end
 
-  # def set_namespace_functions namespace
+  # def build_namespace_functions namespace
 
   #   # Prendo tutte le funzioni all'interno del namespace corrente
-  #   get_namespace_functions.each do |function|
+  #   namespace_functions.each do |function|
 
-  #     set_function function
+  #     build_function function
 
 
   #     # Prendo tutti gli statements della funzione corrente
