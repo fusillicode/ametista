@@ -5,8 +5,19 @@ require "nokogiri"
 require "ohm"
 require "ohm/contrib"
 
+module Unique
+  def create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
+end
+
 class INamespace < Ohm::Model
 
+  extend Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -20,18 +31,11 @@ class INamespace < Ohm::Model
   collection :i_classes, :IClass, :i_namespace
   collection :i_functions, :IFunction, :i_namespace
 
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      self.with :unique_name, atts[:unique_name]
-    end
-  end
-
 end
 
 class IClass < Ohm::Model
 
+  extend Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -44,18 +48,11 @@ class IClass < Ohm::Model
   collection :i_methods, :IMethod, :i_class
   collection :properties, :IVariable, :i_class
 
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      self.with :unique_name, atts[:unique_name]
-    end
-  end
-
 end
 
 class IMethod < Ohm::Model
 
+  extend Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -70,18 +67,11 @@ class IMethod < Ohm::Model
   collection :parameters, :IVariable, :i_method
   collection :local_variables, :IVariable, :i_method
 
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      self.with :unique_name, atts[:unique_name]
-    end
-  end
-
 end
 
 class IFunction < Ohm::Model
 
+  extend Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -95,14 +85,6 @@ class IFunction < Ohm::Model
 
   collection :parameters, :IVariable, :i_function
   collection :local_variables, :IVariable, :i_function
-
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      self.with :unique_name, atts[:unique_name]
-    end
-  end
 
 end
 
@@ -118,6 +100,7 @@ end
 
 class IVariable < Ohm::Model
 
+  extend Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -132,14 +115,6 @@ class IVariable < Ohm::Model
   reference :i_class, :IClass
   reference :i_method, :IMethod
   reference :i_function, :IFunction
-
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      self.with :unique_name, atts[:unique_name]
-    end
-  end
 
   def local?
     @scope == 'local'
