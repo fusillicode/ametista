@@ -165,32 +165,30 @@ class ModelBuilder
   end
 
   def build
-    while parse asts
+    while parse(asts)
       build_namespaces
     end
   end
 
-  def parse ast
-    @current_ast = Nokogiri::XML ast unless last_ast? ast
+  def parse(ast)
+    @current_ast = Nokogiri::XML(ast) unless last_ast?(ast)
   end
 
   def asts
     @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
   end
 
-  def last_ast? ast
+  def last_ast?(ast)
     ast == "THAT'S ALL FOLKS!"
   end
+
+  # NAMESPACE ##################################################################
 
   def build_namespaces
     namespaces.each do |namespace|
       set_global_namespace
-      build_namespace_hierarchy namespace
-      build_namespace_assignements namespace
-      build_namespace_raw_content namespace
-      # build_namespace_functions namespace
-      # Il save serve per aggiornare effettivamente l'istanza INamespace @current_namespace!
-      @current_namespace.save
+      build_namespace(namespace)
+      # build_functions(namespace)
     end
   end
 
@@ -199,133 +197,159 @@ class ModelBuilder
   end
 
   def set_global_namespace
-    @current_namespace = INamespace.with(:unique_name, '\\') ||
-                         INamespace.create(:unique_name => '\\', :name => '\\')
+    @current_i_namespace = INamespace.with(:unique_name, '\\') ||
+                           INamespace.create(:unique_name => '\\', :name => '\\')
+  end
+
+  def build_namespace(namespace)
+    build_namespace_hierarchy(namespace)
+    build_namespace_assignements(namespace)
+    build_namespace_raw_content(namespace)
   end
 
   # Costruisco ogni namespace con il suo nome e parent
-  def build_namespace_hierarchy namespace
-    sub_namespaces(namespace).each do |sub_namespace|
-      @current_namespace = INamespace.create(:unique_name => "#{@current_namespace.unique_name}\\#{sub_namespace.text}",
-                                             :name => sub_namespace.text,
-                                             :parent_i_namespace => @current_namespace)
+  def build_namespace_hierarchy(namespace)
+    namespace_hierarchy(namespace).each do |subnamespace|
+      @current_i_namespace = INamespace.create(:unique_name => "#{@current_i_namespace.unique_name}\\#{subnamespace.text}",
+                                               :name => subnamespace.text,
+                                               :parent_i_namespace => @current_i_namespace)
     end
   end
 
-  def sub_namespaces namespace
+  def namespace_hierarchy(namespace)
     namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string')
   end
 
-  def build_namespace_assignements namespace
+  def build_namespace_assignements(namespace)
     # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
     namespace_assignements(namespace).each do |assignement|
       # puts ModelBuilder::get_LHS assignement
     end
   end
 
-  def namespace_assignements namespace
+  def namespace_assignements(namespace)
     namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
   end
 
-  def build_namespace_raw_content namespace
+  def build_namespace_raw_content(namespace)
     # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
-    @current_namespace.statements = IRawContent.create(:content => namespace_raw_content(namespace),
-                                                       :i_namespace => @current_namespace)
+    @current_i_namespace.statements = IRawContent.create(:content => namespace_raw_content(namespace),
+                                                         :i_namespace => @current_i_namespace)
+    # Il save serve per aggiornare effettivamente l'istanza INamespace @current_i_namespace!
+    @current_i_namespace.save
   end
 
-  def namespace_raw_content namespace
+  def namespace_raw_content(namespace)
     namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
   end
 
 
+  # FUNZIONI ###################################################################
 
-  # def namespace_functions namespace
-  #   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
-  # end
+  def build_functions(namespace)
+    # Prendo tutte le funzioni all'interno del namespace corrente
+    functions(namespace).each do |function|
+      function_raw_content = function_raw_content(function)
+      build_function(function, function_raw_content)
+      build_global_variable_definitions(function_raw_content)
+      build_parameters(function)
+    end
+  end
 
-  # def function_name function
-  #   function.xpath('./subNode:name/scalar:string').text
-  # end
+  def functions(namespace)
+    namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+  end
 
-  # def build_function function
-  #   function_name = function_name
-  #   current_function = IFunction.create(:unique_name => "#{parent_namespace.unique_name}\\#{function_name}",
-  #                                       :name => function_name,
-  #                                       :i_namespace => parent_namespace,
-  #                                       :statements => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array'),
-  #                                                                         :i_function => current_function),
-  #                                       :return_values => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
-  #                                                                            :i_function => current_function))
-  # end
+  def function_raw_content(function)
+    function.xpath('./subNode:stmts/scalar:array')
+  end
 
-  # def build_function_raw_content
+  def build_function(function, function_raw_content)
+    function_name = function_name(function)
+    @current_i_function = IFunction.create(:unique_name => "#{@current_i_namespace.unique_name}\\#{function_name}",
+                                           :name => function_name,
+                                           :i_namespace => @current_i_namespace,
+                                           :statements => IRawContent.create(:content => function_raw_content,
+                                                                             :i_function => @current_i_function),
+                                           :return_values => IRawContent.create(:content => function_return_statements(function),
+                                                                                :i_function => @current_i_function))
+  end
 
-  # end
+  def function_name(function)
+    function.xpath('./subNode:name/scalar:string').text
+  end
 
-  # def build_namespace_functions namespace
+  def function_return_statements(function)
+    function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+  end
 
-  #   # Prendo tutte le funzioni all'interno del namespace corrente
-  #   namespace_functions.each do |function|
+  def build_global_variable_definitions(raw_content)
+    # Prendo tutti gli statements della funzione/metodo corrente
+    raw_content.each do |statements|
 
-  #     build_function function
+      # Prendo tutti le variabili globali definite tramite global
+      global_variables(statements).each do |global_variable|
 
+        build_global_variable(global_variable)
 
-  #     # Prendo tutti gli statements della funzione corrente
-  #     function.xpath('./subNode:stmts/scalar:array').each do |statements|
+      end
 
-  #       # Prendo tutti le variabili globali definite tramite global
-  #       statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
+      # Prendo tutti gli assegnamenti all'interno della funzione corrente
+      statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
 
-  #         global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+        # puts ModelBuilder::get_LHS assignement
 
-  #         IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
-  #                          :name => global_variable_name,
-  #                          :scope => 'global',
-  #                          :i_function => current_function)
+      end
 
-  #       end
+    end
+  end
 
-  #       # Prendo tutti gli assegnamenti all'interno della funzione corrente
-  #       statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
+  def global_variables(statements)
+    statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable')
+  end
 
-  #         # puts ModelBuilder::get_LHS assignement
+  def global_variable_name(global_variable)
+    global_variable.xpath('./subNode:name/scalar:string').text
+  end
 
-  #       end
+  def build_global_variable(global_variable)
+    global_variable_name = global_variable_name(global_variable)
+    IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+                     :name => global_variable_name,
+                     :scope => 'global',
+                     :i_function => current_function)
+  end
 
-  #     end
+  def build_parameters(procedure)
+    # Prendo tutti i parametri della funzione corrente
+    procedure.xpath('./subNode:params/scalar:array/node:Param').each do |global_variable|
 
-  #     # Prendo tutti i parametri della funzione corrente
-  #     function.xpath('./subNode:params/scalar:array/node:Param').each do |global_variable|
+      global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
 
-  #       global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+      IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+                       :name => global_variable.xpath('./subNode:name/scalar:string').text,
+                       :scope => 'global',
+                       :value => global_variable.xpath('./subNode:default'),
+                       :i_function => procedure)
 
-  #       IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
-  #                        :name => global_variable.xpath('./subNode:name/scalar:string').text,
-  #                        :scope => 'global',
-  #                        :value => global_variable.xpath('./subNode:default'),
-  #                        :i_function => current_function)
-
-  #     end
-
-  #   end
-
-  # end
+    end
+  end
 
   ##############################################################################
 
-  def self.get_type variable
+  def self.get_type(variable)
     self.get_type_hint(variable) or self.get_default_value_type(variable)
   end
 
-  def self.get_type_hint variable
+  def self.get_type_hint(variable)
     # L'ultimo elemento del nome esteso del parametro che può essere eventualmente il type hint per il parametro
     type_hint = variable.xpath('./subNode:type//subNode:parts//scalar:string').last
 
     # type_hint può essere Nil
-    type_hint.text if type_hint and @scalar_types.include? type_hint.text
+    type_hint.text if type_hint and @scalar_types.include?(type_hint.text)
   end
 
-  def self.get_default_value_type variable
+  def self.get_default_value_type(variable)
 
     default_value = variable.xpath('./subNode:default/*[1]').first.name
 
@@ -337,7 +361,7 @@ class ModelBuilder
       'bool'
     elsif default_value === 'Expr_Array'
       'array'
-    elsif default_value === 'Scalar_String' or @magic_constants.include? default_value
+    elsif default_value === 'Scalar_String' or @magic_constants.include?(default_value)
       'string'
     else
       '✘'
@@ -345,7 +369,7 @@ class ModelBuilder
 
   end
 
-  def self.get_LHS node
+  def self.get_LHS(node)
 
     node = node.xpath('./*[1]')[0]
 
