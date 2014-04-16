@@ -5,20 +5,8 @@ require "nokogiri"
 require "ohm"
 require "ohm/contrib"
 
-
-module Unique
-  def self.create atts = {}
-    begin
-      super
-    rescue Ohm::UniqueIndexViolation => e
-      self.with :unique_name, atts[:unique_name]
-    end
-  end
-end
-
 class INamespace < Ohm::Model
 
-  include Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -32,11 +20,18 @@ class INamespace < Ohm::Model
   collection :i_classes, :IClass, :i_namespace
   collection :i_functions, :IFunction, :i_namespace
 
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
+
 end
 
 class IClass < Ohm::Model
 
-  include Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -49,11 +44,18 @@ class IClass < Ohm::Model
   collection :i_methods, :IMethod, :i_class
   collection :properties, :IVariable, :i_class
 
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
+
 end
 
 class IMethod < Ohm::Model
 
-  include Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -68,11 +70,18 @@ class IMethod < Ohm::Model
   collection :parameters, :IVariable, :i_method
   collection :local_variables, :IVariable, :i_method
 
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
+
 end
 
 class IFunction < Ohm::Model
 
-  include Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -86,6 +95,14 @@ class IFunction < Ohm::Model
 
   collection :parameters, :IVariable, :i_function
   collection :local_variables, :IVariable, :i_function
+
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
 
 end
 
@@ -101,7 +118,6 @@ end
 
 class IVariable < Ohm::Model
 
-  include Unique
   index :unique_name
   attribute :unique_name
   unique :unique_name
@@ -117,6 +133,14 @@ class IVariable < Ohm::Model
   reference :i_method, :IMethod
   reference :i_function, :IFunction
 
+  def self.create atts = {}
+    begin
+      super
+    rescue Ohm::UniqueIndexViolation => e
+      self.with :unique_name, atts[:unique_name]
+    end
+  end
+
   def local?
     @scope == 'local'
   end
@@ -129,36 +153,101 @@ end
 
 class ModelBuilder
 
-  @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
+  def initialize
+    @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
+    @magic_constants = ['Scalar_LineConst',
+                        'Scalar_FileConst',
+                        'Scalar_DirConst',
+                        'Scalar_FuncConst',
+                        'Scalar_ClassConst',
+                        'Scalar_TraitConst',
+                        'Scalar_MethodConst',
+                        'Scalar_NSConst']
+    @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION', '_ENV', '_COOKIE']
+    @redis = Redis.new
+  end
 
-  @magic_constants = ['Scalar_LineConst',
-                      'Scalar_FileConst',
-                      'Scalar_DirConst',
-                      'Scalar_FuncConst',
-                      'Scalar_ClassConst',
-                      'Scalar_TraitConst',
-                      'Scalar_MethodConst',
-                      'Scalar_NSConst']
+  def build
+    while get_ast
+      set_namespaces
+    end
+  end
 
-  @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION', '_ENV', '_COOKIE']
+  def get_ast
+    pull_ast_from_redis
+    parse_ast_with_nokogiri
+  end
 
-  @xpaths = { :namespaces => './/node:Stmt_Namespace',
-              :subnamespaces => './subNode:name/node:Name/subNode:parts//scalar:string',
-              :namespace_statements => './subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]',
-              :functions => './subNode:stmts/scalar:array/node:Stmt_Function',
-              :function_name => './subNode:name/scalar:string',
-              :function_statement => './subNode:stmts/scalar:array',
-              :function_parameters => './subNode:params//node:Param',
-              :parameter_name => './subNode:name/scalar:string',
-              :classes => './subNode:stmts/scalar:array/node:Stmt_Class',
-              :class_name => './subNode:namespacedName/node:Name/subNode:parts//scalar:string',
-              :class_methods => './subNode:stmts/scalar:array/node:Stmt_ClassMethod',
-              :method_name => './subNode:name/scalar:string' }
+  def pull_ast_from_redis
+    @current_ast = @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
+  end
+
+  def parse_ast_with_nokogiri
+    @current_ast = Nokogiri::XML @current_ast unless ast_is_finished
+  end
+
+  def ast_is_finished
+    @current_ast == "THAT'S ALL FOLKS!"
+  end
+
+  def set_global_namespace
+    @current_namespace = INamespace.with(:unique_name, '\\') ||
+                         INamespace.create(:unique_name => '\\', :name => '\\')
+  end
+
+  def set_namespaces
+    get_namespaces.each do |namespace|
+      set_global_namespace
+      set_namespace_hierarchy namespace
+      set_namespace_assignements namespace
+      set_namespace_raw_content namespace
+      # Il save serve per aggiornare effettivamente l'istanza INamespace @current_namespace!
+      @current_namespace.save
+    end
+  end
+
+  def get_namespaces
+    @current_ast.xpath('.//node:Stmt_Namespace')
+  end
+
+  # Costruisco ogni namespace con il suo nome e parent
+  def set_namespace_hierarchy namespace
+    get_sub_namespaces(namespace).each do |sub_namespace|
+      @current_namespace = INamespace.create(:unique_name => "#{@current_namespace.unique_name}\\#{sub_namespace.text}",
+                                             :name => sub_namespace.text,
+                                             :parent_i_namespace => @current_namespace)
+    end
+  end
+
+  def get_sub_namespaces namespace
+    namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string')
+  end
+
+  def set_namespace_assignements namespace
+    # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
+    get_namespace_assignements(namespace).each do |assignement|
+      # puts ModelBuilder::get_LHS assignement
+    end
+  end
+
+  def get_namespace_assignements namespace
+    namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+  end
+
+  def set_namespace_raw_content namespace
+    # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
+    @current_namespace.statements = IRawContent.create(:content => get_namespace_raw_content(namespace),
+                                                       :i_namespace => @current_namespace)
+  end
+
+  def get_namespace_raw_content namespace
+    namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+  end
+
+
 
   def self.get_type variable
-
     self.get_type_hint(variable) or self.get_default_value_type(variable)
-
   end
 
   def self.get_type_hint variable
@@ -224,12 +313,16 @@ class ModelBuilder
 
 end
 
-redis = Redis.new
 
-while ast = redis.brpoplpush('xmls_asts', 'done', :timeout => 0) and ast != "THAT'S ALL FOLKS!"
 
- puts ast
+model_builder = ModelBuilder.new
+model_builder.build
 
+INamespace.all.to_a.each do |namespace|
+  puts namespace.name
+  puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
+  puts namespace.statements
+  # p namespace.statements.content unless namespace.statements.nil?
 end
 
 exit

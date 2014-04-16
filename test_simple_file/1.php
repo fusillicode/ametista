@@ -4,7 +4,7 @@ namespace ciao\asd\asdasdasd\iei;
 
 // $b = $c = $e;
 
-$v = '';
+ $v = '';
 // $$vv = 'pippo';
 // $a[1][2] = 'pippa';
 
