@@ -174,11 +174,11 @@ class ModelBuilder
   end
 
   def get_ast
-    pull_ast_from_redis
+    get_ast_from_redis
     parse_ast_with_nokogiri
   end
 
-  def pull_ast_from_redis
+  def get_ast_from_redis
     @current_ast = @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
   end
 
