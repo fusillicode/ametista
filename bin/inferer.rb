@@ -165,21 +165,21 @@ class ModelBuilder
   end
 
   def build
-    while parse ast
+    while parse asts
       set_namespaces
     end
   end
 
   def parse ast
-    @current_ast = Nokogiri::XML ast unless ast_is_finished
+    @current_ast = Nokogiri::XML ast unless last? ast
   end
 
-  def ast
-    @current_ast = @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
+  def asts
+    @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
   end
 
-  def ast_is_finished
-    @current_ast == "THAT'S ALL FOLKS!"
+  def last? ast
+    ast == "THAT'S ALL FOLKS!"
   end
 
   def set_global_namespace
@@ -188,7 +188,7 @@ class ModelBuilder
   end
 
   def set_namespaces
-    get_namespaces.each do |namespace|
+    namespaces.each do |namespace|
       set_global_namespace
       set_namespace_hierarchy namespace
       set_namespace_assignements namespace
@@ -199,20 +199,20 @@ class ModelBuilder
     end
   end
 
-  def get_namespaces
+  def namespaces
     @current_ast.xpath('.//node:Stmt_Namespace')
   end
 
   # Costruisco ogni namespace con il suo nome e parent
   def set_namespace_hierarchy namespace
-    get_sub_namespaces(namespace).each do |sub_namespace|
+    sub_namespaces(namespace).each do |sub_namespace|
       @current_namespace = INamespace.create(:unique_name => "#{@current_namespace.unique_name}\\#{sub_namespace.text}",
                                              :name => sub_namespace.text,
                                              :parent_i_namespace => @current_namespace)
     end
   end
 
-  def get_sub_namespaces namespace
+  def sub_namespaces namespace
     namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string')
   end
 
