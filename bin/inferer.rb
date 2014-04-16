@@ -155,35 +155,27 @@ class ModelBuilder
 
   def initialize
     @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
-    @magic_constants = ['Scalar_LineConst',
-                        'Scalar_FileConst',
-                        'Scalar_DirConst',
-                        'Scalar_FuncConst',
-                        'Scalar_ClassConst',
-                        'Scalar_TraitConst',
-                        'Scalar_MethodConst',
-                        'Scalar_NSConst']
-    @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION', '_ENV', '_COOKIE']
+    @magic_constants = ['Scalar_LineConst', 'Scalar_FileConst',
+                        'Scalar_DirConst', 'Scalar_FuncConst',
+                        'Scalar_ClassConst', 'Scalar_TraitConst',
+                        'Scalar_MethodConst', 'Scalar_NSConst']
+    @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
+                         'FILES', '_SESSION', '_ENV', '_COOKIE']
     @redis = Redis.new
   end
 
   def build
-    while get_ast
+    while parse ast
       set_namespaces
     end
   end
 
-  def get_ast
-    get_ast_from_redis
-    parse_ast_with_nokogiri
+  def parse ast
+    @current_ast = Nokogiri::XML ast unless ast_is_finished
   end
 
-  def get_ast_from_redis
+  def ast
     @current_ast = @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
-  end
-
-  def parse_ast_with_nokogiri
-    @current_ast = Nokogiri::XML @current_ast unless ast_is_finished
   end
 
   def ast_is_finished
@@ -201,6 +193,7 @@ class ModelBuilder
       set_namespace_hierarchy namespace
       set_namespace_assignements namespace
       set_namespace_raw_content namespace
+      # set_namespace_functions namespace
       # Il save serve per aggiornare effettivamente l'istanza INamespace @current_namespace!
       @current_namespace.save
     end
@@ -246,6 +239,80 @@ class ModelBuilder
 
 
 
+  # def get_namespace_functions namespace
+  #   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+  # end
+
+  # def get_function_name function
+  #   function.xpath('./subNode:name/scalar:string').text
+  # end
+
+  # def set_function function
+  #   function_name = get_function_name
+  #   current_function = IFunction.create(:unique_name => "#{parent_namespace.unique_name}\\#{function_name}",
+  #                                       :name => function_name,
+  #                                       :i_namespace => parent_namespace,
+  #                                       :statements => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array'),
+  #                                                                         :i_function => current_function),
+  #                                       :return_values => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+  #                                                                            :i_function => current_function))
+  # end
+
+  # def set_function_raw_content
+
+  # end
+
+  # def set_namespace_functions namespace
+
+  #   # Prendo tutte le funzioni all'interno del namespace corrente
+  #   get_namespace_functions.each do |function|
+
+  #     set_function function
+
+
+  #     # Prendo tutti gli statements della funzione corrente
+  #     function.xpath('./subNode:stmts/scalar:array').each do |statements|
+
+  #       # Prendo tutti le variabili globali definite tramite global
+  #       statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
+
+  #         global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+
+  #         IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+  #                          :name => global_variable_name,
+  #                          :scope => 'global',
+  #                          :i_function => current_function)
+
+  #       end
+
+  #       # Prendo tutti gli assegnamenti all'interno della funzione corrente
+  #       statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
+
+  #         # puts ModelBuilder::get_LHS assignement
+
+  #       end
+
+  #     end
+
+  #     # Prendo tutti i parametri della funzione corrente
+  #     function.xpath('./subNode:params/scalar:array/node:Param').each do |global_variable|
+
+  #       global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+
+  #       IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+  #                        :name => global_variable.xpath('./subNode:name/scalar:string').text,
+  #                        :scope => 'global',
+  #                        :value => global_variable.xpath('./subNode:default'),
+  #                        :i_function => current_function)
+
+  #     end
+
+  #   end
+
+  # end
+
+  ##############################################################################
+
   def self.get_type variable
     self.get_type_hint(variable) or self.get_default_value_type(variable)
   end
@@ -262,19 +329,14 @@ class ModelBuilder
 
     default_value = variable.xpath('./subNode:default/*[1]').first.name
 
-    # 1.2 -> node:Scalar_DNumber
     if default_value === 'Scalar_DNumber'
       'double'
-    # 1 -> node:Scalar_LNumber
     elsif default_value === 'Scalar_LNumber'
       'int'
-    # true, false, null -> node:Expr_ConstFetch
     elsif default_value === 'Expr_ConstFetch'
       'bool'
-    # array() -> node:Expr_Array
     elsif default_value === 'Expr_Array'
       'array'
-    # 'asd' -> node:Scalar_String or __FILE__ -> node:Scalar_FileConst
     elsif default_value === 'Scalar_String' or @magic_constants.include? default_value
       'string'
     else
@@ -312,8 +374,6 @@ class ModelBuilder
   end
 
 end
-
-
 
 model_builder = ModelBuilder.new
 model_builder.build
