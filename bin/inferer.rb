@@ -102,8 +102,6 @@ class IVariable < Ohm::Model
 
   attribute :value
 
-  set :types
-
   # local, global
   reference :i_namespace, :INamespace
   # property
