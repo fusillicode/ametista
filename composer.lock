@@ -3,66 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "717a02396c5e36d38e9bd9979f88694f",
+    "hash": "d9306dfba6a5af23c5d966bb175e0aaa",
     "packages": [
-        {
-            "name": "devster/ubench",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devster/ubench.git",
-                "reference": "b0d1f9a4ffad3b43413fdc6013c01e65dde11742"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devster/ubench/zipball/b0d1f9a4ffad3b43413fdc6013c01e65dde11742",
-                "reference": "b0d1f9a4ffad3b43413fdc6013c01e65dde11742",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Ubench": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeremy Perret",
-                    "email": "jeremy@devster.org",
-                    "homepage": "https://github.com/devster"
-                }
-            ],
-            "description": "Micro PHP library for benchmarking",
-            "homepage": "https://github.com/devster/ubench",
-            "keywords": [
-                "bench",
-                "benchmark",
-                "library",
-                "micro"
-            ],
-            "time": "2013-02-28 08:22:22"
-        },
         {
             "name": "nikic/php-parser",
             "version": "0.9.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "118f28344daf154e47e73e79779a60bc7430a40f"
+                "reference": "8429157ab5478408606ee29e118c5f7db74c8afe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/118f28344daf154e47e73e79779a60bc7430a40f",
-                "reference": "118f28344daf154e47e73e79779a60bc7430a40f",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8429157ab5478408606ee29e118c5f7db74c8afe",
+                "reference": "8429157ab5478408606ee29e118c5f7db74c8afe",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +48,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2014-02-12 19:19:48"
+            "time": "2014-03-27 11:51:13"
         },
         {
             "name": "predis/predis",
@@ -102,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "809f76a7b3fd0e510a29753528e954a33fa597db"
+                "reference": "83df2ef11c18ea490daf6a7a8789315f57f555a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/809f76a7b3fd0e510a29753528e954a33fa597db",
-                "reference": "809f76a7b3fd0e510a29753528e954a33fa597db",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/83df2ef11c18ea490daf6a7a8789315f57f555a8",
+                "reference": "83df2ef11c18ea490daf6a7a8789315f57f555a8",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +95,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2014-02-11 18:10:09"
+            "time": "2014-03-25 14:02:22"
         }
     ],
     "packages-dev": [
@@ -153,8 +107,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "nikic/php-parser": 20,
-        "predis/predis": 20,
-        "devster/ubench": 20
+        "predis/predis": 20
     },
     "platform": [
 
