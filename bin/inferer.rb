@@ -97,10 +97,12 @@ class IVariable < Ohm::Model
   attribute :name
 
   # local, global, property
-  index :type
-  attribute :type
+  index :scope
+  attribute :scope
 
   attribute :value
+
+  set :types, :IType
 
   # local, global
   reference :i_namespace, :INamespace
@@ -112,23 +114,29 @@ class IVariable < Ohm::Model
   reference :i_function, :IProcedure
 
   def local?
-    type == 'local'
+    scope == 'local'
   end
 
   def global?
-    type == 'global'
+    scope == 'global'
   end
 
   def property?
-    type == 'property'
+    scope == 'property'
   end
 
+end
+
+class IType < Ohm::Model
+  extend Unique
+  index :name
+  attribute :name
 end
 
 class ModelBuilder
 
   def initialize
-    @scalar_types = ['bool', 'int', 'double', 'string', 'array', 'null']
+    build_types
     @magic_constants = ['Scalar_LineConst', 'Scalar_FileConst',
                         'Scalar_DirConst', 'Scalar_FuncConst',
                         'Scalar_ClassConst', 'Scalar_TraitConst',
@@ -136,6 +144,12 @@ class ModelBuilder
     @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
                          'FILES', '_SESSION', '_ENV', '_COOKIE']
     @redis = Redis.new
+  end
+
+  def build_types
+    ['bool', 'int', 'double', 'string', 'array', 'null'].each do |type|
+      IType.create(:name => type)
+    end
   end
 
   def build
