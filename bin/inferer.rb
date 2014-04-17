@@ -28,7 +28,7 @@ class INamespace < Ohm::Model
   reference :statements, :IRawContent
 
   collection :i_classes, :IClass, :i_namespace
-  collection :i_functions, :IFunction, :i_namespace
+  collection :i_functions, :IProcedure, :i_namespace
 
 end
 
@@ -44,12 +44,12 @@ class IClass < Ohm::Model
 
   reference :i_namespace, :INamespace
 
-  collection :i_methods, :IMethod, :i_class
+  collection :i_methods, :IProcedure, :i_class
   collection :properties, :IVariable, :i_class
 
 end
 
-class IMethod < Ohm::Model
+class IProcedure < Ohm::Model
 
   extend Unique
   index :unique_name
@@ -59,31 +59,20 @@ class IMethod < Ohm::Model
   index :name
   attribute :name
 
+  # function, method
+  index :type
+  attribute :type
+
+  # method
   reference :i_class, :IClass
-  reference :statements, :IRawContent
-  reference :return_values, :IRawContent
-
-  collection :parameters, :IVariable, :i_method
-  collection :local_variables, :IVariable, :i_method
-
-end
-
-class IFunction < Ohm::Model
-
-  extend Unique
-  index :unique_name
-  attribute :unique_name
-  unique :unique_name
-
-  index :name
-  attribute :name
-
+  # function
   reference :i_namespace, :INamespace
+
   reference :statements, :IRawContent
   reference :return_values, :IRawContent
 
-  collection :parameters, :IVariable, :i_function
-  collection :local_variables, :IVariable, :i_function
+  collection :parameters, :IVariable, :i_procedure
+  collection :local_variables, :IVariable, :i_procedure
 
 end
 
@@ -92,8 +81,8 @@ class IRawContent < Ohm::Model
   attribute :content
 
   reference :i_namespace, :INamespace
-  reference :i_method, :IMethod
-  reference :i_function, :IFunction
+  reference :i_method, :IProcedure
+  reference :i_function, :IProcedure
 
 end
 
@@ -107,20 +96,33 @@ class IVariable < Ohm::Model
   index :name
   attribute :name
 
-  attribute :value
-  attribute :scope
+  # local, global, property
+  index :type
+  attribute :type
 
+  attribute :value
+
+  set :types
+
+  # local, global
   reference :i_namespace, :INamespace
+  # property
   reference :i_class, :IClass
-  reference :i_method, :IMethod
-  reference :i_function, :IFunction
+  # local, global
+  reference :i_method, :IProcedure
+  # local, global
+  reference :i_function, :IProcedure
 
   def local?
-    @scope == 'local'
+    type == 'local'
   end
 
   def global?
-    not local?
+    type == 'global'
+  end
+
+  def property?
+    type == 'property'
   end
 
 end
