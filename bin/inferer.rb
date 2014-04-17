@@ -3,7 +3,6 @@
 require "redis"
 require "nokogiri"
 require "ohm"
-require "ohm/contrib"
 
 module Unique
   def create atts = {}
