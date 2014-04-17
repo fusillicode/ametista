@@ -237,9 +237,9 @@ class ModelBuilder
   def build_functions(namespace)
     # Prendo tutte le funzioni all'interno del namespace corrente
     functions(namespace).each do |function|
-      function_raw_content = function_raw_content(function)
-      build_function(function, function_raw_content)
-      build_global_variable_definitions(function_raw_content)
+      procedure_raw_content = procedure_raw_content(function)
+      build_procedure(function, 'function', procedure_raw_content)
+      # build_global_variable_definitions(procedure_raw_content)
       build_parameters(function)
     end
   end
@@ -248,27 +248,40 @@ class ModelBuilder
     namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
-  def function_raw_content(function)
-    function.xpath('./subNode:stmts/scalar:array')
+  def procedure_raw_content(procedure)
+    procedure.xpath('./subNode:stmts/scalar:array')
   end
 
-  def build_function(function, function_raw_content)
-    function_name = function_name(function)
-    @current_i_function = IFunction.create(:unique_name => "#{@current_i_namespace.unique_name}\\#{function_name}",
-                                           :name => function_name,
-                                           :i_namespace => @current_i_namespace,
-                                           :statements => IRawContent.create(:content => function_raw_content,
-                                                                             :i_function => @current_i_function),
-                                           :return_values => IRawContent.create(:content => function_return_statements(function),
-                                                                                :i_function => @current_i_function))
+  def build_procedure(procedure, type, raw_content)
+    procedure_name = procedure_name(procedure)
+    if type == 'function'
+      unique_name = "#{@current_i_namespace.unique_name}\\#{function_name}"
+      scope = :i_namespace
+      type = :i_function
+      scope_entity = @current_i_namespace
+    elsif type == 'method'
+      unique_name = "#{@curret_i_class.unique_name}\\#{function_name}"
+      scope = :i_class
+      type = :i_method
+      scope_entity = @current_i_class
+    else
+      'RAISE EXCEPTION!!!'
+    end
+    @current_i_procedure = IProcedure.create(:unique_name => unique_name,
+                                             :name => procedure_name,
+                                             scope => scope_entity,
+                                             :statements => IRawContent.create(:content => procedure_raw_content,
+                                                                               type => scope_entity),
+                                             :return_values => IRawContent.create(:content => procedure_return_statements(procedure),
+                                                                                  type => scope_entity))
   end
 
-  def function_name(function)
-    function.xpath('./subNode:name/scalar:string').text
+  def procedure_name(procedure)
+    procedure.xpath('./subNode:name/scalar:string').text
   end
 
-  def function_return_statements(function)
-    function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+  def procedure_return_statements(procedure)
+    procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
   end
 
   def build_global_variable_definitions(raw_content)
