@@ -37,18 +37,19 @@ class INamespace < Ohm::Model
     def build(namespace, model)
       self.namespace = namespace
       self.model = model
-      set_global_namespace
+      build_global_namespace
       build_hierarchy
       build_raw_content
       build_assignements
     end
 
-    def set_global_namespace
-      model.current_i_namespace = self.with(:unique_name, '\\') || self.create(:unique_name => '\\', :name => '\\')
+    def build_global_namespace
+      model.current_i_namespace = self.create(:unique_name => '\\',
+                                              :name => '\\')
     end
 
     def build_hierarchy
-      hierarchy.each do |subnamespace|
+      get_hierarchy.each do |subnamespace|
         model.current_i_namespace = self.create(:unique_name => "#{model.current_i_namespace.unique_name}\\#{subnamespace.text}",
                                                 :name => subnamespace.text,
                                                 :parent_i_namespace => model.current_i_namespace)
@@ -56,27 +57,26 @@ class INamespace < Ohm::Model
     end
 
     def build_assignements
-      assignements.each do |assignement|
+      get_assignements.each do |assignement|
         # puts model.get_LHS assignement
       end
     end
 
     def build_raw_content
-      model.current_i_namespace.statements = IRawContent.create(:content => raw_content,
+      model.current_i_namespace.statements = IRawContent.create(:content => get_raw_content,
                                                                 :i_namespace => model.current_i_namespace)
-      p model.current_i_namespace
       model.current_i_namespace.save
     end
 
-    def hierarchy
+    def get_hierarchy
       namespace.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
     end
 
-    def assignements
+    def get_assignements
       namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
     end
 
-    def raw_content
+    def get_raw_content
       namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
     end
 
@@ -115,28 +115,28 @@ class IFunction < Ohm::Model
     end
 
     def build_function
-      model.current_i_function = self.create(:unique_name => unique_name,
-                                             :name => name,
+      model.current_i_function = self.create(:unique_name => get_unique_name,
+                                             :name => get_name,
                                              :i_namespace => model.current_i_namespace,
-                                             :statements => IRawContent.create(:content => raw_content,
+                                             :statements => IRawContent.create(:content => get_raw_content,
                                                                                :i_function => model.current_i_function),
-                                             :return_statements => IRawContent.create(:content => return_statements,
+                                             :return_statements => IRawContent.create(:content => get_return_statements,
                                                                                       :i_function => model.current_i_function))
     end
 
-    def name
+    def get_name
       function.xpath('./subNode:name/scalar:string').text
     end
 
-    def unique_name
+    def get_unique_name
       '\\\\' + function.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
-    def return_statements
+    def get_return_statements
       function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
     end
 
-    def raw_content
+    def get_raw_content
       function.xpath('./subNode:stmts/scalar:array')
     end
 
@@ -425,13 +425,11 @@ IFunction.all.to_a.each do |function|
 end
 
 # INamespace.all.to_a.each do |namespace|
-#   puts namespace.name
-#   puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
+#   # puts namespace.name
+#   # puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
 #   # puts namespace.statements
 #   # p namespace.i_functions
-#   # namespace.i_functions do |f|
-#   #   p f.name
-#   # end
+#   # p namespace.i_functions.count
 #   # p namespace.statements.content unless namespace.statements.nil?
 # end
 
