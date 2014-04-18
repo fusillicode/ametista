@@ -18,6 +18,8 @@ $GLOBALS['a'][1]->b = 1;
 $GLOBALS['a'][1][1]->b = 1;
 $GLOBALS['b'][1]->b[1] = 1;
 
+namespace saturno;
+
 class Sole {
 
   function soleggia()

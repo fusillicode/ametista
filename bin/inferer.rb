@@ -28,7 +28,7 @@ class INamespace < Ohm::Model
   reference :statements, :IRawContent
 
   collection :i_classes, :IClass, :i_namespace
-  collection :i_functions, :IProcedure, :i_namespace
+  collection :i_functions, :IFunction, :i_namespace
 
   class << self
 
@@ -69,7 +69,7 @@ class INamespace < Ohm::Model
     end
 
     def hierarchy
-      namespace.xpath('./subNode:name/node:Name/subNode:parts//scalar:string')
+      namespace.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
     end
 
     def assignements
@@ -81,24 +81,6 @@ class INamespace < Ohm::Model
     end
 
   end
-
-end
-
-class IProcedure < Ohm::Model
-
-  extend Unique
-  index :unique_name
-  attribute :unique_name
-  unique :unique_name
-
-  index :name
-  attribute :name
-
-  reference :statements, :IRawContent
-  reference :return_values, :IRawContent
-
-  collection :parameters, :IVariable, :i_procedure
-  collection :local_variables, :IVariable, :i_procedure
 
 end
 
@@ -141,7 +123,6 @@ class IFunction < Ohm::Model
                                                                                :i_namespace => model.current_i_namespace),
                                              :return_values => IRawContent.create(:content => return_statements,
                                                                                   :i_namespace => model.current_i_namespace))
-      p model.current_i_function.unique_name
     end
 
     def name
@@ -227,9 +208,6 @@ class IFunction < Ohm::Model
 
 end
 
-class IMethod < IProcedure
-  reference :i_class, :IClass
-end
 
 class IClass < Ohm::Model
 
@@ -243,7 +221,7 @@ class IClass < Ohm::Model
 
   reference :i_namespace, :INamespace
 
-  collection :i_methods, :IProcedure, :i_class
+  collection :i_methods, :IMethod, :i_class
   collection :properties, :IVariable, :i_class
 
 end
@@ -253,8 +231,8 @@ class IRawContent < Ohm::Model
   attribute :content
 
   reference :i_namespace, :INamespace
-  reference :i_method, :IProcedure
-  reference :i_function, :IProcedure
+  reference :i_method, :IMethod
+  reference :i_function, :IFunction
 
 end
 
@@ -281,9 +259,9 @@ class IVariable < Ohm::Model
   # property
   reference :i_class, :IClass
   # local, global
-  reference :i_method, :IProcedure
+  reference :i_method, :IMethod
   # local, global
-  reference :i_function, :IProcedure
+  reference :i_function, :IFunction
 
   def local?
     scope == 'local'
@@ -442,13 +420,17 @@ model = Model.new
 model.build
 
 IFunction.all.to_a.each do |function|
-  puts function.name
+  puts function.unique_name + ' with name ' + function.name
 end
 
 # INamespace.all.to_a.each do |namespace|
 #   puts namespace.name
 #   puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
-#   puts namespace.statements
+#   # puts namespace.statements
+#   # p namespace.i_functions
+#   # namespace.i_functions do |f|
+#   #   p f.name
+#   # end
 #   # p namespace.statements.content unless namespace.statements.nil?
 # end
 
