@@ -102,7 +102,21 @@ class IProcedure < Ohm::Model
 
 end
 
-class IFunction < IProcedure
+class IFunction < Ohm::Model
+
+  extend Unique
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
+  index :name
+  attribute :name
+
+  reference :statements, :IRawContent
+  reference :return_values, :IRawContent
+
+  collection :parameters, :IVariable, :i_procedure
+  collection :local_variables, :IVariable, :i_procedure
 
   reference :i_namespace, :INamespace
 
@@ -120,9 +134,8 @@ class IFunction < IProcedure
     end
 
     def build_function
-      function_name = name
-      model.current_i_function = self.create(:unique_name => "#{model.current_i_namespace.unique_name}\\#{function_name}",
-                                             :name => function_name,
+      model.current_i_function = self.create(:unique_name => unique_name,
+                                             :name => name,
                                              :i_namespace => model.current_i_namespace,
                                              :statements => IRawContent.create(:content => raw_content,
                                                                                :i_namespace => model.current_i_namespace),
@@ -132,6 +145,10 @@ class IFunction < IProcedure
 
     def name
       function.xpath('./subNode:name/scalar:string').text
+    end
+
+    def unique_name
+      function.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/')
     end
 
     def return_statements
