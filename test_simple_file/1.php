@@ -147,6 +147,7 @@ class mondo extends pippo {
 
 use \asd\asda\asdasdasd\bello as cizza;
 
+
 function cizza() {
 
 }

@@ -117,12 +117,12 @@ class IFunction < Ohm::Model
     def build_function
       model.current_i_function = self.create(:unique_name => unique_name,
                                              :name => name,
-                                             :i_namespace => model.current_i_namespace,
-                                             :statements => IRawContent.create(:content => raw_content,
-                                                                               :i_namespace => model.current_i_namespace),
-                                             :return_statements => IRawContent.create(:content => return_statements,
-                                                                                  :i_namespace => model.current_i_namespace))
-      p model.current_i_function
+                                             :i_namespace => model.current_i_namespace)
+      model.current_i_function.statements = IRawContent.create(:content => raw_content,
+                                                               :i_function => model.current_i_function)
+      model.current_i_function.return_statements = IRawContent.create(:content => return_statements,
+                                                                      :i_function => model.current_i_function)
+      model.current_i_function.save
     end
 
     def name
