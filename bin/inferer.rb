@@ -96,8 +96,8 @@ class IFunction < Ohm::Model
   reference :statements, :IRawContent
   reference :return_statements, :IRawContent
 
-  collection :parameters, :IVariable, :i_procedure
-  collection :local_variables, :IVariable, :i_procedure
+  collection :parameters, :IVariable, :i_function
+  collection :local_variables, :IVariable, :i_function
 
   reference :i_namespace, :INamespace
 
