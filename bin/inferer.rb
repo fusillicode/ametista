@@ -141,6 +141,7 @@ class IFunction < Ohm::Model
                                                                                :i_namespace => model.current_i_namespace),
                                              :return_values => IRawContent.create(:content => return_statements,
                                                                                   :i_namespace => model.current_i_namespace))
+      p model.current_i_function.unique_name
     end
 
     def name
@@ -148,7 +149,7 @@ class IFunction < Ohm::Model
     end
 
     def unique_name
-      function.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/')
+      '\\\\' + function.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def return_statements
