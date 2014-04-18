@@ -17,9 +17,8 @@ end
 class INamespace < Ohm::Model
 
   extend Unique
-  index :unique_name
-  attribute :unique_name
   unique :unique_name
+  attribute :unique_name
 
   index :name
   attribute :name
@@ -65,6 +64,7 @@ class INamespace < Ohm::Model
     def build_raw_content
       model.current_i_namespace.statements = IRawContent.create(:content => raw_content,
                                                                 :i_namespace => model.current_i_namespace)
+      p model.current_i_namespace
       model.current_i_namespace.save
     end
 
@@ -87,15 +87,14 @@ end
 class IFunction < Ohm::Model
 
   extend Unique
-  index :unique_name
-  attribute :unique_name
   unique :unique_name
+  attribute :unique_name
 
   index :name
   attribute :name
 
   reference :statements, :IRawContent
-  reference :return_values, :IRawContent
+  reference :return_statements, :IRawContent
 
   collection :parameters, :IVariable, :i_procedure
   collection :local_variables, :IVariable, :i_procedure
@@ -121,8 +120,9 @@ class IFunction < Ohm::Model
                                              :i_namespace => model.current_i_namespace,
                                              :statements => IRawContent.create(:content => raw_content,
                                                                                :i_namespace => model.current_i_namespace),
-                                             :return_values => IRawContent.create(:content => return_statements,
+                                             :return_statements => IRawContent.create(:content => return_statements,
                                                                                   :i_namespace => model.current_i_namespace))
+      p model.current_i_function
     end
 
     def name
@@ -212,9 +212,8 @@ end
 class IClass < Ohm::Model
 
   extend Unique
-  index :unique_name
-  attribute :unique_name
   unique :unique_name
+  attribute :unique_name
 
   index :name
   attribute :name
@@ -239,9 +238,8 @@ end
 class IVariable < Ohm::Model
 
   extend Unique
-  index :unique_name
-  attribute :unique_name
   unique :unique_name
+  attribute :unique_name
 
   index :name
   attribute :name
@@ -279,14 +277,14 @@ end
 
 class IType < Ohm::Model
   extend Unique
-  index :name
-  attribute :name
+  index :unique_name
+  attribute :unique_name
 
   class << self
 
     def build_types
       ['bool', 'int', 'double', 'string', 'array', 'null'].each do |type|
-        IType.create(:name => type)
+        IType.create(:unique_name => type)
       end
     end
 
@@ -420,7 +418,11 @@ model = Model.new
 model.build
 
 IFunction.all.to_a.each do |function|
-  puts function.unique_name + ' with name ' + function.name
+  puts function.unique_name
+  puts function.name
+  puts function.i_namespace
+  puts function.statements
+  puts function.return_statements
 end
 
 # INamespace.all.to_a.each do |namespace|
@@ -477,7 +479,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
                                         :i_namespace => parent_namespace,
                                         :statements => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array'),
                                                                           :i_function => current_function),
-                                        :return_values => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+                                        :return_statements => IRawContent.create(:content => function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                              :i_function => current_function))
 
     # Prendo tutti gli statements della funzione corrente
@@ -551,7 +553,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
                                       :i_class => current_class,
                                       :statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
                                                                            :i_method => current_method),
-                                      :return_values => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+                                      :return_statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
                                                                            :i_method => current_method))
 
       # Prendo tutti gli statements del metodo corrente
