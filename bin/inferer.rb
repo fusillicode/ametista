@@ -33,43 +33,39 @@ class INamespace < Ohm::Model
   class << self
 
     attr_accessor :namespace
-    attr_accessor :model_builder
+    attr_accessor :model
 
-    def build(namespace, model_builder)
-      self.namespace ||= namespace
-      self.model_builder ||= model_builder
+    def build(namespace, model)
+      self.namespace = namespace
+      self.model = model
       set_global_namespace
       build_hierarchy
-      build_assignements
       build_raw_content
+      build_assignements
     end
 
     def set_global_namespace
-      model_builder.current_i_namespace = self.with(:unique_name, '\\') || self.create(:unique_name => '\\', :name => '\\')
+      model.current_i_namespace = self.with(:unique_name, '\\') || self.create(:unique_name => '\\', :name => '\\')
     end
 
-    # Costruisco ogni namespace con il suo nome e parent
     def build_hierarchy
       hierarchy.each do |subnamespace|
-        model_builder.current_i_namespace = self.create(:unique_name => "#{model_builder.current_i_namespace.unique_name}\\#{subnamespace.text}",
-                                                        :name => subnamespace.text,
-                                                        :parent_i_namespace => model_builder.current_i_namespace)
+        model.current_i_namespace = self.create(:unique_name => "#{model.current_i_namespace.unique_name}\\#{subnamespace.text}",
+                                                :name => subnamespace.text,
+                                                :parent_i_namespace => model.current_i_namespace)
       end
     end
 
     def build_assignements
-      # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
       assignements.each do |assignement|
-        # puts ModelBuilder::get_LHS assignement
+        # puts model.get_LHS assignement
       end
     end
 
     def build_raw_content
-      # Prendo tutti gli statements che non siano funzioni o classi all'interno del namespace corrente
-      model_builder.current_i_namespace.statements = IRawContent.create(:content => raw_content,
-                                                                        :i_namespace => model_builder.current_i_namespace)
-      # Il save serve per aggiornare effettivamente l'istanza INamespace @current_i_namespace!
-      model_builder.current_i_namespace.save
+      model.current_i_namespace.statements = IRawContent.create(:content => raw_content,
+                                                                :i_namespace => model.current_i_namespace)
+      model.current_i_namespace.save
     end
 
     def hierarchy
@@ -88,6 +84,135 @@ class INamespace < Ohm::Model
 
 end
 
+class IProcedure < Ohm::Model
+
+  extend Unique
+  index :unique_name
+  attribute :unique_name
+  unique :unique_name
+
+  index :name
+  attribute :name
+
+  reference :statements, :IRawContent
+  reference :return_values, :IRawContent
+
+  collection :parameters, :IVariable, :i_procedure
+  collection :local_variables, :IVariable, :i_procedure
+
+end
+
+class IFunction < IProcedure
+
+  reference :i_namespace, :INamespace
+
+  class << self
+
+    attr_accessor :function
+    attr_accessor :model
+
+    def build(function, model)
+      self.function = function
+      self.model = model
+      build_function
+      # build_parameters
+      # build_global_variable_definitions(procedure_raw_content)
+    end
+
+    def build_function
+      function_name = name
+      model.current_i_function = self.create(:unique_name => "#{model.current_i_namespace.unique_name}\\#{function_name}",
+                                             :name => function_name,
+                                             :i_namespace => model.current_i_namespace,
+                                             :statements => IRawContent.create(:content => raw_content,
+                                                                               :i_namespace => model.current_i_namespace),
+                                             :return_values => IRawContent.create(:content => return_statements,
+                                                                                  :i_namespace => model.current_i_namespace))
+    end
+
+    def name
+      function.xpath('./subNode:name/scalar:string').text
+    end
+
+    def return_statements
+      function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+    end
+
+    def raw_content
+      function.xpath('./subNode:stmts/scalar:array')
+    end
+
+    def build_parameters
+      parameters.each do |parameter|
+
+        parameter_name = parameter_name(parameter)
+
+        IVariable.create(:unique_name => "#{model.current_i_function.unique_name}\\#{parameter_name}",
+                         :name => parameter_name,
+                         :scope => 'global',
+                         :value => parameter_default_value(parameter),
+                         :i_function => @current_i_function)
+
+      end
+    end
+
+    def parameters
+      function.xpath('./subNode:params/scalar:array/node:Param')
+    end
+
+    def parameter_name(parameter)
+      parameter.xpath('./subNode:name/scalar:string').text
+    end
+
+    def parameter_default_value(parameter)
+      parameter.xpath('./subNode:default')
+    end
+
+    # def build_global_variable_definitions(raw_content)
+    #   # Prendo tutti gli statements della funzione/metodo corrente
+    #   raw_content.each do |statements|
+
+    #     # Prendo tutti le variabili globali definite tramite global
+    #     global_variables(statements).each do |global_variable|
+
+    #       build_global_variable(global_variable)
+
+    #     end
+
+    #     # Prendo tutti gli assegnamenti all'interno della funzione corrente
+    #     statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
+
+    #       # puts Model::get_LHS assignement
+
+    #     end
+
+    #   end
+    # end
+
+    # def global_variables(statements)
+    #   statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable')
+    # end
+
+    # def global_variable_name(global_variable)
+    #   global_variable.xpath('./subNode:name/scalar:string').text
+    # end
+
+    # def build_global_variable(global_variable)
+    #   global_variable_name = global_variable_name(global_variable)
+    #   IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
+    #                    :name => global_variable_name,
+    #                    :scope => 'global',
+    #                    :i_function => current_function)
+    # end
+
+  end
+
+end
+
+class IMethod < IProcedure
+  reference :i_class, :IClass
+end
+
 class IClass < Ohm::Model
 
   extend Unique
@@ -102,33 +227,6 @@ class IClass < Ohm::Model
 
   collection :i_methods, :IProcedure, :i_class
   collection :properties, :IVariable, :i_class
-
-end
-
-class IProcedure < Ohm::Model
-
-  extend Unique
-  index :unique_name
-  attribute :unique_name
-  unique :unique_name
-
-  index :name
-  attribute :name
-
-  # function, method
-  index :type
-  attribute :type
-
-  # method
-  reference :i_class, :IClass
-  # function
-  reference :i_namespace, :INamespace
-
-  reference :statements, :IRawContent
-  reference :return_values, :IRawContent
-
-  collection :parameters, :IVariable, :i_procedure
-  collection :local_variables, :IVariable, :i_procedure
 
 end
 
@@ -200,13 +298,13 @@ class IType < Ohm::Model
 
 end
 
-class ModelBuilder
+class Model
 
   attr_reader :redis
-  attr_accessor :current_ast
   attr_accessor :current_i_namespace
+  attr_accessor :current_i_function
   attr_accessor :current_i_class
-  attr_accessor :current_i_procedure
+  attr_accessor :current_i_method
 
   def initialize
     IType.build_types
@@ -220,8 +318,8 @@ class ModelBuilder
   end
 
   def build
-    while parse(asts)
-      build_for_current_ast
+    while ast = parse(asts)
+      build_namespaces(ast)
     end
   end
 
@@ -230,150 +328,33 @@ class ModelBuilder
   end
 
   def parse(ast)
-    @current_ast = Nokogiri::XML(ast) unless last_ast?(ast)
+    Nokogiri::XML(ast) unless last_ast?(ast)
   end
 
   def last_ast?(ast)
     ast == "THAT'S ALL FOLKS!"
   end
 
-  def build_for_current_ast
-    namespaces.each do |namespace|
+  def build_namespaces(ast)
+    namespaces(ast).each do |namespace|
       INamespace.build(namespace, self)
-      # IProcedure.build(namespace, self)
+      build_functions(namespace)
     end
   end
 
-  def namespaces
-    current_ast.xpath('.//node:Stmt_Namespace')
+  def build_functions(namespace)
+    functions(namespace).each do |function|
+      IFunction.build(function, self)
+    end
   end
 
-  # # FUNZIONI ###################################################################
+  def namespaces(ast)
+    ast.xpath('.//node:Stmt_Namespace')
+  end
 
-  # def build_functions(namespace)
-  #   # Prendo tutte le funzioni all'interno del namespace corrente
-  #   functions(namespace).each do |function|
-  #     procedure_raw_content = procedure_raw_content(function)
-  #     build_procedure(function, 'function', procedure_raw_content)
-  #     # build_global_variable_definitions(procedure_raw_content)
-  #     build_parameters(function, 'function')
-  #   end
-  # end
-
-  # def functions(namespace)
-  #   namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
-  # end
-
-  # def procedure_raw_content(procedure)
-  #   procedure.xpath('./subNode:stmts/scalar:array')
-  # end
-
-  # def build_procedure(procedure, type, raw_content)
-  #   procedure_name = procedure_name(procedure)
-  #   if type == 'function'
-  #     unique_name = "#{@current_i_namespace.unique_name}\\#{procedure_name}"
-  #     scope = :i_namespace
-  #     type = :i_function
-  #     scope_entity = @current_i_namespace
-  #   elsif type == 'method'
-  #     unique_name = "#{@curret_i_class.unique_name}\\#{procedure_name}"
-  #     scope = :i_class
-  #     type = :i_method
-  #     scope_entity = @current_i_class
-  #   else
-  #     'RAISE EXCEPTION!!!'
-  #   end
-  #   @current_i_procedure = IProcedure.create(:unique_name => unique_name,
-  #                                            :name => procedure_name,
-  #                                            scope => scope_entity,
-  #                                            :statements => IRawContent.create(:content => procedure_raw_content(procedure),
-  #                                                                              type => scope_entity),
-  #                                            :return_values => IRawContent.create(:content => procedure_return_statements(procedure),
-  #                                                                                 type => scope_entity))
-  # end
-
-  # def procedure_name(procedure)
-  #   procedure.xpath('./subNode:name/scalar:string').text
-  # end
-
-  # def procedure_return_statements(procedure)
-  #   procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
-  # end
-
-  # def build_global_variable_definitions(raw_content)
-  #   # Prendo tutti gli statements della funzione/metodo corrente
-  #   raw_content.each do |statements|
-
-  #     # Prendo tutti le variabili globali definite tramite global
-  #     global_variables(statements).each do |global_variable|
-
-  #       build_global_variable(global_variable)
-
-  #     end
-
-  #     # Prendo tutti gli assegnamenti all'interno della funzione corrente
-  #     statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
-
-  #       # puts ModelBuilder::get_LHS assignement
-
-  #     end
-
-  #   end
-  # end
-
-  # def global_variables(statements)
-  #   statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable')
-  # end
-
-  # def global_variable_name(global_variable)
-  #   global_variable.xpath('./subNode:name/scalar:string').text
-  # end
-
-  # def build_global_variable(global_variable)
-  #   global_variable_name = global_variable_name(global_variable)
-  #   IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
-  #                    :name => global_variable_name,
-  #                    :scope => 'global',
-  #                    :i_function => current_function)
-  # end
-
-  # def build_parameters(procedure, type)
-
-  #   if type == 'function'
-  #     type = :i_function
-  #   elsif type == 'method'
-  #     type = :i_method
-  #   else
-  #     'RAISE EXCEPTION!!!'
-  #   end
-
-  #   # Prendo tutti i parametri della funzione corrente
-  #   parameters(procedure).each do |parameter|
-
-  #     parameter_name = parameter_name(parameter)
-
-  #     IVariable.create(:unique_name => "#{@current_i_procedure.unique_name}\\#{parameter_name}",
-  #                      :name => parameter_name,
-  #                      :scope => 'global',
-  #                      :value => parameter_default_value(parameter),
-  #                      type => @current_i_procedure)
-
-  #     exit
-
-  #   end
-  # end
-
-  # def parameter_name(parameter)
-  #   parameter.xpath('./subNode:name/scalar:string').text
-  # end
-
-  # def parameters(procedure)
-  #   procedure.xpath('./subNode:params/scalar:array/node:Param')
-  # end
-
-  # def parameter_default_value(parameter)
-  #   parameter.xpath('./subNode:default')
-  # end
+  def functions(namespace)
+    namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+  end
 
   # ##############################################################################
 
@@ -439,15 +420,19 @@ class ModelBuilder
 
 end
 
-model_builder = ModelBuilder.new
-model_builder.build
+model = Model.new
+model.build
 
-INamespace.all.to_a.each do |namespace|
-  puts namespace.name
-  puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
-  puts namespace.statements
-  # p namespace.statements.content unless namespace.statements.nil?
+IFunction.all.to_a.each do |function|
+  puts function.name
 end
+
+# INamespace.all.to_a.each do |namespace|
+#   puts namespace.name
+#   puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
+#   puts namespace.statements
+#   # p namespace.statements.content unless namespace.statements.nil?
+# end
 
 exit
 
@@ -475,7 +460,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
   # Prendo tutti gli assegnamenti di variabili (senza distinzione fra globali/locali)
   namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var').each do |assignement|
 
-    # puts ModelBuilder::get_LHS assignement
+    # puts Model::get_LHS assignement
 
   end
 
@@ -513,7 +498,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
       # Prendo tutti gli assegnamenti all'interno della funzione corrente
       statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
 
-        # puts ModelBuilder::get_LHS assignement
+        # puts Model::get_LHS assignement
 
       end
 
@@ -584,7 +569,7 @@ xml.xpath('.//node:Stmt_Namespace').each do |namespace|
         # Prendo tutti gli assegnamenti all'interno del metodo corrente
         statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
 
-          # puts ModelBuilder::get_LHS assignement
+          # puts Model::get_LHS assignement
 
         end
 
