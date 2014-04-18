@@ -38,7 +38,7 @@ class INamespace < Ohm::Model
       self.namespace = namespace
       self.model = model
       build_global_namespace
-      build_hierarchy
+      build_subnamespaces
       build_raw_content
       build_assignements
     end
@@ -48,8 +48,8 @@ class INamespace < Ohm::Model
                                               :name => '\\')
     end
 
-    def build_hierarchy
-      get_hierarchy.each do |subnamespace|
+    def build_subnamespaces
+      get_subnamespaces.each do |subnamespace|
         model.current_i_namespace = self.create(:unique_name => "#{model.current_i_namespace.unique_name}\\#{subnamespace.text}",
                                                 :name => subnamespace.text,
                                                 :parent_i_namespace => model.current_i_namespace)
@@ -68,7 +68,7 @@ class INamespace < Ohm::Model
       model.current_i_namespace.save
     end
 
-    def get_hierarchy
+    def get_subnamespaces
       namespace.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
     end
 
