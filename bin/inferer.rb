@@ -176,7 +176,7 @@ class ModelBuilder
     namespaces.each do |namespace|
       set_global_namespace
       build_namespace(namespace)
-      # build_functions(namespace)
+      build_functions(namespace)
     end
   end
 
@@ -240,7 +240,7 @@ class ModelBuilder
       procedure_raw_content = procedure_raw_content(function)
       build_procedure(function, 'function', procedure_raw_content)
       # build_global_variable_definitions(procedure_raw_content)
-      build_parameters(function)
+      build_parameters(function, 'function')
     end
   end
 
@@ -255,12 +255,12 @@ class ModelBuilder
   def build_procedure(procedure, type, raw_content)
     procedure_name = procedure_name(procedure)
     if type == 'function'
-      unique_name = "#{@current_i_namespace.unique_name}\\#{function_name}"
+      unique_name = "#{@current_i_namespace.unique_name}\\#{procedure_name}"
       scope = :i_namespace
       type = :i_function
       scope_entity = @current_i_namespace
     elsif type == 'method'
-      unique_name = "#{@curret_i_class.unique_name}\\#{function_name}"
+      unique_name = "#{@curret_i_class.unique_name}\\#{procedure_name}"
       scope = :i_class
       type = :i_method
       scope_entity = @current_i_class
@@ -270,7 +270,7 @@ class ModelBuilder
     @current_i_procedure = IProcedure.create(:unique_name => unique_name,
                                              :name => procedure_name,
                                              scope => scope_entity,
-                                             :statements => IRawContent.create(:content => procedure_raw_content,
+                                             :statements => IRawContent.create(:content => procedure_raw_content(procedure),
                                                                                type => scope_entity),
                                              :return_values => IRawContent.create(:content => procedure_return_statements(procedure),
                                                                                   type => scope_entity))
@@ -321,19 +321,42 @@ class ModelBuilder
                      :i_function => current_function)
   end
 
-  def build_parameters(procedure)
+  def build_parameters(procedure, type)
+
+    if type == 'function'
+      type = :i_function
+    elsif type == 'method'
+      type = :i_method
+    else
+      'RAISE EXCEPTION!!!'
+    end
+
     # Prendo tutti i parametri della funzione corrente
-    procedure.xpath('./subNode:params/scalar:array/node:Param').each do |global_variable|
+    parameters(procedure).each do |parameter|
 
-      global_variable_name = global_variable.xpath('./subNode:name/scalar:string').text
+      parameter_name = parameter_name(parameter)
 
-      IVariable.create(:unique_name => "#{current_function.unique_name}\\#{global_variable_name}",
-                       :name => global_variable.xpath('./subNode:name/scalar:string').text,
+      IVariable.create(:unique_name => "#{@current_i_procedure.unique_name}\\#{parameter_name}",
+                       :name => parameter_name,
                        :scope => 'global',
-                       :value => global_variable.xpath('./subNode:default'),
-                       :i_function => procedure)
+                       :value => parameter_default_value(parameter),
+                       type => @current_i_procedure)
+
+      exit
 
     end
+  end
+
+  def parameter_name(parameter)
+    parameter.xpath('./subNode:name/scalar:string').text
+  end
+
+  def parameters(procedure)
+    procedure.xpath('./subNode:params/scalar:array/node:Param')
+  end
+
+  def parameter_default_value(parameter)
+    parameter.xpath('./subNode:default')
   end
 
   ##############################################################################
