@@ -141,28 +141,32 @@ class IFunction < Ohm::Model
     end
 
     def build_parameters
-      parameters.each do |parameter|
+      get_parameters.each do |parameter|
 
-        parameter_name = parameter_name(parameter)
+        parameter_name = get_parameter_name(parameter)
 
-        IVariable.create(:unique_name => "#{model.current_i_function.unique_name}\\#{parameter_name}",
+        IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
                          :name => parameter_name,
                          :scope => 'global',
-                         :value => parameter_default_value(parameter),
-                         :i_function => @current_i_function)
+                         :value => get_parameter_default_value(parameter),
+                         :i_function => model.current_i_function)
 
       end
     end
 
-    def parameters
+    def get_parameters
       function.xpath('./subNode:params/scalar:array/node:Param')
     end
 
-    def parameter_name(parameter)
+    def get_parameter_unique_name(parameter_name)
+      "#{model.current_i_function.unique_name}\\#{parameter_name}"
+    end
+
+    def get_parameter_name(parameter)
       parameter.xpath('./subNode:name/scalar:string').text
     end
 
-    def parameter_default_value(parameter)
+    def get_parameter_default_value(parameter)
       parameter.xpath('./subNode:default')
     end
 
@@ -206,7 +210,6 @@ class IFunction < Ohm::Model
   end
 
 end
-
 
 class IClass < Ohm::Model
 
