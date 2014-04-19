@@ -39,7 +39,7 @@ class INamespace < Ohm::Model
       self.ast = ast
       self.model = model
       build_global_namespace
-      build_namespaces
+      build_other_namespaces
     end
 
     def build_global_namespace
@@ -52,7 +52,7 @@ class INamespace < Ohm::Model
       # build_classes
     end
 
-    def build_namespaces
+    def build_other_namespaces
       get_namespaces.each do |namespace|
         self.namespace = namespace
         build_namespace
