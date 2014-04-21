@@ -1,0 +1,96 @@
+require "ohm"
+require_relative "./Unique"
+require_relative "./IVariable"
+require_relative "./IMethod"
+
+class IClass < Ohm::Model
+
+  extend Unique
+  unique :unique_name
+  attribute :unique_name
+
+  index :name
+  attribute :name
+
+  reference :i_namespace, :INamespace
+
+  collection :i_methods, :IMethod, :i_class
+  collection :properties, :IVariable, :i_class
+
+  class << self
+
+    attr_accessor :a_class
+    attr_accessor :model
+
+    def build(a_class, model)
+      self.a_class = a_class
+      self.model = model
+      build_class
+      build_properties
+      build_methods
+    end
+
+    def build_class
+      model.current_i_class = self.create(:unique_name => get_unique_name,
+                                          :name => get_name,
+                                          :i_namespace => model.current_i_namespace)
+    end
+
+    def build_properties
+      get_one_line_properties.each do |one_line_property|
+
+        get_properties.each do |property|
+
+          property_name = get_property_name(property)
+
+          IVariable.create(:unique_name => get_property_unique_name,
+                           :name => get_property_name,
+                           :value => get_property_value,
+                           :i_class => model.current_i_class)
+
+        end
+
+      end
+    end
+
+    def build_methods
+      get_methods.each do |method|
+        IMethod.build(method, model)
+      end
+    end
+
+    def get_methods
+      a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod')
+    end
+
+    def get_one_line_properties
+      a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_Property')
+    end
+
+    def get_properties one_line_property
+      one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty')
+    end
+
+    def get_property_unique_name property
+      property.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_property_name property
+      property.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_property_value property
+      property.xpath('./subNode:default')
+    end
+
+    def get_unique_name
+      '\\' + a_class.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    end
+
+    def get_name
+      a_class.xpath('./subNode:name/scalar:string').text
+    end
+
+  end
+
+end
