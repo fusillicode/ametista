@@ -18,7 +18,7 @@ class IMethod < Ohm::Model
   collection :parameters, :IVariable, :i_method
   collection :local_variables, :IVariable, :i_method
 
-  reference :i_namespace, :INamespace
+  reference :i_class, :IClass
 
   class << self
 
@@ -74,7 +74,7 @@ class IMethod < Ohm::Model
     def build_method
       model.current_i_method = self.create(:unique_name => get_unique_name,
                                              :name => get_name,
-                                             :i_namespace => model.current_i_namespace,
+                                             :i_class => model.current_i_class,
                                              :statements => IRawContent.create(:content => get_raw_content,
                                                                                :i_method => model.current_i_method),
                                              :return_statements => IRawContent.create(:content => get_return_statements,
