@@ -47,8 +47,8 @@ class INamespace < Ohm::Model
                                               :name => '\\')
       self.namespace = ast
       build_raw_content
-      build_assignements
-      build_functions
+      # build_assignements
+      # build_functions
       # build_classes
     end
 
@@ -63,8 +63,8 @@ class INamespace < Ohm::Model
     def build_namespace
       build_subnamespaces
       build_raw_content
-      build_assignements
-      build_functions
+      # build_assignements
+      # build_functions
       # build_classes
     end
 
@@ -74,7 +74,7 @@ class INamespace < Ohm::Model
 
     def build_subnamespaces
       get_subnamespaces.each do |subnamespace|
-        model.current_i_namespace = self.create(:unique_name => "#{model.current_i_namespace.unique_name}\\#{subnamespace.text}",
+        model.current_i_namespace = self.create(:unique_name => get_subnamespace_unique_name(subnamespace),
                                                 :name => subnamespace.text,
                                                 :parent_i_namespace => model.current_i_namespace)
       end
@@ -86,15 +86,21 @@ class INamespace < Ohm::Model
       model.current_i_namespace.save
     end
 
-    def build_assignements
-      get_assignements.each do |assignement|
-        # puts model.get_LHS assignement
-      end
-    end
+    # def build_assignements
+    #   get_assignements.each do |assignement|
+    #     # puts model.get_LHS assignement
+    #   end
+    # end
 
     def build_functions
       get_functions.each do |function|
         IFunction.build(function, model)
+      end
+    end
+
+    def build_classes
+      get_classes.each do |a_class|
+        IClass.build(a_class, model)
       end
     end
 
@@ -104,6 +110,10 @@ class INamespace < Ohm::Model
 
     def get_subnamespaces
       namespace.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+    end
+
+    def get_subnamespace_unique_name(subnamespace)
+      "#{model.current_i_namespace.unique_name}\\#{subnamespace.text}"
     end
 
     def get_raw_content
@@ -116,6 +126,10 @@ class INamespace < Ohm::Model
 
     def get_functions
       namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+    end
+
+    def get_classes
+      namespace.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
     end
 
   end
@@ -150,6 +164,44 @@ class IFunction < Ohm::Model
       build_function
       # build_parameters
       # build_global_variable_definitions(procedure_raw_content)
+    end
+
+    model.current_i_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
+                                    :i_class => current_class,
+                                    :statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
+                                                                         :i_method => current_method),
+                                    :return_statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
+                                                                         :i_method => current_method))
+
+    # Prendo tutti gli statements del metodo corrente
+    method.xpath('./subNode:stmts/scalar:array').each do |statements|
+
+      # Prendo tutti le variabili globali definite tramite global
+      statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
+
+        IVariable.create(:name => global_variable.xpath('./subNode:name/scalar:string').text,
+                         :scope => 'global',
+                         :i_function => current_method)
+
+      end
+
+      # Prendo tutti gli assegnamenti all'interno del metodo corrente
+      statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
+
+        # puts Model::get_LHS assignement
+
+      end
+
+    end
+
+    # Prendo tutti i parametri del metodo corrente
+    method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
+
+      IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
+                       :scope => 'global',
+                       :value => parameter.xpath('./subNode:default'),
+                       :i_method => current_method)
+
     end
 
     def build_function
@@ -262,6 +314,84 @@ class IClass < Ohm::Model
 
   collection :i_methods, :IMethod, :i_class
   collection :properties, :IVariable, :i_class
+
+  class << self
+
+    attr_accessor :a_class
+    attr_accessor :model
+
+    def build(a_class, model)
+      self.a_class = a_class
+      self.model = model
+      build_class
+      build_properties
+      build_methods
+    end
+
+    end
+
+    def build_class
+      model.current_i_class = self.create(:unique_name => get_unique_name
+                                          :name => get_name,
+                                          :i_namespace => model.current_i_namespace)
+    end
+
+    def build_properties
+      get_one_line_properties.each do |one_line_property|
+
+        get_properties.each do |property|
+
+          property_name = get_property_name(property)
+
+          IVariable.create(:unique_name => get_property_unique_name,
+                           :name => get_property_name,
+                           :value => get_property_value,
+                           :i_class => model.current_i_class)
+
+        end
+
+      end
+    end
+
+    def build_methods
+      get_methods.each do |method|
+        IMethod.build(method, model)
+      end
+    end
+
+    def get_methods
+      a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod')
+    end
+
+    def get_one_line_properties
+      a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_Property')
+    end
+
+    def get_properties one_line_property
+      one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty')
+    end
+
+    def get_property_unique_name property
+      property.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_property_name property
+      property.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_property_value property
+      property.xpath('./subNode:default')
+    end
+
+    def get_unique_name
+      '\\' + a_class.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    end
+
+    def get_name
+      a_class.xpath('./subNode:name/scalar:string').text
+    end
+
+  end
 
 end
 
