@@ -38,7 +38,7 @@ class INamespace < Ohm::Model
       self.namespace = ast
       build_raw_content
       # build_assignements
-      # build_functions
+      build_functions
       # build_classes
     end
 
@@ -54,7 +54,7 @@ class INamespace < Ohm::Model
       build_subnamespaces
       build_raw_content
       # build_assignements
-      # build_functions
+      build_functions
       # build_classes
     end
 

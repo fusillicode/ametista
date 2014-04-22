@@ -1,5 +1,10 @@
 <?php
 
+function terra()
+{
+
+}
+
 namespace ciao\asd\asdasdasd\iei;
 
 // $b = $c = $e;

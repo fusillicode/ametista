@@ -14,7 +14,7 @@ IFunction.all.to_a.each do |function|
 end
 
 INamespace.all.to_a.each do |namespace|
-  puts namespace.name
+  # puts namespace.name
   # puts 'with parent ' + (namespace.parent_i_namespace ? namespace.parent_i_namespace.name : '')
   # puts namespace.statements.content if namespace.statements
   # p namespace.i_functions
