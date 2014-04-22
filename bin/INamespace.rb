@@ -59,7 +59,7 @@ class INamespace < Ohm::Model
     end
 
     def set_global_namespace
-      model.current_i_namespace = self.with(:unique_name => '\\')
+      model.current_i_namespace = self.with(:unique_name, '\\')
     end
 
     def build_subnamespaces
