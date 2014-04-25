@@ -23,15 +23,10 @@ class IProcedure < Ohm::Model
 
   class << self
 
-    attr_accessor :procedure
-    attr_accessor :procedure_type
-    attr_accessor :container
-    attr_accessor :model
-
     def build(procedure, procedure_type, model)
-      self.procedure = procedure
-      self.procedure_type = procedure_type
-      self.model = model
+      @procedure = procedure
+      @procedure_type = procedure_type
+      @model = model
       set_container
       build_procedure
       build_parameters
@@ -39,18 +34,18 @@ class IProcedure < Ohm::Model
     end
 
     def set_container
-      if procedure_type == :i_function
-        self.container = :i_namespace
-        reference container, :INamespace
-      elsif procedure_type == :i_method
-        self.container = :i_class
-        reference container, :IClass
+      if @procedure_type == :i_function
+        @container = :i_namespace
+        reference @container, :INamespace
+      elsif @procedure_type == :i_method
+        @container = :i_class
+        reference @container, :IClass
       else
         'RAISE EXCEPTION'
       end
     end
 
-    # model.current_i_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
+    # @model.current_i_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
     #                                 :i_class => current_class,
     #                                 :statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
     #                                                                      :i_method => current_method),
@@ -89,30 +84,30 @@ class IProcedure < Ohm::Model
     # end
 
     def build_procedure
-      model.send(procedure_type) = self.create(:unique_name => get_unique_name,
+      @model.send(@procedure_type) = self.create(:unique_name => get_unique_name,
                                               :name => get_name,
-                                              :type => procedure_type,
-                                              container => model.send(container),
+                                              :type => @procedure_type,
+                                              @container => @model.send(@container),
                                               :statements => IRawContent.create(:content => get_raw_content,
-                                                                                :i_procedure => model.send(procedure_type)),
+                                                                                :i_procedure => @model.send(@procedure_type)),
                                               :return_statements => IRawContent.create(:content => get_return_statements,
-                                                                                       :i_procedure => model.send(procedure_type)))
+                                                                                       :i_procedure => @model.send(@procedure_type)))
     end
 
     def get_name
-      procedure.xpath('./subNode:name/scalar:string').text
+      @procedure.xpath('./subNode:name/scalar:string').text
     end
 
     def get_unique_name
-      '\\\\' + procedure.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+      '\\\\' + @procedure.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_return_statements
-      procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+      @procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
     end
 
     def get_raw_content
-      procedure.xpath('./subNode:stmts/scalar:array')
+      @procedure.xpath('./subNode:stmts/scalar:array')
     end
 
     def build_parameters
@@ -122,19 +117,19 @@ class IProcedure < Ohm::Model
 
         IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
                          :name => parameter_name,
-                         :type => 'global',
+                         :type => 'parameter',
                          :value => get_parameter_default_value(parameter),
-                         :i_procedure => model.send(procedure_type))
+                         :i_procedure => @model.send(@procedure_type))
 
       end
     end
 
     def get_parameters
-      procedure.xpath('./subNode:params/scalar:array/node:Param')
+      @procedure.xpath('./subNode:params/scalar:array/node:Param')
     end
 
     def get_parameter_unique_name(parameter_name)
-      "#{model.send(procedure_type).unique_name}\\#{parameter_name}"
+      "#{@model.send(@procedure_type).unique_name}\\#{parameter_name}"
     end
 
     def get_parameter_name(parameter)
