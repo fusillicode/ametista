@@ -22,8 +22,6 @@ class IFunction < Ohm::Model
 
   class << self
 
-    attr_accessor :function
-
     def build(function, model)
       @function = function
       @model = model
