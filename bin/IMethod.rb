@@ -47,7 +47,7 @@ class IMethod < Ohm::Model
     #   statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
 
     #     IVariable.create(:name => global_variable.xpath('./subNode:name/scalar:string').text,
-    #                      :scope => 'global',
+    #                      :type => 'global',
     #                      :i_method => current_method)
 
     #   end
@@ -65,7 +65,7 @@ class IMethod < Ohm::Model
     # method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
 
     #   IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
-    #                    :scope => 'global',
+    #                    :type => 'global',
     #                    :value => parameter.xpath('./subNode:default'),
     #                    :i_method => current_method)
 
@@ -104,7 +104,7 @@ class IMethod < Ohm::Model
 
         IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
                          :name => parameter_name,
-                         :scope => 'global',
+                         :type => 'global',
                          :value => get_parameter_default_value(parameter),
                          :i_method => model.current_i_method)
 
@@ -160,7 +160,7 @@ class IMethod < Ohm::Model
     #   global_variable_name = global_variable_name(global_variable)
     #   IVariable.create(:unique_name => "#{current_method.unique_name}\\#{global_variable_name}",
     #                    :name => global_variable_name,
-    #                    :scope => 'global',
+    #                    :type => 'global',
     #                    :i_method => current_method)
     # end
 
