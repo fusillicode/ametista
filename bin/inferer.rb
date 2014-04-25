@@ -25,3 +25,9 @@ INamespace.all.to_a.each do |namespace|
   # p namespace.i_functions.count
   # p namespace.statements.content unless namespace.statements.nil?
 end
+
+
+IVariable.find(type: 'parameter').each do |parameter|
+  p parameter.unique_name
+end
+

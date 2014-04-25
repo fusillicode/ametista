@@ -10,9 +10,9 @@ class IVariable < Ohm::Model
   index :name
   attribute :name
 
-  # local, global, property
-  index :scope
-  attribute :scope
+  # local, global, property, parameter
+  index :type
+  attribute :type
 
   attribute :value
 
@@ -28,15 +28,19 @@ class IVariable < Ohm::Model
   reference :i_function, :IFunction
 
   def local?
-    scope == 'local'
+    type == 'local'
   end
 
   def global?
-    scope == 'global'
+    type == 'global'
   end
 
   def property?
-    scope == 'property'
+    type == 'property'
+  end
+
+  def parameter?
+    type == 'parameter'
   end
 
 end

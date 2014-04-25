@@ -45,6 +45,7 @@ class IClass < Ohm::Model
 
           IVariable.create(:unique_name => get_property_unique_name,
                            :name => get_property_name,
+                           :type => 'property',
                            :value => get_property_value,
                            :i_class => model.current_i_class)
 
