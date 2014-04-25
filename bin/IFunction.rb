@@ -29,7 +29,7 @@ class IFunction < Ohm::Model
       self.function = function
       self.model = model
       build_function
-      # build_parameters
+      build_parameters
       # build_global_variable_definitions(procedure_raw_content)
     end
 

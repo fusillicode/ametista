@@ -11,6 +11,10 @@ IFunction.all.to_a.each do |function|
   puts function.i_namespace
   puts function.statements
   puts function.return_statements
+  function.parameters.each do |parameter|
+    p parameter.name
+    p parameter.unique_name
+  end
 end
 
 INamespace.all.to_a.each do |namespace|

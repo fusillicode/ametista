@@ -1,10 +1,5 @@
 <?php
 
-function terra()
-{
-
-}
-
 namespace ciao\asd\asdasdasd\iei;
 
 // $b = $c = $e;
@@ -64,7 +59,7 @@ class Sole {
 
 // true, false, null, 1, 1.3, 'asd', array(1,2)
 
-function prova($ella = __NAMESPACE__, int $ella)
+function prova($ella = __NAMESPACE__, int $peppa)
 {
   $a = 1;
   $a[1] = 1;
