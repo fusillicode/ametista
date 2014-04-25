@@ -29,8 +29,8 @@ class IClass < Ohm::Model
 
     def build_class
       @model.current_i_class = self.create(:unique_name => get_unique_name,
-                                          :name => get_name,
-                                          :i_namespace => @model.current_i_namespace)
+                                           :name => get_name,
+                                           :i_namespace => @model.current_i_namespace)
     end
 
     def build_properties
