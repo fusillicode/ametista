@@ -23,17 +23,16 @@ class IFunction < Ohm::Model
   class << self
 
     attr_accessor :function
-    attr_accessor :model
 
     def build(function, model)
-      self.function = function
-      self.model = model
+      @function = function
+      @model = model
       build_function
       build_parameters
       # build_global_variable_definitions(procedure_raw_content)
     end
 
-    # model.current_i_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
+    # @model.current_i_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
     #                                 :i_class => current_class,
     #                                 :statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
     #                                                                      :i_method => current_method),
@@ -72,29 +71,29 @@ class IFunction < Ohm::Model
     # end
 
     def build_function
-      model.current_i_function = self.create(:unique_name => get_unique_name,
+      @model.current_i_function = self.create(:unique_name => get_unique_name,
                                              :name => get_name,
-                                             :i_namespace => model.current_i_namespace,
+                                             :i_namespace => @model.current_i_namespace,
                                              :statements => IRawContent.create(:content => get_raw_content,
-                                                                               :i_function => model.current_i_function),
+                                                                               :i_function => @model.current_i_function),
                                              :return_statements => IRawContent.create(:content => get_return_statements,
-                                                                                      :i_function => model.current_i_function))
+                                                                                      :i_function => @model.current_i_function))
     end
 
     def get_name
-      function.xpath('./subNode:name/scalar:string').text
+      @function.xpath('./subNode:name/scalar:string').text
     end
 
     def get_unique_name
-      '\\\\' + function.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+      '\\\\' + @function.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_return_statements
-      function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+      @function.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
     end
 
     def get_raw_content
-      function.xpath('./subNode:stmts/scalar:array')
+      @function.xpath('./subNode:stmts/scalar:array')
     end
 
     def build_parameters
@@ -106,17 +105,17 @@ class IFunction < Ohm::Model
                          :name => parameter_name,
                          :type => 'global',
                          :value => get_parameter_default_value(parameter),
-                         :i_function => model.current_i_function)
+                         :i_function => @model.current_i_function)
 
       end
     end
 
     def get_parameters
-      function.xpath('./subNode:params/scalar:array/node:Param')
+      @function.xpath('./subNode:params/scalar:array/node:Param')
     end
 
     def get_parameter_unique_name(parameter_name)
-      "#{model.current_i_function.unique_name}\\#{parameter_name}"
+      "#{@model.current_i_function.unique_name}\\#{parameter_name}"
     end
 
     def get_parameter_name(parameter)
