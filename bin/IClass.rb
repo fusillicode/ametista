@@ -19,21 +19,18 @@ class IClass < Ohm::Model
 
   class << self
 
-    attr_accessor :a_class
-    attr_accessor :model
-
     def build(a_class, model)
-      self.a_class = a_class
-      self.model = model
+      @a_class = a_class
+      @model = model
       build_class
       build_properties
       build_methods
     end
 
     def build_class
-      model.current_i_class = self.create(:unique_name => get_unique_name,
+      @model.current_i_class = self.create(:unique_name => get_unique_name,
                                           :name => get_name,
-                                          :i_namespace => model.current_i_namespace)
+                                          :i_namespace => @model.current_i_namespace)
     end
 
     def build_properties
@@ -47,7 +44,7 @@ class IClass < Ohm::Model
                            :name => get_property_name,
                            :type => 'property',
                            :value => get_property_value,
-                           :i_class => model.current_i_class)
+                           :i_class => @model.current_i_class)
 
         end
 
@@ -56,16 +53,16 @@ class IClass < Ohm::Model
 
     def build_methods
       get_methods.each do |method|
-        IMethod.build(method, model)
+        IMethod.build(method, @model)
       end
     end
 
     def get_methods
-      a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod')
+      @a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod')
     end
 
     def get_one_line_properties
-      a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_Property')
+      @a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_Property')
     end
 
     def get_properties one_line_property
@@ -85,11 +82,11 @@ class IClass < Ohm::Model
     end
 
     def get_unique_name
-      '\\' + a_class.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+      '\\' + @a_class.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_name
-      a_class.xpath('./subNode:name/scalar:string').text
+      @a_class.xpath('./subNode:name/scalar:string').text
     end
 
   end
