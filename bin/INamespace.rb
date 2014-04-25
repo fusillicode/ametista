@@ -80,13 +80,13 @@ class INamespace < Ohm::Model
 
     def build_functions
       get_functions.each do |function|
-        IFunction.build(function, model)
+        IFunction.build(function, @model)
       end
     end
 
     def build_classes
       get_classes.each do |a_class|
-        IClass.build(a_class, model)
+        IClass.build(a_class, @model)
       end
     end
 
