@@ -5,7 +5,7 @@ require_relative "./Model.rb"
 model = Model.new
 model.build
 
-IFunction.all.to_a.each do |function|
+IProcedure.all.to_a.each do |function|
   puts function.unique_name
   puts function.name
   puts function.i_namespace

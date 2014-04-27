@@ -23,9 +23,7 @@ class IVariable < Ohm::Model
   # property
   reference :i_class, :IClass
   # local, global
-  reference :i_method, :IMethod
-  # local, global
-  reference :i_function, :IFunction
+  reference :i_procedure, :IProcedure
 
   def local?
     type == 'local'

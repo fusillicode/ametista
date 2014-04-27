@@ -12,6 +12,7 @@ class IProcedure < Ohm::Model
   index :name
   attribute :name
 
+  # method, function
   index :type
   attribute :type
 
@@ -45,53 +46,16 @@ class IProcedure < Ohm::Model
       end
     end
 
-    # @model.current_i_method = IMethod.create(:name => method.xpath('./subNode:name/scalar:string').text,
-    #                                 :i_class => current_class,
-    #                                 :statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array'),
-    #                                                                      :i_method => current_method),
-    #                                 :return_statements => IRawContent.create(:content => method.xpath('./subNode:stmts/scalar:array/node:Stmt_Return'),
-    #                                                                      :i_method => current_method))
-
-    # # Prendo tutti gli statements del metodo corrente
-    # method.xpath('./subNode:stmts/scalar:array').each do |statements|
-
-    #   # Prendo tutti le variabili globali definite tramite global
-    #   statements.xpath('./node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable').each do |global_variable|
-
-    #     IVariable.create(:name => global_variable.xpath('./subNode:name/scalar:string').text,
-    #                      :type => 'global',
-    #                      :i_procedure => current_method)
-
-    #   end
-
-    #   # Prendo tutti gli assegnamenti all'interno del metodo corrente
-    #   statements.xpath('./node:Expr_Assign/subNode:var').each do |assignement|
-
-    #     # puts Model::get_LHS assignement
-
-    #   end
-
-    # end
-
-    # # Prendo tutti i parametri del metodo corrente
-    # method.xpath('./subNode:params/scalar:array/node:Param').each do |parameter|
-
-    #   IVariable.create(:name => parameter.xpath('./subNode:name/scalar:string').text,
-    #                    :type => 'global',
-    #                    :value => parameter.xpath('./subNode:default'),
-    #                    :i_method => current_method)
-
-    # end
-
     def build_procedure
-      @model.send(@procedure_type) = self.create(:unique_name => get_unique_name,
-                                              :name => get_name,
-                                              :type => @procedure_type,
-                                              @container => @model.send(@container),
-                                              :statements => IRawContent.create(:content => get_raw_content,
-                                                                                :i_procedure => @model.send(@procedure_type)),
-                                              :return_statements => IRawContent.create(:content => get_return_statements,
-                                                                                       :i_procedure => @model.send(@procedure_type)))
+      @model.send("current_#{@procedure_type}=",
+                  self.create(:unique_name => get_unique_name,
+                              :name => get_name,
+                              :type => @procedure_type,
+                              @container => @model.send("current_#{@container}"),
+                              :statements => IRawContent.create(:content => get_raw_content,
+                                                                :i_procedure => @model.send("current_#{@procedure_type}")),
+                              :return_statements => IRawContent.create(:content => get_return_statements,
+                                                                       :i_procedure => @model.send("current_#{@procedure_type}"))))
     end
 
     def get_name
@@ -119,7 +83,7 @@ class IProcedure < Ohm::Model
                          :name => parameter_name,
                          :type => 'parameter',
                          :value => get_parameter_default_value(parameter),
-                         :i_procedure => @model.send(@procedure_type))
+                         :i_procedure => @model.send("current_#{@procedure_type}"))
 
       end
     end
@@ -128,12 +92,12 @@ class IProcedure < Ohm::Model
       @procedure.xpath('./subNode:params/scalar:array/node:Param')
     end
 
-    def get_parameter_unique_name(parameter_name)
-      "#{@model.send(@procedure_type).unique_name}\\#{parameter_name}"
-    end
-
     def get_parameter_name(parameter)
       parameter.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_parameter_unique_name(parameter_name)
+      @model.send("current_#{@procedure_type}").unique_name + "\\#{parameter_name}"
     end
 
     def get_parameter_default_value(parameter)

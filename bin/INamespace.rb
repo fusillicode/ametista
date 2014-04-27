@@ -1,7 +1,7 @@
 require "ohm"
 require_relative "./Unique"
 require_relative "./IRawContent"
-require_relative "./IFunction"
+require_relative "./IProcedure"
 require_relative "./IClass"
 
 class INamespace < Ohm::Model
@@ -16,7 +16,7 @@ class INamespace < Ohm::Model
   reference :parent_i_namespace, :INamespace
   reference :statements, :IRawContent
 
-  collection :i_functions, :IFunction, :i_namespace
+  collection :i_functions, :IProcedure, :i_namespace
   collection :i_classes, :IClass, :i_namespace
 
   class << self
@@ -80,7 +80,7 @@ class INamespace < Ohm::Model
 
     def build_functions
       get_functions.each do |function|
-        IFunction.build(function, @model)
+        IProcedure.build(function, :i_function, @model)
       end
     end
 
