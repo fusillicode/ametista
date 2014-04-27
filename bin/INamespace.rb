@@ -32,22 +32,19 @@ class INamespace < Ohm::Model
       @model.current_i_namespace = self.create(:unique_name => '\\',
                                                :name => '\\')
       @namespace = @ast
-      build_raw_content
-      # build_assignements
-      build_functions
-      # build_classes
+      build_namespace
     end
 
     def build_other_namespaces
       get_namespaces.each do |namespace|
         @namespace = namespace
+        build_subnamespaces
         build_namespace
         set_global_namespace
       end
     end
 
     def build_namespace
-      build_subnamespaces
       build_raw_content
       # build_assignements
       build_functions
