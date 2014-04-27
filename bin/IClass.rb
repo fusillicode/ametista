@@ -1,7 +1,7 @@
 require "ohm"
 require_relative "./Unique"
 require_relative "./IVariable"
-require_relative "./IMethod"
+require_relative "./IProcedure"
 
 class IClass < Ohm::Model
 
@@ -14,7 +14,7 @@ class IClass < Ohm::Model
 
   reference :i_namespace, :INamespace
 
-  collection :i_methods, :IMethod, :i_class
+  collection :i_methods, :IProcedure, :i_class
   collection :properties, :IVariable, :i_class
 
   class << self
@@ -53,12 +53,8 @@ class IClass < Ohm::Model
 
     def build_methods
       get_methods.each do |method|
-        IMethod.build(method, @model)
+        IProcedure.build(method, :i_method, @model)
       end
-    end
-
-    def get_methods
-      @a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod')
     end
 
     def get_one_line_properties
@@ -87,6 +83,10 @@ class IClass < Ohm::Model
 
     def get_name
       @a_class.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_methods
+      @a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_ClassMethod')
     end
 
   end

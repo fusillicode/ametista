@@ -58,6 +58,20 @@ class IProcedure < Ohm::Model
                                                                        :i_procedure => @model.send("current_#{@procedure_type}"))))
     end
 
+    def build_parameters
+      get_parameters.each do |parameter|
+
+        parameter_name = get_parameter_name(parameter)
+
+        IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
+                         :name => parameter_name,
+                         :type => 'parameter',
+                         :value => get_parameter_default_value(parameter),
+                         :i_procedure => @model.send("current_#{@procedure_type}"))
+
+      end
+    end
+
     def get_name
       @procedure.xpath('./subNode:name/scalar:string').text
     end
@@ -72,20 +86,6 @@ class IProcedure < Ohm::Model
 
     def get_raw_content
       @procedure.xpath('./subNode:stmts/scalar:array')
-    end
-
-    def build_parameters
-      get_parameters.each do |parameter|
-
-        parameter_name = get_parameter_name(parameter)
-
-        IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
-                         :name => parameter_name,
-                         :type => 'parameter',
-                         :value => get_parameter_default_value(parameter),
-                         :i_procedure => @model.send("current_#{@procedure_type}"))
-
-      end
     end
 
     def get_parameters
