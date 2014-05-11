@@ -28,19 +28,19 @@ class IProcedure < Ohm::Model
       @procedure = procedure
       @procedure_type = procedure_type
       @model = model
-      set_container
+      set_scope
       build_procedure
       build_parameters
       # build_global_variable_definitions(procedure_raw_content)
     end
 
-    def set_container
+    def set_scope
       if @procedure_type == :i_function
-        @container = :i_namespace
-        reference @container, :INamespace
+        @scope = :i_namespace
+        reference @scope, :INamespace
       elsif @procedure_type == :i_method
-        @container = :i_class
-        reference @container, :IClass
+        @scope = :i_class
+        reference @scope, :IClass
       else
         'RAISE EXCEPTION'
       end
@@ -51,7 +51,7 @@ class IProcedure < Ohm::Model
                   self.create(:unique_name => get_unique_name,
                               :name => get_name,
                               :type => @procedure_type,
-                              @container => @model.send("current_#{@container}"),
+                              @scope => @model.send("current_#{@scope}"),
                               :statements => IRawContent.create(:content => get_raw_content,
                                                                 :i_procedure => @model.send("current_#{@procedure_type}")),
                               :return_statements => IRawContent.create(:content => get_return_statements,
