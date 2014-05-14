@@ -12,6 +12,7 @@ class IClass < Ohm::Model
   index :name
   attribute :name
 
+  reference :parent_i_class, :IClass
   reference :i_namespace, :INamespace
 
   collection :i_methods, :IProcedure, :i_class
@@ -30,7 +31,8 @@ class IClass < Ohm::Model
     def build_class
       @model.current_i_class = self.create(:unique_name => get_unique_name,
                                            :name => get_name,
-                                           :i_namespace => @model.current_i_namespace)
+                                           :i_namespace => @model.current_i_namespace,
+                                           :parent_i_class => get_parent_class_unique_name)
     end
 
     def build_properties
@@ -75,6 +77,10 @@ class IClass < Ohm::Model
 
     def get_property_value property
       property.xpath('./subNode:default')
+    end
+
+    def get_parent_class_unique_name
+      '\\' + @a_class.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_unique_name
