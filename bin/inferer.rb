@@ -27,7 +27,7 @@ model.build
 # end
 
 
-IVariable.find(type: 'parameter').each do |parameter|
-  p parameter.unique_name
-end
+# IVariable.find(type: 'global').each do |parameter|
+#   p parameter.unique_name
+# end
 

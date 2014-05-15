@@ -2,14 +2,25 @@
 
 namespace ciao\asd\asdasdasd\iei;
 
-// $b = $c = $e;
+$GLOBALS[] = 1;
+$GLOBALS[12] = 1;
+$GLOBALS['a'] = 1;
+$GLOBALS['a']->b = 1;
+$GLOBALS['a']->b[1] = 1;
+$GLOBALS['a']->b[1][1] = 1;
+$GLOBALS['a'][1]->b = 1;
+$GLOBALS['a'][1][1]->b = 1;
+$GLOBALS['b'][1]->b[1] = 1;
 
- $v = '';
+// $b = $c = $e;
 // $$vv = 'pippo';
 // $a[1][2] = 'pippa';
 
 namespace ciao\asd\asdasdasd\iei;
 
+$GLOBALS['a'] = $a = 1;
+$GLOBALS[] = 1;
+$GLOBALS[12] = 1;
 $GLOBALS['a'] = 1;
 $GLOBALS['a']->b = 1;
 $GLOBALS['a']->b[1] = 1;

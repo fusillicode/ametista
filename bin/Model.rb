@@ -19,7 +19,6 @@ class Model
                         'Scalar_DirConst', 'Scalar_FuncConst',
                         'Scalar_ClassConst', 'Scalar_TraitConst',
                         'Scalar_MethodConst', 'Scalar_NSConst']
-
     @redis = Redis.new
   end
 
@@ -32,7 +31,8 @@ class Model
   def build_global_variables
     ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION',
      '_ENV', '_COOKIE'].each do |global_variable|
-      IVariable.create(:unique_name => global_variable)
+      IVariable.create(:unique_name => global_variable,
+                       :type => 'global')
     end
   end
 
@@ -82,34 +82,6 @@ class Model
   #     'array'
   #   elsif default_value === 'Scalar_String' or @magic_constants.include?(default_value)
   #     'string'
-  #   else
-  #     '✘'
-  #   end
-
-  # end
-
-  # def self.get_LHS(node)
-
-  #   node = node.xpath('./*[1]')[0]
-
-  #   case node.name
-  #   when 'Expr_Variable'
-  #     node.xpath('./subNode:name/scalar:string').text
-  #   when 'Expr_PropertyFetch'
-  #     self.get_LHS(node.xpath('./subNode:var')) + '->' + self.get_LHS(node.xpath('./subNode:name'))
-  #   when 'Expr_ArrayDimFetch'
-  #     self.get_LHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
-  #   # sia self:: che AClass::
-  #   when 'Expr_StaticPropertyFetch'
-  #     node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
-  #   when 'Expr_Assign'
-  #     self.get_LHS node.xpath('./subNode:var')
-  #   when 'Expr_Concat'
-  #     self.get_LHS(node.xpath('./subNode:left')) + '.' + self.get_LHS(node.xpath('./subNode:right'))
-  #   when 'Scalar_String'
-  #     node.xpath('./subNode:value/*').text
-  #   when 'string'
-  #     node.text
   #   else
   #     '✘'
   #   end
