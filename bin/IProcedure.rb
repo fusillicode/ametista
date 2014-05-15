@@ -1,7 +1,7 @@
 require "ohm"
-require_relative "./Unique"
-require_relative "./IRawContent"
-require_relative "./IVariable"
+require_relative "Unique"
+require_relative "IRawContent"
+require_relative "IVariable"
 
 class IProcedure < Ohm::Model
 

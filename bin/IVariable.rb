@@ -1,5 +1,5 @@
 require "ohm"
-require_relative "./Unique"
+require_relative "Unique"
 
 class IVariable < Ohm::Model
 

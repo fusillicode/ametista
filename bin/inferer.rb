@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative "./Model.rb"
+require_relative "Model.rb"
 
 model = Model.new
 model.build

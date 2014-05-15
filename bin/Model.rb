@@ -1,7 +1,8 @@
 require "redis"
 require "nokogiri"
-require_relative "./IType"
-require_relative "./INamespace"
+require_relative "IType"
+require_relative "IVariable"
+require_relative "INamespace"
 
 class Model
 
@@ -12,14 +13,27 @@ class Model
   attr_accessor :current_i_method
 
   def initialize
-    IType.build_types
+    build_types
+    build_global_variables
     @magic_constants = ['Scalar_LineConst', 'Scalar_FileConst',
                         'Scalar_DirConst', 'Scalar_FuncConst',
                         'Scalar_ClassConst', 'Scalar_TraitConst',
                         'Scalar_MethodConst', 'Scalar_NSConst']
-    @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
-                         'FILES', '_SESSION', '_ENV', '_COOKIE']
+
     @redis = Redis.new
+  end
+
+  def build_types
+    ['bool', 'int', 'double', 'string', 'array', 'null'].each do |type|
+      IType.create(:unique_name => type)
+    end
+  end
+
+  def build_global_variables
+    ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION',
+     '_ENV', '_COOKIE'].each do |global_variable|
+      IVariable.create(:unique_name => global_variable)
+    end
   end
 
   def build

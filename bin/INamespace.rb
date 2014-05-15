@@ -1,8 +1,9 @@
 require "ohm"
-require_relative "./Unique"
-require_relative "./IRawContent"
-require_relative "./IProcedure"
-require_relative "./IClass"
+require_relative "Unique"
+require_relative "IRawContent"
+require_relative "IProcedure"
+require_relative "IClass"
+require_relative "IVariable"
 
 class INamespace < Ohm::Model
 
@@ -67,6 +68,20 @@ class INamespace < Ohm::Model
       @model.current_i_namespace.statements = IRawContent.create(:content => get_raw_content,
                                                                  :i_namespace => @model.current_i_namespace)
       @model.current_i_namespace.save
+    end
+
+    def build_global_variables
+      get_global_variables.each do |global_variable|
+        IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
+                         :name => parameter_name,
+                         :type => 'parameter',
+                         :value => get_parameter_default_value(parameter),
+                         :i_procedure => @model.send("current_#{@procedure_type}"))
+      end
+    end
+
+    def get_global_variables
+      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign')
     end
 
     # def build_assignements
