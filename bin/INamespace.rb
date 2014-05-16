@@ -72,7 +72,7 @@ class INamespace < Ohm::Model
     end
 
     def build_global_variables
-        get_GLOBALS_variables.each do |global_variable|
+        get_GLOBALS_assignements.each do |global_variable|
           p get_global_variable_name(global_variable)
         end
         # get_global_variables.each do |global_variable|
@@ -90,44 +90,76 @@ class INamespace < Ohm::Model
       @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var/node:Expr_Variable')
     end
 
+    # def bottom_up(node)
+
+    #   case node.name
+    #   when 'Expr_PropertyFetch'
+    #     '->' + node.xpath('./subNode:name/scalar:string').text + bottom_up(node.parent)
+    #   when 'Expr_ArrayDimFetch'
+    #     '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']' + bottom_up(node.parent)
+    #   when 'Expr_Assign'
+    #     return ''
+    #   else
+    #     bottom_up(node.parent)
+    #   end
+
+    # end
+
+
     # ottieni le variabili globali accedute con GLOBALS
-    def get_GLOBALS_variables
-      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var[.//subNode:name/scalar:string = "GLOBALS"]')
+    def get_GLOBALS_assignements
+      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign[.//subNode:name/scalar:string = "GLOBALS"]')
+    end
+
+    def get_global_variable_name(node)
+      global_variable = ''
+      node.xpath('.//subNode:var').reverse.each do |sub_node_var|
+        sub_node_var_first_child = sub_node_var.xpath('./*[1]')[0]
+        case sub_node_var_first_child.name
+        when 'Expr_Variable'
+          global_variable << sub_node_var_first_child.xpath('./subNode:name/scalar:string').text
+        when 'Expr_PropertyFetch'
+          # global_variable << sub_node.xpath('./subNode:var') + '->' + node.xpath('./subNode:name')
+        when 'Expr_ArrayDimFetch'
+          # get_global_variable_name(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
+        end
+      end
+      global_variable
     end
 
     def get_global_variable_value(global_variable)
       global_variable.xpath('./subNode:expr')
     end
 
-    def get_global_variable_name(node)
+    # def get_global_variable_name(node)
 
-      node = node.xpath('./*[1]')[0]
+    #   node = node.xpath('./*[1]')[0]
 
-      case node.name
-      when 'Expr_Variable'
-        node.xpath('./subNode:name/scalar:string').text
-      when 'Expr_PropertyFetch'
-        get_global_variable_name(node.xpath('./subNode:var')) + '->' + get_global_variable_name(node.xpath('./subNode:name'))
-      when 'Expr_ArrayDimFetch'
-        get_global_variable_name(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
-      # e.g. $GLOBALS[AClass::$asd] = $a = 1;
-      # when 'Expr_StaticPropertyFetch'
-      #   node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
-      # when 'Expr_Assign'
-      #   get_global_variable_name node.xpath('./subNode:var')
-      # when 'Expr_Concat'
-      #   get_global_variable_name(node.xpath('./subNode:left')) + '.' + get_global_variable_name(node.xpath('./subNode:right'))
-      # when 'Scalar_String'
-      #   node.xpath('./subNode:value/*').text
-      # when 'Scalar_LNumber'
-      #   node.xpath('./subNode:value/*').text
-      when 'string'
-        node.text
-      else
-        '✘'
-      end
+    #   case node.name
+    #   when 'Expr_Variable'
+    #     node.xpath('./subNode:name/scalar:string').text
+    #   when 'Expr_PropertyFetch'
+    #     get_global_variable_name(node.xpath('./subNode:var')) + '->' + get_global_variable_name(node.xpath('./subNode:name'))
+    #   when 'Expr_ArrayDimFetch'
+    #     get_global_variable_name(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
+    #   # e.g. $GLOBALS[AClass::$asd] = $a = 1;
+    #   # when 'Expr_StaticPropertyFetch'
+    #   #   node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+    #   # when 'Expr_Assign'
+    #   #   get_global_variable_name node.xpath('./subNode:var')
+    #   # when 'Expr_Concat'
+    #   #   get_global_variable_name(node.xpath('./subNode:left')) + '.' + get_global_variable_name(node.xpath('./subNode:right'))
+    #   # when 'Scalar_String'
+    #   #   node.xpath('./subNode:value/*').text
+    #   # when 'Scalar_LNumber'
+    #   #   node.xpath('./subNode:value/*').text
+    #   when 'string'
+    #     node.text
+    #   else
+    #     '✘'
+    #   end
 
-    end
+    # end
 
     # def build_assignements
     #   get_assignements.each do |assignement|
