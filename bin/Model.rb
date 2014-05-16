@@ -88,4 +88,32 @@ class Model
 
   # end
 
+  # def self.get_LHS(node)
+
+  #   node = node.xpath('./*[1]')[0]
+
+  #   case node.name
+  #   when 'Expr_Variable'
+  #     node.xpath('./subNode:name/scalar:string').text
+  #   when 'Expr_PropertyFetch'
+  #     self.get_LHS(node.xpath('./subNode:var')) + '->' + self.get_LHS(node.xpath('./subNode:name'))
+  #   when 'Expr_ArrayDimFetch'
+  #     self.get_LHS(node.xpath('./subNode:var')) + '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']'
+  #   # sia self:: che AClass::
+  #   when 'Expr_StaticPropertyFetch'
+  #     node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
+  #   when 'Expr_Assign'
+  #     self.get_LHS node.xpath('./subNode:var')
+  #   when 'Expr_Concat'
+  #     self.get_LHS(node.xpath('./subNode:left')) + '.' + self.get_LHS(node.xpath('./subNode:right'))
+  #   when 'Scalar_String'
+  #     node.xpath('./subNode:value/*').text
+  #   when 'string'
+  #     node.text
+  #   else
+  #     '✘'
+  #   end
+
+  # end
+
 end

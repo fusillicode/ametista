@@ -2,7 +2,10 @@
 
 namespace ciao\asd\asdasdasd\iei;
 
+$GLOBALS[AClass::$asd + 1] = $a = 1;
+$GLOBALS[AClass::$asd] = $a = 1;
 $GLOBALS[] = 1;
+$GLOBALS[$a->$b] = 1;
 $GLOBALS[12] = 1;
 $GLOBALS['a'] = 1;
 $GLOBALS['a']->b = 1;
