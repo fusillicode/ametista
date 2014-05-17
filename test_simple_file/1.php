@@ -2,6 +2,11 @@
 
 namespace ciao\asd\asdasdasd\iei;
 
+$a[1]->b[1][1]->d = 1;
+$b = $c = $e;
+$$vv = 'pippo';
+$a[1][2] = 'pippa';
+
 $GLOBALS['a'][1][1]->b = 1;
 $GLOBALS[AClass::$asd + 1] = $a = 1;
 $GLOBALS[AClass::$asd] = $a = 1;
@@ -15,10 +20,6 @@ $GLOBALS['a']->b[1][1] = 1;
 $GLOBALS['a'][1]->b = 1;
 $GLOBALS['a'][1][1]->b = 1;
 $GLOBALS['b'][1]->b[1] = 1;
-
-$b = $c = $e;
-$$vv = 'pippo';
-$a[1][2] = 'pippa';
 
 namespace ciao\asd\asdasdasd\iei;
 

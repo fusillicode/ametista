@@ -31,6 +31,7 @@ class IProcedure < Ohm::Model
       set_scope
       build_procedure
       build_parameters
+      build_global_variables
       # build_global_variable_definitions(procedure_raw_content)
     end
 
@@ -72,36 +73,8 @@ class IProcedure < Ohm::Model
       end
     end
 
-    def get_name
-      @procedure.xpath('./subNode:name/scalar:string').text
-    end
+    def build_global_variables
 
-    def get_unique_name
-      '\\\\' << @procedure.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
-    end
-
-    def get_return_statements
-      @procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
-    end
-
-    def get_raw_content
-      @procedure.xpath('./subNode:stmts/scalar:array')
-    end
-
-    def get_parameters
-      @procedure.xpath('./subNode:params/scalar:array/node:Param')
-    end
-
-    def get_parameter_name(parameter)
-      parameter.xpath('./subNode:name/scalar:string').text
-    end
-
-    def get_parameter_unique_name(parameter_name)
-      @model.send("current_#{@procedure_type}").unique_name << "\\#{parameter_name}"
-    end
-
-    def get_parameter_default_value(parameter)
-      parameter.xpath('./subNode:default')
     end
 
     # def build_global_variable_definitions(raw_content)
@@ -140,6 +113,39 @@ class IProcedure < Ohm::Model
     #                    :type => 'global',
     #                    :i_procedure => current_procedure)
     # end
+
+
+    def get_name
+      @procedure.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_unique_name
+      '\\\\' << @procedure.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    end
+
+    def get_return_statements
+      @procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+    end
+
+    def get_raw_content
+      @procedure.xpath('./subNode:stmts/scalar:array')
+    end
+
+    def get_parameters
+      @procedure.xpath('./subNode:params/scalar:array/node:Param')
+    end
+
+    def get_parameter_name(parameter)
+      parameter.xpath('./subNode:name/scalar:string').text
+    end
+
+    def get_parameter_unique_name(parameter_name)
+      @model.send("current_#{@procedure_type}").unique_name << "\\#{parameter_name}"
+    end
+
+    def get_parameter_default_value(parameter)
+      parameter.xpath('./subNode:default')
+    end
 
   end
 
