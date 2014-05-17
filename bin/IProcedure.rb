@@ -77,7 +77,7 @@ class IProcedure < Ohm::Model
     end
 
     def get_unique_name
-      '\\\\' + @procedure.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+      '\\\\' << @procedure.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_return_statements
@@ -97,7 +97,7 @@ class IProcedure < Ohm::Model
     end
 
     def get_parameter_unique_name(parameter_name)
-      @model.send("current_#{@procedure_type}").unique_name + "\\#{parameter_name}"
+      @model.send("current_#{@procedure_type}").unique_name << "\\#{parameter_name}"
     end
 
     def get_parameter_default_value(parameter)

@@ -80,11 +80,11 @@ class IClass < Ohm::Model
     end
 
     def get_parent_class_unique_name
-      '\\' + @a_class.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+      '\\' << @a_class.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_unique_name
-      '\\' + @a_class.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+      '\\' << @a_class.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     end
 
     def get_name
