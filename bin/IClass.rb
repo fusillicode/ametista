@@ -24,16 +24,21 @@ class IClass < Ohm::Model
       @a_class = a_class
       @model = model
       build_class
+      build_parent_class
       build_properties
       build_methods
     end
 
     def build_class
-      return
       @model.current_i_class = self.create(:unique_name => get_unique_name,
                                            :name => get_name,
-                                           :i_namespace => @model.current_i_namespace,
-                                           :parent_i_class => get_parent_class_unique_name)
+                                           :i_namespace => @model.current_i_namespace)
+    end
+
+    def build_parent_class
+      return if (parent_class_name_parts = get_parent_class_name_parts).empty?
+      @model.current_i_class.parent_i_class = self.create(:unique_name => get_parent_class_unique_name(parent_class_name_parts),
+                                                          :name => get_parent_class_name(parent_class_name_parts))
     end
 
     def build_properties
@@ -80,8 +85,16 @@ class IClass < Ohm::Model
       property.xpath('./subNode:default')
     end
 
-    def get_parent_class_unique_name
-      '\\' << @a_class.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    def get_parent_class_name_parts
+      @a_class.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1]
+    end
+
+    def get_parent_class_unique_name(parent_class_name_parts)
+      '\\' << parent_class_name_parts[0..-1].to_a.join('\\')
+    end
+
+    def get_parent_class_name(parent_class_name_parts)
+      parent_class_name_parts.last().text
     end
 
     def get_unique_name
