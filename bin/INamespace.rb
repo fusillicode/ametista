@@ -152,17 +152,6 @@ class INamespace < Ohm::Model
         dim = node.xpath('./subNode:dim/*[name() = "node:Scalar_String" or name() = "node:Scalar_LNumber"]/subNode:value/*').text
         return false if dim.nil? || dim.empty?
         var << '[' << dim << ']'
-      # e.g. $GLOBALS[AClass::$asd] = $a = 1;
-      # when 'Expr_StaticPropertyFetch'
-      #   node.xpath('./subNode:class//subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('/') + '::' + node.xpath('./subNode:name/scalar:string')[0].text
-      # when 'Expr_Assign'
-      #   get_variable_name node.xpath('./subNode:var')
-      # when 'Expr_Concat'
-      #   get_variable_name(node.xpath('./subNode:left')) + '.' + get_variable_name(node.xpath('./subNode:right'))
-      # when 'Scalar_String'
-      #   node.xpath('./subNode:value/*').text
-      # when 'Scalar_LNumber'
-      #   node.xpath('./subNode:value/*').text
       when 'string'
         node.text
       else
