@@ -29,6 +29,7 @@ class IClass < Ohm::Model
     end
 
     def build_class
+      return
       @model.current_i_class = self.create(:unique_name => get_unique_name,
                                            :name => get_name,
                                            :i_namespace => @model.current_i_namespace,
@@ -38,14 +39,14 @@ class IClass < Ohm::Model
     def build_properties
       get_one_line_properties.each do |one_line_property|
 
-        get_properties.each do |property|
+        get_properties(one_line_property).each do |property|
 
           property_name = get_property_name(property)
 
-          IVariable.create(:unique_name => get_property_unique_name,
-                           :name => get_property_name,
+          IVariable.create(:unique_name => get_property_unique_name(property),
+                           :name => get_property_name(property),
                            :type => 'property',
-                           :value => get_property_value,
+                           :value => get_property_value(property),
                            :i_class => @model.current_i_class)
 
         end
@@ -63,19 +64,19 @@ class IClass < Ohm::Model
       @a_class.xpath('./subNode:stmts/scalar:array/node:Stmt_Property')
     end
 
-    def get_properties one_line_property
+    def get_properties(one_line_property)
       one_line_property.xpath('./subNode:props/scalar:array/node:Stmt_PropertyProperty')
     end
 
-    def get_property_unique_name property
+    def get_property_unique_name(property)
       property.xpath('./subNode:name/scalar:string').text
     end
 
-    def get_property_name property
+    def get_property_name(property)
       property.xpath('./subNode:name/scalar:string').text
     end
 
-    def get_property_value property
+    def get_property_value(property)
       property.xpath('./subNode:default')
     end
 
