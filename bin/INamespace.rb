@@ -144,14 +144,11 @@ class INamespace < Ohm::Model
       when 'Expr_Variable'
         node.xpath('./subNode:name/scalar:string').text
       when 'Expr_PropertyFetch'
-        var = get_variable_name(node.xpath('./subNode:var'))
-        return var if !var
-        name = get_variable_name(node.xpath('./subNode:name'))
-        return name if !name
+        return false if !var = get_variable_name(node.xpath('./subNode:var'))
+        return false if !name = get_variable_name(node.xpath('./subNode:name'))
         var << '->' << name
       when 'Expr_ArrayDimFetch'
-        var = get_variable_name(node.xpath('./subNode:var'))
-        return var if !var
+        return var if !var = get_variable_name(node.xpath('./subNode:var'))
         dim = node.xpath('./subNode:dim/*[name() = "node:Scalar_String" or name() = "node:Scalar_LNumber"]/subNode:value/*').text
         return false if dim.nil? || dim.empty?
         var << '[' << dim << ']'
