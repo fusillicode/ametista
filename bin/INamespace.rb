@@ -100,15 +100,20 @@ class INamespace < Ohm::Model
 
       case node.name
       when 'Expr_Variable'
-        node.xpath('./subNode:name/scalar:string').text
+        name = node.xpath('./subNode:name/scalar:string').text
+        # non tratto le variabili di variabli (e.g. $$v)
+        return false if name.nil? or name.empty?
+        name
       when 'Expr_PropertyFetch'
+        # non tratto proprietà con nomi dinamici
         return false if !var = get_variable_name(node.xpath('./subNode:var'))
         return false if !name = get_variable_name(node.xpath('./subNode:name'))
         var << '->' << name
       when 'Expr_ArrayDimFetch'
+        # non tratto indici di array dinamici
         return var if !var = get_variable_name(node.xpath('./subNode:var'))
         dim = node.xpath('./subNode:dim/*[name() = "node:Scalar_String" or name() = "node:Scalar_LNumber"]/subNode:value/*').text
-        return false if dim.nil? || dim.empty?
+        return false if dim.nil? or dim.empty?
         var << '[' << dim << ']'
       when 'string'
         node.text
