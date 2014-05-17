@@ -72,7 +72,7 @@ class INamespace < Ohm::Model
     end
 
     def build_global_variables
-        get_GLOBALS_assignements.each do |global_variable|
+        get_assignements.each do |global_variable|
           p get_variable_name(global_variable)
         end
         # get_global_variables.each do |global_variable|
@@ -85,52 +85,10 @@ class INamespace < Ohm::Model
         # end
     end
 
-    # le variabili plain
-    def get_global_variables
-      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var/node:Expr_Variable')
+    # le variabili assegnate
+    def get_assignements
+      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
     end
-
-    # def bottom_up(node)
-
-    #   case node.name
-    #   when 'Expr_PropertyFetch'
-    #     '->' + node.xpath('./subNode:name/scalar:string').text + bottom_up(node.parent)
-    #   when 'Expr_ArrayDimFetch'
-    #     '[' + node.xpath('./subNode:dim//subNode:value/*').text + ']' + bottom_up(node.parent)
-    #   when 'Expr_Assign'
-    #     return ''
-    #   else
-    #     bottom_up(node.parent)
-    #   end
-
-    # end
-
-
-    # ottieni le variabili globali accedute con GLOBALS
-    def get_GLOBALS_assignements
-      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var[.//subNode:name/scalar:string = "GLOBALS"]')
-    end
-
-    # iterative way (INCOMPLETE)
-    # def get_variable_name(node)
-    #   global_variable = ''
-    #   node.xpath('.//subNode:var').each do |sub_node_var|
-    #     sub_node_var_first_child = sub_node_var.xpath('./*[1]')[0]
-    #     case sub_node_var_first_child.name
-    #     when 'Expr_Variable'
-    #       global_variable << sub_node_var_first_child.xpath('./subNode:name/scalar:string').text
-    #     when 'Expr_PropertyFetch'
-    #       fetch_value = sub_node_var_first_child.xpath('./subNode:name/scalar:string').text
-    #       return false if fetch_value.empty?
-    #       global_variable << '->' << fetch_value
-    #     when 'Expr_ArrayDimFetch'
-    #       fetch_value = sub_node_var_first_child.xpath('./subNode:dim/*[name() = "Scalar_LNumber" or name() = "Scalar_String" ]').text
-    #       return false if fetch_value.empty?
-    #       global_variable << '[' << fetch_value << ']'
-    #     end
-    #   end
-    #   global_variable
-    # end
 
     def get_global_variable_value(global_variable)
       global_variable.xpath('./subNode:expr')

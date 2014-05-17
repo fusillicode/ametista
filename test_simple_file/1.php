@@ -16,9 +16,9 @@ $GLOBALS['a'][1]->b = 1;
 $GLOBALS['a'][1][1]->b = 1;
 $GLOBALS['b'][1]->b[1] = 1;
 
-// $b = $c = $e;
-// $$vv = 'pippo';
-// $a[1][2] = 'pippa';
+$b = $c = $e;
+$$vv = 'pippo';
+$a[1][2] = 'pippa';
 
 namespace ciao\asd\asdasdasd\iei;
 
