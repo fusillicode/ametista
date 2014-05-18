@@ -44,7 +44,7 @@ class IProcedure < Ohm::Model
         @scope = :i_class
         reference @scope, :IClass
       else
-        'RAISE EXCEPTION'
+        raise 'Wrong procedure type supplied! The procedure type should be :i_function or :i_method'
       end
     end
 
