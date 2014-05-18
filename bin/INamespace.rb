@@ -48,7 +48,6 @@ class INamespace < Ohm::Model
     def build_namespace
       build_global_variables
       # build_raw_content
-      # build_assignements
       build_functions
       build_classes
     end

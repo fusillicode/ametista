@@ -32,7 +32,7 @@ class IProcedure < Ohm::Model
       set_scope
       build_procedure
       build_parameters
-      build_global_variables
+      build_assigned_variables
       # build_global_variable_definitions(procedure_raw_content)
     end
 
@@ -74,8 +74,9 @@ class IProcedure < Ohm::Model
       end
     end
 
-    def build_global_variables
-
+    def build_assigned_variables
+      get_assignements_and_global_definitions().each do |variable|
+      end
     end
 
     # def build_global_variable_definitions(raw_content)
@@ -146,6 +147,10 @@ class IProcedure < Ohm::Model
 
     def get_parameter_default_value(parameter)
       parameter.xpath('./subNode:default')
+    end
+
+    def get_assignements_and_global_definitions
+      @procedure.xpath('./subNode:stmts/scalar:array/*[name() = "node:Expr_Assign" or name() = "node:Stmt_Global"]')
     end
 
   end
