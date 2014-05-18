@@ -39,6 +39,7 @@ class IClass < Ohm::Model
       return if (parent_class_name_parts = get_parent_class_name_parts).empty?
       @model.current_i_class.parent_i_class = self.create(:unique_name => get_parent_class_unique_name(parent_class_name_parts),
                                                           :name => get_parent_class_name(parent_class_name_parts))
+      @model.current_i_class.save
     end
 
     def build_properties
