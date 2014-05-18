@@ -21,6 +21,7 @@ class IProcedure < Ohm::Model
 
   collection :parameters, :IVariable, :i_procedure
   collection :local_variables, :IVariable, :i_procedure
+  collection :global_variables, :IVariable, :i_procedure
 
   class << self
 

@@ -125,12 +125,6 @@ class INamespace < Ohm::Model
 
     end
 
-    # def build_assignements
-    #   get_assignements.each do |assignement|
-    #     # puts @model.get_LHS assignement
-    #   end
-    # end
-
     def build_functions
       get_functions.each do |function|
         IProcedure.build(function, :i_function, @model)
@@ -157,10 +151,6 @@ class INamespace < Ohm::Model
 
     def get_raw_content
       @namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
-    end
-
-    def get_assignements
-      @namespace.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
     end
 
     def get_functions

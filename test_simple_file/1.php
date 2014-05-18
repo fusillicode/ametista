@@ -43,6 +43,8 @@ class Sole {
     $GLOBALS['a'] = 1;
     $GLOBALS['a']->b = 1;
     $GLOBALS['a']->b[1] = 1;
+
+    global $a;
     $GLOBALS['a']->b[1][1] = 1;
     $GLOBALS['a'][1]->b = 1;
     $GLOBALS['a'][1][1]->b = 1;
