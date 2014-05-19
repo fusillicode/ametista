@@ -15,6 +15,9 @@ class Model
   def initialize
     build_types
     build_global_variables
+    @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
+                         'FILES', '_SESSION', '_ENV', '_COOKIE']
+    @types = ['bool', 'int', 'double', 'string', 'array', 'null']
     @magic_constants = ['Scalar_LineConst', 'Scalar_FileConst',
                         'Scalar_DirConst', 'Scalar_FuncConst',
                         'Scalar_ClassConst', 'Scalar_TraitConst',
@@ -23,14 +26,13 @@ class Model
   end
 
   def build_types
-    ['bool', 'int', 'double', 'string', 'array', 'null'].each do |type|
+    @types.each do |type|
       IType.create(:unique_name => type)
     end
   end
 
   def build_global_variables
-    ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER', 'FILES', '_SESSION',
-     '_ENV', '_COOKIE'].each do |global_variable|
+    @global_variables.each do |global_variable|
       IVariable.create(:unique_name => global_variable,
                        :type => 'global')
     end

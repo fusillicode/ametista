@@ -101,6 +101,8 @@ class INamespace < Ohm::Model
       when 'Expr_Variable'
         name = node.xpath('./subNode:name/scalar:string').text
         # non tratto le variabili di variabli (e.g. $$v)
+        p name.class
+        exit
         return false if name.nil? or name.empty?
         # le variabili plain assegnate sono comunque in GLOBALS
         return "GLOBALS[#{name}]" if name != 'GLOBALS'
