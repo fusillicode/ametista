@@ -13,8 +13,6 @@ class Model
   attr_accessor :current_i_method
 
   def initialize
-    build_types
-    build_global_variables
     @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
                          'FILES', '_SESSION', '_ENV', '_COOKIE']
     @types = ['bool', 'int', 'double', 'string', 'array', 'null']
@@ -23,6 +21,8 @@ class Model
                         'Scalar_ClassConst', 'Scalar_TraitConst',
                         'Scalar_MethodConst', 'Scalar_NSConst']
     @redis = Redis.new
+    build_types
+    build_global_variables
   end
 
   def build_types
