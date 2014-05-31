@@ -1,6 +1,5 @@
 require "ohm"
 require_relative "Unique"
-require_relative "IRawContent"
 require_relative "IVariable"
 
 class IProcedure < Ohm::Model
@@ -15,9 +14,8 @@ class IProcedure < Ohm::Model
   # method, function
   index :type
   attribute :type
-
-  reference :statements, :IRawContent
-  reference :return_statements, :IRawContent
+  attribute :statements
+  attribute :return_statements
 
   collection :parameters, :IVariable, :i_procedure
   collection :local_variables, :IVariable, :i_procedure
@@ -54,10 +52,8 @@ class IProcedure < Ohm::Model
                               :name => get_name,
                               :type => @procedure_type,
                               @scope => @model.send("current_#{@scope}"),
-                              :statements => IRawContent.create(:content => get_raw_content,
-                                                                :i_procedure => @model.send("current_#{@procedure_type}")),
-                              :return_statements => IRawContent.create(:content => get_return_statements,
-                                                                       :i_procedure => @model.send("current_#{@procedure_type}"))))
+                              :statements => get_statements,
+                              :return_statements => get_return_statements))
     end
 
     def build_parameters
@@ -129,7 +125,7 @@ class IProcedure < Ohm::Model
       @procedure.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
     end
 
-    def get_raw_content
+    def get_statements
       @procedure.xpath('./subNode:stmts/scalar:array')
     end
 

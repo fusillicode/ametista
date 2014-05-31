@@ -1,6 +1,5 @@
 require "ohm"
 require_relative "Unique"
-require_relative "IRawContent"
 require_relative "IProcedure"
 require_relative "IClass"
 require_relative "IVariable"
@@ -13,9 +12,9 @@ class INamespace < Ohm::Model
 
   index :name
   attribute :name
+  attribute :statements
 
   reference :parent_i_namespace, :INamespace
-  reference :statements, :IRawContent
 
   collection :i_functions, :IProcedure, :i_namespace
   collection :i_classes, :IClass, :i_namespace
@@ -47,7 +46,6 @@ class INamespace < Ohm::Model
 
     def build_namespace
       build_global_variables
-      # build_raw_content
       build_functions
       build_classes
     end
@@ -60,14 +58,9 @@ class INamespace < Ohm::Model
       get_subnamespaces.each do |subnamespace|
         @model.current_i_namespace = self.create(:unique_name => get_subnamespace_unique_name(subnamespace),
                                                  :name => subnamespace.text,
-                                                 :parent_i_namespace => @model.current_i_namespace)
+                                                 :parent_i_namespace => @model.current_i_namespace,
+                                                 :statements => get_statements)
       end
-    end
-
-    def build_raw_content
-      @model.current_i_namespace.statements = IRawContent.create(:content => get_raw_content,
-                                                                 :i_namespace => @model.current_i_namespace)
-      @model.current_i_namespace.save
     end
 
     def build_global_variables
@@ -148,7 +141,7 @@ class INamespace < Ohm::Model
       "#{@model.current_i_namespace.unique_name}\\#{subnamespace.text}"
     end
 
-    def get_raw_content
+    def get_statements
       @namespace.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
     end
 
