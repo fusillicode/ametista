@@ -56,7 +56,7 @@ class INamespace < Ohm::Model
         subnamespace_unique_name = get_subnamespace_unique_name(subnamespace)
         self.create(:unique_name => subnamespace_unique_name,
                     :name => subnamespace.text,
-                    :parent_i_namespace => INamespace.find(unique_name: @model.current_scope).first,
+                    :parent_i_namespace => self.find(unique_name: @model.current_scope).first,
                     :statements => get_statements)
         @model.push_scope(subnamespace_unique_name)
       end
