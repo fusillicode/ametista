@@ -31,16 +31,18 @@ class IClass < Ohm::Model
     end
 
     def build_class
-      @model.current_i_class = self.create(:unique_name => get_unique_name,
-                                           :name => get_name,
-                                           :i_namespace => @model.current_i_namespace)
+      class_unique_name = get_unique_name
+      @current_i_class = self.create(:unique_name => class_unique_name,
+                                      :name => get_name,
+                                      :i_namespace => INamespace.find(unique_name: @model.current_scope).first)
+      @model.push_scope(class_unique_name)
     end
 
     def build_parent_class
       return if (parent_class_name_parts = get_parent_class_name_parts).empty?
-      @model.current_i_class.parent_i_class = self.create(:unique_name => get_parent_class_unique_name(parent_class_name_parts),
-                                                          :name => get_parent_class_name(parent_class_name_parts))
-      @model.current_i_class.save
+      @current_i_class.parent_i_class = self.create(:unique_name => get_parent_class_unique_name(parent_class_name_parts),
+                                                   :name => get_parent_class_name(parent_class_name_parts))
+      @current_i_class.save
     end
 
     def build_properties
@@ -54,7 +56,7 @@ class IClass < Ohm::Model
                            :name => get_property_name(property),
                            :type => 'property',
                            :value => get_property_value(property),
-                           :i_class => @model.current_i_class)
+                           :i_class => @current_i_class)
 
         end
 
