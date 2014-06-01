@@ -7,10 +7,6 @@ require_relative "INamespace"
 class Model
 
   attr_reader :redis
-  attr_accessor :current_i_namespace
-  attr_accessor :current_i_function
-  attr_accessor :current_i_class
-  attr_accessor :current_i_method
 
   def initialize
     @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
@@ -54,6 +50,22 @@ class Model
 
   def last_ast?(ast)
     ast == "THAT'S ALL FOLKS!"
+  end
+
+  def push_scope(key)
+    redis.lpush('scope_stack', key)
+  end
+
+  def pop_scope
+    redis.lpop('scope_stack')
+  end
+
+  def current_scope
+    redis.lrange('scope_stack', 0, 0)[0]
+  end
+
+  def reset_scope
+    redis.del('scope_stack')
   end
 
   # ##############################################################################

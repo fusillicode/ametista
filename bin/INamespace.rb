@@ -7,6 +7,7 @@ require_relative "IVariable"
 class INamespace < Ohm::Model
 
   extend Unique
+  index :unique_name
   unique :unique_name
   attribute :unique_name
 
@@ -29,8 +30,8 @@ class INamespace < Ohm::Model
     end
 
     def build_global_namespace
-      @model.current_i_namespace = self.create(:unique_name => '\\',
-                                               :name => '\\')
+      self.create(:unique_name => '\\', :name => '\\')
+      @model.push_scope('\\')
       @namespace = @ast
       build_namespace
     end
@@ -40,26 +41,24 @@ class INamespace < Ohm::Model
         @namespace = namespace
         build_subnamespaces
         build_namespace
-        set_global_namespace
+        @model.reset_scope
       end
     end
 
     def build_namespace
       build_global_variables
-      build_functions
-      build_classes
-    end
-
-    def set_global_namespace
-      @model.current_i_namespace = self.with(:unique_name, '\\')
+      # build_functions
+      # build_classes
     end
 
     def build_subnamespaces
       get_subnamespaces.each do |subnamespace|
-        @model.current_i_namespace = self.create(:unique_name => get_subnamespace_unique_name(subnamespace),
-                                                 :name => subnamespace.text,
-                                                 :parent_i_namespace => @model.current_i_namespace,
-                                                 :statements => get_statements)
+        subnamespace_unique_name = get_subnamespace_unique_name(subnamespace)
+        self.create(:unique_name => subnamespace_unique_name,
+                    :name => subnamespace.text,
+                    :parent_i_namespace => INamespace.find(unique_name: @model.current_scope).first,
+                    :statements => get_statements)
+        @model.push_scope(subnamespace_unique_name)
       end
     end
 
@@ -138,7 +137,7 @@ class INamespace < Ohm::Model
     end
 
     def get_subnamespace_unique_name(subnamespace)
-      "#{@model.current_i_namespace.unique_name}\\#{subnamespace.text}"
+      "#{@model.current_scope}\\#{subnamespace.text}"
     end
 
     def get_statements
