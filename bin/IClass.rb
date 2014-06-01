@@ -6,6 +6,7 @@ require_relative "IProcedure"
 class IClass < Ohm::Model
 
   extend Unique
+  index :unique_name
   unique :unique_name
   attribute :unique_name
 
