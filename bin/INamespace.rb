@@ -155,3 +155,4 @@ class INamespace < Ohm::Model
   end
 
 end
+
