@@ -18,7 +18,9 @@ wget "http://download.redis.io/releases/$REDIS_PACKAGE"
 tar xzf "$REDIS_PACKAGE"
 cd "$REDIS"
 make
-cd ../..
+cd ..
+mv "$REDIS" redis
+cd ..
 
 # Install MongoDb in vendor subdirectory
 cd vendor
@@ -39,6 +41,7 @@ MONGODB="mongodb-$PLATFORM-x86_64-$MONGODB_VERSION"
 MONGODB_PACKAGE="$MONGODB.tgz"
 curl -O "http://downloads.mongodb.org/$PLATFORM/$MONGODB_PACKAGE"
 tar -zxvf "$MONGODB_PACKAGE"
+mv "$MONGODB" mongodb
 
 # Install required Gems
 bundle install

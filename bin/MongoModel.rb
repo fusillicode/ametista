@@ -1,3 +1,4 @@
+require "mongo"
 require "mongoid"
 
 class IScope
@@ -66,3 +67,12 @@ end
 class IParameter < IVariable
   belongs_to :procedure
 end
+
+def start_mongod
+  mongod = fork do
+    exec './vendor/mongodb/bin/mongod --dbpath ./database > ./database/mongod.log'
+  end
+  Process.detach mongod
+end
+
+Mongoid.load!('./mongoid.yml', :development)
