@@ -88,8 +88,19 @@ class MongoDaemon
 
 end
 
-def connect_to_mongod
-  Mongoid.load!('./mongoid.yml', :development)
+class ModelBuilder
+
+  def initialize mongoid_configuration = './mongoid.yml', environment = :development
+    @mongoid_configuration = mongoid_configuration
+    @environment = environment
+    connect_to_mongod
+  end
+
+  def connect_to_mongo_daemon
+    Mongoid.load!(@mongoid_configuration, @environment)
+  end
+
 end
+
 
 
