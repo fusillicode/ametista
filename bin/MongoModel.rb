@@ -1,17 +1,19 @@
+require "mongoid"
+
 class IScope
-  include MongoMapper::Document
+  include Mongoid::Document
   has_one :child_scope, class_name: 'IScope', inverse_of: :parent_scope
   belongs_to :parent_scope, class_name: 'IScope', inverse_of: :child_scope
   has_many :assignements, class_name: 'IAssignement', inverse_of: :parent_scope
-  key :id, String
-  key :name, String
-  key :statements, String
+  field :id, type: String
+  field :name, type: String
+  field :statements, type: String
 end
 
 class IProcedure < IScope
   has_many :parameters
   has_many :local_variables
-  key :return_value, String
+  field :return_value, type: String
 end
 
 class INamespace < IScope
@@ -38,13 +40,13 @@ class IFunction < IProcedure
 end
 
 class IAssignement
-  include MongoMapper::Document
+  include Mongoid::Document
   has_one :variable
   belongs_to :parent_scope, class_name: 'IScope', inverse_of: :assignements
 end
 
 class IVariable
-  include MongoMapper::Document
+  include Mongoid::Document
   has_many :assignements
   belongs_to :scope
 end
