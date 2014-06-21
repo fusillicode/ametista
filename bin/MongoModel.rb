@@ -68,11 +68,28 @@ class IParameter < IVariable
   belongs_to :procedure
 end
 
-def start_mongod
-  mongod = fork do
-    exec './vendor/mongodb/bin/mongod --dbpath ./database > ./database/mongod.log'
+class MongoDaemon
+
+  def initialize path = './vendor/mongodb/bin/mongod', database = './database', port = 27017, log = './database/mongod.log'
+    @path = path
+    @database = database
+    @port = port
+    @log = log
+    start
   end
-  Process.detach mongod
+
+  def start
+    @pid = Process.spawn "@path --fork --dbpath #{@database} --logpath #{@log}"
+  end
+
+  def stop
+    Process.kill('TERM', @pid)
+  end
+
 end
 
-Mongoid.load!('./mongoid.yml', :development)
+def connect_to_mongod
+  Mongoid.load!('./mongoid.yml', :development)
+end
+
+
