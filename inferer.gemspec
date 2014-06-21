@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "redis"
   spec.add_development_dependency "nokogiri"
   spec.add_development_dependency "ohm"
+  spec.add_development_dependency "mongoid"
 end
