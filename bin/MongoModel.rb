@@ -1,67 +1,66 @@
 class IScope
   include MongoMapper::Document
-  one :scope
-  belogs_to :scope
-  many :assignements
+  has_one :child_scope, class_name: 'IScope', inverse_of: :parent_scope
+  belongs_to :parent_scope, class_name: 'IScope', inverse_of: :child_scope
+  has_many :assignements, class_name: 'IAssignement', inverse_of: :parent_scope
   key :id, String
   key :name, String
-  key :statements
+  key :statements, String
 end
 
 class IProcedure < IScope
-  many :paramters
-  many :localal_variables
-  key :return_value
+  has_many :parameters
+  has_many :local_variables
+  key :return_value, String
 end
 
 class INamespace < IScope
-  belogs_to :namespace
-  many :functions
-  many :classes
-  many :global_variables
+  belongs_to :namespace
+  has_many :functions
+  has_many :classes
+  has_many :global_variables
 end
 
 class IClass < IScope
-  one :class
-  belogs_to :class
-  belogs_to :namespace
-  many :methods
-  many :properties
+  has_one :class
+  belongs_to :class
+  belongs_to :namespace
+  has_many :methods
+  has_many :properties
 end
 
 class IMethod < IProcedure
-  belogs_to :class
+  belongs_to :class
 end
 
 class IFunction < IProcedure
-  belogs_to :namespace
+  belongs_to :namespace
 end
 
 class IAssignement
   include MongoMapper::Document
-  one :variable
-  one :scope
-  belogs_to :scope
+  has_one :variable
+  belongs_to :parent_scope, class_name: 'IScope', inverse_of: :assignements
 end
 
 class IVariable
   include MongoMapper::Document
-  many :assignements
-  belogs_to :scope
+  has_many :assignements
+  belongs_to :scope
 end
 
 class IGlobalVariable < IVariable
-  belogs_to :namespace
+  belongs_to :namespace
 end
 
 class ILocalVariable < IVariable
-  belogs_to :procedure
+  belongs_to :procedure
 end
 
 class IProperty < IVariable
-  belogs_to :class
+  belongs_to :class
 end
 
 class IParameter < IVariable
-  belogs_to :procedure
+  belongs_to :procedure
 end
