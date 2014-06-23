@@ -20,6 +20,7 @@ end
 class IVariable
   include Mongoid::Document
   has_many :assignements, class_name: 'IAssignement', inverse_of: :variable
+  field :name, type: String
 end
 
 class IProcedure < IScope
@@ -68,6 +69,10 @@ class IParameter < IVariable
   belongs_to :procedure, class_name: 'IProcedure', inverse_of: :parameters
 end
 
+class IType
+  include Mongoid::Document
+end
+
 class MongoDaemon
 
   def initialize path = './vendor/mongodb/bin/mongod', database = './database', port = 27017, log = './database/mongod.log'
@@ -79,7 +84,7 @@ class MongoDaemon
   end
 
   def start
-    @pid = Process.spawn "@path --fork --dbpath #{@database} --logpath #{@log}"
+    @pid = Process.spawn "#{@path} --fork --dbpath #{@database} --logpath #{@log}"
   end
 
   def stop
@@ -93,14 +98,19 @@ class ModelBuilder
   def initialize mongoid_configuration = './mongoid.yml', environment = :development
     @mongoid_configuration = mongoid_configuration
     @environment = environment
-    connect_to_mongod
+    connect
   end
 
-  def connect_to_mongo_daemon
+  def connect
     Mongoid.load!(@mongoid_configuration, @environment)
+  end
+
+  def initialize_global_variables
   end
 
 end
 
-
-
+mongo_daemon = MongoDaemon.new
+model_builder = ModelBuilder.new
+p ILocalVariable.create(name: 'pippo')
+p IVariable.where(_type: 'ILocalVariable').to_a
