@@ -34,6 +34,9 @@ class IProcedure < IScope
   field :id, type: String
   field :name, type: String
   field :return_value, type: String
+  field :id, type: String
+  index({ id: 1 }, { unique: true })
+  field :name, type: String
 end
 
 class INamespace < IScope
@@ -42,6 +45,7 @@ class INamespace < IScope
   has_many :functions, class_name: 'IFunction', inverse_of: :namespace
   has_many :classes, class_name: 'IClass', inverse_of: :namespace
   field :id, type: String
+  index({ id: 1 }, { unique: true })
   field :name, type: String
 end
 
@@ -52,6 +56,9 @@ class IClass
   belongs_to :namespace, class_name: 'INamespace', inverse_of: :classes
   has_many :methods, class_name: 'IMethod', inverse_of: :class
   has_many :properties, class_name: 'IProperty', inverse_of: :class
+  field :id, type: String
+  index({ id: 1 }, { unique: true })
+  field :name, type: String
 end
 
 class IMethod < IProcedure
@@ -167,5 +174,6 @@ end
 # mongo_daemon = MongoDaemon.new
 model_builder = ModelBuilder.new
 model_builder.clear_model
-# model_builder.build
+model_builder.build
 p IType.all.count
+
