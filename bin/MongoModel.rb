@@ -3,8 +3,7 @@ require "mongoid"
 class IScope
   include Mongoid::Document
   has_many :assignements, class_name: 'IAssignement', inverse_of: :scope
-  has_many :branches, class_name: 'IBranch', inverse_of: :scope
-  field :name, type: String
+  has_many :branches, class_name: 'IBranch', inverse_of: :scopes
 end
 
 class IBranch < IScope
@@ -31,6 +30,8 @@ end
 
 class IProcedure < IScope
   has_many :parameters, class_name: 'IParameter', inverse_of: :procedure
+  field :id, type: String
+  field :name, type: String
   field :return_value, type: String
 end
 
@@ -39,6 +40,8 @@ class INamespace < IScope
   has_many :child_namespaces, class_name: 'INamespace', inverse_of: :parent_namespace
   has_many :functions, class_name: 'IFunction', inverse_of: :namespace
   has_many :classes, class_name: 'IClass', inverse_of: :namespace
+  field :id, type: String
+  field :name, type: String
 end
 
 class IClass
@@ -99,6 +102,8 @@ end
 
 class Model
 
+  attr_accessor :global_variables, :types, :magic_constants, :ast
+
   def initialize
     @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
                          'FILES', '_SESSION', '_ENV', '_COOKIE']
@@ -107,6 +112,7 @@ class Model
                         'Scalar_DirConst', 'Scalar_FuncConst',
                         'Scalar_ClassConst', 'Scalar_TraitConst',
                         'Scalar_MethodConst', 'Scalar_NSConst']
+    @ast = nil
   end
 
 end
@@ -122,6 +128,7 @@ class ModelBuilder
     connect
     @redis = redis or Redis.new
     @model = model or Model.new
+    build_types
   end
 
   def connect
@@ -129,8 +136,14 @@ class ModelBuilder
   end
 
   def build
-    while ast = parse(asts)
-      INamespace.build(ast, @model)
+    while @model.ast = parse(asts)
+      INamespaceBuilder.build(@model)
+    end
+  end
+
+  def build_types
+    @model.types.each do |type|
+      IType.create(name: type)
     end
   end
 
@@ -144,14 +157,6 @@ class ModelBuilder
 
   def last_ast? ast
     ast == "THAT'S ALL FOLKS!"
-  end
-
-  def build_global_namespace
-
-  end
-
-  def build_global_variables
-
   end
 
 end
