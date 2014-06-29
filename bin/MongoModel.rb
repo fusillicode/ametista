@@ -24,6 +24,7 @@ class IVariable
 end
 
 class IType
+  include Mongoid::Document
   has_and_belongs_to_many :variables, class_name: 'IVariable', inverse_of: :types
   field :name, type: String
 end
@@ -45,6 +46,7 @@ class INamespace < IScope
 end
 
 class IClass
+  include Mongoid::Document
   belongs_to :parent_class, class_name: 'IClass', inverse_of: :child_classes
   has_many :child_classes, class_name: 'IClass', inverse_of: :parent_class
   belongs_to :namespace, class_name: 'INamespace', inverse_of: :classes
@@ -76,10 +78,6 @@ class IParameter < IVariable
   belongs_to :procedure, class_name: 'IProcedure', inverse_of: :parameters
 end
 
-class IType
-  include Mongoid::Document
-end
-
 class MongoDaemon
 
   def initialize path = './vendor/mongodb/bin/mongod', database = './database', port = 27017, log = './database/mongod.log'
@@ -91,6 +89,7 @@ class MongoDaemon
   end
 
   def start
+    p "#{@path} --fork --dbpath #{@database} --logpath #{@log}"
     @pid = Process.spawn "#{@path} --fork --dbpath #{@database} --logpath #{@log}"
   end
 
@@ -126,9 +125,10 @@ class ModelBuilder
     @mongoid_configuration = mongoid_configuration
     @environment = environment
     connect
-    @redis = redis or Redis.new
-    @model = model or Model.new
+    @redis = redis || Redis.new
+    @model = model || Model.new
     build_types
+    exit
   end
 
   def connect
@@ -163,5 +163,4 @@ end
 
 mongo_daemon = MongoDaemon.new
 model_builder = ModelBuilder.new
-p ILocalVariable.create(name: 'pippo')
-p IVariable.where(_type: 'ILocalVariable').to_a
+p IType.all.to_a
