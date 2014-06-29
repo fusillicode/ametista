@@ -4,7 +4,7 @@ include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
 class Parser
 {
-  public function __construct($server_path = 'vendor/redis-2.8.5/src/',
+  public function __construct($server_path = 'vendor/redis/src/',
                               $server_executable = 'redis-server',
                               $address = '', $parser = null, $lexer = null,
                               $traverser = null, $visitors = array(),
