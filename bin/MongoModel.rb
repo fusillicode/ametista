@@ -89,7 +89,6 @@ class MongoDaemon
   end
 
   def start
-    p "#{@path} --fork --dbpath #{@database} --logpath #{@log}"
     @pid = Process.spawn "#{@path} --fork --dbpath #{@database} --logpath #{@log}"
   end
 
@@ -118,24 +117,24 @@ end
 
 require 'redis'
 require 'nokogiri'
+require_relative 'INamespaceBuilder'
 
 class ModelBuilder
 
   def initialize mongoid_configuration = './mongoid.yml', environment = :development, redis = nil, model = nil
     @mongoid_configuration = mongoid_configuration
     @environment = environment
-    connect
+    connect_to_mongod
     @redis = redis || Redis.new
     @model = model || Model.new
-    build_types
-    exit
   end
 
-  def connect
+  def connect_to_mongod
     Mongoid.load!(@mongoid_configuration, @environment)
   end
 
   def build
+    build_types
     while @model.ast = parse(asts)
       INamespaceBuilder.build(@model)
     end
@@ -147,8 +146,12 @@ class ModelBuilder
     end
   end
 
+  def clear_model
+    Mongoid::Config.purge!
+  end
+
   def asts
-    redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
+    @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
   end
 
   def parse ast
@@ -161,6 +164,8 @@ class ModelBuilder
 
 end
 
-mongo_daemon = MongoDaemon.new
+# mongo_daemon = MongoDaemon.new
 model_builder = ModelBuilder.new
-p IType.all.to_a
+model_builder.clear_model
+# model_builder.build
+p IType.all.count
