@@ -158,7 +158,7 @@ class ModelBuilder
   end
 
   def asts
-    @redis.brpoplpush('xmls_asts', 'done', :timeout => 0)
+    @redis.brpoplpush('xmls_asts', 'done', timeout: 0)
   end
 
   def parse ast

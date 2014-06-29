@@ -9,14 +9,14 @@ class INamespaceBuilder
     end
 
     def build_global_namespace
-      @current_namespace = INamespace.create(id: '\\', :name => '\\')
-      @current_namespace_ast = @model.ast
+      @current_namespace = { model: INamespace.create(id: '\\', name: '\\'),
+                             ast: @model.ast }
       build_namespace
     end
 
     def build_other_namespaces
       get_namespaces.each do |namespace|
-        @current_namespace_ast = namespace
+        @current_namespace[:ast] = namespace
         build_subnamespaces
         build_namespace
       end
@@ -30,7 +30,7 @@ class INamespaceBuilder
 
     def build_subnamespaces
       get_subnamespaces.each do |subnamespace|
-        @current_namespace = @current_namespace.child_namespaces.find_or_create_by(unique_name: get_subnamespace_unique_name(subnamespace), name: subnamespace.text)
+        @current_namespace[:model] = @current_namespace[:model].child_namespaces.find_or_create_by(unique_name: get_subnamespace_unique_name(subnamespace), name: subnamespace.text)
       end
     end
 
@@ -50,7 +50,7 @@ class INamespaceBuilder
 
     # le variabili assegnate
     def get_assignements
-      @current_namespace_ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+      @current_namespace[:ast].xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
     end
 
     def get_global_variable_value(global_variable)
@@ -105,23 +105,23 @@ class INamespaceBuilder
     end
 
     def get_subnamespaces
-      @current_namespace_ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+      @current_namespace[:ast].xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
     end
 
     def get_subnamespace_unique_name(subnamespace)
-      "#{@current_namespace.unique_name}\\#{subnamespace.text}"
+      "#{@current_namespace[:model].unique_name}\\#{subnamespace.text}"
     end
 
     def get_statements
-      @current_namespace_ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+      @current_namespace[:ast].xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
     end
 
     def get_functions
-      @current_namespace_ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+      @current_namespace[:ast].xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
     end
 
     def get_classes
-      @current_namespace_ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
+      @current_namespace[:ast].xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
     end
 
   end
