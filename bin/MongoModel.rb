@@ -27,15 +27,15 @@ class IType
   include Mongoid::Document
   has_and_belongs_to_many :variables, class_name: 'IVariable', inverse_of: :types
   field :name, type: String
+  index({ name: 1 }, { unique: true })
 end
 
 class IProcedure < IScope
   has_many :parameters, class_name: 'IParameter', inverse_of: :procedure
-  field :id, type: String
   field :name, type: String
   field :return_value, type: String
-  field :id, type: String
-  index({ id: 1 }, { unique: true })
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
   field :name, type: String
 end
 
@@ -44,8 +44,8 @@ class INamespace < IScope
   has_many :child_namespaces, class_name: 'INamespace', inverse_of: :parent_namespace
   has_many :functions, class_name: 'IFunction', inverse_of: :namespace
   has_many :classes, class_name: 'IClass', inverse_of: :namespace
-  field :id, type: String
-  index({ id: 1 }, { unique: true })
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
   field :name, type: String
 end
 
@@ -56,8 +56,8 @@ class IClass
   belongs_to :namespace, class_name: 'INamespace', inverse_of: :classes
   has_many :methods, class_name: 'IMethod', inverse_of: :class
   has_many :properties, class_name: 'IProperty', inverse_of: :class
-  field :id, type: String
-  index({ id: 1 }, { unique: true })
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
   field :name, type: String
 end
 
