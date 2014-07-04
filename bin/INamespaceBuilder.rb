@@ -24,7 +24,7 @@ class INamespaceBuilder
 
     def build_namespace
       # build_global_variables
-      # build_functions
+      build_functions
       # build_classes
     end
 
@@ -90,7 +90,8 @@ class INamespaceBuilder
 
     def build_functions
       get_functions.each do |function|
-        IFunctionBuilder.build(@model)
+        @model.ast = function
+        @current_namespace[:model].functions << IFunctionBuilder.build(@model)
       end
     end
 
