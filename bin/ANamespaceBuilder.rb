@@ -1,4 +1,4 @@
-class INamespaceBuilder
+class ANamespaceBuilder
 
   class << self
 
@@ -9,7 +9,7 @@ class INamespaceBuilder
     end
 
     def build_global_namespace
-      @current_namespace = { model: INamespace.create(id: '\\', name: '\\'),
+      @current_namespace = { model: ANamespace.create(id: '\\', name: '\\'),
                              ast: @model.ast }
       build_namespace
     end
@@ -40,7 +40,7 @@ class INamespaceBuilder
         end
         # get_global_variables.each do |global_variable|
         # global_variable_name = get_variable_name(get_global_variable_value)
-        # IVariable.create(:unique_name => global_variable_name,
+        # AVariable.create(:unique_name => global_variable_name,
         #                  :name => global_variable_name,
         #                  :type => 'global',
         #                  :value => get_global_variable_value(get_global_variable_value),
@@ -91,13 +91,13 @@ class INamespaceBuilder
     def build_functions
       get_functions.each do |function|
         @model.ast = function
-        @current_namespace[:model].functions << IFunctionBuilder.build(@model)
+        @current_namespace[:model].functions << AFunctionBuilder.build(@model)
       end
     end
 
     def build_classes
       get_classes.each do |a_class|
-        IClassBuilder.build(@model)
+        AClassBuilder.build(@model)
       end
     end
 

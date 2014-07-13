@@ -1,88 +1,87 @@
 require "mongoid"
 
-class IScope
+class AScope
   include Mongoid::Document
-  has_many :assignements, class_name: 'IAssignement', inverse_of: :scope
-  has_many :branches, class_name: 'IBranch', inverse_of: :scopes
+  has_many :assignements, class_name: 'AnAssignement', inverse_of: :scope
+  has_many :branches, class_name: 'ABranch', inverse_of: :scopes
 end
 
-class IBranch < IScope
-  belongs_to :scope, class_name: 'IScope', inverse_of: :branches
-end
-
-class IAssignement
+class AnAssignement
   include Mongoid::Document
-  has_one :variable, class_name: 'IVariable', inverse_of: :assignements
-  belongs_to :scope, class_name: 'IScope', inverse_of: :assignements
+  has_one :variable, class_name: 'AVariable', inverse_of: :assignements
+  belongs_to :scope, class_name: 'AScope', inverse_of: :assignements
   field :RHS, type: String
 end
 
-class IVariable
-  include Mongoid::Document
-  has_many :assignements, class_name: 'IAssignement', inverse_of: :variable
-  has_and_belongs_to_many :types, class_name: 'IType', inverse_of: :variables
+class ABranch < AScope
+  belongs_to :scope, class_name: 'AScope', inverse_of: :branches
 end
 
-class IType
+class AVariable
   include Mongoid::Document
-  has_and_belongs_to_many :variables, class_name: 'IVariable', inverse_of: :types
+  has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
+  has_and_belongs_to_many :types, class_name: 'AType', inverse_of: :variables
+end
+
+class AType
+  include Mongoid::Document
+  has_and_belongs_to_many :variables, class_name: 'AVariable', inverse_of: :types
   field :name, type: String
   index({ name: 1 }, { unique: true })
 end
 
-class IProcedure < IScope
-  has_many :parameters, class_name: 'IParameter', inverse_of: :procedure
-  field :name, type: String
+class AProcedure < AScope
+  has_many :parameters, class_name: 'AParameter', inverse_of: :procedure
   field :return_value, type: String
+  field :name, type: String
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
+end
+
+class ANamespace < AScope
+  belongs_to :parent_namespace, class_name: 'ANamespace', inverse_of: :child_namespaces
+  has_many :child_namespaces, class_name: 'ANamespace', inverse_of: :parent_namespace
+  has_many :functions, class_name: 'AFunction', inverse_of: :namespace
+  has_many :classes, class_name: 'AClass', inverse_of: :namespace
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
   field :name, type: String
 end
 
-class INamespace < IScope
-  belongs_to :parent_namespace, class_name: 'INamespace', inverse_of: :child_namespaces
-  has_many :child_namespaces, class_name: 'INamespace', inverse_of: :parent_namespace
-  has_many :functions, class_name: 'IFunction', inverse_of: :namespace
-  has_many :classes, class_name: 'IClass', inverse_of: :namespace
-  field :unique_name, type: String
-  index({ unique_name: 1 }, { unique: true })
-  field :name, type: String
-end
-
-class IClass
+class AClass
   include Mongoid::Document
-  belongs_to :parent_class, class_name: 'IClass', inverse_of: :child_classes
-  has_many :child_classes, class_name: 'IClass', inverse_of: :parent_class
-  belongs_to :namespace, class_name: 'INamespace', inverse_of: :classes
-  has_many :methods, class_name: 'IMethod', inverse_of: :class
-  has_many :properties, class_name: 'IProperty', inverse_of: :class
+  belongs_to :parent_class, class_name: 'AClass', inverse_of: :child_classes
+  has_many :child_classes, class_name: 'AClass', inverse_of: :parent_class
+  belongs_to :namespace, class_name: 'ANamespace', inverse_of: :classes
+  has_many :methods, class_name: 'AMethod', inverse_of: :class
+  has_many :properties, class_name: 'AProperty', inverse_of: :class
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
   field :name, type: String
 end
 
-class IMethod < IProcedure
-  belongs_to :class, class_name: 'IClass', inverse_of: :methods
+class AMethod < AProcedure
+  belongs_to :class, class_name: 'AClass', inverse_of: :methods
 end
 
-class IFunction < IProcedure
-  belongs_to :namespace, class_name: 'INamespace', inverse_of: :functions
+class AFunction < AProcedure
+  belongs_to :namespace, class_name: 'ANamespace', inverse_of: :functions
 end
 
-class IGlobalVariable < IVariable
-  belongs_to :namespace, class_name: 'INamespace', inverse_of: :global_variables
+class AGlobalVariable < AVariable
+  belongs_to :namespace, class_name: 'ANamespace', inverse_of: :global_variables
 end
 
-class ILocalVariable < IVariable
-  belongs_to :procedure, class_name: 'IProcedure', inverse_of: :local_variables
+class ALocalVariable < AVariable
+  belongs_to :procedure, class_name: 'AProcedure', inverse_of: :local_variables
 end
 
-class IProperty < IVariable
-  belongs_to :class, class_name: 'IClass', inverse_of: :properties
+class AProperty < AVariable
+  belongs_to :class, class_name: 'AClass', inverse_of: :properties
 end
 
-class IParameter < IVariable
-  belongs_to :procedure, class_name: 'IProcedure', inverse_of: :parameters
+class AParameter < AVariable
+  belongs_to :procedure, class_name: 'AProcedure', inverse_of: :parameters
 end
 
 class MongoDaemon
@@ -111,7 +110,7 @@ class Model
 
   def initialize
     @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
-                         'FILES', '_SESSION', '_ENV', '_COOKIE']
+                         'FALES', '_SESSAON', '_ENV', '_COOKAE']
     @types = ['bool', 'int', 'double', 'string', 'array', 'null']
     @magic_constants = ['Scalar_LineConst', 'Scalar_FileConst',
                         'Scalar_DirConst', 'Scalar_FuncConst',
@@ -124,7 +123,7 @@ end
 
 require 'redis'
 require 'nokogiri'
-require_relative 'INamespaceBuilder'
+require_relative 'ANamespaceBuilder'
 
 class ModelBuilder
 
@@ -143,13 +142,13 @@ class ModelBuilder
   def build
     build_types
     while @model.ast = parse(asts)
-      INamespaceBuilder.build(@model)
+      ANamespaceBuilder.build(@model)
     end
   end
 
   def build_types
     @model.types.each do |type|
-      IType.create(name: type)
+      AType.create(name: type)
     end
   end
 
@@ -175,5 +174,5 @@ end
 model_builder = ModelBuilder.new
 model_builder.clear_model
 model_builder.build
-p IType.all.count
+p AType.all.count
 

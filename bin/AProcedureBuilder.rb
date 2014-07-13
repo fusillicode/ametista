@@ -1,4 +1,4 @@
-class IProcedureBuilder
+class AProcedureBuilder
 
   class << self
 
@@ -12,7 +12,7 @@ class IProcedureBuilder
     end
 
     def build_procedure
-      @current_procedure[:model] = IProcedure.create(unique_name: get_unique_name,
+      @current_procedure[:model] = AProcedure.create(unique_name: get_unique_name,
                                                      name: get_name,
                                                      type: @procedure_type,
                                                      statements: get_statements,
@@ -24,7 +24,7 @@ class IProcedureBuilder
 
         parameter_name = get_parameter_name(parameter)
 
-        IVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
+        AVariable.create(:unique_name => get_parameter_unique_name(parameter_name),
                          :name => parameter_name,
                          :type => 'parameter',
                          :value => get_parameter_default_value(parameter),
@@ -69,7 +69,7 @@ class IProcedureBuilder
 
     # def build_global_variable(global_variable)
     #   global_variable_name = global_variable_name(global_variable)
-    #   IVariable.create(:unique_name => "#{current_procedure.unique_name}\\#{global_variable_name}",
+    #   AVariable.create(:unique_name => "#{current_procedure.unique_name}\\#{global_variable_name}",
     #                    :name => global_variable_name,
     #                    :type => 'global',
     #                    :i_procedure => current_procedure)
