@@ -86,7 +86,7 @@ end
 
 class MongoDaemon
 
-  attr_accessor :defaults, :path, :database, :port, :log
+  attr_accessor :defaults, :path, :database, :port, :log, :pid
 
   def initialize args = {}
     defaults.merge!(args).each do |name, value|
@@ -104,11 +104,11 @@ class MongoDaemon
   end
 
   def start
-    @pid = Process.spawn "#{@path} --fork --dbpath #{@database} --logpath #{@log}"
+    pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log}"
   end
 
   def stop
-    Process.kill('TERM', @pid)
+    Process.kill('TERM', pid)
   end
 
 end
@@ -144,16 +144,17 @@ require_relative 'ANamespaceBuilder'
 
 class ModelBuilder
 
-  def initialize mongoid_configuration = './mongoid.yml', environment = :development, redis = nil, model = nil
-    @mongoid_configuration = mongoid_configuration
-    @environment = environment
-    connect_to_mongod
-    @redis = redis || Redis.new
-    @model = model || Model.new
+  def initialize args = {}
+    defaults.merge!(args).each do |name, value|
+      instance_variable_set "@#{name}", value
+    end
   end
 
-  def connect_to_mongod
-    Mongoid.load!(@mongoid_configuration, @environment)
+  def defaults
+    {
+      redis: nil,
+      model: nil
+    }
   end
 
   def build
@@ -167,10 +168,6 @@ class ModelBuilder
     @model.types.each do |type|
       AType.create(name: type)
     end
-  end
-
-  def clear_model
-    Mongoid::Config.purge!
   end
 
   def asts
@@ -188,8 +185,10 @@ class ModelBuilder
 end
 
 mongo_daemon = MongoDaemon.new
-# model_builder = ModelBuilder.new
-# model_builder.clear_model
-# model_builder.build
+mongo_daemon.start
+mongoid = Mongoid.load!('./mongoid.yml', :development)
+model_builder = ModelBuilder.new
+Mongoid::Config.purge!
+model_builder.build
 # p AType.all.count
 
