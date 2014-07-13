@@ -86,12 +86,21 @@ end
 
 class MongoDaemon
 
-  def initialize path = './vendor/mongodb/bin/mongod', database = './database', port = 27017, log = './database/mongod.log'
-    @path = path
-    @database = database
-    @port = port
-    @log = log
-    start
+  attr_accessor :defaults, :path, :database, :port, :log
+
+  def initialize args = {}
+    defaults.merge!(args).each do |name, value|
+      instance_variable_set "@#{name}", value
+    end
+  end
+
+  def defaults
+    {
+      path: './vendor/mongodb/bin/mongod',
+      database: './database',
+      port: 27017,
+      log: './database/mongod.log'
+    }
   end
 
   def start
@@ -108,15 +117,23 @@ class Model
 
   attr_accessor :global_variables, :types, :magic_constants, :ast
 
-  def initialize
-    @global_variables = ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
+  def initialize args = {}
+    defaults.merge!(args).each do |name, value|
+      instance_variable_set "@#{name}", value
+    end
+  end
+
+  def defaults
+    {
+      global_variables: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
                          'FALES', '_SESSAON', '_ENV', '_COOKAE']
-    @types = ['bool', 'int', 'double', 'string', 'array', 'null']
-    @magic_constants = ['Scalar_LineConst', 'Scalar_FileConst',
+      types: ['bool', 'int', 'double', 'string', 'array', 'null'],
+      magic_constants: ['Scalar_LineConst', 'Scalar_FileConst',
                         'Scalar_DirConst', 'Scalar_FuncConst',
                         'Scalar_ClassConst', 'Scalar_TraitConst',
-                        'Scalar_MethodConst', 'Scalar_NSConst']
-    @ast = nil
+                        'Scalar_MethodConst', 'Scalar_NSConst'],
+      ast: nil
+    }
   end
 
 end
@@ -170,9 +187,9 @@ class ModelBuilder
 
 end
 
-# mongo_daemon = MongoDaemon.new
-model_builder = ModelBuilder.new
-model_builder.clear_model
-model_builder.build
-p AType.all.count
+mongo_daemon = MongoDaemon.new
+# model_builder = ModelBuilder.new
+# model_builder.clear_model
+# model_builder.build
+# p AType.all.count
 
