@@ -84,31 +84,6 @@ class AParameter < AVariable
   belongs_to :procedure, class_name: 'AProcedure', inverse_of: :parameters
 end
 
-class Model
-
-  attr_accessor :global_variables, :types, :magic_constants, :ast
-
-  def initialize args = {}
-    defaults.merge!(args).each do |name, value|
-      instance_variable_set "@#{name}", value
-    end
-  end
-
-  def defaults
-    {
-      global_variables: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
-                         'FALES', '_SESSAON', '_ENV', '_COOKAE'],
-      types: ['bool', 'int', 'double', 'string', 'array', 'null'],
-      magic_constants: ['Scalar_LineConst', 'Scalar_FileConst',
-                        'Scalar_DirConst', 'Scalar_FuncConst',
-                        'Scalar_ClassConst', 'Scalar_TraitConst',
-                        'Scalar_MethodConst', 'Scalar_NSConst'],
-      ast: nil
-    }
-  end
-
-end
-
 module Initializer
 
   def self.included base
@@ -119,7 +94,7 @@ module Initializer
 
     def initialize_with default_attributes
       define_attr_accessors default_attributes
-      define_class_methods default_attributes
+      define_default_attributes_getter default_attributes
     end
 
     private
@@ -130,7 +105,7 @@ module Initializer
       end
     end
 
-    def define_class_methods default_attributes
+    def define_default_attributes_getter default_attributes
       define_method :default_attributes do
         default_attributes
       end
@@ -147,6 +122,22 @@ module Initializer
   def default_attributes
     {}
   end
+
+end
+
+class Model
+
+  include Initializer
+  initialize_with ({
+    global_variables: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
+                       'FALES', '_SESSAON', '_ENV', '_COOKAE'],
+    types: ['bool', 'int', 'double', 'string', 'array', 'null'],
+    magic_constants: ['Scalar_LineConst', 'Scalar_FileConst',
+                      'Scalar_DirConst', 'Scalar_FuncConst',
+                      'Scalar_ClassConst', 'Scalar_TraitConst',
+                      'Scalar_MethodConst', 'Scalar_NSConst'],
+    ast: nil
+  })
 
 end
 
