@@ -86,48 +86,33 @@ end
 
 module Initializer
 
-  def self.included base
-    base.extend ClassMethods
+  def initialize_with default_attributes
+    attr_accessor *default_attributes.keys
+    define_method :default_attributes do
+      default_attributes
+    end
+    include InstanceMethods
   end
 
-  module ClassMethods
+  module InstanceMethods
 
-    def initialize_with default_attributes
-      define_attr_accessors default_attributes
-      define_default_attributes_getter default_attributes
-    end
-
-    private
-
-    def define_attr_accessors default_attributes
-      default_attributes.keys.each do |default_attribute|
-        attr_accessor default_attribute
+    def initialize args = {}
+      default_attributes.merge(args).each do |name, value|
+        public_send "#{name}=", value
       end
     end
 
-    def define_default_attributes_getter default_attributes
-      define_method :default_attributes do
-        default_attributes
-      end
+    def default_attributes
+      {}
     end
 
-  end
-
-  def initialize args = {}
-    default_attributes.merge(args).each do |name, value|
-      public_send "#{name}=", value
-    end
-  end
-
-  def default_attributes
-    {}
   end
 
 end
 
 class Model
 
-  include Initializer
+  extend Initializer
   initialize_with ({
     global_variables: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
                        'FALES', '_SESSAON', '_ENV', '_COOKAE'],
@@ -143,20 +128,21 @@ end
 
 class MongoDaemon
 
-  include Initializer
+  extend Initializer
   initialize_with ({
     path: './vendor/mongodb/bin/mongod',
     database: './database',
     port: 27017,
-    log: './database/mongod.log'
+    log: './database/mongod.log',
+    thread: nil
   })
 
   def start
-    pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log}"
+    @thread = Thread.new { system("#{path} --dbpath #{database} --logpath #{log}") }
   end
 
   def stop
-    Process.kill('TERM', pid)
+    @thread.kill
   end
 
 end
@@ -167,7 +153,7 @@ require_relative 'ANamespaceBuilder'
 
 class ModelBuilder
 
-  include Initializer
+  extend Initializer
   initialize_with ({
     source: Redis.new,
     parser: nil,
@@ -215,10 +201,10 @@ class Source
 
 end
 
-# mongo_daemon = MongoDaemon.new
-# mongo_daemon.start
+mongo_daemon = MongoDaemon.new
+p mongo_daemon.start
 # Mongoid.load!('./mongoid.yml', :development)
-model_builder = ModelBuilder.new
+# model_builder = ModelBuilder.new
 # Mongoid::Config.purge!
 # model_builder.build
 # p AType.all.count
