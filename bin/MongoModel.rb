@@ -84,35 +84,6 @@ class AParameter < AVariable
   belongs_to :procedure, class_name: 'AProcedure', inverse_of: :parameters
 end
 
-class MongoDaemon
-
-  attr_accessor :defaults, :path, :database, :port, :log, :pid
-
-  def initialize args = {}
-    defaults.merge!(args).each do |name, value|
-      instance_variable_set "@#{name}", value
-    end
-  end
-
-  def defaults
-    {
-      path: './vendor/mongodb/bin/mongod',
-      database: './database',
-      port: 27017,
-      log: './database/mongod.log'
-    }
-  end
-
-  def start
-    pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log}"
-  end
-
-  def stop
-    Process.kill('TERM', pid)
-  end
-
-end
-
 class Model
 
   attr_accessor :global_variables, :types, :magic_constants, :ast
@@ -126,7 +97,7 @@ class Model
   def defaults
     {
       global_variables: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
-                         'FALES', '_SESSAON', '_ENV', '_COOKAE']
+                         'FALES', '_SESSAON', '_ENV', '_COOKAE'],
       types: ['bool', 'int', 'double', 'string', 'array', 'null'],
       magic_constants: ['Scalar_LineConst', 'Scalar_FileConst',
                         'Scalar_DirConst', 'Scalar_FuncConst',
@@ -138,26 +109,80 @@ class Model
 
 end
 
+module Initializer
+
+  def self.included base
+    base.extend ClassMethods
+  end
+
+  module ClassMethods
+
+    def initialize_with default_attributes
+      define_attr_accessors default_attributes
+      define_class_methods default_attributes
+    end
+
+    private
+
+    def define_attr_accessors default_attributes
+      default_attributes.keys.each do |default_attribute|
+        attr_accessor default_attribute
+      end
+    end
+
+    def define_class_methods default_attributes
+      define_method :default_attributes do
+        default_attributes
+      end
+    end
+
+  end
+
+  def initialize args = {}
+    default_attributes.merge(args).each do |name, value|
+      public_send "#{name}=", value
+    end
+  end
+
+  def default_attributes
+    {}
+  end
+
+end
+
+class MongoDaemon
+
+  include Initializer
+  initialize_with ({
+    path: './vendor/mongodb/bin/mongod',
+    database: './database',
+    port: 27017,
+    log: './database/mongod.log'
+  })
+
+  def start
+    pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log}"
+  end
+
+  def stop
+    Process.kill('TERM', pid)
+  end
+
+end
+
 require 'redis'
 require 'nokogiri'
 require_relative 'ANamespaceBuilder'
 
 class ModelBuilder
 
-  attr_accessor :source, :parser, :target, :model
-
-  def initialize args = {}
-    defaults.merge!(args).each do |name, value|
-      instance_variable_set("@#{name}", value)
-    end
-  end
-
-  def defaults
-    {
-      source: Redis.new,
-      model: Model.new
-    }
-  end
+  include Initializer
+  initialize_with ({
+    source: Redis.new,
+    parser: nil,
+    target: nil,
+    model: Model.new,
+  })
 
   def build
     build_types
@@ -188,39 +213,22 @@ end
 
 class Parser
 
-  def initialize args = {}
-    defaults.merge!(args).each do |name, value|
-      instance_variable_set("@#{name}", value)
-    end
-  end
-
 end
 
 class Target
-
-  def initialize args = {}
-    defaults.merge!(args).each do |name, value|
-      instance_variable_set("@#{name}", value)
-    end
-  end
 
 end
 
 class Source
 
-  def initialize args = {}
-    defaults.merge!(args).each do |name, value|
-      instance_variable_set("@#{name}", value)
-    end
-  end
 
 end
 
-mongo_daemon = MongoDaemon.new
-mongo_daemon.start
-Mongoid.load!('./mongoid.yml', :development)
+# mongo_daemon = MongoDaemon.new
+# mongo_daemon.start
+# Mongoid.load!('./mongoid.yml', :development)
 model_builder = ModelBuilder.new
-Mongoid::Config.purge!
-model_builder.build
+# Mongoid::Config.purge!
+# model_builder.build
 # p AType.all.count
 
