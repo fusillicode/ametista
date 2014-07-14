@@ -144,34 +144,36 @@ require_relative 'ANamespaceBuilder'
 
 class ModelBuilder
 
+  attr_accessor :source, :parser, :target, :model
+
   def initialize args = {}
     defaults.merge!(args).each do |name, value|
-      instance_variable_set "@#{name}", value
+      instance_variable_set("@#{name}", value)
     end
   end
 
   def defaults
     {
-      redis: nil,
-      model: nil
+      source: Redis.new,
+      model: Model.new
     }
   end
 
   def build
     build_types
-    while @model.ast = parse(asts)
-      ANamespaceBuilder.build(@model)
+    while model.ast = parse(asts)
+      ANamespaceBuilder.build(model)
     end
   end
 
   def build_types
-    @model.types.each do |type|
+    model.types.each do |type|
       AType.create(name: type)
     end
   end
 
   def asts
-    @redis.brpoplpush('xmls_asts', 'done', timeout: 0)
+    source.brpoplpush('xmls_asts', 'done', timeout: 0)
   end
 
   def parse ast
@@ -184,9 +186,39 @@ class ModelBuilder
 
 end
 
+class Parser
+
+  def initialize args = {}
+    defaults.merge!(args).each do |name, value|
+      instance_variable_set("@#{name}", value)
+    end
+  end
+
+end
+
+class Target
+
+  def initialize args = {}
+    defaults.merge!(args).each do |name, value|
+      instance_variable_set("@#{name}", value)
+    end
+  end
+
+end
+
+class Source
+
+  def initialize args = {}
+    defaults.merge!(args).each do |name, value|
+      instance_variable_set("@#{name}", value)
+    end
+  end
+
+end
+
 mongo_daemon = MongoDaemon.new
 mongo_daemon.start
-mongoid = Mongoid.load!('./mongoid.yml', :development)
+Mongoid.load!('./mongoid.yml', :development)
 model_builder = ModelBuilder.new
 Mongoid::Config.purge!
 model_builder.build
