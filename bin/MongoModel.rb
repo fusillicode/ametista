@@ -156,8 +156,6 @@ class ModelBuilder
   extend Initializer
   initialize_with ({
     source: Redis.new,
-    parser: nil,
-    target: nil,
     model: Model.new,
   })
 
@@ -188,21 +186,7 @@ class ModelBuilder
 
 end
 
-class Parser
-
-end
-
-class Target
-
-end
-
-class Source
-
-
-end
-
 mongo_daemon = MongoDaemon.new.start
-
 # Mongoid.load!('./mongoid.yml', :development)
 # model_builder = ModelBuilder.new
 # Mongoid::Config.purge!
