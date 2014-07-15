@@ -134,15 +134,15 @@ class MongoDaemon
     database: './database',
     port: 27017,
     log: './database/mongod.log',
-    thread: nil
+    pid: nil
   })
 
   def start
-    @thread = Thread.new { system("#{path} --dbpath #{database} --logpath #{log}") }
+    @pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log} > /dev/null"
   end
 
   def stop
-    @thread.kill
+    Process.kill('TERM', @pid) unless @pid
   end
 
 end
@@ -201,8 +201,8 @@ class Source
 
 end
 
-mongo_daemon = MongoDaemon.new
-p mongo_daemon.start
+mongo_daemon = MongoDaemon.new.start
+
 # Mongoid.load!('./mongoid.yml', :development)
 # model_builder = ModelBuilder.new
 # Mongoid::Config.purge!
