@@ -138,11 +138,11 @@ class MongoDaemon
   })
 
   def start
-    @pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log} > /dev/null"
+    pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log} > /dev/null"
   end
 
   def stop
-    Process.kill('TERM', @pid) unless @pid
+    Process.kill('TERM', pid) unless pid
   end
 
 end
@@ -155,7 +155,7 @@ class ModelBuilder
 
   extend Initializer
   initialize_with ({
-    source: Redis.new,
+    data_source: Redis.new,
     model: Model.new,
   })
 
@@ -173,7 +173,7 @@ class ModelBuilder
   end
 
   def asts
-    source.brpoplpush('xmls_asts', 'done', timeout: 0)
+    data_source.brpoplpush('xmls_asts', 'done', timeout: 0)
   end
 
   def parse ast
