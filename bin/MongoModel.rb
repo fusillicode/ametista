@@ -32,7 +32,7 @@ end
 
 class AProcedure < AScope
   has_many :parameters, class_name: 'AParameter', inverse_of: :procedure
-  field :return_value, type: String
+  field :return_values, type: Array
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
@@ -187,9 +187,9 @@ class ModelBuilder
 end
 
 mongo_daemon = MongoDaemon.new.start
-# Mongoid.load!('./mongoid.yml', :development)
-# model_builder = ModelBuilder.new
-# Mongoid::Config.purge!
-# model_builder.build
+Mongoid.load!('./mongoid.yml', :development)
+Mongoid::Config.purge!
+model_builder = ModelBuilder.new
+model_builder.build
 # p AType.all.count
 
