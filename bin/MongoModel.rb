@@ -97,7 +97,8 @@ module Initializer
   module InstanceMethods
 
     def initialize args = {}
-      default_attributes.merge(args).each do |name, value|
+      attributes = default_attributes.merge(args)
+      attributes.each do |name, value|
         public_send "#{name}=", value
       end
     end
@@ -151,11 +152,22 @@ require 'redis'
 require 'nokogiri'
 require_relative 'ANamespaceBuilder'
 
+class RedisDataSource
+  extend Initializer
+  initialize_with ({
+    redis: Redis.new
+  })
+
+  def read
+    redis.brpoplpush('xmls_asts', 'done', timeout: 0)
+  end
+end
+
 class ModelBuilder
 
   extend Initializer
   initialize_with ({
-    data_source: Redis.new,
+    data_source: RedisDataSource.new,
     model: Model.new,
   })
 
@@ -173,7 +185,7 @@ class ModelBuilder
   end
 
   def asts
-    data_source.brpoplpush('xmls_asts', 'done', timeout: 0)
+    data_source.read
   end
 
   def parse ast
@@ -186,10 +198,11 @@ class ModelBuilder
 
 end
 
-mongo_daemon = MongoDaemon.new.start
-Mongoid.load!('./mongoid.yml', :development)
-Mongoid::Config.purge!
-model_builder = ModelBuilder.new
-model_builder.build
-# p AType.all.count
-
+if __FILE__ == $0
+  mongo_daemon = MongoDaemon.new.start
+  Mongoid.load!('./mongoid.yml', :development)
+  Mongoid::Config.purge!
+  model_builder = ModelBuilder.new
+  model_builder.build
+  # p AType.all.count
+end

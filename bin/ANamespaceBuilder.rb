@@ -1,3 +1,4 @@
+
 class ANamespaceBuilder
 
   class << self
@@ -5,13 +6,13 @@ class ANamespaceBuilder
     attr_accessor :model, :current_namespace
 
     def build model
-      model = model
+      self.model = model
       build_global_namespace
       build_other_namespaces
     end
 
     def build_global_namespace
-      current_namespace = { model: ANamespace.create(id: '\\', name: '\\'),
+      self.current_namespace = { model: ANamespace.create(id: '\\', name: '\\'),
                             ast: model.ast }
       build_namespace
     end
