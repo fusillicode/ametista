@@ -2,35 +2,74 @@
 
 include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
+trait Initializer
+{
+  private function initializePublicProperties($args = array())
+  {
+    $this->args = $args;
+    $public_properties = array_merge($this->defaults, $args);
+    foreach ($public_properties as $public_property => $value) {
+      $this->$public_property = $value;
+    }
+  }
+}
+
+class RedisDaemon
+{
+  use Initializer;
+
+  public $defaults = array(
+    'server_path' => 'vendor/redis/src/',
+    'server_executable' => 'redis-server',
+    'port' => 6379);
+
+  public function __construct($args = array())
+  {
+    $this->initializePublicProperties($args);
+    return $this;
+  }
+
+  public function start()
+  {
+    if ($this->isDaemonAlreadyRunning()) {
+      echo "{$this->server_path}{$this->server_executable} is already running\n";
+    } else {
+      shell_exec("nohup {$this->server_path}{$this->server_executable} > /dev/null & echo $!");
+      echo "{$this->server_path}{$this->server_executable} started\n";
+    }
+  }
+
+  public function isDaemonAlreadyRunning()
+  {
+    exec("netstat -ln | grep {$this->port}", $output, $return);
+    return $output;
+  }
+}
+
 class Parser
 {
-  public function __construct($server_path = 'vendor/redis/src/',
-                              $server_executable = 'redis-server',
-                              $address = '', $parser = null, $lexer = null,
-                              $traverser = null, $visitors = array(),
-                              $memory_limit = 1024)
+  public function __construct($args = array())
   {
-    $this->startRedisServer($server_path, $server_executable);
-    $this->connectTo($address);
+    $this->initializePublicProperties();
+    $this->startRedisServer($args['server_path'], $args['server_executable']);
+    $this->connectTo($args['address']);
     $this->initialize();
-    $this->setParser($parser, $lexer);
-    $this->setTraverser($traverser);
+    $this->setParser($args['parser'], $args['lexer']);
+    $this->setTraverser($args['traverser']);
     $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
     $this->node_dumper = new PHPParser_NodeDumper;
     $this->serializer = new PHPParser_Serializer_XML;
     // con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
     // token_get_all() all'interno del Lexer
-    ini_set('memory_limit', (int)$memory_limit.'M');
+    ini_set('memory_limit', (int)$this->memory_limit.'M');
   }
 
-  private function startRedisServer($server_path, $server_executable)
+  private function initializePublicProperties($args = array())
   {
-    exec("pgrep {$server_executable}", $output, $return);
-    if ($return == 0) {
-      echo "{$server_path}{$server_executable} is already running\n";
-    } else {
-      shell_exec("nohup {$server_path}{$server_executable} > /dev/null & echo $!");
-      echo "{$server_path}{$server_executable} started\n";
+    $this->args = $args;
+    $public_properties = array_merge($this->defaults, $args);
+    foreach ($public_properties as $public_property => $value) {
+      $this->$public_property = $value;
     }
   }
 
