@@ -21,7 +21,8 @@ class RedisDaemon
   public $defaults = array(
     'server_path' => 'vendor/redis/src/',
     'server_executable' => 'redis-server',
-    'port' => 6379);
+    'port' => 6379
+  );
 
   public function __construct($args = array())
   {
@@ -46,52 +47,68 @@ class RedisDaemon
   }
 }
 
+class DataStore
+{
+  public $defaults = array(
+    'client' => new Predis\Client(
+      'scheme' => 'tcp',
+      'host'   => 'localhost',
+      'port'   => 6379
+    )
+  );
+
+  public function __construct($args = array())
+  {
+    $this->initializePublicProperties($args);
+    return $this;
+  }
+
+  public function connectTo()
+  {
+    try {
+      $this->client->connect();
+      echo "Successfully connected to daemon\n";
+    } catch (Exception $e) {
+      exit("Couldn't connected to daemon\n{$e->getMessage()}\n");
+    }
+  }
+
+  public function clear()
+  {
+    return $this->client->flushall();
+  }
+}
+
 class Parser
 {
+  public $defaults = array(
+    'lexer' => new PHPParser_Lexer_Emulative(),
+    'parser' => new PHPParser_Parser($this->defaults['lexer']),
+    'traverser' => new PHPParser_NodeTraverser(),
+    'visitors' => array(new PHPParser_NodeVisitor_NameResolver()),
+    'node_dumper' => new PHPParser_NodeDumper(),
+    'serializer' => new PHPParser_Serializer_XML(),
+    // con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
+    // token_get_all() all'interno del Lexer
+    'memory_limit' => '512M',
+    'data_store' => new DataStore()
+  );
+
   public function __construct($args = array())
   {
     $this->initializePublicProperties();
-    $this->startRedisServer($args['server_path'], $args['server_executable']);
-    $this->connectTo($args['address']);
-    $this->initialize();
-    $this->setParser($args['parser'], $args['lexer']);
-    $this->setTraverser($args['traverser']);
-    $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
-    $this->node_dumper = new PHPParser_NodeDumper;
-    $this->serializer = new PHPParser_Serializer_XML;
-    // con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
-    // token_get_all() all'interno del Lexer
+    $this->addVisitors();
+  }
+
+  public function set_memory_limit()
+  {
     ini_set('memory_limit', (int)$this->memory_limit.'M');
   }
 
-  private function initializePublicProperties($args = array())
+  public function addVisitors(array $visitors)
   {
-    $this->args = $args;
-    $public_properties = array_merge($this->defaults, $args);
-    foreach ($public_properties as $public_property => $value) {
-      $this->$public_property = $value;
-    }
-  }
-
-  public function connectTo($address = '')
-  {
-    try {
-      $this->_redis = new Predis\Client();
-      $this->_redis->connect();
-      echo "Successfully connected to Redis server\n";
-    } catch (Exception $e) {
-      exit("Couldn't connected to Redis server\n{$e->getMessage()}\n");
-    }
-  }
-
-  public function initialize()
-  {
-    $this->clear();
-  }
-
-  public function setVisitors(array $visitors)
-  {
-    foreach ($visitors as $key => $visitor) {
+    $this->args['visitors'] = array_merge($this->args['visitors'], $visitors);
+    foreach ($this->args['visitors'] as $key => $visitor) {
       $interfaces = class_implements($visitor);
       if (isset($interfaces['PHPParser_NodeVisitor'])) {
         $this->traverser->addVisitor($visitor);
@@ -99,31 +116,6 @@ class Parser
         echo "You're trying to add a visitor that doesn't have the proper interface\n";
       }
     }
-  }
-
-  public function setParser(PHPParser_Parser $parser = null, PHPParser_Lexer $lexer = null)
-  {
-    return $this->parser = $parser ? $parser : new PHPParser_Parser($this->setLexer($lexer));
-  }
-
-  public function setLexer(PHPParser_Lexer $lexer = null)
-  {
-    return $this->lexer = $lexer ? $lexer : new PHPParser_Lexer_Emulative;
-  }
-
-  public function setTraverser(PHPParser_NodeTraverser $traverser = null)
-  {
-    return $this->traverser = $traverser ? $traverser : new PHPParser_NodeTraverser;
-  }
-
-  public function clear()
-  {
-    return $this->_redis->flushall();
-  }
-
-  public function get()
-  {
-    return $this->_redis;
   }
 
   public function parse($path, $recursive = true)
