@@ -16,6 +16,8 @@ class Parser
     $this->setParser($parser, $lexer);
     $this->setTraverser($traverser);
     $this->setVisitors(array(new PHPParser_NodeVisitor_NameResolver()));
+    $this->node_dumper = new PHPParser_NodeDumper;
+    $this->serializer = new PHPParser_Serializer_XML;
     // con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
     // token_get_all() all'interno del Lexer
     ini_set('memory_limit', (int)$memory_limit.'M');
@@ -87,12 +89,22 @@ class Parser
 
   public function parse($path, $recursive = true)
   {
-    $files = $this->getFiles($path, $recursive);
-    $this->node_dumper = new PHPParser_NodeDumper;
-    $this->serializer = new PHPParser_Serializer_XML;
-    foreach ($files as $file)
-      $this->parseFile($file);
+    if (is_file($path)) {
+      $this->parseFile($path);
+    } elseif (is_dir($path)) {
+      $this->parseDirectory($path, $recursive);
+    } else {
+      echo "There is no directory nor file named {$path}\n";
+    }
     $this->_redis->lpush('xmls_asts', "THAT'S ALL FOLKS!");
+  }
+
+  public function parseDirectory($directory, $recursive)
+  {
+    $files = $this->getFiles($directory, $recursive);
+    foreach ($files as $file) {
+      $this->parseFile($file);
+    }
   }
 
   public function parseFile($file)
@@ -127,7 +139,9 @@ class Parser
       $current_directory = array_pop($stack);
       $directory_content = scandir($current_directory);
       foreach ($directory_content as $content) {
-        if ($content === '.' || $content === '..') continue;
+        if ($content === '.' || $content === '..') {
+          continue;
+        }
         $current_element = "{$current_directory}/{$content}";
         $extension = pathinfo($current_element, PATHINFO_EXTENSION);
         if (is_file($current_element) && is_readable($current_element) && $extension === 'php') {
