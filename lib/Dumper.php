@@ -1,5 +1,7 @@
 <?php
 
+namespace Inferer;
+
 class Dumper
 {
   use Initializer;

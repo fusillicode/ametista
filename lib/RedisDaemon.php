@@ -1,5 +1,7 @@
 <?php
 
+namespace Inferer;
+
 class RedisDaemon
 {
   use Initializer;

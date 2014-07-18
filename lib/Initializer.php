@@ -1,5 +1,7 @@
 <?php
 
+namespace Inferer;
+
 trait Initializer
 {
   private function defaults()
