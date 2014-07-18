@@ -1,7 +1,5 @@
 <?php
 
-include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
-
 trait Initializer
 {
   private function defaults()
