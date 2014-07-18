@@ -20,8 +20,7 @@ class Parser
       'traverser' => new PHPParser_NodeTraverser(),
       'visitors' => array(new PHPParser_NodeVisitor_NameResolver()),
       'serializer' => new PHPParser_Serializer_XML(),
-      // con 128M e 256M l'analisi del di file con 30000 LOC da un errore...l'errore è legato alla chiamata
-      // token_get_all() all'interno del Lexer
+      // with 128M or 256M the call to the token_get_all() function inside the lexer throws an error during the analysis of files greater than 30000 LOC
       'memory_limit' => '512M'
     );
     $this->defaults['parser'] = new PHPParser_Parser($this->defaults['lexer']);
