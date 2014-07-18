@@ -2,6 +2,13 @@
 
 namespace Inferer;
 
+use PHPParser_Lexer_Emulative,
+    PHPParser_NodeTraverser,
+    PHPParser_NodeVisitor_NameResolver,
+    PHPParser_Serializer_XML,
+    PHPParser_Parser,
+    PHPParser_NodeVisitor;
+
 class Parser
 {
   use Initializer;

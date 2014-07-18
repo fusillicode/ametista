@@ -1,6 +1,6 @@
 {
  "autoload": {
-    "psr-0": { "Inferer": "lib/" }
+    "psr-0": { "Inferer\\": "lib/" }
   },
   "require" : {
     "nikic/php-parser" : "0.9.*-dev",

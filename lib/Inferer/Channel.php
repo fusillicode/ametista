@@ -2,6 +2,8 @@
 
 namespace Inferer;
 
+use Predis\Client;
+
 class Channel
 {
   use Initializer;
@@ -9,7 +11,7 @@ class Channel
   private function defaults()
   {
     return $this->defaults = array(
-      'client' => new Predis\Client([
+      'client' => new Client([
         'scheme' => 'tcp',
         'host'   => 'localhost',
         'port'   => 6379

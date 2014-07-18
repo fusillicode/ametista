@@ -2,10 +2,10 @@
 
 include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
-$redis_daemon = new RedisDaemon();
-$channel = new Channel();
-$parser = new Parser();
-$dumper = new Dumper();
+$redis_daemon = new Inferer\RedisDaemon();
+$channel = new Inferer\Channel();
+$parser = new Inferer\Parser();
+$dumper = new Inferer\Dumper();
 $root_directory = './test_codebase';
 
 $redis_daemon->start();
