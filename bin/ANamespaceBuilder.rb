@@ -27,7 +27,7 @@ class ANamespaceBuilder
 
     def build_namespace
       # build_global_variables
-      build_functions
+      # build_functions
       # build_classes
     end
 

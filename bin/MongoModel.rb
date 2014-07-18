@@ -153,14 +153,33 @@ require 'nokogiri'
 require_relative 'ANamespaceBuilder'
 
 class RedisDataSource
+
   extend Initializer
   initialize_with ({
-    redis: Redis.new
+    redis: Redis.new,
+    channel: 'xmls_asts',
+    timeout: 0,
+    last_data: "THAT'S ALL FOLKS!",
+    data: nil
   })
 
   def read
-    redis.brpoplpush('xmls_asts', 'done', timeout: 0)
+    data = redis.brpoplpush(channel, 'done', timeout: timeout)
+     return end_of_data?
   end
+
+  def end_of_data?
+    data == last_data
+  end
+
+end
+
+class XMLParser
+
+  def parse ast
+    Nokogiri::XML(ast)
+  end
+
 end
 
 class ModelBuilder
@@ -168,14 +187,13 @@ class ModelBuilder
   extend Initializer
   initialize_with ({
     data_source: RedisDataSource.new,
-    model: Model.new,
+    parser: XMLParser.new,
+    model: Model.new
   })
 
-  def build
+  def build_model
     build_types
-    while model.ast = parse(asts)
-      ANamespaceBuilder.build(model)
-    end
+    build_namespaces
   end
 
   def build_types
@@ -184,16 +202,11 @@ class ModelBuilder
     end
   end
 
-  def asts
-    data_source.read
-  end
-
-  def parse ast
-    Nokogiri::XML(ast) unless last_ast?(ast)
-  end
-
-  def last_ast? ast
-    ast == "THAT'S ALL FOLKS!"
+  def build_namespaces
+    while model.ast = data_source.read
+      model.ast = parser.parse(model.ast)
+      ANamespaceBuilder.build(model)
+    end
   end
 
 end
