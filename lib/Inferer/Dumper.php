@@ -33,7 +33,7 @@ class Dumper
   public function replaceExtension($file_name)
   {
     $info = pathinfo($file_name);
-    return $info['filename'].$this->new_extension;
+    return $info['filename'].'.'.$this->new_extension;
   }
 }
 
