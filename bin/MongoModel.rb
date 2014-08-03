@@ -193,12 +193,19 @@ class ModelBuilder
 
   def build_model
     build_types
+    build_global_variables
     build_namespaces
   end
 
   def build_types
     model.types.each do |type|
       AType.create(name: type)
+    end
+  end
+
+  def build_global_variables
+    model.types.each do |global_variable|
+      AGlobalVariable.create(:unique_name => global_variable)
     end
   end
 

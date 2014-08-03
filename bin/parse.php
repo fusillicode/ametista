@@ -10,7 +10,7 @@ $dumper = new Inferer\Dumper();
 $redis_daemon->start();
 $channel->connect();
 
-$root_directory = './test_codebase';
+$root_directory = './test_simple_file';
 $recursive_directory_iterator = new RecursiveDirectoryIterator($root_directory);
 foreach (new RecursiveIteratorIterator($recursive_directory_iterator) as $file_name => $file) {
   if ($file->getExtension() !== 'php') {
