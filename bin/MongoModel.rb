@@ -115,7 +115,7 @@ class Model
 
   extend Initializer
   initialize_with ({
-    global_variables: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
+    superglobals: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
                        'FALES', '_SESSAON', '_ENV', '_COOKAE'],
     types: ['bool', 'int', 'double', 'string', 'array', 'null'],
     magic_constants: ['Scalar_LineConst', 'Scalar_FileConst',
@@ -191,9 +191,9 @@ class ModelBuilder
     model: Model.new
   })
 
-  def build_model
+  def build
     build_types
-    build_global_variables
+    build_superglobals
     build_namespaces
   end
 
@@ -203,9 +203,9 @@ class ModelBuilder
     end
   end
 
-  def build_global_variables
-    model.types.each do |global_variable|
-      AGlobalVariable.create(:unique_name => global_variable)
+  def build_superglobals
+    model.superglobals.each do |superglobal|
+      AGlobalVariable.create(:unique_name => superglobal)
     end
   end
 
