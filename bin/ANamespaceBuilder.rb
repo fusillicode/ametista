@@ -1,9 +1,17 @@
+class ANamespaceParser
+
+  extend Initializer
+  initialize_with ({
+    ast: nil
+  })
+
+end
 
 class ANamespaceBuilder
 
   class << self
 
-    attr_accessor :model, :current_namespace
+    attr_accessor :model, :builded_entity
 
     def build model
       self.model = model
@@ -12,14 +20,16 @@ class ANamespaceBuilder
     end
 
     def build_global_namespace
-      self.current_namespace = { model: ANamespace.create(id: '\\', name: '\\'),
-                            ast: model.ast }
+      self.builded_entity = {
+        model: ANamespace.create(id: '\\', name: '\\'),
+        ast: model.ast
+      }
       build_namespace
     end
 
     def build_other_namespaces
       get_namespaces.each do |namespace|
-        current_namespace[:ast] = namespace
+        builded_entity[:ast] = namespace
         build_subnamespaces
         build_namespace
       end
@@ -33,7 +43,7 @@ class ANamespaceBuilder
 
     def build_subnamespaces
       get_subnamespaces.each do |subnamespace|
-        current_namespace[:model] = current_namespace[:model].child_namespaces.find_or_create_by(unique_name: get_subnamespace_unique_name(subnamespace), name: subnamespace.text)
+        builded_entity[:model] = builded_entity[:model].child_namespaces.find_or_create_by(unique_name: get_subnamespace_unique_name(subnamespace), name: subnamespace.text)
       end
     end
 
@@ -54,7 +64,7 @@ class ANamespaceBuilder
     def build_functions
       get_functions.each do |function|
         model.ast = function
-        current_namespace[:model].functions << AFunctionBuilder.build(model)
+        builded_entity[:model].functions << AFunctionBuilder.build(model)
       end
     end
 
@@ -65,24 +75,24 @@ class ANamespaceBuilder
     end
 
     def get_namespaces
-      model.ast.xpath('.//node:Stmt_Namespace')
+      builded_entity[:ast].ast.xpath('.//node:Stmt_Namespace')
     end
 
     def get_subnamespaces
-      current_namespace[:ast].xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+      builded_entity[:ast].xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
     end
 
     def get_subnamespace_unique_name(subnamespace)
-      "#{current_namespace[:model].unique_name}\\#{subnamespace.text}"
+      "#{builded_entity[:model].unique_name}\\#{subnamespace.text}"
     end
 
     def get_statements
-      current_namespace[:ast].xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+      builded_entity[:ast].xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
     end
 
     # le variabili assegnate
     def get_assignements
-      current_namespace[:ast].xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+      builded_entity[:ast].xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
     end
 
     def get_global_variable_value(global_variable)
@@ -121,11 +131,11 @@ class ANamespaceBuilder
     end
 
     def get_functions
-      current_namespace[:ast].xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+      builded_entity[:ast].xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
     end
 
     def get_classes
-      current_namespace[:ast].xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
+      builded_entity[:ast].xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
     end
 
   end
