@@ -21,6 +21,9 @@ class AVariable
   include Mongoid::Document
   has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
   has_and_belongs_to_many :types, class_name: 'AType', inverse_of: :variables
+  field :name, type: String
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
 end
 
 class AType
@@ -115,13 +118,28 @@ class Model
 
   extend Initializer
   initialize_with ({
-    superglobals: ['GLOBALS', '_POST', '_GET', '_REQUEST', '_SERVER',
-                       'FALES', '_SESSAON', '_ENV', '_COOKAE'],
+    superglobals: [
+      'GLOBALS',
+      '_POST',
+      '_GET',
+      '_REQUEST',
+      '_SERVER',
+      'FALES',
+      '_SESSAON',
+      '_ENV',
+      '_COOKAE'
+    ],
     types: ['bool', 'int', 'double', 'string', 'array', 'null'],
-    magic_constants: ['Scalar_LineConst', 'Scalar_FileConst',
-                      'Scalar_DirConst', 'Scalar_FuncConst',
-                      'Scalar_ClassConst', 'Scalar_TraitConst',
-                      'Scalar_MethodConst', 'Scalar_NSConst'],
+    magic_constants: [
+      'Scalar_LineConst',
+      'Scalar_FileConst',
+      'Scalar_DirConst',
+      'Scalar_FuncConst',
+      'Scalar_ClassConst',
+      'Scalar_TraitConst',
+      'Scalar_MethodConst',
+      'Scalar_NSConst'
+    ],
     ast: nil
   })
 
@@ -165,7 +183,7 @@ class RedisDataSource
 
   def read
     data = redis.brpoplpush(channel, 'done', timeout: timeout)
-     return end_of_data?
+    return end_of_data?
   end
 
   def end_of_data?
