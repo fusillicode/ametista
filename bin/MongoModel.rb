@@ -114,7 +114,7 @@ module Initializer
 
 end
 
-class Language
+class PHPLanguage
 
   extend Initializer
   initialize_with ({
@@ -190,27 +190,16 @@ class RedisDataSource
 
 end
 
-class XMLParser
-
-  def parse ast
-    Nokogiri::XML(ast)
-  end
-
-end
-
-class ModelBuilder
+class LanguageBuilder
 
   extend Initializer
   initialize_with ({
-    data_source: RedisDataSource.new,
-    parser: XMLParser.new,
-    language: Language.new
+    language: PHPLanguage.new
   })
 
   def build
     build_types
     build_superglobals
-    build_namespaces
   end
 
   def build_types
@@ -225,9 +214,24 @@ class ModelBuilder
     end
   end
 
+end
+
+class ModelBuilder
+
+  extend Initializer
+  initialize_with ({
+    data_source: RedisDataSource.new,
+    language_builder: LanguageBuilder.new
+  })
+
+  def build
+    language_builder.build
+    build_namespaces
+  end
+
   def build_namespaces
     while ast = data_source.read
-      ANamespaceBuilder.new(parser.parse(ast)).build
+      ANamespaceBuilder.new(ast: ast).build
     end
   end
 
