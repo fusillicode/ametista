@@ -114,7 +114,7 @@ module Initializer
 
 end
 
-class Model
+class Language
 
   extend Initializer
   initialize_with ({
@@ -139,8 +139,7 @@ class Model
       'Scalar_TraitConst',
       'Scalar_MethodConst',
       'Scalar_NSConst'
-    ],
-    ast: nil
+    ]
   })
 
 end
@@ -205,7 +204,7 @@ class ModelBuilder
   initialize_with ({
     data_source: RedisDataSource.new,
     parser: XMLParser.new,
-    model: Model.new
+    language: Language.new
   })
 
   def build
@@ -215,13 +214,13 @@ class ModelBuilder
   end
 
   def build_types
-    model.types.each do |type|
+    language.types.each do |type|
       AType.create(name: type)
     end
   end
 
   def build_superglobals
-    model.superglobals.each do |superglobal|
+    language.superglobals.each do |superglobal|
       AGlobalVariable.create(:unique_name => superglobal)
     end
   end
@@ -229,7 +228,7 @@ class ModelBuilder
   def build_namespaces
     while model.ast = data_source.read
       model.ast = parser.parse(model.ast)
-      ANamespaceBuilder.build(model)
+      ANamespaceBuilder.new(model).build
     end
   end
 
