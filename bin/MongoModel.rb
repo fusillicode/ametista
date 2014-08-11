@@ -125,7 +125,7 @@ class Model
       '_REQUEST',
       '_SERVER',
       'FALES',
-      '_SESSAON',
+      '_SESSION',
       '_ENV',
       '_COOKAE'
     ],
@@ -182,8 +182,7 @@ class RedisDataSource
   })
 
   def read
-    data = redis.brpoplpush(channel, 'done', timeout: timeout)
-    return end_of_data?
+    return data = redis.brpoplpush(channel, 'done', timeout: timeout) until end_of_data?
   end
 
   def end_of_data?
@@ -240,7 +239,7 @@ if __FILE__ == $0
   mongo_daemon = MongoDaemon.new.start
   Mongoid.load!('./mongoid.yml', :development)
   Mongoid::Config.purge!
-  model_builder = ModelBuilder.new
-  model_builder.build
+  model_builder = ModelBuilder.new.build
   # p AType.all.count
+  p ANamespace.all.count
 end
