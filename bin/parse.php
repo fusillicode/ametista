@@ -21,5 +21,6 @@ foreach (new RecursiveIteratorIterator($recursive_directory_iterator) as $file_n
   $channel->push($ast);
   $dumper->dump($file_name, $ast);
 }
+$channel->push("THAT'S ALL FOLKS!");
 
 ?>
