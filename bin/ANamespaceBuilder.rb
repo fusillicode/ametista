@@ -89,8 +89,8 @@ class ANamespaceBuilder
       unique_name: '\\',
       name:        '\\'
     )
-    global_namespace.functions = build_functions
-    global_namespace.classes = build_classes
+    # global_namespace.functions = build_functions
+    # global_namespace.classes = build_classes
     global_namespace.subnamespaces = build_namespaces
   end
 
@@ -103,8 +103,8 @@ class ANamespaceBuilder
 
   def build_namespace
     inline_namespaces = build_inline_namespaces
-    inline_namespaces.last.functions = build_functions
-    inline_namespaces.last.classes = build_classes
+    # inline_namespaces.last.functions = build_functions
+    # inline_namespaces.last.classes = build_classes
     inline_namespaces.first
   end
 
