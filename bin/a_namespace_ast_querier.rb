@@ -1,0 +1,72 @@
+class ANamespaceAstQuerier
+
+  def namespaces(ast)
+    ast.xpath('.//node:Stmt_Namespace')
+  end
+
+  def inline_namespaces(ast)
+    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+  end
+
+  def namespace_name(ast)
+    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
+  end
+
+  def namespace_unique_name(ast)
+    subnamespaces = ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+    subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
+  end
+
+  def statements(ast)
+    ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+  end
+
+  # le variabili assegnate
+  def assignements(ast)
+    ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+  end
+
+  def global_variable_value(global_variable)
+    global_variable.xpath('./subNode:expr')
+  end
+
+  def variable_name(node)
+
+    node = node.xpath('./*[1]')[0]
+
+    case node.name
+    when 'Expr_Variable'
+      name = node.xpath('./subNode:name/scalar:string').text
+      # non tratto le variabili di variabli (e.g. $$v)
+      return false if name.nil? or name.empty?
+      # le variabili plain assegnate sono comunque in GLOBALS
+      return "GLOBALS[#{name}]" if name != 'GLOBALS'
+      name
+    when 'Expr_PropertyFetch'
+      # non tratto proprietà con nomi dinamici
+      return false if !var = variable_name(node.xpath('./subNode:var'))
+      return false if !name = variable_name(node.xpath('./subNode:name'))
+      var << '->' << name
+    when 'Expr_ArrayDimFetch'
+      # non tratto indici di array dinamici
+      return var if !var = variable_name(node.xpath('./subNode:var'))
+      dim = node.xpath('./subNode:dim/*[name() = "node:Scalar_String" or name() = "node:Scalar_LNumber"]/subNode:value/*').text
+      return false if dim.nil? or dim.empty?
+      var << '[' << dim << ']'
+    when 'string'
+      node.text
+    else
+      false
+    end
+
+  end
+
+  def functions(ast)
+    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+  end
+
+  def classes(ast)
+    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
+  end
+
+end

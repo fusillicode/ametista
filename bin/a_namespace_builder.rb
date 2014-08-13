@@ -1,75 +1,6 @@
-class ANamespaceAstQuerier
-
-  def namespaces(ast)
-    ast.xpath('.//node:Stmt_Namespace')
-  end
-
-  def inline_namespaces(ast)
-    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
-  end
-
-  def namespace_name(ast)
-    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
-  end
-
-  def namespace_unique_name(ast)
-    subnamespaces = ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
-    subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
-  end
-
-  def statements(ast)
-    ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
-  end
-
-  # le variabili assegnate
-  def assignements(ast)
-    ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
-  end
-
-  def global_variable_value(global_variable)
-    global_variable.xpath('./subNode:expr')
-  end
-
-  def variable_name(node)
-
-    node = node.xpath('./*[1]')[0]
-
-    case node.name
-    when 'Expr_Variable'
-      name = node.xpath('./subNode:name/scalar:string').text
-      # non tratto le variabili di variabli (e.g. $$v)
-      return false if name.nil? or name.empty?
-      # le variabili plain assegnate sono comunque in GLOBALS
-      return "GLOBALS[#{name}]" if name != 'GLOBALS'
-      name
-    when 'Expr_PropertyFetch'
-      # non tratto proprietà con nomi dinamici
-      return false if !var = variable_name(node.xpath('./subNode:var'))
-      return false if !name = variable_name(node.xpath('./subNode:name'))
-      var << '->' << name
-    when 'Expr_ArrayDimFetch'
-      # non tratto indici di array dinamici
-      return var if !var = variable_name(node.xpath('./subNode:var'))
-      dim = node.xpath('./subNode:dim/*[name() = "node:Scalar_String" or name() = "node:Scalar_LNumber"]/subNode:value/*').text
-      return false if dim.nil? or dim.empty?
-      var << '[' << dim << ']'
-    when 'string'
-      node.text
-    else
-      false
-    end
-
-  end
-
-  def functions(ast)
-    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
-  end
-
-  def classes(ast)
-    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
-  end
-
-end
+require_relative 'initializer'
+require_relative 'a_namespace_ast_querier'
+require_relative 'model'
 
 class ANamespaceBuilder
 
@@ -89,9 +20,24 @@ class ANamespaceBuilder
       unique_name: '\\',
       name: '\\'
     )
-    global_namespace.functions = build_functions
-    # global_namespace.classes = build_classes
+    global_namespace.assignements.concat(build_assignements)
+    # global_namespace.branches.concat(build_branches)
+    # global_namespace.functions.concat(build_functions)
+    # global_namespace.classes.concat(build_classes)
     global_namespace.subnamespaces.concat(build_namespaces)
+  end
+
+  def build_assignements
+    querier.assignements(ast).map do |assignement_ast|
+      AnAssignement.find_or_create_by(
+        unique_name: '\\',
+        name: '\\'
+      )
+    end
+  end
+
+  def build_brances
+
   end
 
   def build_functions
