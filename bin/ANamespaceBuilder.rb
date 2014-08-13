@@ -125,13 +125,15 @@ class ANamespaceBuilder
       parent_unique_name = "#{parent_unique_name}\\#{parent_name}"
       child_name = namespaces.second.text
       child_unique_name = "#{parent_unique_name}\\#{child_name}"
-      ANamespace.find_or_create_by(
+      parent = ANamespace.find_or_create_by(
         unique_name: parent_unique_name,
         name: parent_name
-      ).subnamespaces.find_or_create_by(
+      )
+      child = parent.subnamespaces.find_or_create_by(
         unique_name: child_unique_name,
         name: child_name
       )
+      parent
     end
     inline_namespaces
   end
