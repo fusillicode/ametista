@@ -109,16 +109,22 @@ class ANamespaceBuilder
   end
 
   def build_inline_namespaces
-    unique_name = ''
     inline_namespaces_ast = querier.inline_namespaces(ast)
-    if inline_namespaces_ast.count == 1
-      name = inline_namespaces_ast.first.text
-      unique_name = "#{unique_name}\\#{name}"
-      return [ ANamespace.find_or_create_by(
-                unique_name: unique_name,
-                name: name
-              ) ]
-    end
+    return one_inline_namespace(inline_namespaces_ast) ||
+           multiple_inline_namespaces(inline_namespaces_ast)
+  end
+
+  def one_inline_namespace(inline_namespaces_ast)
+    return nil if inline_namespaces_ast.count != 1
+    name = inline_namespaces_ast.first.text
+    unique_name = "#{unique_name}\\#{name}"
+    return [ ANamespace.find_or_create_by(
+              unique_name: unique_name,
+              name: name
+            ) ]
+  end
+
+  def multiple_inline_namespaces(inline_namespaces_ast)
     parent_unique_name = ''
     inline_namespaces = inline_namespaces_ast.each_cons(2).map do |namespaces|
       parent_name = namespaces.first.text
@@ -135,7 +141,6 @@ class ANamespaceBuilder
       )
       parent
     end
-    inline_namespaces
   end
 
   def build_global_variables
