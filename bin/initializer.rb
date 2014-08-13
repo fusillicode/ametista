@@ -20,3 +20,9 @@ module Initializer
     end
   end
 end
+
+class Array
+  def first_and_last
+    return self.first, self.last
+  end
+end
