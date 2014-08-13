@@ -26,13 +26,13 @@ class ANamespaceAstQuerier
     ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
   end
 
-  def global_variable_value(global_variable)
-    global_variable.xpath('./subNode:expr')
+  def global_variable_value(ast)
+    ast.xpath('./subNode:expr')
   end
 
-  def variable_name(node)
+  def variable_name(ast)
 
-    node = node.xpath('./*[1]')[0]
+    node = ast.xpath('./*[1]')[0]
 
     case node.name
     when 'Expr_Variable'

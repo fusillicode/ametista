@@ -11,6 +11,6 @@ if __FILE__ == $0
   ANamespace.all.each do |namespace|
     p namespace.unique_name
     p namespace.subnamespaces
-    p namespace.assignements
+    # p namespace.assignements
   end
 end
