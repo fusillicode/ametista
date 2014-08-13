@@ -91,7 +91,7 @@ class ANamespaceBuilder
     )
     # global_namespace.functions = build_functions
     # global_namespace.classes = build_classes
-    global_namespace.subnamespaces = build_namespaces
+    global_namespace.subnamespaces.concat(build_namespaces)
   end
 
   def build_namespaces
