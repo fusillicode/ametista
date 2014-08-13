@@ -156,11 +156,11 @@ class MongoDaemon
   })
 
   def start
-    @pid = Process.spawn "#{@path} --fork --dbpath #{@database} --logpath #{@log} > /dev/null"
+    @pid = Process.spawn "#{path} --fork --dbpath #{database} --logpath #{log} > /dev/null"
   end
 
   def stop
-    Process.kill('TERM', @pid) unless @pid
+    Process.kill('TERM', pid) unless pid
   end
 
 end
@@ -181,11 +181,11 @@ class RedisDataSource
   })
 
   def read
-    return @data = redis.brpoplpush(@channel, 'done', timeout: @timeout) until end_of_data?
+    return @data = redis.brpoplpush(channel, 'done', timeout: timeout) until end_of_data?
   end
 
   def end_of_data?
-    @data == @last_data
+    data == last_data
   end
 
 end
@@ -203,13 +203,13 @@ class LanguageBuilder
   end
 
   def build_types
-    @language.types.each do |type|
+    language.types.each do |type|
       AType.create(name: type)
     end
   end
 
   def build_superglobals
-    @language.superglobals.each do |superglobal|
+    language.superglobals.each do |superglobal|
       AGlobalVariable.create(:unique_name => superglobal)
     end
   end
@@ -240,12 +240,12 @@ class ModelBuilder
   end
 
   def init_build
-    @language_builder.build
+    language_builder.build
   end
 
   def start_building_loop
-    while ast = @data_source.read
-      @top_level_builder.build(@parser.parse(ast))
+    while ast = data_source.read
+      top_level_builder.build(parser.parse(ast))
     end
   end
 

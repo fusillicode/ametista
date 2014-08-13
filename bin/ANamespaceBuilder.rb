@@ -89,7 +89,7 @@ class ANamespaceBuilder
       unique_name: '\\',
       name:        '\\'
     )
-    global_namespace.functions = build_functions
+    # global_namespace.functions = build_functions
     # global_namespace.classes = build_classes
     global_namespace.subnamespaces.concat(build_namespaces)
   end
