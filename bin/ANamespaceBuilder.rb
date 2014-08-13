@@ -89,9 +89,21 @@ class ANamespaceBuilder
       unique_name: '\\',
       name:        '\\'
     )
-    # global_namespace.functions = build_functions
+    global_namespace.functions = build_functions
     # global_namespace.classes = build_classes
     global_namespace.subnamespaces.concat(build_namespaces)
+  end
+
+  def build_functions
+    querier.functions(ast).map do |function_ast|
+      AFunctionBuilder.build(function_ast)
+    end
+  end
+
+  def build_classes
+    querier.classes(ast).map do |class_ast|
+      AClassBuilder.build(class_ast)
+    end
   end
 
   def build_namespaces
@@ -154,18 +166,6 @@ class ANamespaceBuilder
       #                  :value => global_variable_value(global_variable_value),
       #                  :i_procedure => model.send("current_#{procedure_type}"))
       # end
-  end
-
-  def build_functions
-    querier.functions(ast).map do |function_ast|
-      AFunctionBuilder.build(function_ast)
-    end
-  end
-
-  def build_classes
-    querier.classes(ast).map do |class_ast|
-      AClassBuilder.build(class_ast)
-    end
   end
 
   def subnamespace_unique_name(subnamespace)
