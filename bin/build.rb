@@ -10,7 +10,6 @@ if __FILE__ == $0
   # p AType.all.count
   ANamespace.all.each do |namespace|
     p namespace.unique_name
-    p namespace.subnamespaces
     # p namespace.assignements
   end
 end

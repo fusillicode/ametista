@@ -42,8 +42,6 @@ class AProcedure < AScope
 end
 
 class ANamespace < AScope
-  belongs_to :parent_namespace, class_name: 'ANamespace', inverse_of: :subnamespaces
-  has_many :subnamespaces, class_name: 'ANamespace', inverse_of: :parent_namespace
   has_many :functions, class_name: 'AFunction', inverse_of: :namespace
   has_many :classes, class_name: 'AClass', inverse_of: :namespace
   field :unique_name, type: String

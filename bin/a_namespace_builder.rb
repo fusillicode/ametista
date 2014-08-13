@@ -21,6 +21,7 @@ class ANamespaceBuilder
   def build ast = nil
     @ast ||= ast
     global_namespace
+    namespaces
   end
 
   def global_namespace
@@ -32,7 +33,6 @@ class ANamespaceBuilder
     # global_namespace.branches.concat(branches)
     # global_namespace.functions.concat(functions)
     # global_namespace.classes.concat(classes)
-    global_namespace.subnamespaces.concat(namespaces)
   end
 
   def namespaces
@@ -43,52 +43,14 @@ class ANamespaceBuilder
   end
 
   def namespace
-    first_namespace, last_namespace = inline_namespaces.first_and_last
-    # last_namespace.assignements.concat(assignements)
-    # last_namespace.branches.concat(branches)
-    # last_namespace.functions = functions
-    # last_namespace.classes = classes
-    first_namespace
-  end
-
-  def inline_namespaces
-    inline_namespaces_ast = querier.inline_namespaces(ast)
-    return one_inline_namespace(inline_namespaces_ast) ||
-           multiple_inline_namespaces(inline_namespaces_ast)
-  end
-
-  def one_inline_namespace(inline_namespaces_ast)
-    return nil if inline_namespaces_ast.count != 1
-    name = inline_namespaces_ast.first.text
-    unique_name = "#{unique_name}\\#{name}"
-    return [ ANamespace.find_or_create_by(
-              unique_name: unique_name,
-              name: name
-            ) ]
-  end
-
-  def multiple_inline_namespaces(inline_namespaces_ast)
-    parent_unique_name = ''
-    inline_namespaces = []
-    inline_namespaces_ast.each_with_index do |parent, i|
-      parent_name = parent.text
-      parent_unique_name = "#{parent_unique_name}\\#{parent_name}"
-      child_name = inline_namespaces_ast[i + 1].text
-      parent = ANamespace.find_or_create_by(
-        unique_name: parent_unique_name,
-        name: parent_name
-      )
-      child = parent.subnamespaces.find_or_create_by(
-        unique_name: "#{parent_unique_name}\\#{child_name}",
-        name: child_name
-      )
-      inline_namespaces << parent
-      if i == inline_namespaces_ast.size - 2
-        inline_namespaces << child
-        break
-      end
-    end
-    inline_namespaces
+    namespace = ANamespace.find_or_create_by(
+      unique_name: querier.namespace_unique_name(ast),
+      name: querier.namespace_name(ast)
+    )
+    # namespace.assignements.concat(assignements)
+    # namespace.branches.concat(branches)
+    # namespace.functions = functions
+    # namespace.classes = classes
   end
 
   def assignements
