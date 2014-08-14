@@ -12,9 +12,9 @@ class ANamespaceAstQuerier
     ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
-  def namespace_unique_name(ast)
+  def namespace_unique_name(ast, root_unique_name)
     subnamespaces = ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
-    subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
+    root_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
   end
 
   def statements(ast)

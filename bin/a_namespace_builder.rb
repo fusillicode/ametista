@@ -11,6 +11,8 @@ class ANamespaceBuilder
   extend Initializer
   initialize_with ({
     ast: nil,
+    root_unique_name: '\\',
+    parent_unique_name: '\\',
     querier: ANamespaceAstQuerier.new,
     an_assignement_builder: AnAssignementBuilder.new,
     a_branch_builder: ABranchBuilder.new,
@@ -18,16 +20,17 @@ class ANamespaceBuilder
     a_class_builder: AClassBuilder.new
   })
 
-  def build ast = nil
-    @ast ||= ast
+  def build args
+    set_instance_variables(args)
     global_namespace
     namespaces
   end
 
   def global_namespace
+    reset_parent_unique_name
     global_namespace = ANamespace.find_or_create_by(
-      unique_name: '\\',
-      name: '\\'
+      unique_name: root_unique_name,
+      name: root_unique_name
     )
     # global_namespace.assignements.concat(assignements)
     # global_namespace.branches.concat(branches)
@@ -37,30 +40,35 @@ class ANamespaceBuilder
 
   def namespaces
     querier.namespaces(ast).map do |namespace_ast|
-      @ast = namespace_ast
+      set_instance_variables({
+        ast: namespace_ast,
+        parent_unique_name: querier.namespace_unique_name(namespace_ast, root_unique_name)
+      })
       namespace
+      reset_parent_unique_name
     end
+  end
+
+  def reset_parent_unique_name
+    @parent_unique_name = root_unique_name
   end
 
   def namespace
     namespace = ANamespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name(ast),
-      name: querier.namespace_name(ast)
+      unique_name: parent_unique_name,
+      name: parent_unique_name.name_from_unique_name
     )
     # namespace.assignements.concat(assignements)
     # namespace.branches.concat(branches)
-    # namespace.functions = functions
-    # namespace.classes = classes
+    # namespace.functions.concat(functions)
+    # namespace.classes.concat(classes)
+    # namespace
   end
 
-  def assignements
+  def assignements()
     querier.assignements(ast).map do |assignement_ast|
-      querier.variable_name(assignement_ast)
-      # an_assignement_builder.build(assignement_ast)
-      # AnAssignement.find_or_create_by(
-      #   unique_name: '\\',
-      #   name: '\\'
-      # )
+      # querier.variable_name(assignement_ast)
+      an_assignement_builder.build(assignement_ast)
     end
   end
 
