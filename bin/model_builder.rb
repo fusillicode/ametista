@@ -25,7 +25,10 @@ class ModelBuilder
 
   def start_building_loop
     while ast = data_source.read
-      top_level_builder.build(parser.parse(ast))
+      break if ast == "THAT'S ALL FOLKS!"
+      top_level_builder.build({
+        ast: parser.parse(ast)
+      })
     end
   end
 
