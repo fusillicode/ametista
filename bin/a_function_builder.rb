@@ -1,4 +1,4 @@
-require_relative 'initializer'
+require_relative 'utilities'
 require_relative 'a_function_ast_querier'
 require_relative 'model'
 

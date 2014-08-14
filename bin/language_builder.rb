@@ -1,4 +1,4 @@
-require_relative 'initializer'
+require_relative 'utilities'
 require_relative 'php_language'
 
 class LanguageBuilder
