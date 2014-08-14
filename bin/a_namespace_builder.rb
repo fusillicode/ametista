@@ -49,10 +49,6 @@ class ANamespaceBuilder
     end
   end
 
-  def reset_parent_unique_name
-    @parent_unique_name = root_unique_name
-  end
-
   def namespace
     namespace = ANamespace.find_or_create_by(
       unique_name: parent_unique_name,
@@ -86,6 +82,10 @@ class ANamespaceBuilder
     querier.classes(ast).map do |class_ast|
       a_class_builder.build(class_ast)
     end
+  end
+
+  def reset_parent_unique_name
+    @parent_unique_name = root_unique_name
   end
 
   # def global_variables
