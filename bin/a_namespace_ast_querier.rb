@@ -1,38 +1,49 @@
+require_relative 'utilities'
+
 class ANamespaceAstQuerier
 
-  def namespaces(ast)
-    ast.xpath('.//node:Stmt_Namespace')
+  extend Initializer
+  initialize_with ({
+    brick: Brick.new,
+  })
+
+  def parent_name
+    return brick.parent_unique_name.split('\\').last
   end
 
-  def inline_namespaces(ast)
-    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+  def namespaces
+    brick.ast.xpath('.//node:Stmt_Namespace')
   end
 
-  def namespace_name(ast)
-    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
+  def inline_namespaces
+    brick.ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
   end
 
-  def namespace_unique_name(ast, root_unique_name)
-    subnamespaces = ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
-    root_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
+  def namespace_name
+    brick.ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
-  def statements(ast)
-    ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+  def namespace_unique_name
+    subnamespaces = brick.ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+    brick.root_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
+  end
+
+  def statements
+    brick.ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
   end
 
   # le variabili assegnate
-  def assignements(ast)
-    ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+  def assignements
+    brick.ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
   end
 
-  def global_variable_value(ast)
-    ast.xpath('./subNode:expr')
+  def global_variable_value
+    brick.ast.xpath('./subNode:expr')
   end
 
-  def variable_name(ast)
+  def variable_name
 
-    node = ast.xpath('./*[1]')[0]
+    node = brick.ast.xpath('./*[1]')[0]
 
     case node.name
     when 'Expr_Variable'
@@ -61,12 +72,12 @@ class ANamespaceAstQuerier
 
   end
 
-  def functions(ast)
-    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+  def functions
+    brick.ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
-  def classes(ast)
-    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
+  def classes
+    brick.ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
   end
 
 end

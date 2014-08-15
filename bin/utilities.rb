@@ -29,9 +29,3 @@ class Array
     return self.first, self.last
   end
 end
-
-class String
-  def name_from_unique_name
-    return self.split('\\').last
-  end
-end

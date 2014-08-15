@@ -3,11 +3,13 @@ require_relative 'redis_data_source'
 require_relative 'language_builder'
 require_relative 'a_namespace_builder'
 require_relative 'xml_parser'
+require_relative 'brick'
 
 class ModelBuilder
 
   extend Initializer
   initialize_with ({
+    brick: Brick.new,
     data_source: RedisDataSource.new,
     language_builder: LanguageBuilder.new,
     top_level_builder: ANamespaceBuilder.new,
@@ -26,9 +28,8 @@ class ModelBuilder
   def start_building_loop
     while ast = data_source.read
       break if ast == "THAT'S ALL FOLKS!"
-      top_level_builder.build({
-        ast: parser.parse(ast)
-      })
+      @brick.ast = parser.parse(ast)
+      top_level_builder.build(brick)
     end
   end
 
