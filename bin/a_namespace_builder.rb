@@ -25,10 +25,10 @@ class ANamespaceBuilder
   end
 
   def global_namespace
-    @querier.brick.parent_unique_name = querier.brick.root_unique_name
+    @querier.parent_unique_name = querier.root_unique_name
     global_namespace = ANamespace.find_or_create_by(
-      unique_name: querier.brick.root_unique_name,
-      name: querier.brick.root_unique_name
+      unique_name: querier.root_unique_name,
+      name: querier.root_unique_name
     )
     # global_namespace.assignements.concat(assignements)
     # global_namespace.branches.concat(branches)
@@ -38,16 +38,16 @@ class ANamespaceBuilder
 
   def namespaces
     querier.namespaces.map do |namespace_ast|
-      @querier.brick.ast = namespace_ast
-      @querier.brick.parent_unique_name = querier.namespace_unique_name
+      @querier.ast = namespace_ast
+      @querier.parent_unique_name = querier.namespace_unique_name
       namespace
-      @querier.brick.parent_unique_name = querier.brick.root_unique_name
+      @querier.parent_unique_name = querier.root_unique_name
     end
   end
 
   def namespace
     namespace = ANamespace.find_or_create_by(
-      unique_name: querier.brick.parent_unique_name,
+      unique_name: querier.parent_unique_name,
       name: querier.parent_name
     )
     # namespace.assignements.concat(assignements)
@@ -59,7 +59,7 @@ class ANamespaceBuilder
 
   def assignements()
     querier.assignements.map do |assignement_ast|
-      @querier.brick.ast = assignement_ast
+      @querier.ast = assignement_ast
       # querier.variable_name(assignement_ast)
       an_assignement_builder.build(querier.brick)
     end
@@ -71,13 +71,15 @@ class ANamespaceBuilder
 
   def functions
     querier.functions.map do |function_ast|
-      a_function_builder.build(function_ast)
+      @querier.ast = function_ast
+      a_function_builder.build(querier.brick)
     end
   end
 
   def classes
     querier.classes.map do |class_ast|
-      a_class_builder.build(class_ast)
+      @querier.ast = class_ast
+      a_class_builder.build(querier.brick)
     end
   end
 

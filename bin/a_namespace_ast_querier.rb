@@ -1,15 +1,6 @@
-require_relative 'utilities'
+require_relative 'querier'
 
-class ANamespaceAstQuerier
-
-  extend Initializer
-  initialize_with ({
-    brick: Brick.new,
-  })
-
-  def parent_name
-    return brick.parent_unique_name.split('\\').last
-  end
+class ANamespaceAstQuerier < Querier
 
   def namespaces
     brick.ast.xpath('.//node:Stmt_Namespace')

@@ -9,4 +9,8 @@ class Brick
     parent_unique_name: '\\'
   })
 
+  def parent_name
+    return parent_unique_name.split('\\').last
+  end
+
 end
