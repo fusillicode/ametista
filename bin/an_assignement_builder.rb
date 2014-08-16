@@ -1,25 +1,25 @@
 require_relative 'utilities'
 require_relative 'model'
+require_relative 'an_assignement_ast_querier'
 
 class AnAssignementBuilder
 
   extend Initializer
   initialize_with ({
-    ast: nil,
-    parent_unique_name: '\\',
-    querier: nil,
+    querier: AnAssignementAstQuerier.new,
+    a_variable_builder: AnAssignementBuilder.new
   })
 
-  def build args
-    @ast ||= args[:ast]
-    @parent_unique_name ||= args[:parent_unique_name]
+  def build brick
+    querier.brick = brick
+    assignement
   end
 
   def assignement
-    # AnAssignement.find_or_create_by(
-    #   unique_name: '\\',
-    #   name: '\\'
-    # )
+    AnAssignement.find_or_create_by(
+      unique_name: '\\',
+      name: '\\'
+    )
   end
 
 end

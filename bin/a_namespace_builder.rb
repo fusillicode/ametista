@@ -61,10 +61,8 @@ class ANamespaceBuilder
   def assignements()
     querier.assignements.map do |assignement_ast|
       @querier.ast = assignement_ast
-      p querier.variable_name(@querier.ast)
-      # an_assignement_builder.build(querier.brick)
+      an_assignement_builder.build(querier.brick)
     end
-    exit
   end
 
   def branches
