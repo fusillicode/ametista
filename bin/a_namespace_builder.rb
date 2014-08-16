@@ -34,14 +34,15 @@ class ANamespaceBuilder
     # global_namespace.branches.concat(branches)
     # global_namespace.functions.concat(functions)
     # global_namespace.classes.concat(classes)
+    # global_namespace
   end
 
   def namespaces
+    @querier.parent_as_root
     querier.namespaces.map do |namespace_ast|
       @querier.ast = namespace_ast
       @querier.parent_unique_name = querier.namespace_unique_name
       namespace
-      @querier.parent_as_root
     end
   end
 
