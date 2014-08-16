@@ -3,38 +3,38 @@ require_relative 'querier'
 class ANamespaceAstQuerier < Querier
 
   def namespaces
-    brick.ast.xpath('.//node:Stmt_Namespace')
+    ast.xpath('.//node:Stmt_Namespace')
   end
 
   def inline_namespaces
-    brick.ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
   end
 
   def namespace_name
-    brick.ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
+    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
   def namespace_unique_name
-    subnamespaces = brick.ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
-    brick.root_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
+    subnamespaces = ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
+    root_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
   end
 
   def statements
-    brick.ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+    ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
   end
 
   # le variabili assegnate
   def assignements
-    brick.ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+    ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
   end
 
   def global_variable_value
-    brick.ast.xpath('./subNode:expr')
+    ast.xpath('./subNode:expr')
   end
 
   def variable_name
 
-    node = brick.ast.xpath('./*[1]')[0]
+    node = ast.xpath('./*[1]')[0]
 
     case node.name
     when 'Expr_Variable'
@@ -64,11 +64,11 @@ class ANamespaceAstQuerier < Querier
   end
 
   def functions
-    brick.ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
+    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
   def classes
-    brick.ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
+    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Class')
   end
 
 end
