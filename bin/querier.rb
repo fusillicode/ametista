@@ -1,3 +1,5 @@
+require_relative 'utilities'
+
 class Querier
   extend Initializer
   initialize_with ({

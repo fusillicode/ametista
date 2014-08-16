@@ -25,7 +25,7 @@ class ANamespaceBuilder
   end
 
   def global_namespace
-    @querier.parent_unique_name = querier.root_unique_name
+    @querier.parent_as_root
     global_namespace = ANamespace.find_or_create_by(
       unique_name: querier.root_unique_name,
       name: querier.root_unique_name
@@ -41,7 +41,7 @@ class ANamespaceBuilder
       @querier.ast = namespace_ast
       @querier.parent_unique_name = querier.namespace_unique_name
       namespace
-      @querier.parent_unique_name = querier.root_unique_name
+      @querier.parent_as_root
     end
   end
 

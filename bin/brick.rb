@@ -13,4 +13,8 @@ class Brick
     return parent_unique_name.split('\\').last
   end
 
+  def parent_as_root
+    parent_unique_name = root_unique_name
+  end
+
 end
