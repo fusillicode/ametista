@@ -1,3 +1,5 @@
+require_relative 'querier'
+
 class AFunctionAstQuerier
 
   def get_name(ast)
