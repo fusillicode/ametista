@@ -19,13 +19,13 @@ class ANamespaceBuilder
   })
 
   def build brick
-    querier.brick = brick
+    @querier.brick = brick
     global_namespace
     namespaces
   end
 
   def global_namespace
-    @querier.parent_as_root
+    querier.parent_as_root
     global_namespace = ANamespace.find_or_create_by(
       unique_name: querier.root_unique_name,
       name: querier.root_unique_name
@@ -38,7 +38,7 @@ class ANamespaceBuilder
   end
 
   def namespaces
-    @querier.parent_as_root
+    querier.parent_as_root
     querier.namespaces.map do |namespace_ast|
       @querier.ast = namespace_ast
       @querier.parent_unique_name = querier.namespace_unique_name
