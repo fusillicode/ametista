@@ -32,7 +32,7 @@ class ANamespaceAstQuerier < Querier
     ast.xpath('./subNode:expr')
   end
 
-  def variable_name
+  def variable_name(ast)
 
     node = ast.xpath('./*[1]')[0]
 

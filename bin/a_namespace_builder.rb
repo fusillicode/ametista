@@ -51,7 +51,7 @@ class ANamespaceBuilder
       unique_name: querier.parent_unique_name,
       name: querier.parent_name
     )
-    # namespace.assignements.concat(assignements)
+    namespace.assignements.concat(assignements)
     # namespace.branches.concat(branches)
     # namespace.functions.concat(functions)
     # namespace.classes.concat(classes)
@@ -61,9 +61,10 @@ class ANamespaceBuilder
   def assignements()
     querier.assignements.map do |assignement_ast|
       @querier.ast = assignement_ast
-      # querier.variable_name(assignement_ast)
-      an_assignement_builder.build(querier.brick)
+      p querier.variable_name(@querier.ast)
+      # an_assignement_builder.build(querier.brick)
     end
+    exit
   end
 
   def branches
