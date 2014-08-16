@@ -66,7 +66,10 @@ class ANamespaceBuilder
   end
 
   def branches
-
+    querier.branches.map do |branch_ast|
+      @querier.ast = branch_ast
+      a_branch_builder.build(querier.brick)
+    end
   end
 
   def functions
@@ -82,20 +85,6 @@ class ANamespaceBuilder
       a_class_builder.build(querier.brick)
     end
   end
-
-  # def global_variables
-  #     querier.assignements.each do |global_variable|
-  #       p querier.variable_name(global_variable)
-  #     end
-  #     # global_variables.each do |global_variable|
-  #     # global_variable_name = variable_name(global_variable_value)
-  #     # AVariable.create(:unique_name => global_variable_name,
-  #     #                  :name => global_variable_name,
-  #     #                  :type => 'global',
-  #     #                  :value => global_variable_value(global_variable_value),
-  #     #                  :i_procedure => model.send("current_#{procedure_type}"))
-  #     # end
-  # end
 
 end
 
