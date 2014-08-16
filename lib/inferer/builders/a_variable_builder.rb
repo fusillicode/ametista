@@ -1,6 +1,6 @@
-require_relative 'utilities'
-require_relative 'model'
-require_relative 'a_variable_ast_querier'
+require_relative '../utilities'
+require_relative '../model'
+require_relative '../queriers/a_variable_ast_querier'
 
 class AVariableBuilder
 

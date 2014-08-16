@@ -1,9 +1,9 @@
-require_relative 'utilities'
-require_relative 'redis_data_source'
+require_relative '../utilities'
+require_relative '../redis_data_source'
+require_relative '../xml_parser'
+require_relative '../brick'
 require_relative 'language_builder'
 require_relative 'a_namespace_builder'
-require_relative 'xml_parser'
-require_relative 'brick'
 
 class ModelBuilder
 

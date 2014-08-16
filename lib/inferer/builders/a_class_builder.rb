@@ -1,7 +1,7 @@
-require_relative 'utilities'
-require_relative 'model'
+require_relative '../utilities'
+require_relative '../model'
 
-class ABranchBuilder
+class AClassBuilder
 
   extend Initializer
   initialize_with ({

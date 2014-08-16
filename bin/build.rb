@@ -1,6 +1,6 @@
-require_relative 'mongo_daemon'
-require_relative 'model'
-require_relative 'model_builder'
+require_relative '../lib/inferer/mongo_daemon'
+require_relative '../lib/inferer/model'
+require_relative '../lib/inferer/builders/model_builder'
 
 if __FILE__ == $0
   mongo_daemon = MongoDaemon.new.start

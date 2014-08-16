@@ -1,6 +1,6 @@
-require_relative 'utilities'
-require_relative 'model'
-require_relative 'an_assignement_ast_querier'
+require_relative '../utilities'
+require_relative '../model'
+require_relative '../queriers/an_assignement_ast_querier'
 require_relative 'a_variable_builder'
 
 class AnAssignementBuilder

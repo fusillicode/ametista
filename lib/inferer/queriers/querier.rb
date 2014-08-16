@@ -1,4 +1,4 @@
-require_relative 'utilities'
+require_relative '../utilities'
 
 class Querier
   extend Initializer
