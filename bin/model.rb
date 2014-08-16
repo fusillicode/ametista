@@ -10,7 +10,7 @@ class AnAssignement
   include Mongoid::Document
   has_one :variable, class_name: 'AVariable', inverse_of: :assignements
   belongs_to :scope, class_name: 'AScope', inverse_of: :assignements
-  field :RHS, type: String
+  field :rhs, type: String
 end
 
 class ABranch < AScope
