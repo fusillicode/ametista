@@ -27,6 +27,7 @@ class ModelBuilder
 
   def start_building_loop
     while ast = data_source.read
+      # TODO togliere il break e la condizione una volta sistemato data_source.read
       break if ast == "THAT'S ALL FOLKS!"
       @brick.ast = parser.parse(ast)
       top_level_builder.build(brick)
