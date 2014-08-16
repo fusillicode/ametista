@@ -40,7 +40,7 @@ class ANamespaceBuilder
   def namespaces
     querier.parent_as_root
     querier.namespaces.map do |namespace_ast|
-      @querier.ast = namespace_ast
+      @querier.brick.ast = namespace_ast
       @querier.parent_unique_name = querier.namespace_unique_name
       namespace
     end
@@ -60,28 +60,28 @@ class ANamespaceBuilder
 
   def assignements()
     querier.assignements.map do |assignement_ast|
-      @querier.ast = assignement_ast
+      @querier.brick.ast = assignement_ast
       an_assignement_builder.build(querier.brick)
     end
   end
 
   def branches
     querier.branches.map do |branch_ast|
-      @querier.ast = branch_ast
+      @querier.brick.ast = branch_ast
       a_branch_builder.build(querier.brick)
     end
   end
 
   def functions
     querier.functions.map do |function_ast|
-      @querier.ast = function_ast
+      @querier.brick.ast = function_ast
       a_function_builder.build(querier.brick)
     end
   end
 
   def classes
     querier.classes.map do |class_ast|
-      @querier.ast = class_ast
+      @querier.brick.ast = class_ast
       a_class_builder.build(querier.brick)
     end
   end
