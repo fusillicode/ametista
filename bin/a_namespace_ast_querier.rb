@@ -25,7 +25,7 @@ class ANamespaceAstQuerier < Querier
 
   # le variabili assegnate
   def assignements
-    ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign/subNode:var')
+    ast.xpath('./subNode:stmts/scalar:array/node:Expr_Assign')
   end
 
   def functions
