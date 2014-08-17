@@ -1,5 +1,5 @@
 require_relative '../utilities'
-require_relative '../model'
+require_relative '../schema'
 
 class ABranchBuilder
 

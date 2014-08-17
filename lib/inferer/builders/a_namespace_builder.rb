@@ -1,5 +1,5 @@
 require_relative '../utilities'
-require_relative '../model'
+require_relative '../schema'
 require_relative '../brick'
 require_relative '../queriers/a_namespace_ast_querier'
 require_relative 'a_branch_builder'

@@ -1,5 +1,5 @@
 require_relative '../lib/inferer/mongo_daemon'
-require_relative '../lib/inferer/model'
+require_relative '../lib/inferer/schema'
 require_relative '../lib/inferer/builders/model_builder'
 
 if __FILE__ == $0

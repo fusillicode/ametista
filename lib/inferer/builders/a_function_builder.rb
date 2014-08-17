@@ -1,5 +1,5 @@
 require_relative '../utilities'
-require_relative '../model'
+require_relative '../schema'
 require_relative '../queriers/a_function_ast_querier'
 
 class AFunctionBuilder
