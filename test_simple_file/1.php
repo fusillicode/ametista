@@ -152,7 +152,7 @@ function prova($ella = __NAMESPACE__, int $peppa)
   $c->a->b[1][1] = 1;
   $c->a[1]->b[1] = 1;
 
-  // USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
+  // USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
   self::$a = 1;
   self::$a->b = 1;
   self::$a[1]->b = 1;
@@ -160,6 +160,24 @@ function prova($ella = __NAMESPACE__, int $peppa)
   self::$a[1][1]->b = 1;
   self::$a->b[1][1] = 1;
   self::$a[1]->b[1] = 1;
+
+  static::$a = 1;
+  static::$a = 1;
+  static::$a->b = 1;
+  static::$a[1]->b = 1;
+  static::$a->b[1] = 1;
+  static::$a[1][1]->b = 1;
+  static::$a->b[1][1] = 1;
+  static::$a[1]->b[1] = 1;
+
+  parent::$a = 1;
+  parent::$a = 1;
+  parent::$a->b = 1;
+  parent::$a[1]->b = 1;
+  parent::$a->b[1] = 1;
+  parent::$a[1][1]->b = 1;
+  parent::$a->b[1][1] = 1;
+  parent::$a[1]->b[1] = 1;
 
   AClass::$a = 1;
   AClass::$a = 1;
