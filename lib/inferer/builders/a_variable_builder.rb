@@ -22,7 +22,8 @@ class AVariableBuilder
 
   def variable
     variable = AVariable.create(
-
+      name: querier.variable_name,
+      unique_name: querier.variable_unique_name
     )
   end
 

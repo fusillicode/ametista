@@ -2,8 +2,13 @@ require_relative 'querier'
 
 class AVariableAstQuerier < Querier
 
-  def global_variable_value
-    ast.xpath('./subNode:expr')
+  def variable_unique_name(variable_name = nil)
+    "#{parent_unique_name}//#{variable_name}"
+  end
+
+  def type
+    ast.xpath('./*[1]')[0]
+    Expr_StaticPropertyFetch
   end
 
   def variable_name(ast)
