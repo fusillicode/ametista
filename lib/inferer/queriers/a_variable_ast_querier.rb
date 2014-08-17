@@ -8,7 +8,7 @@ class AVariableAstQuerier < Querier
 
   def type
     ast.xpath('./*[1]')[0]
-    Expr_StaticPropertyFetch
+    return Expr_Variable
   end
 
   def variable_name(ast)

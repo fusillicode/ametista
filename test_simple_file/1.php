@@ -40,6 +40,44 @@ class Sole {
 
   function soleggia()
   {
+    foreach ($variable as $key => $value) {
+      # code...
+    }
+    for ($i=0; $i < 10; $i++) {
+      # code...
+    }
+    while ($i <= 10) {
+      # code...
+    }
+    do {
+
+    } while (true);
+    if (true) {
+      # code...
+    }
+    if (true) {
+      # code...
+    } else {
+      # code...
+    }
+    if (true) {
+      # code...
+    } elseif(null) {
+      # code...
+    } else {
+      # code...
+    }
+    $retVal = (true) ? a : b ;
+    switch (variable) {
+      case 'value':
+        # code...
+        break;
+
+      default:
+        # code...
+        break;
+    }
+
     $GLOBALS['a'] = 1;
     $GLOBALS['a']->b = 1;
     $GLOBALS['a']->b[1] = 1;
