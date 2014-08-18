@@ -16,7 +16,7 @@ class ANamespaceAstQuerier < Querier
 
   def namespace_unique_name
     subnamespaces = ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
-    root_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
+    global_namespace_unique_name + subnamespaces.map{ |subnamespace| "\\#{subnamespace.text}" }.join
   end
 
   def statements
