@@ -7,6 +7,7 @@ class Querier
     ast_decorator: ASTDecorator.new,
   })
 
+  # TODO implementare anche respond_to?
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block

@@ -20,6 +20,7 @@ class ASTDecorator
     ast.instance_of? parser.output_class
   end
 
+  # TODO implementare anche respond_to?
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       public_send method_name, *args, &block
