@@ -9,8 +9,8 @@ class AVariableBuilder
     querier: AVariableAstQuerier.new,
   })
 
-  def build brick
-    @querier.brick = brick
+  def build ast
+    @querier.ast = ast
     variable
   end
 
@@ -21,7 +21,7 @@ class AVariableBuilder
   # index({ unique_name: 1 }, { unique: true })
 
   def variable
-    p querier.type
+    p querier.ast
     exit
     variable = AVariable.create(
       name: querier.variable_name,

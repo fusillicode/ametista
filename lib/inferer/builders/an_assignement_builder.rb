@@ -11,8 +11,8 @@ class AnAssignementBuilder
     a_variable_builder: AVariableBuilder.new
   })
 
-  def build brick
-    @querier.brick = brick
+  def build ast
+    @querier.ast = ast
     assignement
   end
 
@@ -24,8 +24,7 @@ class AnAssignementBuilder
   end
 
   def variable
-    @querier.brick.ast = querier.variable
-    a_variable_builder.build(querier.brick)
+    a_variable_builder.build(querier.variable)
   end
 
 end
