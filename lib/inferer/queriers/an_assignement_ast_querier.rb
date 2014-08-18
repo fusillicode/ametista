@@ -1,7 +1,4 @@
 require_relative 'querier'
-# has_one :variable, class_name: 'AVariable', inverse_of: :assignements
-# belongs_to :scope, class_name: 'AScope', inverse_of: :assignements
-# field :RHS, type: String
 
 class AnAssignementAstQuerier < Querier
 
@@ -10,7 +7,7 @@ class AnAssignementAstQuerier < Querier
   end
 
   def rhs
-    ast.xpath('./subNode:expr')
+    ast.xpath('./subNode:expr').to_s
   end
 
 end
