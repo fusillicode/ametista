@@ -44,9 +44,9 @@ end
 class ANamespace < AScope
   has_many :functions, class_name: 'AFunction', inverse_of: :namespace
   has_many :classes, class_name: 'AClass', inverse_of: :namespace
-  field :unique_name, type: String
+  field :unique_name, type: String, default: '\\'
   index({ unique_name: 1 }, { unique: true })
-  field :name, type: String
+  field :name, type: String, default: '\\'
 end
 
 class AClass
