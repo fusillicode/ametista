@@ -8,6 +8,7 @@ class ModelBuilder
 
   extend Initializer
   initialize_with ({
+    parser: XMLParser.new,
     data_source: RedisDataSource.new,
     language_builder: LanguageBuilder.new,
     top_level_builder: ANamespaceBuilder.new,
@@ -26,7 +27,7 @@ class ModelBuilder
     while ast = data_source.read
       # TODO togliere il break e la condizione una volta sistemato data_source.read
       break if ast == "THAT'S ALL FOLKS!"
-      top_level_builder.build(ast)
+      top_level_builder.build(parser.parse(ast))
     end
   end
 
