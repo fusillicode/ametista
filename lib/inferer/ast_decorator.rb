@@ -1,4 +1,5 @@
 require_relative 'utilities'
+require_relative 'xml_parser'
 
 class ASTDecorator
 
@@ -11,7 +12,7 @@ class ASTDecorator
   })
 
   def decore ast
-    @ast = is_decored? ast ? ast : parser.parse(ast)
+    @ast = is_decored?(ast) ? ast : parser.parse(ast)
     self
   end
 
