@@ -18,7 +18,7 @@ class ANamespaceBuilder
   })
 
   def build ast
-    @querier.ast_decorator.decore(ast)
+    @querier.ast = ast
     global_namespace
     namespaces
   end
