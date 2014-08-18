@@ -21,12 +21,11 @@ class AVariableBuilder
   # index({ unique_name: 1 }, { unique: true })
 
   def variable
-    p querier.ast
-    exit
-    variable = AVariable.create(
-      name: querier.variable_name,
-      unique_name: querier.variable_unique_name
-    )
+    p querier.variable_unique_name
+    # variable = AVariable.create(
+    #   name: querier.variable_name,
+    #   unique_name: querier.variable_unique_name
+    # )
   end
 
 end

@@ -2,13 +2,16 @@ require_relative 'querier'
 
 class AVariableAstQuerier < Querier
 
-  def variable_unique_name(variable_name = nil)
-    "#{parent_unique_name}//#{variable_name}"
+  def variable_unique_name
+    p 'namespace: ' << ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/scalar:string').text
+    p 'function: ' << ast.xpath('./ancestor::node:Stmt_Function[1]/subNode:name/scalar:string').text
+    p 'class: ' << ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
+    p 'method: ' << ast.xpath('./ancestor::node:Stmt_ClassMethod[1]/subNode:name/scalar:string').text
+    p '###########################'
   end
 
   def type
     ast.xpath('./*[1]')[0]
-    return Expr_Variable
   end
 
   def variable_name(ast)
