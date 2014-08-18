@@ -3,15 +3,14 @@ require_relative '../utilities'
 class Querier
   extend Initializer
   initialize_with ({
-    brick: Brick.new,
+    ast_decorator: ASTDecorator.new,
   })
+
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
-      public_send method_name, *args, &block
-    elsif brick.respond_to? method_name
-      brick.public_send method_name, *args, &block
+      self.public_send method_name, *args, &block
     else
-      super
+      ast_decorator.public_send method_name, *args, &block
     end
   end
 end
