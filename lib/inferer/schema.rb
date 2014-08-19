@@ -37,7 +37,8 @@ class Type
   include Mongoid::Document
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
   field :name, type: String
-  index({ name: 1 }, { unique: true })
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
 end
 
 class Procedure < Scope
