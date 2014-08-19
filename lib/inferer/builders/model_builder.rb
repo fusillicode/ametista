@@ -39,7 +39,7 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       ast = parser.parse(ast)
       namespaces_builder.build(ast)
-      # functions_builder.build(ast)
+      functions_builder.build(ast)
       # classes_builder.build(ast)
       # methods_builder.build(ast)
       # branches_builder.build(ast)
