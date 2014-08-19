@@ -20,7 +20,7 @@ class FunctionBuilder
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
         namespace: namespace(function_ast),
-        return_values: ['asd']
+        return_values: return_values(function_ast)
       )
     end
   end
@@ -32,8 +32,11 @@ class FunctionBuilder
     )
   end
 
-  def return_values
-
+  # TODO formalizzare la persistenza dei return_values
+  def return_values ast
+    querier.return_values(ast).map do |return_value|
+      return_value.to_s
+    end
   end
 
 end

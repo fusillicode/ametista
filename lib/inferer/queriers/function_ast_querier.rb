@@ -14,15 +14,15 @@ class FunctionAstQuerier < Querier
     global_namespace_unique_name + ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
-  def name(ast)
+  def name ast
     ast.xpath('./subNode:name/scalar:string').text
   end
 
-  def unique_name(ast)
+  def unique_name ast
     global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
-  def return_statements(ast)
+  def return_values ast
     ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
   end
 
