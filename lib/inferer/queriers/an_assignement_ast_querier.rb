@@ -1,4 +1,5 @@
 require_relative 'querier'
+require 'ostruct'
 
 class AnAssignementAstQuerier < Querier
 
@@ -15,36 +16,74 @@ class AnAssignementAstQuerier < Querier
   end
 
   def scope ast
-    namespace = namespace
-    if function != ''
-      return { function: namespace + function }
-    elsif method = method != ''
-      class = class
-      return { class: namespace + class + method }
+    # l'ordine degli delle condizioni è rilevante
+    if branch = branch_scope(ast)
+      OpenStruct.new(
+        type: ABranch,
+        unique_name: branch,
+        name: name(brach)
+      )
+    elsif function = function_scope(ast)
+      OpenStruct.new(
+        type: AFunction,
+        unique_name: function,
+        name: name(function)
+      )
+    elsif method = method_scope(ast)
+      OpenStruct.new(
+        type: AMethod,
+        unique_name: method,
+        name: name(method)
+      )
     else
-      return { namespace: namespace }
+      namespace = namespace_scope(ast)
+      OpenStruct.new(
+        type: ANamespace,
+        unique_name: namespace,
+        name: name(namespace)
+      )
     end
   end
 
-  def namespace ast
+  def name unique_name
+    unique_name.split('\\').last
+  end
+
+  def namespace_scope ast
     namespace_parts = ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')
     global_namespace_unique_name + namespace_parts.map{ |namespace_part| "\\#{namespace_part.text}" }.join
   end
 
-  def function ast
-    ast.xpath('./ancestor::node:Stmt_Function[1]/subNode:name/scalar:string').text
+  def function_scope ast
+    function = ast.xpath('./ancestor::node:Stmt_Function[1]/subNode:name/scalar:string').text
+    return false if function == ''
+    "#{namespace_scope(ast)}\\#{function}"
   end
 
-  def method ast
-    ast.xpath('./ancestor::node:Stmt_ClassMethod[1]/subNode:name/scalar:string').text
+  def method_scope ast
+    method = ast.xpath('./ancestor::node:Stmt_ClassMethod[1]/subNode:name/scalar:string').text
+    return false if method == ''
+    "#{namespace_scope(ast)}\\#{class_scope(ast)}\\#{method}"
   end
 
-  def class ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
+  def branch_scope ast
+    # TODO trattare tutti i casi di branch...
+    # TODO trattare i branch innestati!!!
+    branch = ast.xpath('./ancestor::node:Stmt_Branch[1]/subNode:name/scalar:string').text
+    return false if branch == ''
+    if function = function_scope(ast)
+      "#{function}\\#{branch}"
+    elsif method = method_scope(ast)
+      "#{method}\\#{branch}"
+    else
+      "#{namespace_scope(ast)}\\#{branch}"
+    end
   end
 
-  def branch ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
+  def class_scope ast
+    a_class = ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
+    return false if a_class == ''
+    a_class
   end
 
 end
