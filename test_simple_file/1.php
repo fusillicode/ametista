@@ -131,6 +131,8 @@ class Sole {
 
 function prova($ella = __NAMESPACE__, int $peppa)
 {
+
+  return $ciao;
   $a = 1;
   $a[1] = 1;
   $a[1][1] = 1;
@@ -203,6 +205,8 @@ function prova($ella = __NAMESPACE__, int $peppa)
   $_POST['a'][1]->b = 1;
   $_POST['a'][1][1]->b = 1;
   $_POST['b'][1]->b[1] = 1;
+
+  return $ciao;
 
   /////////////////////////////////////////
   global $a;
