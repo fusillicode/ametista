@@ -11,36 +11,27 @@ class NamespaceBuilder
 
   def build ast
     @querier.ast = ast
-    global_namespace
     namespaces
   end
 
-  def global_namespace
-    Namespace.find_or_create_by(
-      unique_name: querier.global_namespace_unique_name,
-      name: querier.global_namespace_name
-    )
+  def namespaces
+    global_namespace + other_namespaces
   end
 
-  def namespaces
-    querier.namespaces.each do |namespace_ast|
+  def global_namespace
+    [ Namespace.find_or_create_by(
+      unique_name: querier.global_namespace_unique_name,
+      name: querier.global_namespace_name
+    ) ]
+  end
+
+  def other_namespaces
+    querier.namespaces.map do |namespace_ast|
       Namespace.find_or_create_by(
         unique_name: querier.namespace_unique_name(namespace_ast),
         name: querier.namespace_name(namespace_ast)
-
       )
     end
-  end
-
-  def klass ast
-    scope = querier.scope(ast)
-    p Namespace.new
-    p Method.new
-    exit
-    scope.type.find_or_create_by(
-      unique_name: scope.unique_name,
-      name: scope.name
-    )
   end
 
 end
