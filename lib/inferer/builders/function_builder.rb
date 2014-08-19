@@ -16,19 +16,19 @@ class FunctionBuilder
 
   def functions
     querier.functions.map do |function_ast|
-      function = Function.find_or_create_by(
+      Function.find_or_create_by(
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
-        namespace: namespace,
-        return_values: 'asd'
+        namespace: namespace(function_ast),
+        return_values: ['asd']
       )
     end
   end
 
-  def namespace
+  def namespace ast
     Namespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name,
-      name: querier.namespace_name
+      unique_name: querier.parent_unique_name(ast),
+      name: querier.parent_name(ast)
     )
   end
 
