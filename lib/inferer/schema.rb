@@ -7,11 +7,15 @@ class AScope
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
+
+  def self.descendants
+    ObjectSpace.each_object(Class).select { |klass| klass < self }
+  end
 end
 
 class AnAssignement
   include Mongoid::Document
-  has_one :variable, class_name: 'AVariable', inverse_of: :assignements
+  belongs_to :variable, class_name: 'AVariable', inverse_of: :assignements
   belongs_to :scope, class_name: 'AScope', inverse_of: :assignements
   field :rhs, type: String
 end
