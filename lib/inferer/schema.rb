@@ -1,5 +1,7 @@
 require "mongoid"
 
+################################################################################
+
 class Scope
   include Mongoid::Document
   has_many :assignements, class_name: 'Assignement', inverse_of: :scope
@@ -13,15 +15,9 @@ class Scope
   end
 end
 
-class Assignement
-  include Mongoid::Document
-  belongs_to :variable, class_name: 'Variable', inverse_of: :assignements
-  belongs_to :scope, class_name: 'Scope', inverse_of: :assignements
-  field :rhs, type: String
-end
-
-class Branch < Scope
-  belongs_to :scope, class_name: 'Scope', inverse_of: :branches
+class Procedure < Scope
+  has_many :parameters, class_name: 'Parameter', inverse_of: :procedure
+  field :return_values, type: Array
 end
 
 class Variable
@@ -33,17 +29,25 @@ class Variable
   index({ unique_name: 1 }, { unique: true })
 end
 
+################################################################################
+
+class Assignement
+  include Mongoid::Document
+  belongs_to :variable, class_name: 'Variable', inverse_of: :assignements
+  belongs_to :scope, class_name: 'Scope', inverse_of: :assignements
+  field :rhs, type: String
+end
+
+class Branch < Scope
+  belongs_to :scope, class_name: 'Scope', inverse_of: :branches
+end
+
 class Type
   include Mongoid::Document
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
-end
-
-class Procedure < Scope
-  has_many :parameters, class_name: 'Parameter', inverse_of: :procedure
-  field :return_values, type: Array
 end
 
 class Namespace < Scope
