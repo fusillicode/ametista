@@ -28,8 +28,8 @@ class NamespaceBuilder
   def other_namespaces
     querier.namespaces.map do |namespace_ast|
       Namespace.find_or_create_by(
-        unique_name: querier.namespace_unique_name(namespace_ast),
-        name: querier.namespace_name(namespace_ast)
+        unique_name: querier.unique_name(namespace_ast),
+        name: querier.name(namespace_ast)
       )
     end
   end
