@@ -14,14 +14,6 @@ class AnAssignementBuilder
   initialize_with ({
     querier: AnAssignementAstQuerier.new,
     variable_builder: AVariableBuilder.new
-    scope_builder:
-    {
-      namespace_builder: ANamespaceBuilder.new,
-      function_builder: AFunctionBuilder.new,
-      class_builder: AClassBuilder.new,
-      method_builder: AMethodBuilder.new,
-      branch_builder: ABranchBuilder.new
-    }
   })
 
   def build ast
@@ -31,23 +23,32 @@ class AnAssignementBuilder
 
   def assignements
     querier.assignements.each do |assignement_ast|
-      AnAssignement.create(
-        variable: variable(assignement_ast),
-        rhs: querier.rhs(assignement_ast)
-        scope: scope(assignement_ast)
-      )
+      p scope(assignement_ast)
+      # AnAssignement.create(
+      #   variable: variable(assignement_ast),
+      #   rhs: querier.rhs(assignement_ast),
+      #   scope: scope(assignement_ast)
+      # )
     end
   end
 
   def scope ast
-    scope_builder[querier.scope_type(ast)].find_or_create_by(
-      unique_name: querier.scope_unique_name(ast),
-      name: querier.scope_name(ast)
+    scope = querier.scope(ast)
+    p ANamespace.new
+    p AMethod.new
+    exit
+    scope.type.find_or_create_by(
+      unique_name: scope.unique_name,
+      name: scope.name
     )
   end
 
   def variable ast
-    a_variable_builder.build()
+    AVariable.find_or_create_by(
+      unique_name: 'ciccia',
+      name: 'cic'
+    )
+    # a_variable_builder.build()
   end
 
 end
