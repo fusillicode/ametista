@@ -15,13 +15,13 @@ class LanguageBuilder
 
   def build_types
     language.types.each do |type|
-      AType.create(name: type)
+      Type.create(name: type)
     end
   end
 
   def build_superglobals
     language.superglobals.each do |superglobal|
-      AGlobalVariable.create(:unique_name => superglobal)
+      GlobalVariable.create(:unique_name => superglobal)
     end
   end
 

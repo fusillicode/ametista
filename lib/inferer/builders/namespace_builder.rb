@@ -1,12 +1,12 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/a_namespace_ast_querier'
+require_relative '../queriers/namespace_ast_querier'
 
-class ANamespaceBuilder
+class NamespaceBuilder
 
   extend Initializer
   initialize_with ({
-    querier: ANamespaceAstQuerier.new,
+    querier: NamespaceAstQuerier.new,
   })
 
   def build ast
@@ -16,7 +16,7 @@ class ANamespaceBuilder
   end
 
   def global_namespace
-    ANamespace.find_or_create_by(
+    Namespace.find_or_create_by(
       unique_name: querier.global_namespace_unique_name,
       name: querier.global_namespace_name
     )
@@ -24,7 +24,7 @@ class ANamespaceBuilder
 
   def namespaces
     querier.namespaces.each do |namespace_ast|
-      ANamespace.find_or_create_by(
+      Namespace.find_or_create_by(
         unique_name: querier.namespace_unique_name(namespace_ast),
         name: querier.namespace_name(namespace_ast)
 
@@ -34,8 +34,8 @@ class ANamespaceBuilder
 
   def klass ast
     scope = querier.scope(ast)
-    p ANamespace.new
-    p AMethod.new
+    p Namespace.new
+    p Method.new
     exit
     scope.type.find_or_create_by(
       unique_name: scope.unique_name,

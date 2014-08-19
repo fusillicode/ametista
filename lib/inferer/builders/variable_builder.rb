@@ -1,12 +1,12 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/a_variable_ast_querier'
+require_relative '../queriers/variable_ast_querier'
 
-class AVariableBuilder
+class VariableBuilder
 
   extend Initializer
   initialize_with ({
-    querier: AVariableAstQuerier.new,
+    querier: VariableAstQuerier.new,
   })
 
   def build ast

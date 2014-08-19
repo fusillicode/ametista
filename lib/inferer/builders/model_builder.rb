@@ -2,12 +2,12 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative 'language_builder'
-require_relative 'a_namespace_builder'
-require_relative 'a_function_builder'
-require_relative 'a_class_builder'
-require_relative 'a_method_builder'
-require_relative 'a_branch_builder'
-require_relative 'an_assignement_builder'
+require_relative 'namespace_builder'
+require_relative 'function_builder'
+require_relative 'klass_builder'
+require_relative 'kmethod_builder'
+require_relative 'branch_builder'
+require_relative 'assignement_builder'
 
 class ModelBuilder
 
@@ -16,12 +16,12 @@ class ModelBuilder
     parser: XMLParser.new,
     data_source: RedisDataSource.new,
     language_builder: LanguageBuilder.new,
-    namespaces_builder: ANamespaceBuilder.new,
-    functions_builder: AFunctionBuilder.new,
-    classes_builder: AClassBuilder.new,
-    methods_builder: AMethodBuilder.new,
-    branches_builder: ABranchBuilder.new,
-    assignements_builder: AnAssignementBuilder.new
+    namespaces_builder: NamespaceBuilder.new,
+    functions_builder: FunctionBuilder.new,
+    classes_builder: KlassBuilder.new,
+    methods_builder: KMethodBuilder.new,
+    branches_builder: BranchBuilder.new,
+    assignements_builder: AssignementBuilder.new
   })
 
   def build
@@ -43,7 +43,7 @@ class ModelBuilder
       # classes_builder.build(ast)
       # methods_builder.build(ast)
       # branches_builder.build(ast)
-      assignements_builder.build(ast)
+      # assignements_builder.build(ast)
     end
   end
 

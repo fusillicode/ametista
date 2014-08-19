@@ -1,7 +1,7 @@
 require_relative 'querier'
 require 'ostruct'
 
-class AnAssignementAstQuerier < Querier
+class AssignementAstQuerier < Querier
 
   def assignements
     ast.xpath('//node:Expr_Assign')
@@ -19,26 +19,26 @@ class AnAssignementAstQuerier < Querier
     # l'ordine degli delle condizioni è rilevante
     if branch = branch_scope(ast)
       OpenStruct.new(
-        type: ABranch,
+        type: Branch,
         unique_name: branch,
         name: name(brach)
       )
     elsif function = function_scope(ast)
       OpenStruct.new(
-        type: AFunction,
+        type: Function,
         unique_name: function,
         name: name(function)
       )
     elsif method = method_scope(ast)
       OpenStruct.new(
-        type: AMethod,
+        type: Method,
         unique_name: method,
         name: name(method)
       )
     else
       namespace = namespace_scope(ast)
       OpenStruct.new(
-        type: ANamespace,
+        type: Namespace,
         unique_name: namespace,
         name: name(namespace)
       )

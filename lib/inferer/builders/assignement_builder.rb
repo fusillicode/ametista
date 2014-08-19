@@ -1,19 +1,19 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/an_assignement_ast_querier'
-require_relative 'a_variable_builder'
-require_relative 'a_namespace_builder'
-require_relative 'a_function_builder'
-require_relative 'a_class_builder'
-require_relative 'a_method_builder'
-require_relative 'a_branch_builder'
+require_relative '../queriers/assignement_ast_querier'
+require_relative 'variable_builder'
+require_relative 'namespace_builder'
+require_relative 'function_builder'
+require_relative 'klass_builder'
+require_relative 'kmethod_builder'
+require_relative 'branch_builder'
 
-class AnAssignementBuilder
+class AssignementBuilder
 
   extend Initializer
   initialize_with ({
-    querier: AnAssignementAstQuerier.new,
-    variable_builder: AVariableBuilder.new
+    querier: AssignementAstQuerier.new,
+    variable_builder: VariableBuilder.new
   })
 
   def build ast
@@ -34,8 +34,8 @@ class AnAssignementBuilder
 
   def scope ast
     scope = querier.scope(ast)
-    p ANamespace.new
-    p AMethod.new
+    p Namespace.new
+    p Method.new
     exit
     scope.type.find_or_create_by(
       unique_name: scope.unique_name,
@@ -44,7 +44,7 @@ class AnAssignementBuilder
   end
 
   def variable ast
-    AVariable.find_or_create_by(
+    Variable.find_or_create_by(
       unique_name: 'ciccia',
       name: 'cic'
     )

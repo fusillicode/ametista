@@ -8,7 +8,7 @@ if __FILE__ == $0
   Mongoid::Config.purge!
   model_builder = ModelBuilder.new.build
   # p AType.all.count
-  ANamespace.all.each do |namespace|
+  Namespace.all.each do |namespace|
     p namespace.unique_name
     p namespace.assignements
   end

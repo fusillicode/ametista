@@ -1,12 +1,12 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/a_function_ast_querier'
+require_relative '../queriers/function_ast_querier'
 
-class AFunctionBuilder
+class FunctionBuilder
 
   extend Initializer
   initialize_with ({
-    querier: AFunctionAstQuerier.new
+    querier: FunctionAstQuerier.new
   })
 
   def build ast
@@ -17,11 +17,11 @@ class AFunctionBuilder
 
   def functions
     querier.functions.each do |function_ast|
-      function = AFunction.find_or_create_by(
+      function = Function.find_or_create_by(
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
         namespace: namespace,
-        return_values:
+        return_values: 'asd'
       )
       function.parameters = parameters(function_ast)
     end
@@ -36,8 +36,8 @@ class AFunctionBuilder
   end
 
   def namespace
-    ANamespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name
+    Namespace.find_or_create_by(
+      unique_name: querier.namespace_unique_name,
       name: querier.namespace_name
     )
   end

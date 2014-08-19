@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class AFunctionAstQuerier
+class FunctionAstQuerier
 
   def get_name(ast)
     ast.xpath('./subNode:name/scalar:string').text

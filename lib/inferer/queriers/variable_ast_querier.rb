@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class AVariableAstQuerier < Querier
+class VariableAstQuerier < Querier
 
   def variable_unique_name
     p 'namespace: ' << ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/scalar:string').text

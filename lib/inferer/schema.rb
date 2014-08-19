@@ -1,9 +1,9 @@
 require "mongoid"
 
-class AScope
+class Scope
   include Mongoid::Document
-  has_many :assignements, class_name: 'AnAssignement', inverse_of: :scope
-  has_many :branches, class_name: 'ABranch', inverse_of: :scopes
+  has_many :assignements, class_name: 'Assignement', inverse_of: :scope
+  has_many :branches, class_name: 'Branch', inverse_of: :scopes
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
@@ -13,75 +13,75 @@ class AScope
   end
 end
 
-class AnAssignement
+class Assignement
   include Mongoid::Document
-  belongs_to :variable, class_name: 'AVariable', inverse_of: :assignements
-  belongs_to :scope, class_name: 'AScope', inverse_of: :assignements
+  belongs_to :variable, class_name: 'Variable', inverse_of: :assignements
+  belongs_to :scope, class_name: 'Scope', inverse_of: :assignements
   field :rhs, type: String
 end
 
-class ABranch < AScope
-  belongs_to :scope, class_name: 'AScope', inverse_of: :branches
+class Branch < Scope
+  belongs_to :scope, class_name: 'Scope', inverse_of: :branches
 end
 
-class AVariable
+class Variable
   include Mongoid::Document
-  has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
-  has_and_belongs_to_many :types, class_name: 'AType', inverse_of: :variables
+  has_many :assignements, class_name: 'Assignement', inverse_of: :variable
+  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
 end
 
-class AType
+class Type
   include Mongoid::Document
-  has_and_belongs_to_many :variables, class_name: 'AVariable', inverse_of: :types
+  has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
   field :name, type: String
   index({ name: 1 }, { unique: true })
 end
 
-class AProcedure < AScope
-  has_many :parameters, class_name: 'AParameter', inverse_of: :procedure
+class Procedure < Scope
+  has_many :parameters, class_name: 'Parameter', inverse_of: :procedure
   field :return_values, type: Array
 end
 
-class ANamespace < AScope
-  has_many :functions, class_name: 'AFunction', inverse_of: :namespace
-  has_many :classes, class_name: 'AClass', inverse_of: :namespace
+class Namespace < Scope
+  has_many :functions, class_name: 'Function', inverse_of: :namespace
+  has_many :klasses, class_name: 'Klass', inverse_of: :namespace
 end
 
-class AClass
+class Klass
   include Mongoid::Document
-  belongs_to :parent_class, class_name: 'AClass', inverse_of: :child_classes
-  has_many :child_classes, class_name: 'AClass', inverse_of: :parent_class
-  belongs_to :namespace, class_name: 'ANamespace', inverse_of: :classes
-  has_many :methods, class_name: 'AMethod', inverse_of: :class
-  has_many :properties, class_name: 'AProperty', inverse_of: :class
+  belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
+  has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
+  belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
+  has_many :methods, class_name: 'KMethod', inverse_of: :klass
+  has_many :properties, class_name: 'Property', inverse_of: :klass
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
   field :name, type: String
 end
 
-class AMethod < AProcedure
-  belongs_to :class, class_name: 'AClass', inverse_of: :methods
+class KMethod < Procedure
+  belongs_to :klass, class_name: 'Klass', inverse_of: :methods
 end
 
-class AFunction < AProcedure
-  belongs_to :namespace, class_name: 'ANamespace', inverse_of: :functions
+class Function < Procedure
+  belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
 end
 
-class AGlobalVariable < AVariable
-  belongs_to :namespace, class_name: 'ANamespace', inverse_of: :global_variables
+class GlobalVariable < Variable
+  belongs_to :namespace, class_name: 'Namespace', inverse_of: :global_variables
 end
 
-class ALocalVariable < AVariable
-  belongs_to :procedure, class_name: 'AProcedure', inverse_of: :local_variables
+class LocalVariable < Variable
+  belongs_to :procedure, class_name: 'Procedure', inverse_of: :local_variables
 end
 
-class AProperty < AVariable
-  belongs_to :class, class_name: 'AClass', inverse_of: :properties
+class Property < Variable
+  belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
-class AParameter < AVariable
-  belongs_to :procedure, class_name: 'AProcedure', inverse_of: :parameters
+class Parameter < Variable
+  belongs_to :procedure, class_name: 'Procedure', inverse_of: :parameters
 end

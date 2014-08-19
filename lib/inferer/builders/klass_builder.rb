@@ -1,7 +1,7 @@
 require_relative '../utilities'
 require_relative '../schema'
 
-class ABranchBuilder
+class KlassBuilder
 
   extend Initializer
   initialize_with ({
