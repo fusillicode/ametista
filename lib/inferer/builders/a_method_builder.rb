@@ -2,7 +2,7 @@ require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/a_namespace_ast_querier'
 
-class ANamespaceBuilder
+class AMethodBuilder
 
   extend Initializer
   initialize_with ({
@@ -16,7 +16,7 @@ class ANamespaceBuilder
   end
 
   def global_namespace
-    ANamespace.find_or_create_by(
+    global_namespace = ANamespace.find_or_create_by(
       unique_name: querier.global_namespace_unique_name,
       name: querier.global_namespace_name
     )
