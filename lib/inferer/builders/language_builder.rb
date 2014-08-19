@@ -15,7 +15,7 @@ class LanguageBuilder
 
   def build_types
     language.types.each do |type|
-      Type.create(
+      BasicType.create(
         unique_name: type,
         name: type
       )

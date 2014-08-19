@@ -20,6 +20,14 @@ class Procedure < Scope
   field :return_values, type: Array
 end
 
+class Type
+  include Mongoid::Document
+  has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
+  field :name, type: String
+  field :unique_name, type: String
+  index({ unique_name: 1 }, { unique: true })
+end
+
 class Variable
   include Mongoid::Document
   has_many :assignements, class_name: 'Assignement', inverse_of: :variable
@@ -42,30 +50,28 @@ class Branch < Scope
   belongs_to :scope, class_name: 'Scope', inverse_of: :branches
 end
 
-class Type
-  include Mongoid::Document
-  has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
-  field :name, type: String
-  field :unique_name, type: String
-  index({ unique_name: 1 }, { unique: true })
-end
-
 class Namespace < Scope
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
 end
 
-class Klass
+class BasicType < Type
+end
+
+class CustomType < Type
+end
+
+class Klass < Type
   include Mongoid::Document
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   has_many :methods, class_name: 'KMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
-  field :unique_name, type: String
-  index({ unique_name: 1 }, { unique: true })
-  field :name, type: String
 end
+
+# Alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
+CustomType = Klass
 
 class KMethod < Procedure
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
