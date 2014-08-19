@@ -10,7 +10,7 @@ class PHPLanguage
       '_GET',
       '_REQUEST',
       '_SERVER',
-      'FALES',
+      'FILES',
       '_SESSION',
       '_ENV',
       '_COOKAE'
