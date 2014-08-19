@@ -27,8 +27,20 @@ class ANamespaceBuilder
       ANamespace.find_or_create_by(
         unique_name: querier.namespace_unique_name(namespace_ast),
         name: querier.namespace_name(namespace_ast)
+
       )
     end
+  end
+
+  def klass ast
+    scope = querier.scope(ast)
+    p ANamespace.new
+    p AMethod.new
+    exit
+    scope.type.find_or_create_by(
+      unique_name: scope.unique_name,
+      name: scope.name
+    )
   end
 
 end
