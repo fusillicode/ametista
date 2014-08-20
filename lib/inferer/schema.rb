@@ -58,9 +58,6 @@ end
 class BasicType < Type
 end
 
-class CustomType < Type
-end
-
 class Klass < Type
   include Mongoid::Document
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
