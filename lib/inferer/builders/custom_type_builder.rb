@@ -15,6 +15,8 @@ class CustomTypeBuilder
   end
 
   def custom_types
+    # TODO attenzione che usando find_or_create_by e map si ottengono degli array
+    # con degli oggetti potenzialmente duplicati
     querier.custom_types.map do |custom_type_ast|
       CustomType.find_or_create_by(
         unique_name: querier.unique_name(custom_type_ast),
