@@ -38,7 +38,7 @@ namespace saturno;
 
 class Sole {
 
-  function soleggia()
+  function soleggia(Alamain $a)
   {
     // Stmt_Foreach
     foreach ($variable as $key => $value) {
@@ -224,7 +224,7 @@ class mondo extends pippo {
   public static $a = '12';
   private $b = 'asd';
 
-  private function ciao(int $a){
+  private function ciao(A $a){
 
   }
 
