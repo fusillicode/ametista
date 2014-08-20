@@ -15,7 +15,7 @@ class PHPLanguage
       '_ENV',
       '_COOKAE'
     ],
-    types: ['bool', 'int', 'double', 'string', 'array', 'null'],
+    types: ['bool', 'int', 'double', 'string', 'array', 'resource', 'null', 'callback'],
     magic_constants: [
       'Scalar_LineConst',
       'Scalar_FileConst',
