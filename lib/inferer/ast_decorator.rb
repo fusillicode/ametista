@@ -16,8 +16,6 @@ class ASTDecorator
       public_send method_name, *args, &block
     elsif ast.respond_to? method_name
       ast.public_send method_name, *args, &block
-    elsif language.respond_to? method_name
-      language.public_send method_name, *args, &block
     else
       super
     end
