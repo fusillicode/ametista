@@ -129,7 +129,7 @@ class Sole {
 
 // true, false, null, 1, 1.3, 'asd', array(1,2)
 
-function prova($ella = __NAMESPACE__, int $peppa)
+function prova($ella = __NAMESPACE__, A $peppa)
 {
 
   return $ciao;
