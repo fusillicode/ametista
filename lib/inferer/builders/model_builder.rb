@@ -1,9 +1,11 @@
 # TODO come posso sistemare tutti questi require_relative?
 require_relative '../utilities'
 require_relative '../redis_data_source'
+require_relative '../xml_parser'
 require_relative 'language_builder'
 require_relative 'namespace_builder'
 require_relative 'function_builder'
+require_relative 'custom_type_builder'
 require_relative 'klass_builder'
 require_relative 'kmethod_builder'
 require_relative 'branch_builder'
@@ -18,6 +20,7 @@ class ModelBuilder
     language_builder: LanguageBuilder.new,
     namespaces_builder: NamespaceBuilder.new,
     functions_builder: FunctionBuilder.new,
+    custom_types_builder: CustomTypeBuilder.new,
     classes_builder: KlassBuilder.new,
     methods_builder: KMethodBuilder.new,
     branches_builder: BranchBuilder.new,
@@ -40,6 +43,7 @@ class ModelBuilder
       ast = parser.parse(ast)
       namespaces_builder.build(ast)
       functions_builder.build(ast)
+      p custom_types_builder.build(ast)
       # parameters_builder.build(ast)
       # global_variables_builder.build(ast)
       # local_variables_builder.build(ast)
