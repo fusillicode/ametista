@@ -12,14 +12,15 @@ class CustomTypeAstQuerier < Querier
   end
 
   def name ast
-    ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text ||
-    ast.xpath('./subNode:name')
+    parameter_type_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
+    return parameter_type_name if parameter_type_name != ''
+    ast.xpath('./subNode:name/scalar:string').text
   end
 
   def unique_name ast
-    unique_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') ||
-    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
-    global_namespace_unique_name + unique_name
+    parameter_type_unique_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    return global_namespace_unique_name + parameter_type_unique_name if parameter_type_unique_name != ''
+    global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
 end
