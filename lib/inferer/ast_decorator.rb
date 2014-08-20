@@ -1,5 +1,4 @@
 require_relative 'utilities'
-require_relative 'xml_parser'
 
 class ASTDecorator
 
