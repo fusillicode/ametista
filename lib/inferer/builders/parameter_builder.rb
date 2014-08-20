@@ -15,13 +15,14 @@ class ParameterBuilder
   end
 
   def parameters
-    querier.parameters.map do |parameter_ast|
+    querier.parameters.map_unique do |parameter_ast|
       parameter = Parameter.find_or_create_by(
         unique_name: querier.unique_name(parameter_ast),
         name: querier.name(parameter_ast),
         procedure: parent(parameter_ast)
       )
       parameter.types << type
+      parameter
     end
   end
 

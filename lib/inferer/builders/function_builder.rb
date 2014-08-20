@@ -15,7 +15,7 @@ class FunctionBuilder
   end
 
   def functions
-    querier.functions.map do |function_ast|
+    querier.functions.map_unique do |function_ast|
       Function.find_or_create_by(
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
