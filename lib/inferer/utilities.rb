@@ -29,3 +29,17 @@ class Array
     return self.first, self.last
   end
 end
+
+module UniqueMapper
+  def map_unique &block
+    self.map(&block).uniq{ |x| x._id }
+  end
+end
+
+module Nokogiri
+  module XML
+    class NodeSet
+      include UniqueMapper
+    end
+  end
+end
