@@ -22,22 +22,23 @@ class ParametersBuilder < Builder
         name: querier.name(parameter_ast),
         procedure: parent(parameter_ast)
       )
-      parameter.types << type
+      # parameter.types << type(ast)
       parameter
     end
   end
 
   def parent ast
     p querier.parent_type(ast)
-    exit
-    model[querier.parent_type(ast)].find_or_create_by(
-      unique_name: querier.parent_unique_name(ast),
-      name: querier.parent_name(ast)
-    )
+    p querier.parent_name(ast)
+    p querier.parent_unique_name(ast)
+    # model[querier.parent_type(ast)].find_or_create_by(
+    #   unique_name: querier.parent_unique_name(ast),
+    #   name: querier.parent_name(ast)
+    # )
   end
 
   def type ast
-    Type.find_or_create_by(
+    model[querier.type(ast)].find_or_create_by(
       unique_name: querier.type,
       name: querier.type
     )
