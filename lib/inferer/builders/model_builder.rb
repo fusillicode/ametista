@@ -43,7 +43,7 @@ class ModelBuilder
       ast = parser.parse(ast)
       namespaces_builder.build(ast)
       functions_builder.build(ast)
-      p custom_types_builder.build(ast)
+      custom_types_builder.build(ast)
       # parameters_builder.build(ast)
       # global_variables_builder.build(ast)
       # local_variables_builder.build(ast)

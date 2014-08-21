@@ -6,7 +6,7 @@ class ParameterBuilder
 
   extend Initializer
   initialize_with ({
-    querier: FunctionAstQuerier.new
+    querier: ParameterAstQuerier.new
   })
 
   def build ast
