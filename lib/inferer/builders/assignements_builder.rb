@@ -1,6 +1,7 @@
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/assignements_ast_querier'
+require_relative 'builder'
 # require_relative 'variable_builder'
 # require_relative 'namespace_builder'
 # require_relative 'function_builder'
@@ -8,7 +9,7 @@ require_relative '../queriers/assignements_ast_querier'
 # require_relative 'kmethod_builder'
 # require_relative 'branch_builder'
 
-# class AssignementBuilder
+# class AssignementBuilder < Builder
 
 #   extend Initializer
 #   initialize_with ({

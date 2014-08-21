@@ -1,8 +1,9 @@
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/namespaces_ast_querier'
+require_relative 'builder'
 
-class NamespacesBuilder
+class NamespacesBuilder < Builder
 
   extend Initializer
   initialize_with ({

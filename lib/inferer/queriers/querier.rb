@@ -4,7 +4,7 @@ require_relative '../ast_decorator'
 class Querier
   extend Initializer
   initialize_with ({
-    ast_decorator: ASTDecorator.new,
+    ast_decorator: ASTDecorator.new
   })
 
   # TODO implementare anche respond_to?

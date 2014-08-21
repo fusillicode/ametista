@@ -1,8 +1,9 @@
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/functions_ast_querier'
+require_relative 'builder'
 
-class FunctionsBuilder
+class FunctionsBuilder < Builder
 
   extend Initializer
   initialize_with ({

@@ -7,8 +7,7 @@ class ParametersAstQuerier < Querier
   end
 
   def parent_type ast
-    ast.xpath('./ancestor::node:Stmt_ClassMethod[1]') ||
-    ast.xpath('./ancestor::node:Stmt_Function[1]')
+    ast.xpath("./ancestor::[node:Stmt_Class or node:Stmt_Function]")
   end
 
   def parent_name ast
@@ -27,6 +26,8 @@ class ParametersAstQuerier < Querier
     global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
+  # Stmt_ClassMethod
+  # Stmt_Function
   def type ast
     ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end

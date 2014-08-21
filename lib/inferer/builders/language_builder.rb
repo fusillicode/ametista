@@ -1,7 +1,8 @@
 require_relative '../utilities'
 require_relative '../php_language'
+require_relative 'builder'
 
-class LanguageBuilder
+class LanguageBuilder < Builder
 
   extend Initializer
   initialize_with ({

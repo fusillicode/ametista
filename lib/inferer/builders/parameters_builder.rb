@@ -1,8 +1,9 @@
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/parameters_ast_querier'
+require_relative 'builder'
 
-class ParametersBuilder
+class ParametersBuilder < Builder
 
   extend Initializer
   initialize_with ({
@@ -27,7 +28,9 @@ class ParametersBuilder
   end
 
   def parent ast
-    querier.parent_type(ast).find_or_create_by(
+    p querier.parent_type(ast)
+    exit
+    model[querier.parent_type(ast)].find_or_create_by(
       unique_name: querier.parent_unique_name(ast),
       name: querier.parent_name(ast)
     )
