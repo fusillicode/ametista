@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class NamespaceAstQuerier < Querier
+class NamespacesAstQuerier < Querier
 
   def namespaces
     ast.xpath('.//node:Stmt_Namespace')

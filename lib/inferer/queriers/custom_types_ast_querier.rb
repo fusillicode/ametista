@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class CustomTypeAstQuerier < Querier
+class CustomTypesAstQuerier < Querier
 
   def custom_types
     ast.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()][not(#{basic_types})]]") +

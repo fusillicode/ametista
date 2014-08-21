@@ -1,7 +1,7 @@
 require_relative 'querier'
 require 'ostruct'
 
-class AssignementAstQuerier < Querier
+class AssignementsAstQuerier < Querier
 
   def assignements
     ast.xpath('//node:Expr_Assign')

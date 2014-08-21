@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class ParameterAstQuerier < Querier
+class ParametersAstQuerier < Querier
 
   def parameters
     ast.xpath('.//node:Param')

@@ -1,12 +1,12 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/custom_type_ast_querier'
+require_relative '../queriers/custom_types_ast_querier'
 
-class CustomTypeBuilder
+class CustomTypesBuilder
 
   extend Initializer
   initialize_with ({
-    querier: CustomTypeAstQuerier.new
+    querier: CustomTypesAstQuerier.new
   })
 
   def build ast

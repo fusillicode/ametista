@@ -1,12 +1,12 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/namespace_ast_querier'
+require_relative '../queriers/namespaces_ast_querier'
 
-class NamespaceBuilder
+class NamespacesBuilder
 
   extend Initializer
   initialize_with ({
-    querier: NamespaceAstQuerier.new,
+    querier: NamespacesAstQuerier.new,
   })
 
   def build ast
