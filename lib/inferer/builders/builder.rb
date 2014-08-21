@@ -5,8 +5,8 @@ class Builder
   extend Initializer
   initialize_with ({
     model: {
-      'Stmt_Function' => Function,
-      'Stmt_Class'    => Klass
+      'node:Stmt_Function' => Function,
+      'node:Stmt_Class'    => Klass
     }
   })
 end
