@@ -15,7 +15,7 @@ class ParametersAstQuerier < Querier
   end
 
   def parent_type ast
-    ast.xpath("name(./ancestor::*[name() = 'node:Stmt_ClassMethod' or name() = 'node:Stmt_Function'][1])")
+    entity_mapper[ast.xpath("name(./ancestor::*[name() = 'node:Stmt_ClassMethod' or name() = 'node:Stmt_Function'][1])")]
   end
 
   def parent_name ast
@@ -31,16 +31,16 @@ class ParametersAstQuerier < Querier
   end
 
   def type ast
-    ast.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]]")
+    entity_mapper[ast.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]]")]
   end
 
-  def name ast
+  def type_name ast
     parameter_type_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
     return parameter_type_name if parameter_type_name != ''
     ast.xpath('./subNode:name/scalar:string').text
   end
 
-  def unique_name ast
+  def type_unique_name ast
     parameter_type_unique_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
     return global_namespace_unique_name + parameter_type_unique_name if parameter_type_unique_name != ''
     global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
