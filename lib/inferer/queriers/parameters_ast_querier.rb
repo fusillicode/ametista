@@ -31,7 +31,9 @@ class ParametersAstQuerier < Querier
   end
 
   def type ast
-    entity_mapper[ast.xpath("./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]")]
+    type = ast.xpath("./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]")
+    return if type.empty?
+    entity_mapper[type]
   end
 
   def type_name ast
