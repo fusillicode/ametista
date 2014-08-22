@@ -1,8 +1,8 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative 'builder'
 
-class KlassesBuilder < Builder
+
+class KlassesBuilder
 
   extend Initializer
   initialize_with ({

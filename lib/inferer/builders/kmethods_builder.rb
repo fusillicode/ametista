@@ -1,9 +1,9 @@
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/kmethods_ast_querier'
-require_relative 'builder'
 
-class KMethodsBuilder < Builder
+
+class KMethodsBuilder
 
   extend Initializer
   initialize_with ({

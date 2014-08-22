@@ -1,9 +1,9 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative 'builder'
+
 # require_relative '../queriers/variable_ast_querier'
 
-# class VariableBuilder < Builder
+# class VariableBuilder
 
 #   extend Initializer
 #   initialize_with ({
