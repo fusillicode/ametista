@@ -31,19 +31,17 @@ class ParametersAstQuerier < Querier
   end
 
   def type ast
-    entity_mapper[ast.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]]")]
+    entity_mapper[ast.xpath("./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]")]
   end
 
   def type_name ast
-    parameter_type_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
-    return parameter_type_name if parameter_type_name != ''
-    ast.xpath('./subNode:name/scalar:string').text
+    ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
   def type_unique_name ast
     parameter_type_unique_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
-    return global_namespace_unique_name + parameter_type_unique_name if parameter_type_unique_name != ''
-    global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    return parameter_type_unique_name if parameter_type_unique_name == ''
+    global_namespace_unique_name + parameter_type_unique_name
   end
 
 end
