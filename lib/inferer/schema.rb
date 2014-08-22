@@ -63,14 +63,14 @@ class Klass < Type
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
-  has_many :methods, class_name: 'KMethod', inverse_of: :klass
+  has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
 end
 
 # Alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
 CustomType = Klass
 
-class KMethod < Procedure
+class KlassMethod < Procedure
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
 end
 

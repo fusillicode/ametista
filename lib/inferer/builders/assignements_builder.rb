@@ -2,12 +2,12 @@ require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/assignements_ast_querier'
 
-# require_relative 'variable_builder'
-# require_relative 'namespace_builder'
-# require_relative 'function_builder'
-# require_relative 'klass_builder'
-# require_relative 'kmethod_builder'
-# require_relative 'branch_builder'
+# require_relative 'variables_builder'
+# require_relative 'namespaces_builder'
+# require_relative 'functions_builder'
+# require_relative 'klasses_builder'
+# require_relative 'klasses_method_builder'
+# require_relative 'branches_builder'
 
 # class AssignementBuilder
 

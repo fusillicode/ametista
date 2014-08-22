@@ -11,7 +11,7 @@ require_relative 'global_variables_builder'
 require_relative 'local_variables_builder'
 require_relative 'properties_builder'
 require_relative 'klasses_builder'
-require_relative 'kmethods_builder'
+require_relative 'klasses_methods_builder'
 require_relative 'branches_builder'
 require_relative 'assignements_builder'
 
@@ -31,7 +31,7 @@ class ModelBuilder
       # local_variables_builder: LocalVariablesBuilder.new,
       # properties_builder: PropertiesBuilder.new,
       # klasses_builder: KlassesBuilder.new,
-      # kmethods_builder: KMethodsBuilder.new,
+      # klasses_methods_builder: KlassesMethodsBuilder.new,
       # branches_builder: BranchesBuilder.new,
       # assignements_builder: AssignementsBuilder.new
     }

@@ -9,7 +9,7 @@ class EntityMapper
     default_map_value: CustomType,
     map: {
       'node:Stmt_Function'    => Function,
-      'node:Stmt_ClassMethod' => KMethod
+      'node:Stmt_ClassMethod' => KlassMethod
     }
   })
 

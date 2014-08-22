@@ -1,8 +1,8 @@
 require_relative 'querier'
 
-class KMethodsAstQuerier < Querier
+class KlassesMethodsAstQuerier < Querier
 
-  def kmethods
+  def klasses_methods
     ast.xpath('.//subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
