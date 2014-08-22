@@ -2466,23 +2466,20 @@
              <scalar:string>a</scalar:string>
             </subNode:name>
             <subNode:default>
-             <scalar:null/>
-            </subNode:default>
-            <subNode:type>
-             <node:Name_FullyQualified>
+             <node:Scalar_LNumber>
               <attribute:startLine>
                <scalar:int>41</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
                <scalar:int>41</scalar:int>
               </attribute:endLine>
-              <subNode:parts>
-               <scalar:array>
-                <scalar:string>saturno</scalar:string>
-                <scalar:string>Alamain</scalar:string>
-               </scalar:array>
-              </subNode:parts>
-             </node:Name_FullyQualified>
+              <subNode:value>
+               <scalar:int>1</scalar:int>
+              </subNode:value>
+             </node:Scalar_LNumber>
+            </subNode:default>
+            <subNode:type>
+             <scalar:null/>
             </subNode:type>
             <subNode:byRef>
              <scalar:false/>
