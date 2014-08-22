@@ -48,7 +48,7 @@ class ModelBuilder
 
   def builders_loop ast
     builders.each do |key, builder|
-      p builder.build(ast)
+      builder.build(ast)
     end
   end
 
@@ -57,6 +57,11 @@ class ModelBuilder
       # TODO togliere il break e la condizione una volta sistemato data_source.read
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
+    end
+    Parameter.all.each do |param|
+      p param.unique_name
+      p param.types
+      p param.procedure.unique_name
     end
   end
 
