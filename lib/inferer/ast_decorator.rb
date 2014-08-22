@@ -4,7 +4,6 @@ class ASTDecorator
 
   extend Initializer
   initialize_with ({
-    language: PHPLanguage.new,
     ast: nil,
     global_namespace_name: '\\',
     global_namespace_unique_name: '\\'
