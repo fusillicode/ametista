@@ -28,17 +28,18 @@ class ParametersBuilder
   end
 
   def parent ast
+    # p querier.parent_type(ast)
+    # p querier.parent_name(ast)
+    # p querier.parent_unique_name(ast)
     p querier.parent_type(ast)
-    p querier.parent_name(ast)
-    p querier.parent_unique_name(ast)
-    # model[querier.parent_type(ast)].find_or_create_by(
-    #   unique_name: querier.parent_unique_name(ast),
-    #   name: querier.parent_name(ast)
-    # )
+    querier.parent_type(ast).find_or_create_by(
+      unique_name: querier.parent_unique_name(ast),
+      name: querier.parent_name(ast)
+    )
   end
 
   def type ast
-    model[querier.type(ast)].find_or_create_by(
+    querier.type(ast).find_or_create_by(
       unique_name: querier.type_unique_name(ast),
       name: querier.type_name(ast)
     )
