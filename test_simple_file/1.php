@@ -38,7 +38,7 @@ namespace saturno;
 
 class Sole {
 
-  function soleggia($a = 1)
+  function soleggia(Ciccio $a = 1, Ciccia $b)
   {
     // Stmt_Foreach
     foreach ($variable as $key => $value) {

@@ -2479,7 +2479,53 @@
              </node:Scalar_LNumber>
             </subNode:default>
             <subNode:type>
+             <node:Name_FullyQualified>
+              <attribute:startLine>
+               <scalar:int>41</scalar:int>
+              </attribute:startLine>
+              <attribute:endLine>
+               <scalar:int>41</scalar:int>
+              </attribute:endLine>
+              <subNode:parts>
+               <scalar:array>
+                <scalar:string>saturno</scalar:string>
+                <scalar:string>Ciccio</scalar:string>
+               </scalar:array>
+              </subNode:parts>
+             </node:Name_FullyQualified>
+            </subNode:type>
+            <subNode:byRef>
+             <scalar:false/>
+            </subNode:byRef>
+           </node:Param>
+           <node:Param>
+            <attribute:startLine>
+             <scalar:int>41</scalar:int>
+            </attribute:startLine>
+            <attribute:endLine>
+             <scalar:int>41</scalar:int>
+            </attribute:endLine>
+            <subNode:name>
+             <scalar:string>b</scalar:string>
+            </subNode:name>
+            <subNode:default>
              <scalar:null/>
+            </subNode:default>
+            <subNode:type>
+             <node:Name_FullyQualified>
+              <attribute:startLine>
+               <scalar:int>41</scalar:int>
+              </attribute:startLine>
+              <attribute:endLine>
+               <scalar:int>41</scalar:int>
+              </attribute:endLine>
+              <subNode:parts>
+               <scalar:array>
+                <scalar:string>saturno</scalar:string>
+                <scalar:string>Ciccia</scalar:string>
+               </scalar:array>
+              </subNode:parts>
+             </node:Name_FullyQualified>
             </subNode:type>
             <subNode:byRef>
              <scalar:false/>
