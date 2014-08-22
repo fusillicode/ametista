@@ -39,8 +39,8 @@ class ParametersBuilder < Builder
 
   def type ast
     model[querier.type(ast)].find_or_create_by(
-      unique_name: querier.type,
-      name: querier.type
+      unique_name: querier.type_unique_name(ast),
+      name: querier.type_name(ast)
     )
   end
 
