@@ -13,7 +13,7 @@ class PHPLanguage
       'FILES',
       '_SESSION',
       '_ENV',
-      '_COOKAE'
+      '_COOKIE'
     ],
     types: ['bool', 'int', 'double', 'string', 'array', 'resource', 'null', 'callback'],
     magic_constants: [
