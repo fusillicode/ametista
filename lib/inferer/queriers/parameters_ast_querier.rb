@@ -2,8 +2,38 @@ require_relative 'querier'
 
 class ParametersAstQuerier < Querier
 
+  def function_parameters
+    ast.xpath('.//node:Stmt_ClassMethod/subNode:params/scalar:array/node:Param')
+  end
+
+  def klasses_methods_parameters
+    ast.xpath('.//node:Stmt_Function/subNode:params/scalar:array/node:Param')
+  end
+
+  def parent_function_name ast
+    ast.xpath("./ancestor::node:Stmt_Function/subNode:name/scalar:string").text
+  end
+
+  def parent_klass_method_name ast
+    ast.xpath("./ancestor::node:Stmt_ClassMethod/subNode:name/scalar:string").text
+  end
+
+  def parent_function_unique_name ast
+    global_namespace_unique_name +
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') +
+    '\\' +
+    parent_name(ast)
+  end
+
+  def parent_klass_method_unique_name ast
+    global_namespace_unique_name +
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') +
+    '\\' +
+    parent_name(ast)
+  end
+
   def parameters
-    ast.xpath('.//node:Param')
+    function_parameters + klasses_methods_parameters
   end
 
   def name ast
