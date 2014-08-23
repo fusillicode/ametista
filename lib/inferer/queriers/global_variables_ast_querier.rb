@@ -1,6 +1,13 @@
 require_relative 'querier'
 
-class VariableAstQuerier < Querier
+class GlobalVariablesAstQuerier < Querier
+
+  def global_variables
+    # assegnamenti namespace globale
+    ast.xpath(".//node:Expr_Assign[not(ancestor::node:Stmt_Namespace or ancestor::node:Stmt_ClassMethod or ancestor::node:Stmt_Function)]")
+    # ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')
+    # ast.xpath('//subNode:stmts/scalar:array/*[name() = "node:Expr_Assign" or name() = "node:Stmt_Global"]')
+  end
 
   def variable_unique_name
     p 'namespace: ' << ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/scalar:string').text
@@ -8,10 +15,6 @@ class VariableAstQuerier < Querier
     p 'class: ' << ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
     p 'method: ' << ast.xpath('./ancestor::node:Stmt_ClassMethod[1]/subNode:name/scalar:string').text
     p '###########################'
-  end
-
-  def type
-    ast.xpath('./*[1]')[0]
   end
 
   def variable_name(ast)

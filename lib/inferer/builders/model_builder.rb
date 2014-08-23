@@ -27,7 +27,7 @@ class ModelBuilder
       functions_builder: FunctionsBuilder.new,
       custom_types_builder: CustomTypesBuilder.new,
       parameters_builder: ParametersBuilder.new,
-      # global_variables_builder: GlobalVariablesBuilder.new,
+      global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
       # properties_builder: PropertiesBuilder.new,
       # klasses_builder: KlassesBuilder.new,
@@ -57,11 +57,6 @@ class ModelBuilder
       # TODO togliere il break e la condizione una volta sistemato data_source.read
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
-    end
-    Parameter.all.each do |param|
-      p param.unique_name
-      p param.types
-      p param.procedure.unique_name
     end
   end
 
