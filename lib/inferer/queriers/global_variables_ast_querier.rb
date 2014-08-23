@@ -4,7 +4,7 @@ class GlobalVariablesAstQuerier < Querier
 
   def global_variables
     # assegnamenti namespace globale
-    ast.xpath(".//node:Expr_Assign[not(ancestor::node:Stmt_Namespace or ancestor::node:Stmt_ClassMethod or ancestor::node:Stmt_Function)]")
+    ast.xpath("/AST/scalar:array/node:Expr_Assign")
     # ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')
     # ast.xpath('//subNode:stmts/scalar:array/*[name() = "node:Expr_Assign" or name() = "node:Stmt_Global"]')
   end
