@@ -3,8 +3,8 @@ require_relative 'querier'
 class GlobalVariablesAstQuerier < Querier
 
   def global_variables
-    assignements_in_global_namespace +
-    global_definitions +
+    # assignements_in_global_namespace +
+    # global_definitions +
     assignements_to_superglobals
   end
 
@@ -17,7 +17,7 @@ class GlobalVariablesAstQuerier < Querier
   end
 
   def assignements_to_superglobals
-    ast.xpath(".//node:Expr_Assign[subNode:var/node:Expr_ArrayDimFetch/subNode:var/node:Expr_Variable/subNode:name/scalar:string[#{superglobals_list}]]")
+    ast.xpath(".//node:Expr_Assign[descendant::node:Expr_Variable/subNode:name/scalar:string[#{superglobals_list}]]")
   end
 
   def superglobals_list
