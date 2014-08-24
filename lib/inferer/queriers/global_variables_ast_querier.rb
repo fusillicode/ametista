@@ -3,10 +3,25 @@ require_relative 'querier'
 class GlobalVariablesAstQuerier < Querier
 
   def global_variables
-    # assegnamenti namespace globale
+    assignements_in_global_namespace +
+    global_definitions +
+    assignements_to_superglobals
+  end
+
+  def assignements_in_global_namespace
     ast.xpath("/AST/scalar:array/node:Expr_Assign")
-    # ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')
-    # ast.xpath('//subNode:stmts/scalar:array/*[name() = "node:Expr_Assign" or name() = "node:Stmt_Global"]')
+  end
+
+  def global_definitions
+    ast.xpath(".//node:Stmt_Global")
+  end
+
+  def assignements_to_superglobals
+    ast.xpath(".//node:Expr_Assign[subNode:var/node:Expr_ArrayDimFetch/subNode:var/node:Expr_Variable/subNode:name/scalar:string[#{superglobals_list}]]")
+  end
+
+  def superglobals_list
+    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(' or ')
   end
 
   def variable_unique_name
