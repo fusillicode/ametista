@@ -4,6 +4,8 @@ $a[1]->b[1][1]->d = 1;
 $b = $c = $e;
 $$vv = 'pippo';
 $a[1][2] = 'pippa';
+AClass::$a = 1;
+$_POST['a'] = 1;
 
 // $GLOBALS['a'][1][1]->b = 1;
 // $GLOBALS[AClass::$asd + 1] = $a = 1;
