@@ -3,25 +3,43 @@ require_relative 'querier'
 class GlobalVariablesAstQuerier < Querier
 
   def global_variables
-    # assignements_in_global_namespace +
+    # global_namespace_variables
     # global_definitions +
-    assignements_to_superglobals
+    superglobals
   end
 
-  def assignements_in_global_namespace
-    ast.xpath("/AST/scalar:array/node:Expr_Assign")
+  def global_namespace_variables
+    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('and')})]]")
   end
 
   def global_definitions
-    ast.xpath(".//node:Stmt_Global")
+    ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable")
   end
 
-  def assignements_to_superglobals
-    ast.xpath(".//node:Expr_Assign[descendant::node:Expr_Variable/subNode:name/scalar:string[#{superglobals_list}]]")
+  def superglobals
+    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{superglobals_list('or')}]]]")
   end
 
-  def superglobals_list
-    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(' or ')
+  def superglobals_list operator
+    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" #{operator} ")
+  end
+
+  def name ast
+    superglobal_name(ast) or global_name(ast)
+  end
+
+  def superglobal_name ast
+    name = ast.xpath('./subNode:var/subNode:name/scalar:string').text
+    return if name.empty?
+    ast.xpath('./subNode:dim/node:Scalar_String/subNode:value/scalar:string').text + "['#{name}']"
+  end
+
+  def global_name ast
+    ast.xpath('./subNode:name/scalar:string').text
+  end
+
+  def unique_name ast
+    name
   end
 
   def variable_unique_name
