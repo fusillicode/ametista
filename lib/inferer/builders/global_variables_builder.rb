@@ -16,14 +16,13 @@ class GlobalVariablesBuilder
 
   def global_variables
     ciccio = querier.global_variables.map do |global_variable_ast|
-      global_variable_ast
+      1
       # GlobalVariable.find_or_create_by(
       #   unique_name: querier.unique_name(global_variable_ast),
       #   name: querier.name(global_variable_ast)
       # )
     end
     p ciccio.count
-    exit
   end
 
   # has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
