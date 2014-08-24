@@ -9,6 +9,8 @@ class Scope
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
+  validates :name, presence: true, length: { allow_blank: false }
+  validates :unique_name, presence: true, length: { allow_blank: false }
 
   def self.descendants
     ObjectSpace.each_object(Class).select { |klass| klass < self }
@@ -26,6 +28,8 @@ class Type
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
+  validates :name, presence: true, length: { allow_blank: false }
+  validates :unique_name, presence: true, length: { allow_blank: false }
 end
 
 class Variable
@@ -35,6 +39,8 @@ class Variable
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
+  validates :name, presence: true, length: { allow_blank: false }
+  validates :unique_name, presence: true, length: { allow_blank: false }
 end
 
 ################################################################################
