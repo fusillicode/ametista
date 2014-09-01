@@ -3,7 +3,7 @@
     "psr-0": { "Inferer\\": "lib/" }
   },
   "require" : {
-    "nikic/php-parser" : "0.9.*-dev",
-    "predis/predis" : "0.8.*-dev"
+    "nikic/php-parser" : "dev-master",
+    "predis/predis" : "dev-master"
   }
 }
