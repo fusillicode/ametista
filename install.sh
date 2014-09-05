@@ -10,7 +10,7 @@ php composer.phar install
 php composer.phar update
 
 # Install Redis in vendor subdirectory
-REDIS_VERSION="2.8.5"
+REDIS_VERSION="2.8.14"
 REDIS="redis-$REDIS_VERSION"
 REDIS_PACKAGE="$REDIS.tar.gz"
 cd vendor
@@ -36,7 +36,7 @@ case `uname -s` in
     exit 1
     ;;
 esac
-MONGODB_VERSION="2.6.3"
+MONGODB_VERSION="2.6.4"
 MONGODB="mongodb-$PLATFORM-x86_64-$MONGODB_VERSION"
 MONGODB_PACKAGE="$MONGODB.tgz"
 curl -O "http://downloads.mongodb.org/$PLATFORM/$MONGODB_PACKAGE"
