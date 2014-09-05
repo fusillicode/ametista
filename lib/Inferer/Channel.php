@@ -31,7 +31,7 @@ class Channel
     try {
       $this->client->connect();
       echo "Successfully connected to daemon\n";
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       exit("Couldn't connected to daemon\n{$e->getMessage()}\n");
     }
   }
