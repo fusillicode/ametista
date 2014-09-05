@@ -15,14 +15,34 @@ class GlobalVariablesBuilder
   end
 
   def global_variables
-    ciccio = querier.global_variables.map do |global_variable_ast|
-      1
-      # GlobalVariable.find_or_create_by(
-      #   unique_name: querier.unique_name(global_variable_ast),
-      #   name: querier.name(global_variable_ast)
-      # )
+    global_namespace_variables << global_definitions << superglobals
+  end
+
+  def global_namespace_variables
+    querier.global_namespace_variables.map_unique do |global_variable_ast|
+      GlobalVariable.find_or_create_by(
+        unique_name: querier.global_namespace_variable_unique_name(global_variable_ast),
+        name: querier.global_namespace_variable_unique_name(global_variable_ast)
+      )
     end
-    p ciccio.count
+  end
+
+  def global_definitions
+    querier.global_definitions.map_unique do |global_variable_ast|
+      GlobalVariable.find_or_create_by(
+        unique_name: querier.global_definition_unique_name(global_variable_ast),
+        name: querier.global_definition_name(global_variable_ast)
+      )
+    end
+  end
+
+  def superglobals
+    querier.superglobals.map_unique do |global_variable_ast|
+      GlobalVariable.find_or_create_by(
+        unique_name: querier.superglobal_unique_name(global_variable_ast),
+        name: querier.superglobal_name(global_variable_ast)
+      )
+    end
   end
 
   # has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
