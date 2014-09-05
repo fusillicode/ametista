@@ -16,7 +16,9 @@ class Channel
         'host'   => 'localhost',
         'port'   => 6379
       ]),
-      'channel' => 'xmls_asts'
+      'channel'  => 'xmls_asts',
+      'wait'     => 3,
+      'attempts' => 5,
     );
   }
 
@@ -32,7 +34,32 @@ class Channel
       $this->client->connect();
       echo "Successfully connected to daemon\n";
     } catch (\Exception $e) {
-      exit("Couldn't connected to daemon\n{$e->getMessage()}\n");
+      echo "Couldn't connected to daemon\n{$e->getMessage()}\n";
+      $this->update_attempts();
+      $this->try_again();
+    }
+  }
+
+  public function try_again($wait = null)
+  {
+    $this->check_attempts();
+    $wait = $wait ? $wait : $this->wait;
+    echo "Trying again after ${wait} seconds\n";
+    sleep($wait);
+    $this->connect();
+  }
+
+  public function update_attempts()
+  {
+    $this->attempts--;
+    echo "{$this->attempts} attempts remaining\n";
+  }
+
+  public function check_attempts()
+  {
+    if ($this->attempts === 0) {
+      echo "{$this->attempts} reached, exiting now\n";
+      exit(1);
     }
   }
 
