@@ -43,7 +43,7 @@ class ParametersAstQuerier < Querier
   end
 
   def parent_function_unique_name ast
-    # TODO, ATTENZIONE CHE \\ VIENE AGGIUNTO ANCHE SE NON HO NESSUN NAMESPACE OVVERO SE HO UNA FUNZIONE RELATIVA AL NAMESPACE GLOBALE
+    # TODO, ATTENZIONE CHE \\ VIENE AGGIUNTO ANCHE SE NON HO NESSUN NAMESPACE OVVERO SE HO UNA FUNZIONE NEL NAMESPACE GLOBALE
     parent_namespace_unique_name(ast) + '\\' + parent_function_name(ast)
   end
 
