@@ -22,22 +22,38 @@ class GlobalVariablesAstQuerier < Querier
     language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" #{operator} ")
   end
 
+  def unique_name ast
+    global_namespace_variable_unique_name(ast) or global_definition_unique_name(ast) or superglobal_unique_name(ast)
+  end
+
   def name ast
-    superglobal_name(ast) or global_name(ast)
+    global_namespace_variable_name(ast) or global_definition_name(ast) or superglobal_name(ast)
+  end
+
+  def global_namespace_variable_unique_name ast
+
+  end
+
+  def global_namespace_variable_name ast
+
+  end
+
+  def global_definition_unique_name ast
+
+  end
+
+  def global_definition_name ast
+
+  end
+
+  def superglobal_unique_name ast
+
   end
 
   def superglobal_name ast
     name = ast.xpath('./subNode:var/subNode:name/scalar:string').text
     return if name.empty?
     ast.xpath('./subNode:dim/node:Scalar_String/subNode:value/scalar:string').text + "['#{name}']"
-  end
-
-  def global_name ast
-    ast.xpath('./subNode:name/scalar:string').text
-  end
-
-  def unique_name ast
-    name
   end
 
   def variable_unique_name
