@@ -2,11 +2,11 @@ require_relative 'querier'
 
 class ParametersAstQuerier < Querier
 
-  def function_parameters
+  def function_parameters ast
     ast.xpath('.//node:Stmt_ClassMethod/subNode:params/scalar:array/node:Param')
   end
 
-  def klasses_methods_parameters
+  def klasses_methods_parameters ast
     ast.xpath('.//node:Stmt_Function/subNode:params/scalar:array/node:Param')
   end
 
@@ -19,21 +19,19 @@ class ParametersAstQuerier < Querier
   end
 
   def parent_function_unique_name ast
-    global_namespace_unique_name +
     ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') +
     '\\' +
     parent_name(ast)
   end
 
   def parent_klass_method_unique_name ast
-    global_namespace_unique_name +
     ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') +
     '\\' +
     parent_name(ast)
   end
 
-  def parameters
-    function_parameters + klasses_methods_parameters
+  def parameters ast
+    function_parameters(ast) + klasses_methods_parameters(ast)
   end
 
   def name ast
@@ -55,9 +53,9 @@ class ParametersAstQuerier < Querier
   def parent_unique_name ast
     # Stmt_ClassMethod
     class_unique_name = ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')
-    return global_namespace_unique_name + class_unique_name[0..-1].to_a.join('\\') + '\\' + parent_name(ast) unless class_unique_name.empty?
+    return class_unique_name[0..-1].to_a.join('\\') + '\\' + parent_name(ast) unless class_unique_name.empty?
     # Stmt_Function
-    global_namespace_unique_name + ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') + '\\' + parent_name(ast)
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\') + '\\' + parent_name(ast)
   end
 
   def type ast
@@ -72,8 +70,7 @@ class ParametersAstQuerier < Querier
 
   def type_unique_name ast
     parameter_type_unique_name = ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
-    return parameter_type_unique_name if parameter_type_unique_name == ''
-    global_namespace_unique_name + parameter_type_unique_name
+    parameter_type_unique_name
   end
 
 end

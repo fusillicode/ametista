@@ -7,16 +7,17 @@ class ParametersBuilder
 
   extend Initializer
   initialize_with ({
-    querier: ParametersAstQuerier.new
+    querier: ParametersAstQuerier.new,
+    ast: nil
   })
 
   def build ast
-    @querier.ast = ast
+    @ast = ast
     parameters
   end
 
   def parameters
-    querier.parameters.map_unique do |parameter_ast|
+    querier.parameters(ast).map_unique do |parameter_ast|
       parameter = Parameter.find_or_create_by(
         unique_name: querier.unique_name(parameter_ast),
         name: querier.name(parameter_ast),
