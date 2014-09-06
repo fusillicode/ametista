@@ -7,7 +7,7 @@ class GlobalVariablesAstQuerier < Querier
   end
 
   def global_namespace_variables ast
-    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('and')})]]")
+    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('or')})]]")
   end
 
   def global_definitions ast
