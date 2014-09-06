@@ -49,7 +49,6 @@ class ModelBuilder
   def builders_loop ast
     builders.each do |key, builder|
       builder.build(ast)
-      exit if key == :custom_types_builder
     end
   end
 
