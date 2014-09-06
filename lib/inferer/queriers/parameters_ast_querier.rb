@@ -18,7 +18,7 @@ class ParametersAstQuerier < Querier
   def parent_unique_name ast
     parent_klass_method_unique_name = parent_klass_method_unique_name(ast)
     # TODO CHIEDERE SE ESISTE DAVVERO BLANK? NELLA STD DI RUBY
-    return parent_klass_method_unique_name unless parent_klass_method_unique_name.empty?
+    return parent_klass_method_unique_name unless parent_klass_method_unique_name.blank?
     parent_function_unique_name(ast)
   end
 
