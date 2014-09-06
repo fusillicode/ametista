@@ -24,7 +24,7 @@ class GlobalVariablesBuilder < Builder
     querier.global_namespace_variables(ast).map_unique do |global_variable_ast|
       GlobalVariable.find_or_create_by(
         unique_name: querier.global_namespace_variable_unique_name(global_variable_ast),
-        name: querier.global_namespace_variable_unique_name(global_variable_ast)
+        name: querier.global_namespace_variable_name(global_variable_ast)
       )
     end
   end
