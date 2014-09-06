@@ -35,7 +35,7 @@ class ParametersBuilder < Builder
   end
 
   def add_type parameter, ast
-    return parameter if not(type = querier.type(ast))
+    return parameter unless type = querier.type(ast)
     type.find_or_create_by(
       unique_name: querier.type_unique_name(ast),
       name: querier.type_name(ast),
