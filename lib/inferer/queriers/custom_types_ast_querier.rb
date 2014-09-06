@@ -7,8 +7,8 @@ class CustomTypesAstQuerier < Querier
   end
 
   def name ast
-    parameter_type_name = parameter_custom_type_name(ast)
-    return parameter_type_name unless parameter_type_name == ''
+    parameter_custom_type_name = parameter_custom_type_name(ast)
+    return parameter_custom_type_name unless parameter_custom_type_name == ''
     klass_name(ast)
   end
 
