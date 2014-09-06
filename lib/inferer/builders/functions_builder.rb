@@ -7,16 +7,17 @@ class FunctionsBuilder
 
   extend Initializer
   initialize_with ({
-    querier: FunctionsAstQuerier.new
+    querier: FunctionsAstQuerier.new,
+    ast: nil
   })
 
   def build ast
-    @querier.ast = ast
+    @ast = ast
     functions
   end
 
   def functions
-    querier.functions.map_unique do |function_ast|
+    querier.functions(ast).map_unique do |function_ast|
       Function.find_or_create_by(
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),

@@ -2,7 +2,7 @@ require_relative 'querier'
 
 class FunctionsAstQuerier < Querier
 
-  def functions
+  def functions ast
     ast.xpath('.//subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
@@ -11,7 +11,7 @@ class FunctionsAstQuerier < Querier
   end
 
   def parent_unique_name ast
-    global_namespace_unique_name + ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
   def name ast
@@ -19,7 +19,7 @@ class FunctionsAstQuerier < Querier
   end
 
   def unique_name ast
-    global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
   def return_values ast
