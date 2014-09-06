@@ -13,8 +13,8 @@ class CustomTypesAstQuerier < Querier
   end
 
   def unique_name ast
-    parameter_type_unique_name = parameter_custom_type_unique_name(ast)
-    return parameter_type_unique_name unless parameter_type_unique_name = ''
+    parameter_custom_type_unique_name = parameter_custom_type_unique_name(ast)
+    return parameter_custom_type_unique_name unless parameter_custom_type_unique_name = ''
     klass_unique_name(ast)
   end
 
