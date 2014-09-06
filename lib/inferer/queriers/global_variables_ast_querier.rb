@@ -2,19 +2,19 @@ require_relative 'querier'
 
 class GlobalVariablesAstQuerier < Querier
 
-  def global_variables
-    global_namespace_variables << global_definitions << superglobals
+  def global_variables ast
+    global_namespace_variables(ast) << global_definitions(ast) << superglobals(ast)
   end
 
-  def global_namespace_variables
+  def global_namespace_variables ast
     ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('and')})]]")
   end
 
-  def global_definitions
+  def global_definitions ast
     ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable")
   end
 
-  def superglobals
+  def superglobals ast
     ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{superglobals_list('or')}]]]")
   end
 

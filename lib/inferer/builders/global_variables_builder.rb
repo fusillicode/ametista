@@ -7,10 +7,11 @@ class GlobalVariablesBuilder
   extend Initializer
   initialize_with ({
     querier: GlobalVariablesAstQuerier.new,
+    ast: nil
   })
 
   def build ast
-    @querier.ast = ast
+    @ast = ast
     global_variables
   end
 
@@ -19,7 +20,7 @@ class GlobalVariablesBuilder
   end
 
   def global_namespace_variables
-    querier.global_namespace_variables.map_unique do |global_variable_ast|
+    querier.global_namespace_variables(ast).map_unique do |global_variable_ast|
       GlobalVariable.find_or_create_by(
         unique_name: querier.global_namespace_variable_unique_name(global_variable_ast),
         name: querier.global_namespace_variable_unique_name(global_variable_ast)
@@ -28,7 +29,7 @@ class GlobalVariablesBuilder
   end
 
   def global_definitions
-    querier.global_definitions.map_unique do |global_variable_ast|
+    querier.global_definitions(ast).map_unique do |global_variable_ast|
       GlobalVariable.find_or_create_by(
         unique_name: querier.global_definition_unique_name(global_variable_ast),
         name: querier.global_definition_name(global_variable_ast)
@@ -37,7 +38,7 @@ class GlobalVariablesBuilder
   end
 
   def superglobals
-    querier.superglobals.map_unique do |global_variable_ast|
+    querier.superglobals(ast).map_unique do |global_variable_ast|
       GlobalVariable.find_or_create_by(
         unique_name: querier.superglobal_unique_name(global_variable_ast),
         name: querier.superglobal_name(global_variable_ast)
