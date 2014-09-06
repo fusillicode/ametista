@@ -1,5 +1,4 @@
 require_relative '../utilities'
-require_relative '../ast_decorator'
 require_relative '../entity_mapper'
 
 class Querier
