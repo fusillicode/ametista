@@ -2,7 +2,7 @@ require_relative 'querier'
 
 class NamespacesAstQuerier < Querier
 
-  def namespaces
+  def namespaces ast
     ast.xpath('.//node:Stmt_Namespace')
   end
 
@@ -11,7 +11,7 @@ class NamespacesAstQuerier < Querier
   end
 
   def unique_name ast
-    global_namespace_unique_name + ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
   # def inline_namespaces
