@@ -1,14 +1,13 @@
+require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/functions_ast_querier'
 
-
-class FunctionsBuilder
+class FunctionsBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: FunctionsAstQuerier.new,
-    ast: nil
+    querier: FunctionsAstQuerier.new
   })
 
   def build ast

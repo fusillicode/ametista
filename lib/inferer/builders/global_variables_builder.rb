@@ -1,8 +1,9 @@
+require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/global_variables_ast_querier'
 
-class GlobalVariablesBuilder
+class GlobalVariablesBuilder < Builder
 
   extend Initializer
   initialize_with ({

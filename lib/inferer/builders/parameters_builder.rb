@@ -1,9 +1,9 @@
+require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/parameters_ast_querier'
 
-
-class ParametersBuilder
+class ParametersBuilder < Builder
 
   extend Initializer
   initialize_with ({
