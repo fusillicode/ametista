@@ -31,7 +31,7 @@ class GlobalVariablesAstQuerier < Querier
   end
 
   def global_namespace_variable_unique_name ast
-
+    ast.xpath("./subNode:name/scalar:string").text
   end
 
   def global_namespace_variable_name ast
