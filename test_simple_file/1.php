@@ -1,7 +1,5 @@
 <?php
 
-namespace pippo\cane\ciccio;
-
 $a[1]->b[1][1]->d = 1;
 $b = $c = $e;
 $$vv = 'pippo';
@@ -35,8 +33,6 @@ $_POST['a'] = 1;
 // $GLOBALS['a'][1][1]->b = 1;
 // $GLOBALS['b'][1]->b[1] = 1;
 
-
-namespace pippo\cane\ciccia;
 
 class Sole {
 
