@@ -7,18 +7,17 @@ class CustomTypesBuilder
 
   extend Initializer
   initialize_with ({
-    querier: CustomTypesAstQuerier.new
+    querier: CustomTypesAstQuerier.new,
+    ast: nil
   })
 
   def build ast
-    @querier.ast = ast
+    @ast = ast
     custom_types
   end
 
   def custom_types
-    # TODO attenzione che usando find_or_create_by e map si ottengono degli array
-    # con degli oggetti potenzialmente duplicati
-    querier.custom_types.map_unique do |custom_type_ast|
+    querier.custom_types(ast).map_unique do |custom_type_ast|
       CustomType.find_or_create_by(
         unique_name: querier.unique_name(custom_type_ast),
         name: querier.name(custom_type_ast)
