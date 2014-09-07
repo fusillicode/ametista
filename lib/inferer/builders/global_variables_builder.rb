@@ -22,13 +22,11 @@ class GlobalVariablesBuilder < Builder
 
   def global_namespace_variables
     querier.global_namespace_variables(ast).map_unique do |global_variable_ast|
-      p querier.global_namespace_variable_unique_name(global_variable_ast)
       GlobalVariable.find_or_create_by(
         unique_name: querier.global_namespace_variable_unique_name(global_variable_ast),
         name: querier.global_namespace_variable_name(global_variable_ast)
       )
     end
-    exit
   end
 
   def global_definitions
