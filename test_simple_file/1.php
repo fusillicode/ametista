@@ -94,7 +94,7 @@ class Sole {
     $GLOBALS['a']->b = 1;
     $GLOBALS['a']->b[1] = 1;
 
-    global $a;
+    global $a, $b, $$a, $_POST;
     $GLOBALS['a']->b[1][1] = 1;
     $GLOBALS['a'][1]->b = 1;
     $GLOBALS['a'][1][1]->b = 1;

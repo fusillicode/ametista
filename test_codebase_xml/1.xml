@@ -1550,6 +1550,49 @@
              <scalar:string>a</scalar:string>
             </subNode:name>
            </node:Expr_Variable>
+           <node:Expr_Variable>
+            <attribute:startLine>
+             <scalar:int>97</scalar:int>
+            </attribute:startLine>
+            <attribute:endLine>
+             <scalar:int>97</scalar:int>
+            </attribute:endLine>
+            <subNode:name>
+             <scalar:string>b</scalar:string>
+            </subNode:name>
+           </node:Expr_Variable>
+           <node:Expr_Variable>
+            <attribute:startLine>
+             <scalar:int>97</scalar:int>
+            </attribute:startLine>
+            <attribute:endLine>
+             <scalar:int>97</scalar:int>
+            </attribute:endLine>
+            <subNode:name>
+             <node:Expr_Variable>
+              <attribute:startLine>
+               <scalar:int>97</scalar:int>
+              </attribute:startLine>
+              <attribute:endLine>
+               <scalar:int>97</scalar:int>
+              </attribute:endLine>
+              <subNode:name>
+               <scalar:string>a</scalar:string>
+              </subNode:name>
+             </node:Expr_Variable>
+            </subNode:name>
+           </node:Expr_Variable>
+           <node:Expr_Variable>
+            <attribute:startLine>
+             <scalar:int>97</scalar:int>
+            </attribute:startLine>
+            <attribute:endLine>
+             <scalar:int>97</scalar:int>
+            </attribute:endLine>
+            <subNode:name>
+             <scalar:string>_POST</scalar:string>
+            </subNode:name>
+           </node:Expr_Variable>
           </scalar:array>
          </subNode:vars>
         </node:Stmt_Global>
