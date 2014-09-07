@@ -31,7 +31,6 @@ class GlobalVariablesBuilder < Builder
 
   def global_definitions
     querier.global_definitions(ast).map_unique do |global_variable_ast|
-      p querier.global_definition_unique_name(global_variable_ast)
       GlobalVariable.find_or_create_by(
         unique_name: querier.global_definition_unique_name(global_variable_ast),
         name: querier.global_definition_name(global_variable_ast)
@@ -41,6 +40,7 @@ class GlobalVariablesBuilder < Builder
 
   def superglobals
     querier.superglobals(ast).map_unique do |global_variable_ast|
+      p querier.superglobal_unique_name(global_variable_ast)
       GlobalVariable.find_or_create_by(
         unique_name: querier.superglobal_unique_name(global_variable_ast),
         name: querier.superglobal_name(global_variable_ast)
