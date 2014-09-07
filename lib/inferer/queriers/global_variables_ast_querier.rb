@@ -48,13 +48,21 @@ class GlobalVariablesAstQuerier < Querier
   end
 
   def superglobal_unique_name ast
+    superglobal_type = superglobal_type(ast)
+    return superglobal_type if superglobal_type.empty?
+    "#{superglobal_type}['#{superglobal_content(ast)}']"
+  end
 
+  def superglobal_type ast
+    ast.xpath('./subNode:var/node:Expr_Variable/subNode:name/scalar:string').text
+  end
+
+  def superglobal_content ast
+    ast.xpath('./subNode:dim/node:Scalar_String/subNode:value/scalar:string').text
   end
 
   def superglobal_name ast
-    name = ast.xpath('./subNode:var/subNode:name/scalar:string').text
-    return if name.empty?
-    ast.xpath('./subNode:dim/node:Scalar_String/subNode:value/scalar:string').text + "['#{name}']"
+    superglobal_unique_name(ast)
   end
 
   def variable_unique_name
