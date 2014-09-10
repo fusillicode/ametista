@@ -1,7 +1,7 @@
 require_relative '../utilities'
 require_relative '../schema'
 
-# require_relative '../queriers/variable_ast_querier'
+# require_relative '../queriers/variable_querier'
 
 # class VariableBuilder
 

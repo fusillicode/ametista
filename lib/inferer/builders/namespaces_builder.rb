@@ -1,7 +1,7 @@
 require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/namespaces_ast_querier'
+require_relative '../queriers/namespaces_querier'
 
 class NamespacesBuilder < Builder
 

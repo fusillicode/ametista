@@ -1,6 +1,6 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/klasses_methods_ast_querier'
+require_relative '../queriers/klasses_methods_querier'
 
 
 class KlassesMethodsBuilder

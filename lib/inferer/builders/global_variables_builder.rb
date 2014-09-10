@@ -1,7 +1,7 @@
 require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/global_variables_ast_querier'
+require_relative '../queriers/global_variables_querier'
 
 class GlobalVariablesBuilder < Builder
 

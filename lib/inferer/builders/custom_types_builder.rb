@@ -1,7 +1,7 @@
 require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/custom_types_ast_querier'
+require_relative '../queriers/custom_types_querier'
 
 class CustomTypesBuilder < Builder
 

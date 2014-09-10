@@ -5,7 +5,8 @@ class PHPLanguage
   extend Initializer
   initialize_with ({
     superglobals: [
-      'GLOBALS',
+      # 'GLOBALS', in the $GLOBALS array are stored all the 'normal' global variables so
+      # even if it is actually considered a superglobals, here it is not considered
       '_POST',
       '_GET',
       '_REQUEST',

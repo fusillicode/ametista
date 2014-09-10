@@ -1,6 +1,6 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/assignements_ast_querier'
+require_relative '../queriers/assignements_querier'
 
 # require_relative 'variables_builder'
 # require_relative 'namespaces_builder'

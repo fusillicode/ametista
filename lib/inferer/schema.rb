@@ -91,6 +91,10 @@ class GlobalVariable < Variable
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :global_variables
 end
 
+class SuperGlobal < GlobalVariable
+  field :name, type: String
+end
+
 class LocalVariable < Variable
   belongs_to :procedure, class_name: 'Procedure', inverse_of: :local_variables
 end
