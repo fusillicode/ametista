@@ -40,10 +40,10 @@ class GlobalVariablesBuilder < Builder
 
   def superglobals
     querier.superglobals(ast).map_unique do |global_variable_ast|
-      p querier.superglobal_unique_name(global_variable_ast)
-      GlobalVariable.find_or_create_by(
+      SuperglobalVariable.find_or_create_by(
         unique_name: querier.superglobal_unique_name(global_variable_ast),
-        name: querier.superglobal_name(global_variable_ast)
+        name: querier.superglobal_name(global_variable_ast),
+        type: querier.superglobal_type(global_variable_ast)
       )
     end
   end

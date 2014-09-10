@@ -91,8 +91,8 @@ class GlobalVariable < Variable
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :global_variables
 end
 
-class SuperGlobal < GlobalVariable
-  field :name, type: String
+class SuperglobalVariable < GlobalVariable
+  field :type, type: String
 end
 
 class LocalVariable < Variable
