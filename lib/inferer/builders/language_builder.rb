@@ -1,33 +1,26 @@
+require_relative 'builder'
 require_relative '../utilities'
-require_relative '../php_language'
+require_relative '../schema'
+require_relative '../queriers/local_variables_querier'
 
-
-class LanguageBuilder
+class LocalVariablesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    language: PHPLanguage.new
+    querier: LocalVariablesAstQuerier.new,
+    ast: nil
   })
 
-  def build
-    build_types
-    build_superglobals
+  def build ast
+    @ast = ast
+    local_variables
   end
 
-  def build_types
-    language.types.each do |type|
-      BasicType.create(
-        unique_name: type,
-        name: type
-      )
-    end
-  end
-
-  def build_superglobals
-    language.superglobals.each do |superglobal|
-      GlobalVariable.create(
-        unique_name: superglobal,
-        name: superglobal
+  def local_variables
+    querier.local_variables(ast).map_unique do |local_variable_ast|
+      LocalVariable.find_or_create_by(
+        unique_name: querier.local_variable_unique_name(local_variable_ast),
+        name: querier.local_variable_name(local_variable_ast)
       )
     end
   end
