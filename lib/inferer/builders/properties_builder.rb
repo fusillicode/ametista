@@ -7,12 +7,11 @@ class PropertiesBuilder
 
   extend Initializer
   initialize_with ({
-    querier: PropertiesQuerier.new,
+    querier: PropertiesQuerier.new
   })
 
   def build ast
     @ast = ast
-
   end
 
 end

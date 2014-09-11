@@ -7,8 +7,7 @@ class GlobalVariablesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: GlobalVariablesQuerier.new,
-    ast: nil
+    querier: GlobalVariablesQuerier.new
   })
 
   def build ast
