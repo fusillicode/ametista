@@ -7,7 +7,7 @@ class LocalVariablesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: LocalVariablesAstQuerier.new,
+    querier: LocalVariablesQuerier.new,
     ast: nil
   })
 

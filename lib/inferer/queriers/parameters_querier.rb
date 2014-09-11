@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class ParametersAstQuerier < Querier
+class ParametersQuerier < Querier
 
   def parameters ast
     function_parameters(ast) + klasses_methods_parameters(ast)

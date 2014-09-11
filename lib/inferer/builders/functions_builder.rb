@@ -7,7 +7,7 @@ class FunctionsBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: FunctionsAstQuerier.new
+    querier: FunctionsQuerier.new
   })
 
   def build ast

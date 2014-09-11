@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class GlobalVariablesAstQuerier < Querier
+class GlobalVariablesQuerier < Querier
 
   def global_variables ast
     global_namespace_variables(ast) << global_definitions(ast) << superglobals(ast)

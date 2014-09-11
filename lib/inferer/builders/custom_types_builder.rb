@@ -7,7 +7,7 @@ class CustomTypesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: CustomTypesAstQuerier.new,
+    querier: CustomTypesQuerier.new,
     ast: nil
   })
 

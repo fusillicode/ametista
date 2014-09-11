@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class CustomTypesAstQuerier < Querier
+class CustomTypesQuerier < Querier
 
   def custom_types ast
     parameters_custom_types(ast) + klasses(ast)

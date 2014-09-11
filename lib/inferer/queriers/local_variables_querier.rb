@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class LocalVariablesAstQuerier < Querier
+class LocalVariablesQuerier < Querier
 
   def local_variables ast
     functions_local_variables(ast) # << klass_methods_local_variables(ast)

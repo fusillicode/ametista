@@ -7,7 +7,7 @@ class NamespacesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: NamespacesAstQuerier.new
+    querier: NamespacesQuerier.new
   })
 
   def build ast

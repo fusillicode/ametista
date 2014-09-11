@@ -7,7 +7,7 @@ class KlassesMethodsBuilder
 
   extend Initializer
   initialize_with ({
-    querier: KlassesMethodsAstQuerier.new,
+    querier: KlassesMethodsQuerier.new,
   })
 
   def build ast

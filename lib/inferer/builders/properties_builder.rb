@@ -7,7 +7,7 @@ require_relative '../schema'
 
 #   extend Initializer
 #   initialize_with ({
-#     querier: VariableAstQuerier.new,
+#     querier: VariableQuerier.new,
 #   })
 
 #   def build ast

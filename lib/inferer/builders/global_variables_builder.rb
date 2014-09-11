@@ -7,7 +7,7 @@ class GlobalVariablesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: GlobalVariablesAstQuerier.new,
+    querier: GlobalVariablesQuerier.new,
     ast: nil
   })
 
