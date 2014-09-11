@@ -8,19 +8,23 @@ class GlobalVariablesAstQuerier < Querier
 
   # TODO SISTEMARE LA SELEZIONE IN MODO CHE LE VARIABILI DI VARIABILI NON SIANO PRESE OPPURE LASCIARE COSÌ
   def global_namespace_variables ast
-    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('or')})]]")
+    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_superglobals}]]")
   end
 
   def global_definitions ast
-    ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('or')})]]")
+    ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_superglobals}]]")
   end
 
   def superglobals ast
-    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{superglobals_list('or')}]]]")
+    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{superglobals}]]]")
   end
 
-  def superglobals_list compare_operator = '=', join_operator = 'and'
-    language.superglobals.map{ |superglobal| "text() #{compare_operator} '#{superglobal}'" }.join(" #{join_operator} ")
+  def not_superglobals
+    "not(#{superglobals})"
+  end
+
+  def superglobals
+    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
   end
 
   def unique_name ast

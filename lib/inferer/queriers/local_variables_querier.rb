@@ -7,11 +7,15 @@ class LocalVariablesAstQuerier < Querier
   end
 
   def functions_local_variables ast
-    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[not(#{superglobals_list('or')})]]")
+    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_superglobals})]]")
   end
 
-  def superglobals_list compare_operator = '=', join_operator = 'and'
-    language.superglobals.map{ |superglobal| "text() #{compare_operator} '#{superglobal}'" }.join(" #{join_operator} ")
+  def not_superglobals
+    "not(#{superglobals})"
+  end
+
+  def superglobals
+    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
   end
 
   # def klass_methods_local_variables ast
