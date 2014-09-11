@@ -8,11 +8,11 @@ class Querier
   })
 
   def global_namespace_name
-    language.global_namespace['name']
+    language.global_namespace[:name]
   end
 
   def global_namespace_unique_name
-    language.global_namespace['unique_name']
+    language.global_namespace[:unique_name]
   end
 
   def a_superglobal
