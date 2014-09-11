@@ -19,8 +19,8 @@ class GlobalVariablesAstQuerier < Querier
     ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{superglobals_list('or')}]]]")
   end
 
-  def superglobals_list operator
-    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" #{operator} ")
+  def superglobals_list compare_operator = '=', join_operator = 'and'
+    language.superglobals.map{ |superglobal| "text() #{compare_operator} '#{superglobal}'" }.join(" #{join_operator} ")
   end
 
   def unique_name ast
