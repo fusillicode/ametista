@@ -8,22 +8,22 @@ class GlobalVariablesAstQuerier < Querier
 
   # TODO SISTEMARE LA SELEZIONE IN MODO CHE LE VARIABILI DI VARIABILI NON SIANO PRESE OPPURE LASCIARE COSÌ
   def global_namespace_variables ast
-    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_in_superglobals}]]")
+    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobals}]]")
   end
 
   def global_definitions ast
-    ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_in_superglobals}]]")
+    ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobals}]]")
   end
 
   def superglobals ast
-    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{in_superglobals}]]]")
+    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{a_superglobals}]]]")
   end
 
-  def not_in_superglobals
-    "not(#{in_superglobals})"
+  def not_a_superglobals
+    "not(#{a_superglobals})"
   end
 
-  def in_superglobals
+  def a_superglobals
     language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
   end
 

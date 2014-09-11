@@ -17,6 +17,7 @@ class LocalVariablesBuilder < Builder
   end
 
   def local_variables
+    p querier.local_variables(ast).count
     querier.local_variables(ast).map_unique do |local_variable_ast|
       LocalVariable.find_or_create_by(
         # unique_name: querier.local_variable_unique_name(local_variable_ast),
