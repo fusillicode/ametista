@@ -19,14 +19,6 @@ class GlobalVariablesAstQuerier < Querier
     ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{a_superglobal}]]]")
   end
 
-  def not_a_superglobal
-    "not(#{a_superglobal})"
-  end
-
-  def a_superglobal
-    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
-  end
-
   def unique_name ast
     global_namespace_variable_unique_name(ast) or global_definition_unique_name(ast) or superglobal_unique_name(ast)
   end
