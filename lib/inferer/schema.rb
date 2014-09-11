@@ -7,8 +7,6 @@ I18n.config.enforce_available_locales = true
 
 class Scope
   include Mongoid::Document
-  has_many :assignements, class_name: 'Assignement', inverse_of: :scope
-  has_many :branches, class_name: 'Branch', inverse_of: :scopes
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
@@ -37,7 +35,6 @@ end
 
 class Variable
   include Mongoid::Document
-  has_many :assignements, class_name: 'Assignement', inverse_of: :variable
   has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
   field :name, type: String
   field :unique_name, type: String
@@ -47,17 +44,6 @@ class Variable
 end
 
 ################################################################################
-
-class Assignement
-  include Mongoid::Document
-  belongs_to :variable, class_name: 'Variable', inverse_of: :assignements
-  belongs_to :scope, class_name: 'Scope', inverse_of: :assignements
-  field :rhs, type: String
-end
-
-class Branch < Scope
-  belongs_to :scope, class_name: 'Scope', inverse_of: :branches
-end
 
 class Namespace < Scope
   has_many :functions, class_name: 'Function', inverse_of: :namespace
@@ -97,6 +83,11 @@ end
 
 class LocalVariable < Variable
   belongs_to :procedure, class_name: 'Procedure', inverse_of: :local_variables
+  has_many :scopes, class_name: 'VariableScope', inverse_of: :variable
+end
+
+class VariableScope
+  belongs_to :variable, class_name: 'Variable', inverse_of: :scopes
 end
 
 class Property < Variable
