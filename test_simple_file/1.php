@@ -1,5 +1,7 @@
 <?php
 
+namespace universo;
+
 $a[1]->b[1][1]->d = 1; $b + $c;
 $$vv = 'pippo'; $b = pippo($a = 'pluto', $a = 'parperino');
 $a[1][2] = 'pippa';

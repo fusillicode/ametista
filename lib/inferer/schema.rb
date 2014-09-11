@@ -9,6 +9,7 @@ class Scope
   include Mongoid::Document
   field :name, type: String
   field :unique_name, type: String
+  field :statements, type: String
   index({ unique_name: 1 }, { unique: true })
   validates :name, presence: true, length: { allow_blank: false }
   validates :unique_name, presence: true, length: { allow_blank: false }

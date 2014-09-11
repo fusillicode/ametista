@@ -19,7 +19,8 @@ class NamespacesBuilder < Builder
     querier.namespaces(ast).map_unique do |namespace_ast|
       Namespace.find_or_create_by(
         unique_name: querier.unique_name(namespace_ast),
-        name: querier.name(namespace_ast)
+        name: querier.name(namespace_ast),
+        statements: querier.statements(namespace_ast)
       )
     end
   end
