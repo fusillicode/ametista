@@ -19,7 +19,7 @@ class NamespacesQuerier < Querier
   end
 
   def global_namespace_statements ast
-    ast.xpath('/AST/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+    ast.xpath('/AST/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
   end
 
   # def inline_namespaces
