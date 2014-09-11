@@ -114,6 +114,10 @@ class Sole {
     $this->a->b[1][1] = 1;
     $this->a[1]->b[1] = 1;
     $locale = 1;
+    $a[1]->b[1][1]->d = 1;
+    $b = $c = $e;
+    $$vv = 'pippo';
+    $a[1][2] = 'pippa';
 
     $this->context->cookie['a']->{$this->table.'_pagination'} = $limit;
     // $this->context->cookie['a'][1]->{$this->table.'_pagination'} = $limit;
