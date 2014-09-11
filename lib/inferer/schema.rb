@@ -13,9 +13,10 @@ class Scope
   validates :name, presence: true, length: { allow_blank: false }
   validates :unique_name, presence: true, length: { allow_blank: false }
 
-  def self.descendants
-    ObjectSpace.each_object(Class).select { |klass| klass < self }
-  end
+  # Per ottenere i discendenti della classe Scope (i.e. tutte le classi che la specializzano)
+  # def self.descendants
+  #   ObjectSpace.each_object(Class).select { |klass| klass < self }
+  # end
 end
 
 class Procedure < Scope
@@ -87,6 +88,7 @@ class LocalVariable < Variable
 end
 
 class VariableScope
+  include Mongoid::Document
   belongs_to :variable, class_name: 'Variable', inverse_of: :scopes
 end
 
