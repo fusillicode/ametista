@@ -34,7 +34,6 @@ class ModelBuilder
   })
 
   def build
-    super
     init_build
     building_loop
   end
