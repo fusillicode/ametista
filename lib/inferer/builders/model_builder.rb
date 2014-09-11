@@ -23,10 +23,10 @@ class ModelBuilder
     builders: {
       namespaces_builder: NamespacesBuilder.new,
       functions_builder: FunctionsBuilder.new,
-      custom_types_builder: CustomTypesBuilder.new,
-      parameters_builder: ParametersBuilder.new,
-      global_variables_builder: GlobalVariablesBuilder.new,
-      local_variables_builder: LocalVariablesBuilder.new,
+      # custom_types_builder: CustomTypesBuilder.new,
+      # parameters_builder: ParametersBuilder.new,
+      # global_variables_builder: GlobalVariablesBuilder.new,
+      # local_variables_builder: LocalVariablesBuilder.new,
       # properties_builder: PropertiesBuilder.new,
       # klasses_builder: KlassesBuilder.new,
       # klasses_methods_builder: KlassesMethodsBuilder.new
@@ -54,9 +54,12 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
-    Function.all.each do |param|
+    Namespace.all.each do |param|
       p param.unique_name
     end
+    # Function.all.each do |param|
+    #   p param.unique_name
+    # end
   end
 
 end
