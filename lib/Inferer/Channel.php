@@ -18,7 +18,7 @@ class Channel
       ]),
       'channel'  => 'xmls_asts',
       'wait'     => 3,
-      'attempts' => 5,
+      'attempts' => 5
     );
   }
 
