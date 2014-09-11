@@ -26,7 +26,8 @@ class PHPLanguage
       'Scalar_TraitConst',
       'Scalar_MethodConst',
       'Scalar_NSConst'
-    ]
+    ],
+    property: ['this']
   })
 
 end
