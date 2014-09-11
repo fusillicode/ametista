@@ -1,33 +1,28 @@
+require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
-# require_relative '../queriers/variable_querier'
+require_relative '../queriers/local_variables_querier'
 
+class LocalVariablesBuilder < Builder
 
-# class VariableBuilder
+  extend Initializer
+  initialize_with ({
+    querier: LocalVariablesAstQuerier.new,
+    ast: nil
+  })
 
-#   extend Initializer
-#   initialize_with ({
-#     querier: VariableAstQuerier.new,
-#   })
+  def build ast
+    @ast = ast
+    local_variables
+  end
 
-#   def build ast
-#     @querier.ast = ast
-#     variable
-#   end
+  def local_variables
+    querier.local_variables(ast).map_unique do |local_variable_ast|
+      LocalVariable.find_or_create_by(
+        unique_name: querier.local_variable_unique_name(local_variable_ast),
+        name: querier.local_variable_name(local_variable_ast)
+      )
+    end
+  end
 
-#   # has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
-#   # has_and_belongs_to_many :types, class_name: 'AType', inverse_of: :variables
-#   # field :name, type: String
-#   # field :unique_name, type: String
-#   # index({ unique_name: 1 }, { unique: true })
-
-#   def variable
-#     p querier.variable_unique_name
-#     # variable = AVariable.create(
-#     #   name: querier.variable_name,
-#     #   unique_name: querier.variable_unique_name
-#     # )
-#   end
-
-# end
-
+end
