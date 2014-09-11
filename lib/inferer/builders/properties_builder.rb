@@ -1,33 +1,19 @@
+require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
+require_relative '../queriers/properties_querier'
 
-# require_relative '../queriers/variable_querier'
+class PropertiesBuilder
 
-# class VariableBuilder
+  extend Initializer
+  initialize_with ({
+    querier: PropertiesQuerier.new,
+  })
 
-#   extend Initializer
-#   initialize_with ({
-#     querier: VariableQuerier.new,
-#   })
+  def build ast
+    @ast = ast
 
-#   def build ast
-#     @querier.ast = ast
-#     variable
-#   end
+  end
 
-#   # has_many :assignements, class_name: 'AnAssignement', inverse_of: :variable
-#   # has_and_belongs_to_many :types, class_name: 'AType', inverse_of: :variables
-#   # field :name, type: String
-#   # field :unique_name, type: String
-#   # index({ unique_name: 1 }, { unique: true })
-
-#   def variable
-#     p querier.variable_unique_name
-#     # variable = AVariable.create(
-#     #   name: querier.variable_name,
-#     #   unique_name: querier.variable_unique_name
-#     # )
-#   end
-
-# end
+end
 
