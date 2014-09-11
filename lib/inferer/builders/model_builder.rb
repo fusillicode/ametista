@@ -34,6 +34,7 @@ class ModelBuilder
   })
 
   def build
+    super
     init_build
     building_loop
   end
@@ -54,11 +55,9 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
-    # Parameter.all.each do |param|
-    #   p param.unique_name
-    #   p param.types
-    #   p param.procedure.unique_name
-    # end
+    Parameter.all.each do |param|
+      p param.procedure.unique_name
+    end
   end
 
 end
