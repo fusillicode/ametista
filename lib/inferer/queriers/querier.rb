@@ -7,6 +7,14 @@ class Querier
     entity_mapper: EntityMapper.new
   })
 
+  def global_namespace_name
+    language.global_namespace['name']
+  end
+
+  def global_namespace_unique_name
+    language.global_namespace['unique_name']
+  end
+
   def a_superglobal
     language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
   end

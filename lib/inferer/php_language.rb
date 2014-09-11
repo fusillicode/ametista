@@ -4,6 +4,10 @@ class PHPLanguage
 
   extend Initializer
   initialize_with ({
+    global_namespace: {
+      unique_name: '\\',
+      name: '\\'
+    },
     superglobals: [
       # 'GLOBALS', in the $GLOBALS array are stored all the 'normal' global variables so
       # even if it is actually considered a superglobals, here it is not considered
@@ -18,14 +22,14 @@ class PHPLanguage
     ],
     types: ['bool', 'int', 'double', 'string', 'array', 'resource', 'null', 'callback'],
     magic_constants: [
-      'Scalar_LineConst',
-      'Scalar_FileConst',
-      'Scalar_DirConst',
-      'Scalar_FuncConst',
-      'Scalar_ClassConst',
-      'Scalar_TraitConst',
-      'Scalar_MethodConst',
-      'Scalar_NSConst'
+      '__LINE__',
+      '__FILE__',
+      '__DIR__',
+      '__FUNCTION__',
+      '__CLASS__',
+      '__TRAIT__',
+      '__METHOD__',
+      '__NAMESPACE__'
     ],
     property: ['this']
   })
