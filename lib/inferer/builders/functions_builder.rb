@@ -21,7 +21,7 @@ class FunctionsBuilder < Builder
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
         namespace: parent(function_ast),
-        return_values: return_values(function_ast)
+        statements: querier.statements(function_ast)
       )
     end
   end
@@ -31,13 +31,6 @@ class FunctionsBuilder < Builder
       unique_name: querier.parent_unique_name(ast),
       name: querier.parent_name(ast)
     )
-  end
-
-  # TODO formalizzare la persistenza dei return_values
-  def return_values ast
-    querier.return_values(ast).map do |return_value|
-      return_value.to_s
-    end
   end
 
 end

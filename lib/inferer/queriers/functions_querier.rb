@@ -22,12 +22,12 @@ class FunctionsQuerier < Querier
     ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
-  def return_values ast
-    ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
+  def statements(ast)
+    ast.xpath('./subNode:stmts/scalar:array')
   end
 
-  # def statements(ast)
-  #   ast.xpath('./subNode:stmts/scalar:array')
+  # def return_values ast
+  #   ast.xpath('./subNode:stmts/scalar:array/node:Stmt_Return')
   # end
 
   # def parameters(ast)

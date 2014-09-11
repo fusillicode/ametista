@@ -22,7 +22,6 @@ end
 
 class Procedure < Scope
   has_many :parameters, class_name: 'Parameter', inverse_of: :procedure
-  field :return_values, type: Array
 end
 
 class Type
