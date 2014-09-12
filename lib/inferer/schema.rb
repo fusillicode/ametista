@@ -5,15 +5,21 @@ I18n.config.enforce_available_locales = true
 
 ################################################################################
 
+module UniqueModel
+  def self.included base
+    base.include Mongoid::Document
+    base.field :name, type: String
+    base.field :unique_name, type: String
+    base.index({ unique_name: 1 }, { unique: true })
+    base.validates :name, presence: true, length: { allow_blank: false }
+    base.validates :unique_name, presence: true, length: { allow_blank: false }
+  end
+end
+
 class Scope
-  include Mongoid::Document
-  field :name, type: String
-  field :unique_name, type: String
+  include UniqueModel
   field :statements, type: String
   has_many :variables, class_name: 'Variable', inverse_of: :scope
-  index({ unique_name: 1 }, { unique: true })
-  validates :name, presence: true, length: { allow_blank: false }
-  validates :unique_name, presence: true, length: { allow_blank: false }
 end
 
 class Procedure < Scope
@@ -21,23 +27,13 @@ class Procedure < Scope
 end
 
 class Type
-  include Mongoid::Document
+  include UniqueModel
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
-  field :name, type: String
-  field :unique_name, type: String
-  index({ unique_name: 1 }, { unique: true })
-  validates :name, presence: true, length: { allow_blank: false }
-  validates :unique_name, presence: true, length: { allow_blank: false }
 end
 
 class Variable
-  include Mongoid::Document
+  include UniqueModel
   belongs_to :scope, class_name: 'Scope', inverse_of: :variables
-  field :name, type: String
-  field :unique_name, type: String
-  index({ unique_name: 1 }, { unique: true })
-  validates :name, presence: true, length: { allow_blank: false }
-  validates :unique_name, presence: true, length: { allow_blank: false }
 end
 
 ################################################################################
