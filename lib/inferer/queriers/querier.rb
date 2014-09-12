@@ -1,23 +1,17 @@
 require_relative '../schema'
-require_relative '../utilities'
 
 class Querier
 
-  extend Initializer
-  initialize_with ({
-    language: Language.last()
-  })
-
   def global_namespace_name
-    language.global_namespace[:name]
+    Language.last().global_namespace[:name]
   end
 
   def global_namespace_unique_name
-    language.global_namespace[:unique_name]
+    Language.last().global_namespace[:unique_name]
   end
 
   def a_superglobal
-    language.superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
+    Language.last().superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
   end
 
   def not_a_superglobal
@@ -25,7 +19,7 @@ class Querier
   end
 
   def a_property
-    language.property.map{ |property| "text() = '#{property}'" }.join(" or ")
+    Language.last().property.map{ |property| "text() = '#{property}'" }.join(" or ")
   end
 
   def not_a_property
@@ -33,11 +27,19 @@ class Querier
   end
 
   def a_primitive_type
-    language.primitive_types.map{ |primitive_type| "text() = '#{primitive_type}'" }.join(" or ")
+    Language.last().primitive_types.map{ |primitive_type| "text() = '#{primitive_type}'" }.join(" or ")
   end
 
   def not_a_primitive_type
     "not(#{a_primitive_type})"
+  end
+
+  def method_missing method_name, *args, &block
+    if self.respond_to? method_name
+      self.public_send method_name, *args, &block
+    elsif Language.last().respond_to? method_name
+      Language.last().public_send method_name, *args, &block
+    end
   end
 
 end
