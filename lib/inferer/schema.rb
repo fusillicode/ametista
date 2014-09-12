@@ -21,6 +21,7 @@ end
 class Language
   include Singleton
   include ReferableModel
+  include Mongoid::Attributes::Dynamic
 end
 
 class Scope
