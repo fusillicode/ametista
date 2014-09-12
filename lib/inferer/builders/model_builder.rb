@@ -2,6 +2,7 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative '../xml_parser'
+require_relative 'language_builder'
 require_relative 'primitive_types_builder'
 require_relative 'namespaces_builder'
 require_relative 'functions_builder'
@@ -20,6 +21,7 @@ class ModelBuilder
     parser: XMLParser.new,
     data_source: RedisDataSource.new,
     init_builders: {
+      language_builder: LanguageBuilder.new,
       primitive_types_builder: PrimitiveTypesBuilder.new
     },
     builders: {
