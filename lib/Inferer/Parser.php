@@ -2,12 +2,7 @@
 
 namespace Inferer;
 
-use PHPParser_Lexer_Emulative,
-    PHPParser_NodeTraverser,
-    PHPParser_NodeVisitor_NameResolver,
-    PHPParser_Serializer_XML,
-    PHPParser_Parser,
-    PHPParser_NodeVisitor;
+use PhpParser;
 
 class Parser
 {
@@ -16,14 +11,14 @@ class Parser
   private function defaults()
   {
     $this->defaults = array(
-      'lexer' => new PHPParser_Lexer_Emulative(),
-      'traverser' => new PHPParser_NodeTraverser(),
-      'visitors' => array(new PHPParser_NodeVisitor_NameResolver()),
-      'serializer' => new PHPParser_Serializer_XML(),
+      'lexer' => new PhpParser\Lexer\Emulative(),
+      'traverser' => new PhpParser\NodeTraverser(),
+      'visitors' => array(new PhpParser\NodeVisitor\NameResolver()),
+      'serializer' => new PhpParser\Serializer\XML(),
       // with 128M or 256M the call to the token_get_all() function inside the lexer throws an error during the analysis of files greater than 30000 LOC
       'memory_limit' => '512M'
     );
-    $this->defaults['parser'] = new PHPParser_Parser($this->defaults['lexer']);
+    $this->defaults['parser'] = new PhpParser\Parser($this->defaults['lexer']);
     return $this->defaults;
   }
 
@@ -47,7 +42,7 @@ class Parser
     }
   }
 
-  public function addVisitor(PHPParser_NodeVisitor $visitor)
+  public function addVisitor(PhpParser\NodeVisitor $visitor)
   {
     $this->traverser->addVisitor($visitor);
   }
@@ -59,7 +54,7 @@ class Parser
       $source_code = file_get_contents($file_path);
       $statements = $this->traverser->traverse($this->parser->parse($source_code));
       return $this->serializer->serialize($statements);
-    } catch (PHPParser_Error $e) {
+    } catch (PhpParser\Error $e) {
       echo "Parse Error: {$e->getMessage()}";
     }
   }
