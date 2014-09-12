@@ -5,7 +5,7 @@ class LanguageBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    language: {
+    lang: {
       unique_name: 'PHP',
       name: 'PHP',
       global_namespace: {
@@ -53,11 +53,7 @@ class LanguageBuilder < Builder
   })
 
   def build
-    language
-  end
-
-  def language
-    Language.find_or_create_by(language)
+    Language.find_or_create_by(lang)
   end
 
 end
