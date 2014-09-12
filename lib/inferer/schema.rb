@@ -47,7 +47,6 @@ class PrimitiveType < Type
 end
 
 class Klass < Type
-  include Mongoid::Document
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
