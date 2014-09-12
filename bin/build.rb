@@ -1,10 +1,10 @@
 require 'mongoid'
 Mongoid.load!('./mongoid.yml', :development)
-require_relative '../lib/inferer/mongo_daemon'
-require_relative '../lib/inferer/builders/model_builder'
+Mongoid::Config.purge!
 
 if __FILE__ == $0
+  require_relative '../lib/inferer/mongo_daemon'
   mongo_daemon = MongoDaemon.new.start
-  Mongoid::Config.purge!
+  require_relative '../lib/inferer/builders/model_builder'
   model_builder = ModelBuilder.new.build
 end
