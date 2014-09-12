@@ -1,12 +1,11 @@
 require_relative '../utilities'
 require_relative '../php_language'
-require_relative '../entity_mapper'
 
 class Querier
+
   extend Initializer
   initialize_with ({
     language: PHPLanguage.new
-    entity_mapper: EntityMapper.new
   })
 
   def global_namespace_name
@@ -39,15 +38,6 @@ class Querier
 
   def not_a_primitive_type
     "not(#{a_primitive_type})"
-  # TODO implementare anche respond_to?
-  def method_missing method_name, *args, &block
-    if self.respond_to? method_name
-      self.public_send method_name, *args, &block
-    elsif entity_mapper.respond_to? method_name
-      entity_mapper.public_send method_name, *args, &block
-    else
-      super
-    end
   end
 
 end
