@@ -24,15 +24,16 @@ module Initializer
   end
 end
 
-class Array
-  def first_and_last
-    return self.first, self.last
-  end
-end
-
 module UniqueMapper
   def map_unique &block
     self.map(&block).uniq{ |x| x._id }
+  end
+end
+
+class Array
+  include UniqueMapper
+  def first_and_last
+    return self.first, self.last
   end
 end
 
