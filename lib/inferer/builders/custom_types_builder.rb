@@ -16,10 +16,23 @@ class CustomTypesBuilder < Builder
   end
 
   def custom_types
-    querier.custom_types(ast).map_unique do |custom_type_ast|
+    parameters_custom_types << klasses_custom_types
+  end
+
+  def parameters_custom_types
+    querier.parameters_custom_types(ast).map_unique do |parameter_custom_type|
       CustomType.find_or_create_by(
-        unique_name: querier.unique_name(custom_type_ast),
-        name: querier.name(custom_type_ast)
+        unique_name: querier.parameter_custom_type_unique_name(parameter_custom_type),
+        name: querier.parameter_custom_type_name(parameter_custom_type)
+      )
+    end
+  end
+
+  def klasses_custom_types
+    querier.klasses_custom_types(ast).map_unique do |klass_custom_type_ast|
+      CustomType.find_or_create_by(
+        unique_name: querier.klass_custom_type_unique_name(klass_custom_type_ast),
+        name: querier.klass_custom_type_name(klass_custom_type_ast)
       )
     end
   end
