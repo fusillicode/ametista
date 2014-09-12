@@ -21,7 +21,19 @@ class PHPLanguage
       '_ENV',
       '_COOKIE'
     ],
-    types: ['bool', 'int', 'double', 'string', 'array', 'resource', 'null', 'callback'],
+    primitive_types: [
+      'bool',
+      'int',
+      'float',
+      'string',
+      'array',
+      'object',
+      'resource',
+      'NULL',
+      'mixed',
+      'number',
+      'callback'
+    ],
     magic_constants: [
       '__LINE__',
       '__FILE__',

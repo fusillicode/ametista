@@ -9,19 +9,20 @@ class LanguageBuilder
   })
 
   def build
-    build_types
+    build_primitive_types
     build_superglobals
   end
 
-  def build_types
-    language.types.each do |type|
-      BasicType.create(
-        unique_name: type,
-        name: type
+  def build_primitive_types
+    language.primitive_types.each do |primitive_type|
+      PrimitiveType.create(
+        unique_name: primitive_type,
+        name: primitive_type
       )
     end
   end
 
+  # TODO SISTEMARE LE SUPERGLOBAL
   def build_superglobals
     language.superglobals.each do |superglobal|
       GlobalVariable.create(

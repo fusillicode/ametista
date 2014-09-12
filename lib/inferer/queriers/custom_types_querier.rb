@@ -3,15 +3,11 @@ require_relative 'querier'
 class CustomTypesQuerier < Querier
 
   def parameters_custom_types ast
-    ast.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()][not(#{basic_types_list('or')})]]")
+    ast.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()][#{not_a_primitive_type}]]")
   end
 
   def klasses_custom_types ast
     ast.xpath(".//node:Stmt_Class")
-  end
-
-  def basic_types_list operator
-    ".='" + language.types.join("' #{operator} .='") + "'"
   end
 
   def parameter_custom_type_name ast

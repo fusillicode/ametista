@@ -51,7 +51,7 @@ class Namespace < Scope
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
 end
 
-class BasicType < Type
+class PrimitiveType < Type
 end
 
 class Klass < Type

@@ -1,9 +1,11 @@
 require_relative '../utilities'
+require_relative '../php_language'
 require_relative '../entity_mapper'
 
 class Querier
   extend Initializer
   initialize_with ({
+    language: PHPLanguage.new
     entity_mapper: EntityMapper.new
   })
 
@@ -31,6 +33,12 @@ class Querier
     "not(#{a_property})"
   end
 
+  def a_primitive_type
+    language.primitive_types.map{ |primitive_type| "text() = '#{primitive_type}'" }.join(" or ")
+  end
+
+  def not_a_primitive_type
+    "not(#{a_primitive_type})"
   # TODO implementare anche respond_to?
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
@@ -41,4 +49,5 @@ class Querier
       super
     end
   end
+
 end
