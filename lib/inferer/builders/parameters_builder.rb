@@ -22,7 +22,7 @@ class ParametersBuilder < Builder
         name: querier.name(parameter_ast),
         procedure: parent(parameter_ast)
       )
-      add_type(parameter, parameter_ast)
+      # add_type(parameter, parameter_ast)
     end
   end
 
@@ -33,13 +33,13 @@ class ParametersBuilder < Builder
     )
   end
 
-  def add_type parameter, ast
-    return parameter unless type = querier.type(ast)
-    type.find_or_create_by(
-      unique_name: querier.type_unique_name(ast),
-      name: querier.type_name(ast),
-    ).variables << parameter
-    parameter
-  end
+  # def add_type parameter, ast
+  #   return parameter unless type = querier.type(ast)
+  #   type.find_or_create_by(
+  #     unique_name: querier.type_unique_name(ast),
+  #     name: querier.type_name(ast),
+  #   ).variables << parameter
+  #   parameter
+  # end
 
 end
