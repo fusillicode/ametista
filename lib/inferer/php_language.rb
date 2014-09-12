@@ -8,6 +8,7 @@ class PHPLanguage
       unique_name: '\\',
       name: '\\'
     },
+    namespace_separator: '\\',
     superglobals: [
       # 'GLOBALS', in the $GLOBALS array are stored all the 'normal' global variables so
       # even if it is actually considered a superglobals, here it is not considered
