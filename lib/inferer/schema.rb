@@ -1,5 +1,4 @@
 require "mongoid"
-require 'singleton'
 
 # Per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
@@ -19,9 +18,12 @@ end
 ################################################################################
 
 class Language
-  include Singleton
   include ReferableModel
   include Mongoid::Attributes::Dynamic
+  def self.create *attr
+    return self.find_by *attr if self.all.count > 0
+    super
+  end
 end
 
 class Scope
