@@ -11,7 +11,7 @@ class NamespacesQuerier < Querier
   end
 
   def unique_name ast
-    "#{global_namespace_unique_name}#{language.namespace_separator}#{ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
   def statements ast

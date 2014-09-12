@@ -25,7 +25,7 @@ class ModelBuilder
       primitive_types_builder: PrimitiveTypesBuilder.new
     },
     builders: {
-      # namespaces_builder: NamespacesBuilder.new,
+      namespaces_builder: NamespacesBuilder.new,
       # functions_builder: FunctionsBuilder.new,
       # custom_types_builder: CustomTypesBuilder.new,
       # parameters_builder: ParametersBuilder.new,

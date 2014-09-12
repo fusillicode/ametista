@@ -11,7 +11,7 @@ class FunctionsQuerier < Querier
   end
 
   def unique_name ast
-    "#{global_namespace_unique_name}#{language.namespace_separator}#{ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
   def parent_name ast
@@ -19,7 +19,7 @@ class FunctionsQuerier < Querier
   end
 
   def parent_unique_name ast
-    "#{global_namespace_unique_name}#{language.namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
   def statements(ast)
