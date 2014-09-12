@@ -2,7 +2,7 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative '../xml_parser'
-require_relative 'language_builder'
+require_relative 'primitive_types_builder'
 require_relative 'namespaces_builder'
 require_relative 'functions_builder'
 require_relative 'custom_types_builder'
@@ -19,13 +19,15 @@ class ModelBuilder
   initialize_with ({
     parser: XMLParser.new,
     data_source: RedisDataSource.new,
-    language_builder: LanguageBuilder.new,
+    init_builders: {
+      primitive_types_builder: PrimitiveTypesBuilder.new
+    },
     builders: {
       # namespaces_builder: NamespacesBuilder.new,
       # functions_builder: FunctionsBuilder.new,
       # custom_types_builder: CustomTypesBuilder.new,
       # parameters_builder: ParametersBuilder.new,
-      global_variables_builder: GlobalVariablesBuilder.new,
+      # global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
       # properties_builder: PropertiesBuilder.new,
       # klasses_builder: KlassesBuilder.new,
@@ -39,7 +41,9 @@ class ModelBuilder
   end
 
   def init_build
-    language_builder.build
+    init_builders.each do |key, init_builder|
+      init_builder.build
+    end
   end
 
   def builders_loop ast
@@ -54,7 +58,7 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
-    # Function.all.each do |entity|
+    # PrimitiveType.all.each do |entity|
     #   p "#{entity.name} #{entity.unique_name}"
     # end
   end
