@@ -54,7 +54,7 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
-    CustomType.all.each do |param|
+    Parameter.all.each do |param|
       p param.unique_name
     end
     # Function.all.each do |param|
