@@ -1,13 +1,15 @@
 require "mongoid"
+require 'singleton'
 
 # Per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
 
-module UniqueModel
+module ReferableModel
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
     base.field :unique_name, type: String
+    base.field :language, type: Language
     base.index({ unique_name: 1 }, { unique: true })
     base.validates :name, presence: true, length: { allow_blank: false }
     base.validates :unique_name, presence: true, length: { allow_blank: false }
@@ -16,8 +18,13 @@ end
 
 ################################################################################
 
+class Language
+  include Singleton
+  include ReferableModel
+end
+
 class Scope
-  include UniqueModel
+  include ReferableModel
   field :statements, type: String
   has_many :variables, class_name: 'Variable', inverse_of: :scope
 end
@@ -27,12 +34,12 @@ class Procedure < Scope
 end
 
 class Type
-  include UniqueModel
+  include ReferableModel
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 class Variable
-  include UniqueModel
+  include ReferableModel
   belongs_to :scope, class_name: 'Scope', inverse_of: :variables
 end
 

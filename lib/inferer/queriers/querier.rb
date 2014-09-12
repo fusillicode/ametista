@@ -1,11 +1,11 @@
+require_relative '../schema'
 require_relative '../utilities'
-require_relative '../php_language'
 
 class Querier
 
   extend Initializer
   initialize_with ({
-    language: PHPLanguage.new
+    language: Language.last()
   })
 
   def global_namespace_name
