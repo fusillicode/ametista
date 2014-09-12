@@ -68,6 +68,14 @@ end
 class GlobalVariable < Variable
   attr_readonly :unique_name
   field :type, type: String, default: 'GLOBALS'
+  belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
+  validate :must_be_in_the_global_namespace
+
+  def must_be_in_the_global_namespace
+    if namespace.unique_name != '\\'
+      raise "Global Variable #{unique_name} not in the global namespace"
+    end
+  end
 end
 
 class LocalVariable < Variable
