@@ -10,14 +10,10 @@ class Scope
   field :name, type: String
   field :unique_name, type: String
   field :statements, type: String
+  has_many :variables, class_name: 'Variable', inverse_of: :scope
   index({ unique_name: 1 }, { unique: true })
   validates :name, presence: true, length: { allow_blank: false }
   validates :unique_name, presence: true, length: { allow_blank: false }
-
-  # Per ottenere i discendenti della classe Scope (i.e. tutte le classi che la specializzano)
-  # def self.descendants
-  #   ObjectSpace.each_object(Class).select { |klass| klass < self }
-  # end
 end
 
 class Procedure < Scope
@@ -36,7 +32,7 @@ end
 
 class Variable
   include Mongoid::Document
-  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
+  belongs_to :scope, class_name: 'Scope', inverse_of: :variables
   field :name, type: String
   field :unique_name, type: String
   index({ unique_name: 1 }, { unique: true })
@@ -75,21 +71,17 @@ class Function < Procedure
 end
 
 class GlobalVariable < Variable
-  belongs_to :namespace, class_name: 'Namespace', inverse_of: :global_variables
-end
-
-class Superglobal < GlobalVariable
-  field :type, type: String
+  attr_readonly :unique_name
+  field :type, type: String, default: 'GLOBALS'
 end
 
 class LocalVariable < Variable
-  belongs_to :procedure, class_name: 'Procedure', inverse_of: :local_variables
-  has_many :scopes, class_name: 'VariableScope', inverse_of: :variable
+  has_many :versions, class_name: 'VariableVersion', inverse_of: :variable
 end
 
-class VariableScope
+class VariableVersion
   include Mongoid::Document
-  belongs_to :variable, class_name: 'Variable', inverse_of: :scopes
+  belongs_to :local_variable, class_name: 'LocalVariable', inverse_of: :versions
 end
 
 class Property < Variable
