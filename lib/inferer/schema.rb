@@ -3,8 +3,6 @@ require "mongoid"
 # Per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
 
-################################################################################
-
 module UniqueModel
   def self.included base
     base.include Mongoid::Document
@@ -15,6 +13,8 @@ module UniqueModel
     base.validates :unique_name, presence: true, length: { allow_blank: false }
   end
 end
+
+################################################################################
 
 class Scope
   include UniqueModel
@@ -49,8 +49,8 @@ end
 class Klass < Type
   include Mongoid::Document
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
-  has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
+  has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
 end
