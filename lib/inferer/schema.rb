@@ -3,7 +3,7 @@ require "mongoid"
 # Per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
 
-module Uniquely
+module UniquelyIdentifiable
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
@@ -14,9 +14,9 @@ module Uniquely
   end
 end
 
-module Referable
+module LanguageDependant
   def self.included base
-    base.include Uniquely
+    base.include UniquelyIdentifiable
     base.belongs_to :language, class_name: 'Language'
     base.after_initialize do
       self.language = Language.first()
@@ -27,7 +27,7 @@ end
 ################################################################################
 
 class Language
-  include Uniquely
+  include UniquelyIdentifiable
   include Mongoid::Attributes::Dynamic
   validate :is_only_one, on: :create
   def is_only_one
@@ -36,7 +36,7 @@ class Language
 end
 
 class Scope
-  include Referable
+  include LanguageDependant
   field :statements, type: String
   has_many :variables, class_name: 'Variable', inverse_of: :scope
 end
@@ -46,12 +46,12 @@ class Procedure < Scope
 end
 
 class Type
-  include Referable
+  include LanguageDependant
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 class Variable
-  include Referable
+  include LanguageDependant
   belongs_to :scope, class_name: 'Scope', inverse_of: :variables
 end
 
