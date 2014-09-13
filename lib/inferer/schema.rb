@@ -16,7 +16,7 @@ end
 
 module LanguageDependant
   def self.included base
-    base.include UniquelyIdentifiable
+    base.include Mongoid::Document
     base.belongs_to :language, class_name: 'Language'
     base.after_initialize do
       self.language = Language.first()
@@ -37,6 +37,7 @@ end
 
 class Scope
   include LanguageDependant
+  include UniquelyIdentifiable
   field :statements, type: String
   has_many :variables, class_name: 'Variable', inverse_of: :scope
 end
@@ -47,11 +48,13 @@ end
 
 class Type
   include LanguageDependant
+  include UniquelyIdentifiable
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 class Variable
   include LanguageDependant
+  include UniquelyIdentifiable
   belongs_to :scope, class_name: 'Scope', inverse_of: :variables
 end
 
