@@ -24,15 +24,26 @@ module LanguageDependant
   end
 end
 
+module Singleton
+  def self.included base
+    base.include Mongoid::Document
+    base.validate :singleton, on: :create
+    def initialize *args
+      singleton
+      super
+    end
+    def singleton
+      raise "there can be only one #{self.class}." if self.class.all.count > 0
+    end
+  end
+end
+
 ################################################################################
 
 class Language
+  include Singleton
   include UniquelyIdentifiable
   include Mongoid::Attributes::Dynamic
-  validate :is_only_one, on: :create
-  def is_only_one
-    self.errors.add :base, "There can only be one Speaker." if self.class.all.count > 0
-  end
 end
 
 class Scope
