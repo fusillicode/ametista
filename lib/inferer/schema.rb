@@ -17,7 +17,10 @@ end
 module Referable
   def self.included base
     base.include Uniquely
-    base.field :language, type: Language
+    base.belongs_to :language, class_name: 'Language'
+    base.after_initialize do
+      self.language = Language.first()
+    end
   end
 end
 
