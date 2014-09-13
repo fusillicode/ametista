@@ -88,33 +88,43 @@ class Function < Procedure
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
 end
 
-class GlobalVariable < Variable
+class MultipleVersionsVariable < Variable
+  has_many :versions, class_name: 'VariableVersion', inverse_of: :local_variable
+end
+
+class SingleVersionVariable < Variable
+  has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
+end
+
+class GlobalVariable < MultipleVersionsVariable
   attr_readonly :unique_name, :namespace
   field :type, type: String, default: 'GLOBALS'
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
-  # validate :is_in_global_namespace, on: :create
   after_initialize do
     self.namespace = Namespace.find_or_create_by(language.global_namespace)
   end
+  # validate :is_in_global_namespace, on: :create
   # def is_in_global_namespace
-  #   self.errors.add :base, "Global Variable #{unique_name} isn't in the global namespace" if namespace.unique_name != language.global_namespace['unique_name']
+  #   self.errors.add :base, "global Variable #{unique_name} isn't in the global namespace" if namespace.unique_name != language.global_namespace['unique_name']
   # end
 end
 
-class LocalVariable < Variable
-  has_many :versions, class_name: 'VariableVersion', inverse_of: :variable
+class LocalVariable < SingleVersionVariable
+
 end
 
 class VariableVersion
   include LanguageDependant
   include UniquelyIdentifiable
-  belongs_to :local_variable, class_name: 'LocalVariable', inverse_of: :versions
+  belongs_to :single_version_variable, class_name: 'SingleVersionVariable', inverse_of: :version
+  belongs_to :multiple_versions_variable, class_name: 'MultipleVersionsVariable', inverse_of: :versions
 end
 
-class Property < Variable
+class Property < MultipleVersionsVariable
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
+  has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
 end
 
-class Parameter < Variable
+class Parameter < MultipleVersionsVariable
   belongs_to :procedure, class_name: 'Procedure', inverse_of: :parameters
 end
