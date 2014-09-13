@@ -85,14 +85,16 @@ class Function < Procedure
 end
 
 class GlobalVariable < Variable
-  attr_readonly :unique_name
+  attr_readonly :unique_name, :namespace
   field :type, type: String, default: 'GLOBALS'
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
-  validate :is_in_global_namespace, on: :create
-
-  def is_in_global_namespace
-    self.errors.add :base, "Global Variable #{unique_name} isn't in the global namespace" if namespace.unique_name != '\\'
+  # validate :is_in_global_namespace, on: :create
+  after_initialize do
+    self.namespace = Namespace.find_or_create_by(language.global_namespace)
   end
+  # def is_in_global_namespace
+  #   self.errors.add :base, "Global Variable #{unique_name} isn't in the global namespace" if namespace.unique_name != language.global_namespace['unique_name']
+  # end
 end
 
 class LocalVariable < Variable
