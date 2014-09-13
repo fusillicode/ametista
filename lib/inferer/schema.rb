@@ -35,32 +35,33 @@ class Language
   end
 end
 
-class Scope
+class LogicContainer
   include LanguageDependant
   include UniquelyIdentifiable
   field :statements, type: String
   has_many :variables, class_name: 'Variable', inverse_of: :scope
 end
 
-class Procedure < Scope
+class Procedure < LogicContainer
   has_many :parameters, class_name: 'Parameter', inverse_of: :procedure
 end
 
 class Type
   include LanguageDependant
   include UniquelyIdentifiable
+  # TODO la relazione dei tipi deve essere spostata sulle versioni delle variabili
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 class Variable
   include LanguageDependant
   include UniquelyIdentifiable
-  belongs_to :scope, class_name: 'Scope', inverse_of: :variables
+  belongs_to :scope, class_name: 'LogicContainer', inverse_of: :variables
 end
 
 ################################################################################
 
-class Namespace < Scope
+class Namespace < LogicContainer
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
 end
@@ -105,7 +106,8 @@ class LocalVariable < Variable
 end
 
 class VariableVersion
-  include Mongoid::Document
+  include LanguageDependant
+  include UniquelyIdentifiable
   belongs_to :local_variable, class_name: 'LocalVariable', inverse_of: :versions
 end
 
