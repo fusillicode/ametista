@@ -39,7 +39,7 @@ class LogicContainer
   include LanguageDependant
   include UniquelyIdentifiable
   field :statements, type: String
-  has_many :variables, class_name: 'Variable', inverse_of: :scope
+  has_many :variables, class_name: 'Variable', inverse_of: :logic_container
 end
 
 class Procedure < LogicContainer
@@ -56,7 +56,7 @@ end
 class Variable
   include LanguageDependant
   include UniquelyIdentifiable
-  belongs_to :scope, class_name: 'LogicContainer', inverse_of: :variables
+  belongs_to :logic_container, class_name: 'LogicContainer', inverse_of: :variables
 end
 
 ################################################################################
