@@ -29,8 +29,7 @@ end
 class Language
   include Uniquely
   include Mongoid::Attributes::Dynamic
-  before_validation :is_only_one, on: :create
-
+  validate :is_only_one, on: :create
   def is_only_one
     self.errors.add :base, "There can only be one Speaker." if self.class.all.count > 0
   end
