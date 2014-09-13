@@ -3,31 +3,38 @@ require "mongoid"
 # Per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
 
-module ReferableModel
+module Uniquely
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
     base.field :unique_name, type: String
-    base.field :language, type: Language
     base.index({ unique_name: 1 }, { unique: true })
     base.validates :name, presence: true, length: { allow_blank: false }
     base.validates :unique_name, presence: true, length: { allow_blank: false }
   end
 end
 
+module Referable
+  def self.included base
+    base.include Uniquely
+    base.field :language, type: Language
+  end
+end
+
 ################################################################################
 
 class Language
-  include ReferableModel
+  include Uniquely
   include Mongoid::Attributes::Dynamic
-  def self.create *attr
-    return self.find_by *attr if self.all.count > 0
-    super
+  before_validation :is_only_one, on: :create
+
+  def is_only_one
+    self.errors.add :base, "There can only be one Speaker." if self.class.all.count > 0
   end
 end
 
 class Scope
-  include ReferableModel
+  include Referable
   field :statements, type: String
   has_many :variables, class_name: 'Variable', inverse_of: :scope
 end
@@ -37,12 +44,12 @@ class Procedure < Scope
 end
 
 class Type
-  include ReferableModel
+  include Referable
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 class Variable
-  include ReferableModel
+  include Referable
   belongs_to :scope, class_name: 'Scope', inverse_of: :variables
 end
 
@@ -79,12 +86,10 @@ class GlobalVariable < Variable
   attr_readonly :unique_name
   field :type, type: String, default: 'GLOBALS'
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
-  validate :must_be_in_the_global_namespace
+  validate :is_in_global_namespace, on: :create
 
-  def must_be_in_the_global_namespace
-    if namespace.unique_name != '\\'
-      raise "Global Variable #{unique_name} not in the global namespace"
-    end
+  def is_in_global_namespace
+    self.errors.add :base, "Global Variable #{unique_name} isn't in the global namespace" if namespace.unique_name != '\\'
   end
 end
 
