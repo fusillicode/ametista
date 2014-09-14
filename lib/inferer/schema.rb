@@ -38,6 +38,21 @@ module Singleton
   end
 end
 
+module LogicContainer
+  def self.included base
+    base.include LanguageDependant
+    base.include UniquelyIdentifiable
+    base.field :statements, type: String
+    # TODO chiarire la relazione che sto cercando di modellare fra uno Scope (i.e. LogicContainer)
+    # e le variabili. Uno scope (i.e. Namespace, Funzione e Metodo) "ha molte" variabili.
+    # Ha molte? In che senso?:
+    # - variabili assegnate? in questo caso anche le globali dovrebbero essere considerate
+    # - variabili utilizzate? per adesso non le ho nemmeno considerate dal punto di vista del
+    #   retrieval via xpath.
+    base.has_many :variables, class_name: 'Variable', inverse_of: :scope
+  end
+end
+
 ################################################################################
 
 class Language
