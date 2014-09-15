@@ -27,13 +27,16 @@ end
 module Singleton
   def self.included base
     base.include Mongoid::Document
-    base.validate :singleton, on: :create
+    base.validate :enforce_singleton, on: :create
     def initialize *args
-      singleton
+      enforce_singleton
       super
     end
-    def singleton
-      raise "there can be only one #{self.class}." if self.class.all.count > 0
+    def enforce_singleton
+      raise "there can be only one #{self.class}." unless is_singleton?
+    end
+    def is_singleton?
+      self.class.all.count.zero?
     end
   end
 end
