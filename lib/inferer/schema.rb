@@ -162,6 +162,6 @@ class Property < MultipleVersionsVariable
   belongs_to :state_container, class_name: 'Klass', inverse_of: :variables
 end
 
-class Parameter < SingleVersionsVariable
+class Parameter < SingleVersionVariable
   belongs_to :state_container, class_name: 'Procedure', inverse_of: :variables
 end
