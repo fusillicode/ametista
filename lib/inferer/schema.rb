@@ -100,7 +100,7 @@ class Namespace < StateContainer
     include ContainsGlobalState if is_global_namespace?
   end
   def is_global_namespace?
-    self.unique_name = language.global_namespace.unique_name
+    unique_name = language.global_namespace['unique_name']
   end
 end
 
