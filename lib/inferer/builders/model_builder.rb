@@ -26,10 +26,10 @@ class ModelBuilder
     },
     builders: {
       namespaces_builder: NamespacesBuilder.new,
-      # functions_builder: FunctionsBuilder.new,
-      # custom_types_builder: CustomTypesBuilder.new,
-      # parameters_builder: ParametersBuilder.new,
-      global_variables_builder: GlobalVariablesBuilder.new,
+      functions_builder: FunctionsBuilder.new,
+      custom_types_builder: CustomTypesBuilder.new,
+      parameters_builder: ParametersBuilder.new,
+      # global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
       # properties_builder: PropertiesBuilder.new,
       # klasses_builder: KlassesBuilder.new,
@@ -67,9 +67,10 @@ class ModelBuilder
     #     unique_name: 'asd'
     #   )
     # )
-    # PrimitiveType.all.each do |entity|
-    #   p "#{entity.name} #{entity.unique_name}"
-    # end
+    Parameter.all.each do |entity|
+      p entity.unique_name
+      p entity.state_container.parameters
+    end
   end
 
 end
