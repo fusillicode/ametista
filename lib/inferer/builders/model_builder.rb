@@ -73,4 +73,10 @@ class ModelBuilder
     end
   end
 
+  def builders_loop ast
+    builders.each do |key, builder|
+      builder.build(ast)
+    end
+  end
+
 end
