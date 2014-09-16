@@ -133,13 +133,21 @@ class SingleVersionVariable < Variable
   has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
 end
 
-class GlobalVariable < SingleVersionVariable
-  attr_readonly :unique_name, :namespace
+class GlobalVariable
+  include Mongoid::Document
+  include LanguageDependant
+  attr_readonly :state_container, :namespace
+  field :name, type: String
+  # per le variabili globali il nome univoco lo gestisco in automatico (lo costruisco a mano sulla base del loro tipo e del loro nome)
+  field :unique_name, type: String, default: ->{ "#{type}[#{name}]" }
+  index({ unique_name: 1 }, { unique: true })
+  validates :name, presence: true, length: { allow_blank: false }
   field :type, type: String, default: 'GLOBALS'
-  belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
-  # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
+  belongs_to :state_container, class_name: 'Namespace', inverse_of: :variables
+  has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
   after_initialize do
-    self.namespace = Namespace.find_or_create_by(language.global_namespace)
+    # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
+    self.state_container = Namespace.find_or_create_by(language.global_namespace)
   end
 end
 
