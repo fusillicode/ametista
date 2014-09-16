@@ -24,7 +24,7 @@ class ParametersBuilder < Builder
       parameter = Parameter.find_or_create_by(
         unique_name: querier.function_parameter_unique_name(function_parameter_ast),
         name: querier.function_parameter_name(function_parameter_ast),
-        procedure: parent_function(function_parameter_ast)
+        state_container: parent_function(function_parameter_ast)
       )
     end
   end
@@ -34,7 +34,7 @@ class ParametersBuilder < Builder
       parameter = Parameter.find_or_create_by(
         unique_name: querier.klass_method_parameter_unique_name(klass_method_parameter_ast),
         name: querier.klass_method_parameter_name(klass_method_parameter_ast),
-        procedure: parent_klass_method(klass_method_parameter_ast)
+        state_container: parent_klass_method(klass_method_parameter_ast)
       )
     end
   end
