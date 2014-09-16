@@ -97,7 +97,7 @@ class Namespace < StateContainer
   # se il namespace che sto costruendo e/o utilizzando è quello globale
   # allora le variabili che ci vado ad associare devono essere globali
   after_initialize do
-    include ContainsGlobalState if is_global_namespace?
+    extend ContainsGlobalState if is_global_namespace?
   end
   def is_global_namespace?
     unique_name = language.global_namespace['unique_name']
