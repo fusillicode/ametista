@@ -48,12 +48,6 @@ class ModelBuilder
     end
   end
 
-  def builders_loop ast
-    builders.each do |key, builder|
-      builder.build(ast)
-    end
-  end
-
   def building_loop
     while ast = data_source.read
       # TODO togliere il break e la condizione una volta sistemato data_source.read
@@ -67,9 +61,12 @@ class ModelBuilder
     #     unique_name: 'asd'
     #   )
     # )
-    Parameter.all.each do |entity|
+    # Namespace.all.each do |entity|
+    #   p entity.unique_name
+    # end
+    GlobalVariable.all.each do |entity|
+      p entity.name
       p entity.unique_name
-      p entity.state_container.parameters
     end
   end
 
