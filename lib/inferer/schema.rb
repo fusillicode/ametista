@@ -41,6 +41,20 @@ module Singleton
   end
 end
 
+module ContainsGlobalState
+  def self.included base
+    base.include Mongoid::Document
+    has_many :variables, class_name: 'GlobalVariable', inverse_of: :state_container
+  end
+end
+
+module ContainsLocalState
+  def self.included base
+    base.include Mongoid::Document
+    base.has_many :variables, class_name: 'LocalVariable', inverse_of: :state_container
+  end
+end
+
 ################################################################################
 
 class StateContainer
@@ -76,19 +90,18 @@ class Language
 end
 
 class Namespace < StateContainer
+  include ContainsLocalState
   field :statements, type: String
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
-  has_many :variables, class_name: 'LocalVariable', inverse_of: :state_container
+  # se il namespace che sto costruendo e/o utilizzando è quello globale
+  # allora le variabili che ci vado ad associare devono essere globali
   after_initialize do
-    has_many :variables, class_name: 'GlobalVariable', inverse_of: :state_container if is_global_namespace?
+    include ContainsGlobalState if is_global_namespace?
   end
   def is_global_namespace?
     self.unique_name = language.global_namespace.unique_name
   end
-  # Aggiungere la validazione delle variabili per il caso del namespace globale
-  # i.e. se il namespace che sto costruendo e/o utilizzando è quello globale
-  # allora le variabili che ci vado ad associare devono essere globali
 end
 
 class Klass < StateContainer
