@@ -43,52 +43,64 @@ end
 
 ################################################################################
 
+class StateContainer
+  include LanguageDependant
+  include UniquelyIdentifiable
+  has_many :variables, class_name: 'Variable', inverse_of: :state_container
+end
+
+class Variable
+  include LanguageDependant
+  include UniquelyIdentifiable
+  belongs_to :state_container, class_name: 'StateContainer', inverse_of: :variables
+end
+
+class Procedure < StateContainer
+  field :statements, type: String
+  has_many :variables, class_name: 'LocalVariable', inverse_of: :state_container
+  has_many :parameters, class_name: 'Parameter', inverse_of: :state_container
+end
+
+# class Type
+#   include LanguageDependant
+#   include UniquelyIdentifiable
+#   # TODO la relazione dei tipi deve essere spostata sulle versioni delle variabili
+#   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
+# end
+
+################################################################################
+
 class Language
   include Singleton
   include UniquelyIdentifiable
   include Mongoid::Attributes::Dynamic
 end
 
-class Scope
-  include LanguageDependant
-  include UniquelyIdentifiable
+class Namespace < StateContainer
   field :statements, type: String
-  has_many :variables, class_name: 'Variable', inverse_of: :scope
-end
-
-class Procedure < Scope
-  has_many :parameters, class_name: 'Parameter', inverse_of: :procedure
-end
-
-class Type
-  include LanguageDependant
-  include UniquelyIdentifiable
-  # TODO la relazione dei tipi deve essere spostata sulle versioni delle variabili
-  has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
-end
-
-class Variable
-  include LanguageDependant
-  include UniquelyIdentifiable
-  belongs_to :scope, class_name: 'Scope', inverse_of: :variables
-end
-
-################################################################################
-
-class Namespace < Scope
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
+  has_many :variables, class_name: 'LocalVariable', inverse_of: :state_container
+  after_initialize do
+    has_many :variables, class_name: 'GlobalVariable', inverse_of: :state_container if is_global_namespace?
+  end
+  def is_global_namespace?
+    self.unique_name = language.global_namespace.unique_name
+  end
+  # Aggiungere la validazione delle variabili per il caso del namespace globale
+  # i.e. se il namespace che sto costruendo e/o utilizzando è quello globale
+  # allora le variabili che ci vado ad associare devono essere globali
 end
 
-class PrimitiveType < Type
-end
-
-class Klass < Type
+class Klass < StateContainer
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
-  has_many :properties, class_name: 'Property', inverse_of: :klass
+  has_many :variables, class_name: 'Property', inverse_of: :state_container
+end
+
+class PrimitiveType < Type
 end
 
 # Alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
@@ -110,7 +122,7 @@ class SingleVersionVariable < Variable
   has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
 end
 
-class GlobalVariable < MultipleVersionsVariable
+class GlobalVariable < SingleVersionVariable
   attr_readonly :unique_name, :namespace
   field :type, type: String, default: 'GLOBALS'
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
@@ -123,8 +135,7 @@ class GlobalVariable < MultipleVersionsVariable
   # end
 end
 
-class LocalVariable < SingleVersionVariable
-
+class LocalVariable < MultipleVersionsVariable
 end
 
 class VariableVersion
@@ -135,10 +146,9 @@ class VariableVersion
 end
 
 class Property < MultipleVersionsVariable
-  belongs_to :klass, class_name: 'Klass', inverse_of: :properties
-  has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
+  belongs_to :state_container, class_name: 'Klass', inverse_of: :variables
 end
 
-class Parameter < MultipleVersionsVariable
-  belongs_to :procedure, class_name: 'Procedure', inverse_of: :parameters
+class Parameter < SingleVersionsVariable
+  belongs_to :state_container, class_name: 'Procedure', inverse_of: :variables
 end
