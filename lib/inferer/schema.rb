@@ -1,6 +1,6 @@
 require "mongoid"
 
-# Per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
+# per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
 
 module UniquelyIdentifiable
@@ -94,8 +94,7 @@ class Namespace < StateContainer
   field :statements, type: String
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
-  # se il namespace che sto costruendo e/o utilizzando è quello globale
-  # allora le variabili che ci vado ad associare devono essere globali
+  # se il namespace che sto costruendo e/o utilizzando è quello globale allora le variabili che ci vado ad associare devono essere globali
   after_initialize do
     extend ContainsGlobalState if is_global_namespace?
   end
@@ -115,7 +114,7 @@ end
 class PrimitiveType < Type
 end
 
-# Alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
+# alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
 CustomType = Klass
 
 class KlassMethod < Procedure
@@ -138,13 +137,10 @@ class GlobalVariable < SingleVersionVariable
   attr_readonly :unique_name, :namespace
   field :type, type: String, default: 'GLOBALS'
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :variables
+  # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
   after_initialize do
     self.namespace = Namespace.find_or_create_by(language.global_namespace)
   end
-  # validate :is_in_global_namespace, on: :create
-  # def is_in_global_namespace
-  #   self.errors.add :base, "global Variable #{unique_name} isn't in the global namespace" if namespace.unique_name != language.global_namespace['unique_name']
-  # end
 end
 
 class LocalVariable < MultipleVersionsVariable
