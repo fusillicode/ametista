@@ -61,12 +61,11 @@ class Procedure < StateContainer
   has_many :parameters, class_name: 'Parameter', inverse_of: :state_container
 end
 
-# class Type
-#   include LanguageDependant
-#   include UniquelyIdentifiable
-#   # TODO la relazione dei tipi deve essere spostata sulle versioni delle variabili
-#   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
-# end
+class Type
+  include LanguageDependant
+  include UniquelyIdentifiable
+  has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
+end
 
 ################################################################################
 
@@ -143,6 +142,7 @@ class VariableVersion
   include UniquelyIdentifiable
   belongs_to :single_version_variable, class_name: 'SingleVersionVariable', inverse_of: :version
   belongs_to :multiple_versions_variable, class_name: 'MultipleVersionsVariable', inverse_of: :versions
+  has_many :types, class_name: 'Type', inverse_of: :variables_versions
 end
 
 class Property < MultipleVersionsVariable
