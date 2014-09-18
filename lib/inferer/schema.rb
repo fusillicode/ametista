@@ -55,14 +55,14 @@ end
 module ContainsGlobalVariables
   def self.included base
     base.include Mongoid::Document
-    base.has_many :global_variables, as: :global_scope
+    base.has_many :global_variables, as: :scope
   end
 end
 
 module ContainsLocalVariables
   def self.included base
     base.include Mongoid::Document
-    base.has_many :local_variables, as: :local_scope
+    base.has_many :local_variables, as: :scope
   end
 end
 
@@ -136,17 +136,17 @@ class GlobalVariable
   include LanguageDependant
   include UniquelyIdentifiableWithNameAndType
   has_one :version, as: :versionable
-  belongs_to :global_scope, polymorphic: true
+  belongs_to :scope, polymorphic: true
   after_initialize do
     # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
-    self.global_scope = Namespace.find_or_create_by(language.global_namespace)
+    self.scope = Namespace.find_or_create_by(language.global_namespace)
   end
 end
 
 class LocalVariable
   include LanguageDependant
   include UniquelyIdentifiable
-  belongs_to :local_scope, polymorphic: true
+  belongs_to :scope, polymorphic: true
 end
 
 class Property
