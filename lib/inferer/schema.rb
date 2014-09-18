@@ -157,6 +157,7 @@ end
 class VariableVersion
   include LanguageDependant
   include UniquelyIdentifiable
+  # queste due relazioni possono essere polimorfizzate...
   belongs_to :single_version_variable, class_name: 'SingleVersionVariable', inverse_of: :version
   belongs_to :multiple_versions_variable, class_name: 'MultipleVersionsVariable', inverse_of: :versions
   has_many :types, class_name: 'Type', inverse_of: :variables_versions
