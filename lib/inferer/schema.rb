@@ -137,10 +137,10 @@ class GlobalVariable
   include UniquelyIdentifiableWithNameAndType
   has_one :version, as: :versionable
   belongs_to :global_scope, polymorphic: true
-  # after_initialize do 
-  #   # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
-  #   self.state_container = Namespace.find_or_create_by(language.global_namespace)
-  # end
+  after_initialize do
+    # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
+    self.global_scope = Namespace.find_or_create_by(language.global_namespace)
+  end
 end
 
 class LocalVariable
