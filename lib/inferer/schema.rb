@@ -138,7 +138,6 @@ class GlobalVariable
   has_one :version, as: :versionable
   belongs_to :scope, polymorphic: true
   after_initialize do
-    # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
     self.scope = Namespace.find_or_create_by(language.global_namespace)
   end
 end
