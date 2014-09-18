@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "redis"
   spec.add_runtime_dependency "nokogiri"
   spec.add_runtime_dependency "mongoid"
+  spec.add_runtime_dependency "awesome_print"
 end
