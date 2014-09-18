@@ -3,7 +3,7 @@ require "mongoid"
 # per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
 I18n.config.enforce_available_locales = true
 
-module UniquelyIdentifiable
+module IsUniquelyIdentifiable
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
@@ -14,7 +14,7 @@ module UniquelyIdentifiable
   end
 end
 
-module UniquelyIdentifiableWithNameAndType
+module IsUniquelyIdentifiableWithNameAndType
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
@@ -25,7 +25,7 @@ module UniquelyIdentifiableWithNameAndType
   end
 end
 
-module LanguageDependant
+module IsLanguageDependant
   def self.included base
     base.include Mongoid::Document
     base.belongs_to :language, class_name: 'Language'
@@ -35,7 +35,7 @@ module LanguageDependant
   end
 end
 
-module Singleton
+module IsSingleton
   def self.included base
     base.include Mongoid::Document
     base.validate :enforce_singleton, on: :create
@@ -68,16 +68,16 @@ end
 
 module IsAType
   def self.included base
-    base.include LanguageDependant
-    base.include UniquelyIdentifiable
+    base.include IsLanguageDependant
+    base.include IsUniquelyIdentifiable
     base.has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
   end
 end
 
 module IsAProcedure
   def self.included base
-    base.include LanguageDependant
-    base.include UniquelyIdentifiable
+    base.include IsLanguageDependant
+    base.include IsUniquelyIdentifiable
     base.include ContainsLocalVariables
     base.field :statements, type: String
     base.has_many :parameters, as: :procedure
@@ -87,14 +87,14 @@ end
 ################################################################################
 
 class Language
-  include Singleton
-  include UniquelyIdentifiable
+  include IsSingleton
+  include IsUniquelyIdentifiable
   include Mongoid::Attributes::Dynamic
 end
 
 class Namespace
-  include LanguageDependant
-  include UniquelyIdentifiable
+  include IsLanguageDependant
+  include IsUniquelyIdentifiable
   field :statements, type: String
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
@@ -133,8 +133,8 @@ class Function
 end
 
 class GlobalVariable
-  include LanguageDependant
-  include UniquelyIdentifiableWithNameAndType
+  include IsLanguageDependant
+  include IsUniquelyIdentifiableWithNameAndType
   has_one :version, as: :versionable
   belongs_to :scope, polymorphic: true
   after_initialize do
@@ -144,28 +144,28 @@ class GlobalVariable
 end
 
 class LocalVariable
-  include LanguageDependant
-  include UniquelyIdentifiable
+  include IsLanguageDependant
+  include IsUniquelyIdentifiable
   belongs_to :scope, polymorphic: true
 end
 
 class Property
-  include LanguageDependant
-  include UniquelyIdentifiable
+  include IsLanguageDependant
+  include IsUniquelyIdentifiable
   has_many :versions, as: :versionable
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
 class Parameter
-  include LanguageDependant
-  include UniquelyIdentifiable
+  include IsLanguageDependant
+  include IsUniquelyIdentifiable
   has_one :version, as: :versionable
   belongs_to :procedure, polymorphic: true
 end
 
 class VariableVersion
-  include LanguageDependant
-  include UniquelyIdentifiable
+  include IsLanguageDependant
+  include IsUniquelyIdentifiable
   belongs_to :versionable, polymorphic: true
   has_many :types, class_name: 'Type', inverse_of: :variables_versions
 end
