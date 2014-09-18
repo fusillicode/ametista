@@ -14,8 +14,7 @@ class LanguageBuilder < Builder
       },
       namespace_separator: '\\',
       superglobals: [
-        # 'GLOBALS', in the $GLOBALS array are stored all the 'normal' global variables so
-        # even if it is actually considered a superglobals, here it is not considered
+        'GLOBALS',
         '_POST',
         '_GET',
         '_REQUEST',
