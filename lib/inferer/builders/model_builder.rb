@@ -55,16 +55,6 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
-    # GlobalVariable.find_or_create_by(
-    #   unique_name: 'asda',
-    #   namespace: Namespace.find_or_create_by(
-    #     name: 'asd',
-    #     unique_name: 'asd'
-    #   )
-    # )
-    # Namespace.all.each do |entity|
-    #   p entity.unique_name
-    # end
     GlobalVariable.all.each do |entity|
       ap entity
     end
