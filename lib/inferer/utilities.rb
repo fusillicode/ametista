@@ -24,6 +24,11 @@ module Initializer
   end
 end
 
+module PatchedAwesomePrint
+  require 'awesome_print'
+  ::Moped::BSON = ::BSON
+end
+
 module UniqueMapper
   def map_unique &block
     self.map(&block).uniq{ |x| x._id }

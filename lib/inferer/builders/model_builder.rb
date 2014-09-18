@@ -13,6 +13,7 @@ require_relative 'local_variables_builder'
 require_relative 'properties_builder'
 require_relative 'klasses_builder'
 require_relative 'klasses_methods_builder'
+include PatchedAwesomePrint
 
 class ModelBuilder
 
@@ -65,8 +66,7 @@ class ModelBuilder
     #   p entity.unique_name
     # end
     GlobalVariable.all.each do |entity|
-      p entity.name
-      p entity.unique_name
+      ap entity
     end
   end
 
