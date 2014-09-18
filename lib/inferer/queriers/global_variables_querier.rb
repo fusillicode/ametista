@@ -15,38 +15,20 @@ class GlobalVariablesQuerier < Querier
     ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{a_superglobal}]]]")
   end
 
-  def global_namespace_variable_unique_name ast
-    ast.xpath("./subNode:name/scalar:string").text
-  end
-
   def global_namespace_variable_name ast
-    global_namespace_variable_unique_name(ast)
-  end
-
-  def global_definition_unique_name ast
     ast.xpath("./subNode:name/scalar:string").text
   end
 
   def global_definition_name ast
-    global_definition_unique_name(ast)
-  end
-
-  def superglobal_unique_name ast
-    superglobal_type = superglobal_type(ast)
-    return superglobal_type if superglobal_type.empty?
-    "#{superglobal_type}['#{superglobal_content(ast)}']"
+    ast.xpath("./subNode:name/scalar:string").text
   end
 
   def superglobal_type ast
     ast.xpath('./subNode:var/node:Expr_Variable/subNode:name/scalar:string').text
   end
 
-  def superglobal_content ast
-    ast.xpath('./subNode:dim/node:Scalar_String/subNode:value/scalar:string').text
-  end
-
   def superglobal_name ast
-    superglobal_unique_name(ast)
+    ast.xpath('./subNode:dim/node:Scalar_String/subNode:value/scalar:string').text
   end
 
   # def variable_unique_name
