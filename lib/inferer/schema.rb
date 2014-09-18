@@ -25,7 +25,7 @@ module IsUniquelyIdentifiableWithNameAndType
   end
 end
 
-module DependsOnLanguage
+module ReferencesLanguage
   def self.included base
     base.include Mongoid::Document
     base.belongs_to :language, class_name: 'Language'
@@ -68,7 +68,7 @@ end
 
 module IsAType
   def self.included base
-    base.include DependsOnLanguage
+    base.include ReferencesLanguage
     base.include IsUniquelyIdentifiable
     base.has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
   end
@@ -76,7 +76,7 @@ end
 
 module IsAProcedure
   def self.included base
-    base.include DependsOnLanguage
+    base.include ReferencesLanguage
     base.include IsUniquelyIdentifiable
     base.include ContainsLocalVariables
     base.field :statements, type: String
@@ -93,7 +93,7 @@ class Language
 end
 
 class Namespace
-  include DependsOnLanguage
+  include ReferencesLanguage
   include IsUniquelyIdentifiable
   field :statements, type: String
   has_many :functions, class_name: 'Function', inverse_of: :namespace
@@ -133,7 +133,7 @@ class Function
 end
 
 class GlobalVariable
-  include DependsOnLanguage
+  include ReferencesLanguage
   include IsUniquelyIdentifiableWithNameAndType
   has_one :version, as: :versionable
   belongs_to :scope, polymorphic: true
@@ -143,27 +143,27 @@ class GlobalVariable
 end
 
 class LocalVariable
-  include DependsOnLanguage
+  include ReferencesLanguage
   include IsUniquelyIdentifiable
   belongs_to :scope, polymorphic: true
 end
 
 class Property
-  include DependsOnLanguage
+  include ReferencesLanguage
   include IsUniquelyIdentifiable
   has_many :versions, as: :versionable
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
 class Parameter
-  include DependsOnLanguage
+  include ReferencesLanguage
   include IsUniquelyIdentifiable
   has_one :version, as: :versionable
   belongs_to :procedure, polymorphic: true
 end
 
 class VariableVersion
-  include DependsOnLanguage
+  include ReferencesLanguage
   include IsUniquelyIdentifiable
   belongs_to :versionable, polymorphic: true
   has_many :types, class_name: 'Type', inverse_of: :variables_versions
