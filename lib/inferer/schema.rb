@@ -14,6 +14,17 @@ module UniquelyIdentifiable
   end
 end
 
+module UniquelyIdentifiableWithNameAndType
+  def self.included base
+    base.include Mongoid::Document
+    base.field :name, type: String
+    base.validates :name, presence: true, length: { allow_blank: false }
+    base.field :unique_name, type: String, default: ->{ "#{type}[#{name}]" }
+    base.index({ unique_name: 1 }, { unique: true })
+    base.field :type, type: String, default: 'GLOBALS'
+  end
+end
+
 module LanguageDependant
   def self.included base
     base.include Mongoid::Document
@@ -41,44 +52,36 @@ module Singleton
   end
 end
 
-module ContainsGlobalState
+module ContainsGlobalVariables
   def self.included base
     base.include Mongoid::Document
-    base.has_many :variables, class_name: 'GlobalVariable', inverse_of: :state_container
+    base.has_many :global_variables, as: :global_scope
   end
 end
 
-module ContainsLocalState
+module ContainsLocalVariables
   def self.included base
     base.include Mongoid::Document
-    base.has_many :variables, class_name: 'LocalVariable', inverse_of: :state_container
+    base.has_many :local_variables, as: :local_scope
   end
 end
 
-################################################################################
-
-class StateContainer
-  include LanguageDependant
-  include UniquelyIdentifiable
-  has_many :variables, class_name: 'Variable', inverse_of: :state_container
+module IsAType
+  def self.included base
+    base.include LanguageDependant
+    base.include UniquelyIdentifiable
+    base.has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
+  end
 end
 
-class Variable
-  include LanguageDependant
-  include UniquelyIdentifiable
-  belongs_to :state_container, class_name: 'StateContainer', inverse_of: :variables
-end
-
-class Procedure < StateContainer
-  field :statements, type: String
-  has_many :variables, class_name: 'LocalVariable', inverse_of: :state_container
-  has_many :parameters, class_name: 'Parameter', inverse_of: :state_container
-end
-
-class Type
-  include LanguageDependant
-  include UniquelyIdentifiable
-  has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
+module IsAProcedure
+  def self.included base
+    base.include LanguageDependant
+    base.include UniquelyIdentifiable
+    base.include ContainsLocalVariables
+    base.field :statements, type: String
+    base.has_many :parameters, as: :procedure
+  end
 end
 
 ################################################################################
@@ -89,84 +92,80 @@ class Language
   include Mongoid::Attributes::Dynamic
 end
 
-class Namespace < StateContainer
-  include ContainsLocalState
+class Namespace
+  include LanguageDependant
+  include UniquelyIdentifiable
   field :statements, type: String
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
-  # se il namespace che sto costruendo e/o utilizzando è quello globale allora le variabili che ci vado ad associare devono essere globali
   after_initialize do
-    extend ContainsGlobalState if is_global_namespace?
+    extend (is_global_namespace? ? ContainsGlobalVariables : ContainsLocalVariables)
   end
   def is_global_namespace?
     unique_name.eql? language.global_namespace['unique_name']
   end
 end
 
-class Klass < StateContainer
+class Klass
+  include IsAType
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
-  has_many :variables, class_name: 'Property', inverse_of: :state_container
+  has_many :properties, class_name: 'Property', inverse_of: :klass
 end
 
-class PrimitiveType < Type
+class PrimitiveType
+  include IsAType
 end
 
 # alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
 CustomType = Klass
 
-class KlassMethod < Procedure
+class KlassMethod
+  include IsAProcedure
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
 end
 
-class Function < Procedure
+class Function
+  include IsAProcedure
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
 end
 
-class MultipleVersionsVariable < Variable
-  has_many :versions, class_name: 'VariableVersion', inverse_of: :local_variable
-end
-
-class SingleVersionVariable < Variable
-  has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
-end
-
 class GlobalVariable
-  include Mongoid::Document
   include LanguageDependant
-  attr_readonly :state_container, :namespace
-  field :name, type: String
-  # per le variabili globali il nome univoco lo gestisco in automatico (lo costruisco a mano sulla base del loro tipo e del loro nome)
-  field :unique_name, type: String, default: ->{ "#{type}[#{name}]" }
-  index({ unique_name: 1 }, { unique: true })
-  validates :name, presence: true, length: { allow_blank: false }
-  field :type, type: String, default: 'GLOBALS'
-  belongs_to :state_container, class_name: 'Namespace', inverse_of: :variables
-  has_one :version, class_name: 'VariableVersion', inverse_of: :global_variable
-  after_initialize do
-    # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
-    self.state_container = Namespace.find_or_create_by(language.global_namespace)
-  end
+  include UniquelyIdentifiableWithNameAndType
+  has_one :version, as: :versionable
+  belongs_to :global_scope, polymorphic: true
+  # after_initialize do 
+  #   # per le variabili globali setto il namespace in automatico come quello globale e ne prevento la modifica
+  #   self.state_container = Namespace.find_or_create_by(language.global_namespace)
+  # end
 end
 
-class LocalVariable < MultipleVersionsVariable
+class LocalVariable
+  include LanguageDependant
+  include UniquelyIdentifiable
+  belongs_to :local_scope, polymorphic: true
+end
+
+class Property
+  include LanguageDependant
+  include UniquelyIdentifiable
+  has_many :versions, as: :versionable
+  belongs_to :klass, class_name: 'Klass', inverse_of: :properties
+end
+
+class Parameter
+  include LanguageDependant
+  include UniquelyIdentifiable
+  has_one :version, as: :versionable
+  belongs_to :procedure, polymorphic: true
 end
 
 class VariableVersion
   include LanguageDependant
   include UniquelyIdentifiable
-  # queste due relazioni possono essere polimorfizzate...
-  belongs_to :single_version_variable, class_name: 'SingleVersionVariable', inverse_of: :version
-  belongs_to :multiple_versions_variable, class_name: 'MultipleVersionsVariable', inverse_of: :versions
+  belongs_to :versionable, polymorphic: true
   has_many :types, class_name: 'Type', inverse_of: :variables_versions
-end
-
-class Property < MultipleVersionsVariable
-  belongs_to :state_container, class_name: 'Klass', inverse_of: :variables
-end
-
-class Parameter < SingleVersionVariable
-  belongs_to :state_container, class_name: 'Procedure', inverse_of: :variables
 end
