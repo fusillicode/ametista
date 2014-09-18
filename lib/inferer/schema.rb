@@ -44,7 +44,7 @@ end
 module ContainsGlobalState
   def self.included base
     base.include Mongoid::Document
-    has_many :variables, class_name: 'GlobalVariable', inverse_of: :state_container
+    base.has_many :variables, class_name: 'GlobalVariable', inverse_of: :state_container
   end
 end
 
