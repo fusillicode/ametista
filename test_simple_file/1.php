@@ -1,8 +1,8 @@
 <?php
 
-namespace universo;
-
 $a = 1.2;
+
+$GLOBALS['ingrassia'] = 'asdasda';
 
 $a[1]->b[1][1]->d = 1; $b + $c;
 $$vv = 'pippo'; $b = pippo($a = 'pluto', $a = 'parperino');
@@ -77,6 +77,7 @@ class Sole {
       # code...
       // Stmt_Else
     } else {
+      $GLOBALS['ciccio'] = 12;
       # code...
     }
     // Expr_Ternary

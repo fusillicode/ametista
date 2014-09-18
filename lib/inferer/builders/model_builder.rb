@@ -55,9 +55,6 @@ class ModelBuilder
       break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
-    Namespace.all.each do |entity|
-      ap entity
-    end
     GlobalVariable.all.each do |entity|
       ap entity
     end
