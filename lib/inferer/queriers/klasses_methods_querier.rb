@@ -2,8 +2,8 @@ require_relative 'querier'
 
 class KlassesMethodsQuerier < Querier
 
-  def klasses_methods
-    ast.xpath('.//subNode:stmts/scalar:array/node:Stmt_Function')
+  def klasses_methods ast_root
+    ast_root.xpath('.//subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
   def parent_name ast

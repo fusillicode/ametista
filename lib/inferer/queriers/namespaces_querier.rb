@@ -2,8 +2,8 @@ require_relative 'querier'
 
 class NamespacesQuerier < Querier
 
-  def namespaces ast
-    ast.xpath('.//node:Stmt_Namespace')
+  def namespaces ast_root
+    ast_root.xpath('.//node:Stmt_Namespace')
   end
 
   def name ast
@@ -18,8 +18,8 @@ class NamespacesQuerier < Querier
     ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
   end
 
-  def global_namespace_statements ast
-    ast.xpath('/AST/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class" and name() != "node:Stmt_Namespace"]')
+  def global_namespace_statements ast_root
+    ast_root.xpath('/AST/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class" and name() != "node:Stmt_Namespace"]')
   end
 
 end

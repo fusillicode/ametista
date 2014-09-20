@@ -2,8 +2,8 @@ require_relative 'querier'
 
 class FunctionsQuerier < Querier
 
-  def functions ast
-    ast.xpath('.//scalar:array/node:Stmt_Function')
+  def functions ast_root
+    ast_root.xpath('.//scalar:array/node:Stmt_Function')
   end
 
   def name ast

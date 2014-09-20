@@ -2,12 +2,12 @@ require_relative 'querier'
 
 class ParametersQuerier < Querier
 
-  def functions_parameters ast
-    ast.xpath('.//node:Stmt_Function/subNode:params/scalar:array/node:Param')
+  def functions_parameters ast_root
+    ast_root.xpath('.//node:Stmt_Function/subNode:params/scalar:array/node:Param')
   end
 
-  def klasses_methods_parameters ast
-    ast.xpath('.//node:Stmt_ClassMethod/subNode:params/scalar:array/node:Param')
+  def klasses_methods_parameters ast_root
+    ast_root.xpath('.//node:Stmt_ClassMethod/subNode:params/scalar:array/node:Param')
   end
 
   def function_parameter_name ast

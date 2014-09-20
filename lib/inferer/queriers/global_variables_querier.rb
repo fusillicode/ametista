@@ -2,16 +2,16 @@ require_relative 'querier'
 
 class GlobalVariablesQuerier < Querier
 
-  def global_namespace_variables ast
-    ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobal}]]")
+  def global_namespace_variables ast_root
+    ast_root.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobal}]]")
   end
 
-  def global_definitions ast
-    ast.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobal}]]")
+  def global_definitions ast_root
+    ast_root.xpath(".//node:Stmt_Global/subNode:vars/scalar:array/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobal}]]")
   end
 
-  def superglobals ast
-    ast.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{a_superglobal}]]]")
+  def superglobals ast_root
+    ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][subNode:var/node:Expr_Variable[subNode:name/scalar:string[#{a_superglobal}]]]")
   end
 
   def global_namespace_variable_name ast
