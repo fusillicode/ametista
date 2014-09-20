@@ -1,6 +1,6 @@
 <?php
 
-class Semplice {
+class Semplice extends Complesso {
 
 }
 

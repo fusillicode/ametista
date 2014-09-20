@@ -28,7 +28,7 @@ class ModelBuilder
     builders: {
       namespaces_builder: NamespacesBuilder.new,
       functions_builder: FunctionsBuilder.new,
-      # klasses_builder: KlassesBuilder.new,
+      klasses_builder: KlassesBuilder.new,
       # klasses_methods_builder: KlassesMethodsBuilder.new,
       custom_types_builder: CustomTypesBuilder.new,
       parameters_builder: ParametersBuilder.new,
@@ -53,10 +53,9 @@ class ModelBuilder
     while ast = data_source.read
       builders_loop(parser.parse(ast))
     end
-    GlobalVariable.all.each do |entity|
-      ap entity
+    Klass.all.each do |entity|
+      ap entity.parent_klass
     end
-    p GlobalVariable.count
   end
 
   def builders_loop ast

@@ -15,7 +15,19 @@
     <scalar:string>Semplice</scalar:string>
    </subNode:name>
    <subNode:extends>
-    <scalar:null/>
+    <node:Name_FullyQualified>
+     <attribute:startLine>
+      <scalar:int>3</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>3</scalar:int>
+     </attribute:endLine>
+     <subNode:parts>
+      <scalar:array>
+       <scalar:string>Complesso</scalar:string>
+      </scalar:array>
+     </subNode:parts>
+    </node:Name_FullyQualified>
    </subNode:extends>
    <subNode:implements>
     <scalar:array/>

@@ -3,7 +3,7 @@ require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/klasses_querier'
 
-class KlassesBuilder
+class KlassesBuilder < Builder
 
   extend Initializer
   initialize_with ({
@@ -29,17 +29,17 @@ class KlassesBuilder
     end
   end
 
-  def parent_klass klass_ast
-    Klass.find_or_create_by(
-      name: querier.name(klass_ast),
-      unique_name: querier.unique_name(klass_ast),
-    )
-  end
-
   def namespace klass_ast
     Namespace.find_or_create_by(
       name: querier.namespace_name(klass_ast),
       unique_name: querier.namespace_unique_name(klass_ast),
+    )
+  end
+
+  def parent_klass klass_ast
+    Klass.find_or_create_by(
+      name: querier.parent_klass_name(klass_ast),
+      unique_name: querier.parent_klass_unique_name(klass_ast),
     )
   end
 

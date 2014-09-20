@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class KlassesQuerier
+class KlassesQuerier < Querier
 
   def klasses ast_root
     ast_root.xpath(".//node:Stmt_Class")
@@ -20,6 +20,14 @@ class KlassesQuerier
 
   def namespace_unique_name ast
     "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+  end
+
+  def parent_klass_name ast
+    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
+  end
+
+  def parent_klass_unique_name ast
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
 end
