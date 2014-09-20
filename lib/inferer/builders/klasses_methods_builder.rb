@@ -20,16 +20,16 @@ class KlassesMethodsBuilder
       KlassMethod.find_or_create_by(
         unique_name: querier.unique_name(klass_method),
         name: querier.name(klass_method),
-        klass: parent(function_ast),
+        klass: klass(function_ast),
         statements: querier.statements(function_ast)
       )
     end
   end
 
-  def parent ast
+  def klass ast
     Klass.find_or_create_by(
-      unique_name: querier.parent_unique_name(ast),
-      name: querier.parent_name(ast)
+      unique_name: querier.klass_unique_name(ast),
+      name: querier.klass_name(ast)
     )
   end
 

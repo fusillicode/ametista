@@ -6,11 +6,11 @@ class KlassesMethodsQuerier < Querier
     ast_root.xpath('.//subNode:stmts/scalar:array/node:Stmt_Function')
   end
 
-  def parent_name ast
+  def klass_name ast
     ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
-  def parent_unique_name ast
+  def klass_unique_name ast
     global_namespace_unique_name + ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
