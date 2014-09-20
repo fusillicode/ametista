@@ -20,16 +20,16 @@ class FunctionsBuilder < Builder
       Function.find_or_create_by(
         unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
-        namespace: namespace(function_ast),
+        namespace: parent_namespace(function_ast),
         statements: querier.statements(function_ast)
       )
     end
   end
 
-  def namespace ast
+  def parent_namespace ast
     Namespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name(ast),
-      name: querier.namespace_name(ast)
+      unique_name: querier.parent_namespace_unique_name(ast),
+      name: querier.parent_namespace_name(ast)
     )
   end
 
