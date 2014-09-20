@@ -2,7 +2,6 @@ require_relative 'querier'
 
 class GlobalVariablesQuerier < Querier
 
-  # TODO SISTEMARE LA SELEZIONE IN MODO CHE LE VARIABILI DI VARIABILI NON SIANO PRESE OPPURE LASCIARE COSÌ
   def global_namespace_variables ast
     ast.xpath("/AST/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{not_a_superglobal}]]")
   end
