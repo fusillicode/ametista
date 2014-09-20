@@ -122,8 +122,8 @@ end
 
 class Klass
   include IsAType
-  belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
+  belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
