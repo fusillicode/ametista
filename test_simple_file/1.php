@@ -1,11 +1,15 @@
 <?php
 
+class Semplice {
+
+}
+
 $a = 1.2;
 
 $GLOBALS['ingrassia'] = 'asdasda';
 
 $a[1]->b[1][1]->d = 1; $b + $c;
-$$vv = 'pippo'; $b = pippo($a = 'pluto', $a = 'parperino');
+$$vv = 'pippo'; $b = pippo($a = 'pluto', $c = 'parperino');
 $a[1][2] = 'pippa';
 AClass::$a = 1;
 $_POST['a'] = 1;
