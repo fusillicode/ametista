@@ -51,8 +51,6 @@ class ModelBuilder
 
   def building_loop
     while ast = data_source.read
-      # TODO togliere il break e la condizione una volta sistemato data_source.read
-      break if ast == "THAT'S ALL FOLKS!"
       builders_loop(parser.parse(ast))
     end
     GlobalVariable.all.each do |entity|

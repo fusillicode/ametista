@@ -12,9 +12,13 @@ class RedisDataSource
     data: nil
   })
 
-  # TODO sistemare sto read che non ritorna false quando quello che leggo è uquale a last_data
   def read
-    return @data = redis.brpoplpush(channel, 'done', timeout: timeout) until end_of_data?
+    fetch_data
+    return @data unless end_of_data?
+  end
+
+  def fetch_data
+    @data = redis.brpoplpush(channel, 'done', timeout: timeout)
   end
 
   def end_of_data?
