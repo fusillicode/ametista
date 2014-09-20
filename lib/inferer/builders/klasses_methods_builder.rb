@@ -2,8 +2,7 @@ require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/klasses_methods_querier'
 
-
-class KlassesMethodsBuilder
+class KlassesMethodsBuilder < Builder
 
   extend Initializer
   initialize_with ({
@@ -11,25 +10,25 @@ class KlassesMethodsBuilder
   })
 
   def build ast
-    @querier.ast = ast
+    @ast = ast
     klasses_methods
   end
 
   def klasses_methods
-    querier.klasses_methods.each do |klass_method|
+    querier.klasses_methods(ast).each do |klass_method_ast|
       KlassMethod.find_or_create_by(
-        unique_name: querier.unique_name(klass_method),
-        name: querier.name(klass_method),
-        klass: klass(function_ast),
-        statements: querier.statements(function_ast)
+        unique_name: querier.unique_name(klass_method_ast),
+        name: querier.name(klass_method_ast),
+        klass: klass(klass_method_ast),
+        statements: querier.statements(klass_method_ast)
       )
     end
   end
 
-  def klass ast
+  def klass klass_method_ast
     Klass.find_or_create_by(
-      unique_name: querier.klass_unique_name(ast),
-      name: querier.klass_name(ast)
+      unique_name: querier.klass_unique_name(klass_method_ast),
+      name: querier.klass_name(klass_method_ast)
     )
   end
 

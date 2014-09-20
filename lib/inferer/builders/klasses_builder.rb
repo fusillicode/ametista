@@ -15,9 +15,6 @@ class KlassesBuilder < Builder
     klasses
   end
 
-  # belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
-  # belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
-
   def klasses
     querier.klasses(ast).map_unique do |klass_ast|
       Klass.find_or_create_by(

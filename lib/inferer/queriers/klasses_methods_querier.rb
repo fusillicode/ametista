@@ -3,15 +3,7 @@ require_relative 'querier'
 class KlassesMethodsQuerier < Querier
 
   def klasses_methods ast_root
-    ast_root.xpath('.//subNode:stmts/scalar:array/node:Stmt_Function')
-  end
-
-  def klass_name ast
-    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
-  end
-
-  def klass_unique_name ast
-    global_namespace_unique_name + ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast_root.xpath('.//scalar:array/node:Stmt_ClassMethod')
   end
 
   def name ast
@@ -19,11 +11,19 @@ class KlassesMethodsQuerier < Querier
   end
 
   def unique_name ast
-    global_namespace_unique_name + ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
-  def statements(ast)
+  def statements ast
     ast.xpath('./subNode:stmts/scalar:array')
+  end
+
+  def klass_name ast
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
+  end
+
+  def klass_unique_name ast
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
   # def return_values ast

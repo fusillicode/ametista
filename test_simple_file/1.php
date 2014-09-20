@@ -2,6 +2,10 @@
 
 class Semplice extends Complesso {
 
+  public function malla() {
+
+  }
+
 }
 
 $a = 1.2;
