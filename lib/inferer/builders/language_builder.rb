@@ -47,10 +47,10 @@ class LanguageBuilder < Builder
         '__METHOD__',
         '__NAMESPACE__'
       ],
-      object_property: 'this',
-      self_class_property: 'self',
-      parent_class_property: 'parent',
-      static_class_property: 'static',
+      object_property: ['this'],
+      self_class_property: ['self'],
+      parent_class_property: ['parent'],
+      static_class_property: ['static'],
     }
   })
 
