@@ -1,5 +1,7 @@
 <?php
 
+AClass::a();
+
 class Semplice extends Complesso {
 
   public function malla() {
@@ -151,6 +153,14 @@ function prova($ella = __NAMESPACE__, A $peppa)
   $a[1] = 1;
   $a[1][1] = 1;
 
+  $c->a = 1;
+  $c->a->b = 1;
+  $c->a[1]->b = 1;
+  $c->a->b[1] = 1;
+  $c->a[1][1]->b = 1;
+  $c->a->b[1][1] = 1;
+  $c->a[1]->b[1] = 1;
+
   // USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
   $this->a = 1;
   $this->a->b = 1;
@@ -159,14 +169,6 @@ function prova($ella = __NAMESPACE__, A $peppa)
   $this->a[1][1]->b = 1;
   $this->a->b[1][1] = 1;
   $this->a[1]->b[1] = 1;
-
-  $c->a = 1;
-  $c->a->b = 1;
-  $c->a[1]->b = 1;
-  $c->a->b[1] = 1;
-  $c->a[1][1]->b = 1;
-  $c->a->b[1][1] = 1;
-  $c->a[1]->b[1] = 1;
 
   // USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
   self::$a = 1;
