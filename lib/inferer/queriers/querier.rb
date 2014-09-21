@@ -6,6 +6,21 @@ require_relative '../schema'
 
 class Querier
 
+  { superglobals: :a_superglobal,
+    primitive_types: :a_primitive_type,
+    object_property: :an_object_property,
+    self_class_property: :a_self_class_property,
+    parent_class_property: :a_parent_class_property,
+    static_class_property: :a_static_class_property
+  }.each do |property, method|
+    define_method method do
+      Language.first()[property].map{ |value| "text() = '#{value}'" }.join(" or ")
+    end
+    define_method "not_#{method}" do
+      "not(#{method})"
+    end
+  end
+
   def global_namespace_name
     Language.first().global_namespace[:name]
   end
@@ -14,44 +29,12 @@ class Querier
     Language.first().global_namespace[:unique_name]
   end
 
-  def a_superglobal
-    Language.first().superglobals.map{ |superglobal| "text() = '#{superglobal}'" }.join(" or ")
-  end
-
-  def not_a_superglobal
-    "not(#{a_superglobal})"
-  end
-
-  def an_object_property
-    "text() = '#{Language.first().object_property}'"
-  end
-
-  def not_an_object_property
-    "not(#{an_object_property})"
-  end
-
-  def a_self_class_property
-    "text() = '#{Language.first().self_class_property}'"
-  end
-
-  def a_parent_class_property
-    "text() = '#{Language.first().parent_class_property}'"
-  end
-
-  def a_static_class_property
-    "text() = '#{Language.first().static_class_property}'"
-  end
-
-  def a_class_property
+  def class_property
     "not(#{an_object_property} and #{a_self_class_property} and #{a_parent_class_property} and #{a_static_class_property})"
   end
 
-  def a_primitive_type
-    Language.first().primitive_types.map{ |primitive_type| "text() = '#{primitive_type}'" }.join(" or ")
-  end
-
-  def not_a_primitive_type
-    "not(#{a_primitive_type})"
+  def not_class_property
+    "#{an_object_property} or #{a_self_class_property} or #{a_parent_class_property} or #{a_static_class_property}"
   end
 
   def method_missing method_name, *args, &block

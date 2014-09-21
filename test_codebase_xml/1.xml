@@ -203,7 +203,7 @@
     <scalar:int>17</scalar:int>
    </attribute:endLine>
    <subNode:var>
-    <node:Expr_StaticPropertyFetch>
+    <node:Expr_PropertyFetch>
      <attribute:startLine>
       <scalar:int>17</scalar:int>
      </attribute:startLine>
