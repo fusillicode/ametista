@@ -22,12 +22,28 @@ class Querier
     "not(#{a_superglobal})"
   end
 
-  def a_property
-    Language.first().property.map{ |property| "text() = '#{property}'" }.join(" or ")
+  def an_object_property
+    "text() = '#{Language.first().object_property}'"
   end
 
-  def not_a_property
-    "not(#{a_property})"
+  def not_an_object_property
+    "not(#{an_object_property})"
+  end
+
+  def a_self_class_property
+    "text() = '#{Language.first().self_class_property}'"
+  end
+
+  def a_parent_class_property
+    "text() = '#{Language.first().parent_class_property}'"
+  end
+
+  def a_static_class_property
+    "text() = '#{Language.first().static_class_property}'"
+  end
+
+  def a_class_property
+    "not(#{an_object_property} and #{a_self_class_property} and #{a_parent_class_property} and #{a_static_class_property})"
   end
 
   def a_primitive_type
