@@ -4,9 +4,15 @@ development:
       database: mongoid
       hosts:
         - localhost:27017
+      options:
+        max_retries: 5
+        retry_interval: 3
 test:
   sessions:
     default:
       database: inferer-test
       hosts:
         - localhost:27017
+      options:
+        max_retries: 5
+        retry_interval: 3
