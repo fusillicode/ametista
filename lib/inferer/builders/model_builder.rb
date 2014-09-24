@@ -53,8 +53,8 @@ class ModelBuilder
     while ast = data_source.read
       builders_loop(parser.parse(ast))
     end
-    KlassMethod.all.each do |entity|
-      ap entity.klass
+    Klass.all.each do |entity|
+      ap "#{entity.unique_name} has root class #{entity.root_klass.unique_name}"
     end
   end
 

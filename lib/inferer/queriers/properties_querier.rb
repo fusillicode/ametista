@@ -2,7 +2,7 @@ require_relative 'querier'
 
 class PropertiesQuerier < Querier
 
-  def objects_properties ast_root
+  def instances_properties ast_root
     ast_root.xpath(".//node:Expr_PropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{object_property}]")
   end
 

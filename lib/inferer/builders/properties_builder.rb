@@ -3,6 +3,10 @@ require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/properties_querier'
 
+# TODO per il building delle proprietà delle istanze ho sempre bisogno di
+# costruire prima la gerarchia di ereditarietà delle classi!!!
+# Forse conviene tenere le proprietà delle istanze separate dal resto...
+
 class PropertiesBuilder < Builder
 
   extend Initializer
@@ -12,24 +16,26 @@ class PropertiesBuilder < Builder
 
   def build ast
     @ast = ast
-    static_properties
+    instances_properties
   end
 
-  def properties
-    querier.properties(ast).map_unique do |property_ast|
+  def instance_properties
+    querier.instance_properties(ast).map_unique do |instance_property_ast|
       Property.find_or_create_by(
-        unique_name: querier.unique_name(property_ast),
-        name: querier.name(property_ast),
-        statements: querier.statements(property_ast)
+        unique_name: querier.unique_name(instance_property_ast),
+        name: querier.name(instance_property_ast),
+        klass: klass(instance_property_ast)
       )
     end
   end
 
-  def klass property_ast
-    Klass.find_or_create_by(
-      unique_name: querier.klass_unique_name(property_ast),
-      name: querier.klass_name(property_ast)
+  def klass instance_property_ast
+    klass = Klass.find_or_create_by(
+      unique_name: querier.klass_unique_name(instance_property_ast),
+      name: querier.klass_name(instance_property_ast)
     )
+    return klass unless klass.parent_klass
+
   end
 
 end
