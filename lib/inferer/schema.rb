@@ -124,9 +124,23 @@ class Klass
   include IsAType
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
+  belongs_to :root_klass, class_name: 'Klass', inverse_of: :leaf_klasses
+  has_many :leaf_klasses, class_name: 'Klass', inverse_of: :root_klass
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
+
+  def root_klass
+    @root_klass ||= retrive_root_klass
+  end
+
+  def retrive_root_klass klass = nil
+    return retrive_root_klass(klass.parent_klass) if klass && klass.has_parent_klass?
+    return retrive_root_klass(self.parent_klass) if not(klass) && self.has_parent_klass?
+    return self if not(klass)
+    return klass
+  end
+
 end
 
 class PrimitiveType
