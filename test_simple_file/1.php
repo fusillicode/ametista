@@ -5,7 +5,6 @@ AClass::a();
 class ExtraComplesso {
 
   public function gialla() {
-    $this->html = 'nettuno';
     $this->ruby = 'urano';
   }
 
