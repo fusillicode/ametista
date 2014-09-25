@@ -54,7 +54,7 @@ class ModelBuilder
       builders_loop(parser.parse(ast))
     end
     Property.all.each do |entity|
-      ap entity
+      ap "#{entity.unique_name} #{entity.klass.unique_name}"
     end
   end
 
