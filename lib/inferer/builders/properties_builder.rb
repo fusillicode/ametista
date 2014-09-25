@@ -34,7 +34,14 @@ class PropertiesBuilder < Builder
       unique_name: querier.klass_unique_name(instance_property_ast),
       name: querier.klass_name(instance_property_ast)
     )
-    klass.root_klass
+    belonging_klass(klass.parent_klass)
+  end
+
+  def belonging_klass klass
+    return belonging_klass(klass.parent_klass) if klass && klass.has_parent_klass?
+    return belonging_klass(self.parent_klass) if not(klass) && self.has_parent_klass?
+    return self if not(klass)
+    return klass
   end
 
 end
