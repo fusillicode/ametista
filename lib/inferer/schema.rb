@@ -25,6 +25,17 @@ module IsUniquelyIdentifiableWithNameAndType
   end
 end
 
+module IsUniquelyIdentifiableWithNameAndKlass
+  def self.included base
+    base.include Mongoid::Document
+    base.field :name, type: String
+    base.validates :name, presence: true, length: { allow_blank: false }
+    # TODO bisogna aggiungere la validazione in merito alla presenza di una klass
+    base.field :unique_name, type: String, default: ->{ "#{klass.unique_name}#{language.namespace_separator}#{name}" }
+    base.index({ unique_name: 1 }, { unique: true })
+  end
+end
+
 module ReferencesLanguage
   def self.included base
     base.include Mongoid::Document
@@ -140,7 +151,6 @@ class Klass
     return self if not(klass)
     return klass
   end
-
 end
 
 class PrimitiveType
@@ -178,7 +188,7 @@ end
 
 class Property
   include ReferencesLanguage
-  include IsUniquelyIdentifiable
+  include IsUniquelyIdentifiableWithNameAndKlass
   include HasManyVariableVersions
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
