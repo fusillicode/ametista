@@ -1,0 +1,14 @@
+devo modellare le classi astratte e le interfacce?
+le interfacce sono contenitori di metodi solo astratti che devono essere sempre tutti implementati dalle classi che le implementano.
+le classi astratte sono come delle interfacce che però contengono anche delle funzionalità e non
+solo delle signature.
+
+this: devo trattare il caso delle istanze o associo alla classe?
+self: associo alla classe parente se c'è opprue a quella in cui sono se non trovo una parent
+parent: devo beccare il parent della classe corrente ed associare a quella
+static: becco la classe in cui sono e associo a quella...
+
+THIS:
+- quando becco this vado man mano a vedere le classi parent una ad una e sovrascrivo quando posso
+
+- allo stesso tempo elimino la proprietà da tutte le classi figlie di quella in cui sono
