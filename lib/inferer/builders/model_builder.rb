@@ -41,6 +41,7 @@ class ModelBuilder
   def build
     init_build
     building_loop
+    just_tests
   end
 
   def init_build
@@ -53,14 +54,17 @@ class ModelBuilder
     while ast = data_source.read
       builders_loop(parser.parse(ast))
     end
-    Property.all.each do |entity|
-      ap "#{entity.unique_name} #{entity.klass.unique_name}"
-    end
   end
 
   def builders_loop ast
     builders.each do |key, builder|
       builder.build(ast)
+    end
+  end
+
+  def just_tests
+    Property.all.each do |entity|
+      ap "#{entity.unique_name} #{entity.klass.unique_name}"
     end
   end
 
