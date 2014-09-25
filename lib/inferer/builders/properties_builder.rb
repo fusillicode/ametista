@@ -19,8 +19,8 @@ class PropertiesBuilder < Builder
     instances_properties
   end
 
-  def instance_properties
-    querier.instance_properties(ast).map_unique do |instance_property_ast|
+  def instances_properties
+    querier.instances_properties(ast).map_unique do |instance_property_ast|
       Property.find_or_create_by(
         unique_name: querier.unique_name(instance_property_ast),
         name: querier.name(instance_property_ast),
@@ -34,8 +34,7 @@ class PropertiesBuilder < Builder
       unique_name: querier.klass_unique_name(instance_property_ast),
       name: querier.klass_name(instance_property_ast)
     )
-    return klass unless klass.parent_klass
-
+    klass.root_klass
   end
 
 end
