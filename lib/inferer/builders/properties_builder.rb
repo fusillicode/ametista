@@ -22,24 +22,17 @@ class PropertiesBuilder < Builder
   def instances_properties
     querier.instances_properties(ast).map_unique do |instance_property_ast|
       Property.find_or_create_by(
-        unique_name: querier.unique_name(instance_property_ast),
-        name: querier.name(instance_property_ast),
+        name: querier.instance_property_name(instance_property_ast),
         klass: klass(instance_property_ast)
       )
     end
   end
 
   def klass instance_property_ast
-    current_klass = Klass.find_or_create_by(
+    Klass.find_or_create_by(
       unique_name: querier.klass_unique_name(instance_property_ast),
       name: querier.klass_name(instance_property_ast)
     )
-    belonging_klass(current_klass)
-  end
-
-  def belonging_klass klass
-    return belonging_klass(klass.parent_klass) if klass.has_parent_klass?
-    return klass
   end
 
 end
