@@ -22,7 +22,7 @@ class Complesso extends Complessissimo {
   }
 }
 
-class Semplice extends Complesso {
+class Semplice extends Complessissimo {
 
   public function malla() {
     $this->html = 'ciao';
