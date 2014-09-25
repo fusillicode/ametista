@@ -9,15 +9,24 @@ class PropertiesResolver
 
   def assign_property_to_correct_klass
     Property.all.each do |property|
-      p property.klass.parent_klass.properties if property.klass.parent_klass
-      # property.update_attributes(
-      #   klass: belonging_klass(property)
-      # )
+      p "#{property.name} #{belonging_klass(property).name}"
+      property.update_attributes(
+        klass: belonging_klass(property)
+      )
     end
   end
 
   def belonging_klass property
+    @property_name = property.name
+    find_in_klass_hierarchy(property.klass)
+  end
 
+  def find_in_klass_hierarchy klass
+    @klass = klass if klass.properties.where(name: @property_name).exists?
+    if klass.has_parent_klass?
+      find_in_klass_hierarchy(klass.parent_klass)
+    end
+    @klass
   end
 
 end
