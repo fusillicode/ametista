@@ -2,6 +2,7 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative '../xml_parser'
+require_relative '../properties_resolver'
 require_relative 'language_builder'
 require_relative 'primitive_types_builder'
 require_relative 'namespaces_builder'
@@ -35,13 +36,17 @@ class ModelBuilder
       global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
       properties_builder: PropertiesBuilder.new
+    },
+    resolvers: {
+      properties_resolver: PropertiesResolver.new
     }
   })
 
   def build
     init_build
     building_loop
-    just_tests
+    resolve_problems
+    # just_tests
   end
 
   def init_build
@@ -56,15 +61,21 @@ class ModelBuilder
     end
   end
 
-  def builders_loop ast
-    builders.each do |key, builder|
-      builder.build(ast)
+  def resolve_problems
+    resolvers.each do |key, resolver|
+      resolver.solve
     end
   end
 
   def just_tests
     Property.all.each do |entity|
       ap "#{entity.unique_name} #{entity.klass.unique_name}"
+    end
+  end
+
+  def builders_loop ast
+    builders.each do |key, builder|
+      builder.build(ast)
     end
   end
 
