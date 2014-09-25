@@ -14,13 +14,19 @@ module IsUniquelyIdentifiable
   end
 end
 
-module IsUniquelyIdentifiableWithNameAndType
+module IsUniquelyIdentifiableWith
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
     base.validates :name, presence: true, length: { allow_blank: false }
     base.field :unique_name, type: String, default: ->{ unique_name }
     base.index({ unique_name: 1 }, { unique: true })
+  end
+end
+
+module IsUniquelyIdentifiableWithNameAndType
+  def self.included base
+    base.include IsUniquelyIdentifiableWith
     base.field :type, type: String, default: 'GLOBALS'
   end
   def unique_name
@@ -30,13 +36,7 @@ end
 
 module IsUniquelyIdentifiableWithNameAndKlass
   def self.included base
-    base.include Mongoid::Document
-    base.include ReferencesLanguage
-    base.field :name, type: String
-    base.validates :name, presence: true, length: { allow_blank: false }
-    # TODO bisogna aggiungere la validazione in merito alla presenza di una klass
-    base.field :unique_name, type: String, default: ->{ unique_name }
-    base.index({ unique_name: 1 }, { unique: true })
+    base.include IsUniquelyIdentifiableWith
   end
   def unique_name
     reference_language
