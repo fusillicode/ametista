@@ -32,7 +32,6 @@ module IsUniquelyIdentifiableWithNameAndKlass
     base.field :name, type: String
     base.validates :name, presence: true, length: { allow_blank: false }
     # TODO bisogna aggiungere la validazione in merito alla presenza di una klass
-    base.belongs_to :language, class_name: 'Language'
     base.field :unique_name, type: String, default: ->{
       reference_language
       "#{klass.unique_name}#{language.namespace_separator}#{name}"
