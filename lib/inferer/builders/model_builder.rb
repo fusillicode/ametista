@@ -34,7 +34,7 @@ class ModelBuilder
       parameters_builder: ParametersBuilder.new,
       global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
-      # properties_builder: PropertiesBuilder.new
+      properties_builder: PropertiesBuilder.new
     }
   })
 
@@ -53,8 +53,8 @@ class ModelBuilder
     while ast = data_source.read
       builders_loop(parser.parse(ast))
     end
-    Klass.all.each do |entity|
-      ap "#{entity.unique_name} has root class #{entity.root_klass.unique_name}"
+    Property.all.each do |entity|
+      ap entity
     end
   end
 
