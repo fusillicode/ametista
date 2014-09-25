@@ -66,17 +66,17 @@ module ContainsLocalVariables
   end
 end
 
-module HasOneVersion
+module HasOneVariableVersion
   def self.included base
     base.include Mongoid::Document
-    base.has_one :version, as: :versionable
+    base.has_one :variable_version, as: :versionable
   end
 end
 
-module HasManyVersions
+module HasManyVariableVersions
   def self.included base
     base.include Mongoid::Document
-    base.has_many :versions, as: :versionable
+    base.has_many :variable_versions, as: :versionable
   end
 end
 
@@ -163,7 +163,7 @@ end
 class GlobalVariable
   include ReferencesLanguage
   include IsUniquelyIdentifiableWithNameAndType
-  include HasOneVersion
+  include HasOneVariableVersion
   belongs_to :global_scope, polymorphic: true
   after_initialize do
     self.global_scope = Namespace.find_or_create_by(language.global_namespace)
@@ -179,14 +179,14 @@ end
 class Property
   include ReferencesLanguage
   include IsUniquelyIdentifiable
-  include HasManyVersions
+  include HasManyVariableVersions
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
 class Parameter
   include ReferencesLanguage
   include IsUniquelyIdentifiable
-  include HasOneVersion
+  include HasOneVariableVersion
   belongs_to :procedure, polymorphic: true
 end
 
