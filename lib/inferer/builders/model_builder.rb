@@ -46,7 +46,7 @@ class ModelBuilder
     init_build
     building_loop
     resolve_problems
-    # just_tests
+    just_tests
   end
 
   def init_build
