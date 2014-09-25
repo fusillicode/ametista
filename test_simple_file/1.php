@@ -2,10 +2,32 @@
 
 AClass::a();
 
+class ExtraComplesso {
+
+  public function gialla() {
+    $this->html = 'nettuno';
+    $this->ruby = 'urano';
+  }
+
+}
+
+class Complessissimo extends ExtraComplesso {
+
+}
+
+class Complesso extends Complessissimo {
+
+  public function palla() {
+    $this->html = 'hola';
+    $this->ruby = 'mello';
+  }
+}
+
 class Semplice extends Complesso {
 
   public function malla() {
-
+    $this->html = 'ciao';
+    $this->ruby = 'mi piace';
   }
 
 }
