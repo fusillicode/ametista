@@ -28,10 +28,15 @@ end
 module IsUniquelyIdentifiableWithNameAndKlass
   def self.included base
     base.include Mongoid::Document
+    base.include ReferencesLanguage
     base.field :name, type: String
     base.validates :name, presence: true, length: { allow_blank: false }
     # TODO bisogna aggiungere la validazione in merito alla presenza di una klass
-    base.field :unique_name, type: String, default: ->{ "#{klass.unique_name}#{language.namespace_separator}#{name}" }
+    base.belongs_to :language, class_name: 'Language'
+    base.field :unique_name, type: String, default: ->{
+      reference_language
+      "#{klass.unique_name}#{language.namespace_separator}#{name}"
+    }
     base.index({ unique_name: 1 }, { unique: true })
   end
 end
@@ -41,8 +46,12 @@ module ReferencesLanguage
     base.include Mongoid::Document
     base.belongs_to :language, class_name: 'Language'
     base.after_initialize do
-      self.language ||= Language.first()
+      reference_language
     end
+  end
+  # TODO chiedere ai rubysti esperti se questa cosa funziona davvero!!! (cercare dove utilizzo reference_language)
+  def reference_language
+    self.language ||= Language.first()
   end
 end
 
