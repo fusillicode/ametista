@@ -9,7 +9,6 @@ class PropertiesResolver
 
   def assign_property_to_correct_klass
     Property.all.each do |property|
-      p "#{property.name} #{belonging_klass(property).name}"
       property.update_attributes(
         klass: belonging_klass(property)
       )
