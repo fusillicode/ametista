@@ -69,6 +69,7 @@ class ModelBuilder
 
   def just_tests
     Property.all.each do |entity|
+      ap "#{entity.name} #{entity.klass.name}"
       ap "#{entity.unique_name} #{entity.klass.unique_name}"
     end
   end

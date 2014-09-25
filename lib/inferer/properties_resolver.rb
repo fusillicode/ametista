@@ -21,9 +21,13 @@ class PropertiesResolver
   end
 
   def find_in_klass_hierarchy klass
-    @klass = klass if klass.properties.where(name: @property_name).exists?
+    @klass = klass if is_property_in?(klass)
     find_in_klass_hierarchy(klass.parent_klass) if klass.has_parent_klass?
     @klass
+  end
+
+  def is_property_in? klass
+    klass.properties.where(name: @property_name).exists?
   end
 
 end
