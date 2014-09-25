@@ -41,7 +41,7 @@ module ReferencesLanguage
     base.include Mongoid::Document
     base.belongs_to :language, class_name: 'Language'
     base.after_initialize do
-      self.language = Language.first()
+      self.language ||= Language.first()
     end
   end
 end
