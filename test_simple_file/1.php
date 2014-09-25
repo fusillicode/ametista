@@ -121,6 +121,7 @@ class Sole {
     self::$a->b[1][1] = 1;
     self::$a[1]->b[1] = 1;
     $this->a = 1;
+    $this->b = 1;
     $this->a->b = 1;
     $this->a[1]->b = 1;
     $this->a->b[1] = 1;
@@ -162,13 +163,13 @@ function prova($ella = __NAMESPACE__, A $peppa)
   $c->a[1]->b[1] = 1;
 
   // USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
-  $this->a = 1;
+  /*$this->a = 1;
   $this->a->b = 1;
   $this->a[1]->b = 1;
   $this->a->b[1] = 1;
   $this->a[1][1]->b = 1;
   $this->a->b[1][1] = 1;
-  $this->a[1]->b[1] = 1;
+  $this->a[1]->b[1] = 1;*/
 
   // USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
   self::$a = 1;
@@ -231,7 +232,7 @@ function prova($ella = __NAMESPACE__, A $peppa)
   // NON VIENE SUPPORTATO PRATICAMENTE DA NESSUNO...questo qui sotto (i.e. variabile di variabile) significa che la variabile avente nome uguale a valore contenuto nella variabile $vv1 assume valore 'pippo'
 	// $$vv1 = 'pippo';
 
-  return $this->ad;
+  // return $this->ad;
 
 }
 
