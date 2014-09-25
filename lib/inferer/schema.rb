@@ -52,7 +52,6 @@ module ReferencesLanguage
       reference_language
     end
   end
-  # TODO chiedere ai rubysti esperti se questa cosa funziona davvero!!! (cercare dove utilizzo reference_language)
   def reference_language
     self.language ||= Language.first()
   end
