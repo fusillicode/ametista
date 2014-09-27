@@ -30,11 +30,11 @@ class Querier
   end
 
   def a_class_property
-    "not(#{an_instance_property} and #{a_self_class_property} and #{a_parent_class_property} and #{a_static_class_property})"
+    "not(#{an_instance_property} and #{a_self_property} and #{a_parent_property} and #{a_static_property})"
   end
 
   def not_a_class_property
-    "#{an_instance_property} or #{a_self_class_property} or #{a_parent_class_property} or #{a_static_class_property}"
+    "#{an_instance_property} or #{a_self_property} or #{a_parent_property} or #{a_static_property}"
   end
 
   def method_missing method_name, *args, &block
