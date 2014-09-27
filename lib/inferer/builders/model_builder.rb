@@ -2,7 +2,7 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative '../xml_parser'
-require_relative '../properties_resolver'
+require_relative '../instances_properties_resolver'
 require_relative 'language_builder'
 require_relative 'primitive_types_builder'
 require_relative 'namespaces_builder'
@@ -38,7 +38,7 @@ class ModelBuilder
       properties_builder: PropertiesBuilder.new
     },
     resolvers: {
-      properties_resolver: PropertiesResolver.new
+      instances_properties_resolver: InstancesPropertiesResolver.new
     }
   })
 

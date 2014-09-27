@@ -1,7 +1,7 @@
 require_relative 'utilities'
 require_relative 'schema'
 
-class PropertiesResolver
+class InstancesPropertiesResolver
 
   def solve
     assign_property_to_correct_klass
