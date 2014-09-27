@@ -29,6 +29,11 @@ module PatchedAwesomePrint
   ::Moped::BSON = ::BSON
 end
 
+module EnforceAvailableLocales
+  # per fixare "[deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message."
+  I18n.config.enforce_available_locales = false
+end
+
 module UniqueMapper
   def map_unique &block
     self.map(&block).uniq{ |x| x._id }
