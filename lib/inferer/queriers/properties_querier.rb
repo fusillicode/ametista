@@ -7,20 +7,20 @@ class PropertiesQuerier < Querier
   end
 
   def self_properties ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_self_property}]")
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch[subNode:class[last()]/node:Name/subNode:parts/scalar:array/scalar:string[last()][#{a_self_property}]]")
   end
 
   def parent_properties ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_parent_property}]")
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch[subNode:class[last()]/node:Name/subNode:parts/scalar:array/scalar:string[last()][#{a_parent_property}]]")
   end
 
-  def static_property ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_static_property}]")
+  def klass_properties ast_root
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch[subNode:class[last()]/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()][#{a_klass_property}]]")
   end
 
-  def klass_property ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_class_property}]")
-  end
+  # def static_property ast_root
+  #   ast_root.xpath(".//node:Expr_StaticPropertyFetch[subNode:class[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_static_property}]]")
+  # end
 
   def property_name ast
     ast.xpath('./subNode:name/scalar:string').text
