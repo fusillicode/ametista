@@ -22,43 +22,57 @@ class PropertiesBuilder < Builder
   def instances_properties
     querier.instances_properties(ast).map_unique do |instance_property_ast|
       Property.find_or_create_by(
-        name: querier.instance_property_name(instance_property_ast),
-        klass: klass(instance_property_ast)
+        name: querier.property_name(instance_property_ast),
+        klass: containing_klass(instance_property_ast)
       )
     end
   end
 
   def self_properties
-    querier.self_properties(ast).map_unique do |instance_property_ast|
+    querier.self_properties(ast).map_unique do |self_property_ast|
       Property.find_or_create_by(
-        name: querier.instance_property_name(instance_property_ast),
-        klass: klass(instance_property_ast)
+        name: querier.property_name(self_property_ast),
+        klass: containing_klass(self_property_ast)
       )
     end
   end
 
   def parent_properties
-    querier.parent_properties(ast).map_unique do |instance_property_ast|
+    querier.parent_properties(ast).map_unique do |parent_property_ast|
       Property.find_or_create_by(
-        name: querier.instance_property_name(instance_property_ast),
-        klass: klass(instance_property_ast)
+        name: querier.property_name(parent_property_ast),
+        klass: parent_klass(parent_property_ast)
       )
     end
   end
 
   def klass_properties
-    querier.klass_properties(ast).map_unique do |instance_property_ast|
+    querier.klass_properties(ast).map_unique do |klass_property_ast|
       Property.find_or_create_by(
-        name: querier.instance_property_name(instance_property_ast),
-        klass: klass(instance_property_ast)
+        name: querier.property_name(klass_property_ast),
+        klass: klass(klass_property_ast)
       )
     end
   end
 
-  def klass instance_property_ast
+  def containing_klass property_ast
     Klass.find_or_create_by(
-      unique_name: querier.klass_unique_name(instance_property_ast),
-      name: querier.klass_name(instance_property_ast)
+      unique_name: querier.containing_klass_unique_name(property_ast),
+      name: querier.containing_klass_name(property_ast)
+    )
+  end
+
+  def parent_klass property_ast
+    Klass.find_or_create_by(
+      unique_name: querier.parent_klass_unique_name(property_ast),
+      name: querier.parent_klass_name(property_ast)
+    )
+  end
+
+  def klass property_ast
+    Klass.find_or_create_by(
+      unique_name: querier.klass_unique_name(property_ast),
+      name: querier.klass_name(property_ast)
     )
   end
 

@@ -6,10 +6,6 @@ class PropertiesQuerier < Querier
     ast_root.xpath(".//node:Expr_PropertyFetch[subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{an_instance_property}]]")
   end
 
-  def instance_property_name ast
-    ast.xpath('./subNode:name/scalar:string').text
-  end
-
   def self_properties ast_root
     ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_self_property}]")
   end
@@ -22,16 +18,36 @@ class PropertiesQuerier < Querier
     ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_static_property}]")
   end
 
-  def class_property ast_root
+  def klass_property ast_root
     ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_class_property}]")
   end
 
-  def klass_name ast
+  def property_name ast
+    ast.xpath('./subNode:name/scalar:string').text
+  end
+
+  def containing_klass_name ast
     ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
   end
 
-  def klass_unique_name ast
+  def containing_klass_unique_name ast
     "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+  end
+
+  def parent_klass_name ast
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
+  end
+
+  def parent_klass_unique_name ast
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+  end
+
+  def klass_name ast
+    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
+  end
+
+  def klass_unique_name ast
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
   end
 
 end
