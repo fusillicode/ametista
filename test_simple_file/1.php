@@ -1,11 +1,13 @@
 <?php
 
-AClass::$a = 'asd';
+  pimpa\AClass::$aa = 'asd';
 
-class ExtraComplesso {
+class ExtraComplesso extends BellaCiao {
 
   public function gialla() {
     $this->ruby = 'urano';
+    self::$b = 'asd';
+    parent::$c = 'asd';
   }
 
 }
