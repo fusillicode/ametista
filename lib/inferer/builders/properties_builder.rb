@@ -23,7 +23,8 @@ class PropertiesBuilder < Builder
     querier.instances_properties(ast).map_unique do |instance_property_ast|
       Property.find_or_create_by(
         name: querier.property_name(instance_property_ast),
-        klass: containing_klass(instance_property_ast)
+        klass: containing_klass(instance_property_ast),
+        type: 'this'
       )
     end
   end
@@ -32,7 +33,8 @@ class PropertiesBuilder < Builder
     querier.self_properties(ast).map_unique do |self_property_ast|
       Property.find_or_create_by(
         name: querier.property_name(self_property_ast),
-        klass: containing_klass(self_property_ast)
+        klass: containing_klass(self_property_ast),
+        type: 'self'
       )
     end
   end
@@ -41,7 +43,8 @@ class PropertiesBuilder < Builder
     querier.parent_properties(ast).map_unique do |parent_property_ast|
       Property.find_or_create_by(
         name: querier.property_name(parent_property_ast),
-        klass: parent_klass(parent_property_ast)
+        klass: parent_klass(parent_property_ast),
+        type: 'parent'
       )
     end
   end
@@ -50,7 +53,8 @@ class PropertiesBuilder < Builder
     querier.klass_properties(ast).map_unique do |klass_property_ast|
       Property.find_or_create_by(
         name: querier.property_name(klass_property_ast),
-        klass: klass(klass_property_ast)
+        klass: klass(klass_property_ast),
+        type: 'klass'
       )
     end
   end
