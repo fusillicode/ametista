@@ -1,35 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
  <scalar:array>
-  <node:Expr_StaticCall>
+  <node:Expr_Assign>
    <attribute:startLine>
     <scalar:int>3</scalar:int>
    </attribute:startLine>
    <attribute:endLine>
     <scalar:int>3</scalar:int>
    </attribute:endLine>
-   <subNode:class>
-    <node:Name_FullyQualified>
+   <subNode:var>
+    <node:Expr_StaticPropertyFetch>
      <attribute:startLine>
       <scalar:int>3</scalar:int>
      </attribute:startLine>
      <attribute:endLine>
       <scalar:int>3</scalar:int>
      </attribute:endLine>
-     <subNode:parts>
-      <scalar:array>
-       <scalar:string>AClass</scalar:string>
-      </scalar:array>
-     </subNode:parts>
-    </node:Name_FullyQualified>
-   </subNode:class>
-   <subNode:name>
-    <scalar:string>a</scalar:string>
-   </subNode:name>
-   <subNode:args>
-    <scalar:array/>
-   </subNode:args>
-  </node:Expr_StaticCall>
+     <subNode:class>
+      <node:Name_FullyQualified>
+       <attribute:startLine>
+        <scalar:int>3</scalar:int>
+       </attribute:startLine>
+       <attribute:endLine>
+        <scalar:int>3</scalar:int>
+       </attribute:endLine>
+       <subNode:parts>
+        <scalar:array>
+         <scalar:string>AClass</scalar:string>
+        </scalar:array>
+       </subNode:parts>
+      </node:Name_FullyQualified>
+     </subNode:class>
+     <subNode:name>
+      <scalar:string>a</scalar:string>
+     </subNode:name>
+    </node:Expr_StaticPropertyFetch>
+   </subNode:var>
+   <subNode:expr>
+    <node:Scalar_String>
+     <attribute:startLine>
+      <scalar:int>3</scalar:int>
+     </attribute:startLine>
+     <attribute:endLine>
+      <scalar:int>3</scalar:int>
+     </attribute:endLine>
+     <subNode:value>
+      <scalar:string>asd</scalar:string>
+     </subNode:value>
+    </node:Scalar_String>
+   </subNode:expr>
+  </node:Expr_Assign>
   <node:Stmt_Class>
    <attribute:startLine>
     <scalar:int>5</scalar:int>

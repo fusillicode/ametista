@@ -1,6 +1,6 @@
 <?php
 
-AClass::a();
+AClass::$a = 'asd';
 
 class ExtraComplesso {
 
