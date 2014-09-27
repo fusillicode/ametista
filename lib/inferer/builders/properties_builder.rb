@@ -16,7 +16,7 @@ class PropertiesBuilder < Builder
 
   def build ast
     @ast = ast
-    instances_properties
+    instances_properties << self_properties << parent_properties << klass_properties
   end
 
   def instances_properties
