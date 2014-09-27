@@ -6,18 +6,15 @@ module Initializer
     end
     include InstanceMethods
   end
-
   module InstanceMethods
     def initialize args = {}
       set_instance_variables(default_attributes.merge(args))
     end
-
     def set_instance_variables attributes
       attributes.each do |name, value|
         public_send("#{name}=", value)
       end
     end
-
     def default_attributes
       {}
     end
