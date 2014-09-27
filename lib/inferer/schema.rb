@@ -1,7 +1,7 @@
 require "mongoid"
 include EnforceAvailableLocales
 
-module IsUniquelyIdentifiable
+module IsIdentifiable
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
@@ -12,7 +12,7 @@ module IsUniquelyIdentifiable
   end
 end
 
-module IsUniquelyIdentifiableWith
+module IsIdentifiableWith
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
@@ -22,9 +22,9 @@ module IsUniquelyIdentifiableWith
   end
 end
 
-module IsUniquelyIdentifiableWithNameAndType
+module IsIdentifiableWithNameAndType
   def self.included base
-    base.include IsUniquelyIdentifiableWith
+    base.include IsIdentifiableWith
     base.field :type, type: String, default: 'GLOBALS'
   end
   def unique_name
@@ -32,9 +32,9 @@ module IsUniquelyIdentifiableWithNameAndType
   end
 end
 
-module IsUniquelyIdentifiableWithNameAndKlass
+module IsIdentifiableWithNameAndKlass
   def self.included base
-    base.include IsUniquelyIdentifiableWith
+    base.include IsIdentifiableWith
   end
   def unique_name
     reference_language
@@ -103,7 +103,7 @@ end
 module IsAType
   def self.included base
     base.include ReferencesLanguage
-    base.include IsUniquelyIdentifiable
+    base.include IsIdentifiable
     base.has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
   end
 end
@@ -111,7 +111,7 @@ end
 module IsAProcedure
   def self.included base
     base.include ReferencesLanguage
-    base.include IsUniquelyIdentifiable
+    base.include IsIdentifiable
     base.include ContainsLocalVariables
     base.field :statements, type: String
     base.has_many :parameters, as: :procedure
@@ -122,13 +122,13 @@ end
 
 class Language
   include IsSingleton
-  include IsUniquelyIdentifiable
+  include IsIdentifiable
   include Mongoid::Attributes::Dynamic
 end
 
 class Namespace
   include ReferencesLanguage
-  include IsUniquelyIdentifiable
+  include IsIdentifiable
   field :statements, type: String
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
@@ -168,7 +168,7 @@ end
 
 class GlobalVariable
   include ReferencesLanguage
-  include IsUniquelyIdentifiableWithNameAndType
+  include IsIdentifiableWithNameAndType
   include HasOneVariableVersion
   belongs_to :global_scope, polymorphic: true
   after_initialize do
@@ -178,27 +178,27 @@ end
 
 class LocalVariable
   include ReferencesLanguage
-  include IsUniquelyIdentifiable
+  include IsIdentifiable
   belongs_to :local_scope, polymorphic: true
 end
 
 class Property
   include ReferencesLanguage
-  include IsUniquelyIdentifiableWithNameAndKlass
+  include IsIdentifiableWithNameAndKlass
   include HasManyVariableVersions
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
 class Parameter
   include ReferencesLanguage
-  include IsUniquelyIdentifiable
+  include IsIdentifiable
   include HasOneVariableVersion
   belongs_to :procedure, polymorphic: true
 end
 
 class VariableVersion
   include ReferencesLanguage
-  include IsUniquelyIdentifiable
+  include IsIdentifiable
   belongs_to :versionable, polymorphic: true
   has_many :types, class_name: 'Type', inverse_of: :variables_versions
 end
