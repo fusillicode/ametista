@@ -183,7 +183,7 @@ end
 class Property
   include ReferencesLanguage
   include IsIdentifiableWithNameAndKlass
-  include HasManyVariableVersions
+  include HasOneVariableVersion
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
