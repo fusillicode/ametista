@@ -28,6 +28,15 @@ class PropertiesBuilder < Builder
     end
   end
 
+  def self_properties
+    querier.instances_properties(ast).map_unique do |instance_property_ast|
+      Property.find_or_create_by(
+        name: querier.instance_property_name(instance_property_ast),
+        klass: klass(instance_property_ast)
+      )
+    end
+  end
+
   def klass instance_property_ast
     Klass.find_or_create_by(
       unique_name: querier.klass_unique_name(instance_property_ast),

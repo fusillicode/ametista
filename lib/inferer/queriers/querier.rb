@@ -8,10 +8,10 @@ class Querier
 
   { superglobals: :a_superglobal,
     primitive_types: :a_primitive_type,
-    object_property: :an_object_property,
-    self_class_property: :a_self_class_property,
-    parent_class_property: :a_parent_class_property,
-    static_class_property: :a_static_class_property
+    instance_property: :an_instance_property,
+    self_property: :a_self_property,
+    parent_property: :a_parent_property,
+    static_property: :a_static_property
   }.each do |property, method|
     define_method method do
       Language.first()[property].map{ |value| "text() = '#{value}'" }.join(" or ")
@@ -29,12 +29,12 @@ class Querier
     Language.first().global_namespace[:unique_name]
   end
 
-  def class_property
-    "not(#{an_object_property} and #{a_self_class_property} and #{a_parent_class_property} and #{a_static_class_property})"
+  def a_class_property
+    "not(#{an_instance_property} and #{a_self_class_property} and #{a_parent_class_property} and #{a_static_class_property})"
   end
 
-  def not_class_property
-    "#{an_object_property} or #{a_self_class_property} or #{a_parent_class_property} or #{a_static_class_property}"
+  def not_a_class_property
+    "#{an_instance_property} or #{a_self_class_property} or #{a_parent_class_property} or #{a_static_class_property}"
   end
 
   def method_missing method_name, *args, &block

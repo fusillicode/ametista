@@ -3,27 +3,27 @@ require_relative 'querier'
 class PropertiesQuerier < Querier
 
   def instances_properties ast_root
-    ast_root.xpath(".//node:Expr_PropertyFetch[subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{an_object_property}]]")
+    ast_root.xpath(".//node:Expr_PropertyFetch[subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{an_instance_property}]]")
   end
 
   def instance_property_name ast
     ast.xpath('./subNode:name/scalar:string').text
   end
 
-  def self_class_properties ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{self_class_property}]")
+  def self_properties ast_root
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_self_property}]")
   end
 
-  def parent_class_property ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{parent_class_property}]")
+  def parent_properties ast_root
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_parent_property}]")
   end
 
-  def static_class_property ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{static_class_property}]")
+  def static_property ast_root
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_static_property}]")
   end
 
   def class_property ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{class_property}]")
+    ast_root.xpath(".//node:Expr_StaticPropertyFetch/subNode:var[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_class_property}]")
   end
 
   def klass_name ast
