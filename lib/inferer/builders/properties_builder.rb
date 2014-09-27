@@ -29,7 +29,25 @@ class PropertiesBuilder < Builder
   end
 
   def self_properties
-    querier.instances_properties(ast).map_unique do |instance_property_ast|
+    querier.self_properties(ast).map_unique do |instance_property_ast|
+      Property.find_or_create_by(
+        name: querier.instance_property_name(instance_property_ast),
+        klass: klass(instance_property_ast)
+      )
+    end
+  end
+
+  def parent_properties
+    querier.parent_properties(ast).map_unique do |instance_property_ast|
+      Property.find_or_create_by(
+        name: querier.instance_property_name(instance_property_ast),
+        klass: klass(instance_property_ast)
+      )
+    end
+  end
+
+  def klass_properties
+    querier.klass_properties(ast).map_unique do |instance_property_ast|
       Property.find_or_create_by(
         name: querier.instance_property_name(instance_property_ast),
         klass: klass(instance_property_ast)
@@ -45,4 +63,3 @@ class PropertiesBuilder < Builder
   end
 
 end
-

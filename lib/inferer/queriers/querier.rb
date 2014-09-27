@@ -29,11 +29,11 @@ class Querier
     Language.first().global_namespace[:unique_name]
   end
 
-  def a_class_property
+  def a_klass_property
     "not(#{an_instance_property} and #{a_self_property} and #{a_parent_property} and #{a_static_property})"
   end
 
-  def not_a_class_property
+  def not_a_klass_property
     "#{an_instance_property} or #{a_self_property} or #{a_parent_property} or #{a_static_property}"
   end
 
