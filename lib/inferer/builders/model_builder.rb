@@ -2,7 +2,7 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative '../xml_parser'
-require_relative '../instances_properties_resolver'
+require_relative '../instances_properties_refiner'
 require_relative 'language_builder'
 require_relative 'primitive_types_builder'
 require_relative 'namespaces_builder'
@@ -37,15 +37,15 @@ class ModelBuilder
       # local_variables_builder: LocalVariablesBuilder.new,
       properties_builder: PropertiesBuilder.new
     },
-    resolvers: {
-      instances_properties_resolver: InstancesPropertiesResolver.new
+    refiners: {
+      instances_properties_refiner: InstancesPropertiesRefiner.new
     }
   })
 
   def build
     init_build
     building_loop
-    resolve_problems
+    refine_model
     just_tests
   end
 
@@ -61,9 +61,9 @@ class ModelBuilder
     end
   end
 
-  def resolve_problems
-    resolvers.each do |key, resolver|
-      resolver.solve
+  def refine_model
+    refiners.each do |key, refiner|
+      refiner.refine
     end
   end
 

@@ -2,14 +2,14 @@ require_relative 'utilities'
 require_relative 'schema'
 require_relative 'queriers/querier'
 
-class InstancesPropertiesResolver
+class InstancesPropertiesRefiner
 
   extend Initializer
   initialize_with ({
     querier: Querier.new
   })
 
-  def solve
+  def refine
     assign_property_to_correct_klass
   end
 
