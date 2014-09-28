@@ -10,11 +10,11 @@ class InstancesPropertiesRefiner
   })
 
   def refine
-    assign_property_to_correct_klass
+    assign_instances_properties_to_correct_klass
   end
 
-  def assign_property_to_correct_klass
-    Property.all_in(type: querier.instance_property).each do |property|
+  def assign_instances_properties_to_correct_klass
+    Property.instances_properties.each do |property|
       property.update_attributes(
         klass: belonging_klass(property)
       )

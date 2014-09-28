@@ -186,6 +186,10 @@ class Property
   include HasOneVariableVersion
   field :type, type: Array
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
+
+  def self.instances_properties
+    self.all_in(type: language.instance_property)
+  end
 end
 
 class Parameter
