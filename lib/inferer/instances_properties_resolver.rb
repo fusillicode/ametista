@@ -1,14 +1,20 @@
 require_relative 'utilities'
 require_relative 'schema'
+require_relative 'queriers/querier'
 
 class InstancesPropertiesResolver
+
+  extend Initializer
+  initialize_with ({
+    querier: Querier.new
+  })
 
   def solve
     assign_property_to_correct_klass
   end
 
   def assign_property_to_correct_klass
-    Property.all.each do |property|
+    Property.all_in(type: querier.instance_property).each do |property|
       property.update_attributes(
         klass: belonging_klass(property)
       )
