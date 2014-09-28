@@ -13,7 +13,6 @@ end
 
 module IsIdentifiableWithNameAndUniqueName
   def self.included base
-    base.include Mongoid::Document
     base.include IsIdentifiableWithNameAnd
     base.field :unique_name, type: String, overwrite: true
     base.validates :unique_name, presence: true, length: { allow_blank: false }
