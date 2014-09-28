@@ -190,12 +190,9 @@ class Property
   include ReferencesLanguage
   include IsIdentifiableWithNameAndKlass
   include HasOneVariableVersion
-  field :type, type: Array
+  field :type, type: String
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
-
-  def self.instances_properties
-    all_in(type: language.instance_property)
-  end
+  scope :instances_properties, ->{ where(type: language.instance_property) }
 end
 
 class Parameter
