@@ -7,7 +7,7 @@ module IsIdentifiableWithNameAnd
     base.field :name, type: String
     base.validates :name, presence: true, length: { allow_blank: false }
     base.field :unique_name, type: String, default: ->{ unique_name }
-    base.index({ unique_name: 1 }, { unique: true })
+    base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
   end
 end
 
