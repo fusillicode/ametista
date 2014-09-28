@@ -14,7 +14,7 @@ class Querier
     static_property: :a_static_property
   }.each do |property, method|
     define_method method do
-      Language.first()[property].map{ |value| "text() = '#{value}'" }.join(" or ")
+      Array.wrap(Language.first()[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
     end
     define_method "not_#{method}" do
       "not(#{method})"
