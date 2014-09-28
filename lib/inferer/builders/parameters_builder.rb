@@ -41,15 +41,15 @@ class ParametersBuilder < Builder
 
   def function function_parameter_ast
     Function.find_or_create_by(
-      unique_name: querier.function_unique_name(ast),
-      name: querier.function_name(ast)
+      unique_name: querier.function_unique_name(function_parameter_ast),
+      name: querier.function_name(function_parameter_ast)
     )
   end
 
   def klass_method klass_method_parameter_ast
     KlassMethod.find_or_create_by(
-      unique_name: querier.klass_method_unique_name(ast),
-      name: querier.klass_method_name(ast)
+      unique_name: querier.klass_method_unique_name(klass_method_parameter_ast),
+      name: querier.klass_method_name(klass_method_parameter_ast)
     )
   end
 
