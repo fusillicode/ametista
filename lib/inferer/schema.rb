@@ -33,6 +33,7 @@ end
 module IsIdentifiableWithNameAndKlass
   def self.included base
     base.include IsIdentifiableWithNameAnd
+    base.include ReferencesLanguage
   end
   def unique_name
     reference_language
