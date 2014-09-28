@@ -8,6 +8,14 @@ module IsIdentifiableWithNameAnd
     base.validates :name, presence: true, length: { allow_blank: false }
     base.field :unique_name, type: String, default: ->{ unique_name }
     base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
+    base.validate :enforce_uniqueness
+    # l'uniqueness si rompe per le proprietà visto che cozzano i self e i this. Il motivo è il type che non viene preso in considerazione dallo unique name delle proprietà ed allo stesso tempo il fatto che find_or_create tenta di creare una nuova proprietà visto che il tipo è diverso da quella già salvata.
+    def enforce_uniqueness
+      raise "merda #{self.class}." unless is_unique?
+    end
+    def is_unique?
+      not self.class.where(unique_name: self.unique_name).exists?
+    end
   end
 end
 
