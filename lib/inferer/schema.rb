@@ -62,7 +62,7 @@ end
 module IsSingleton
   def self.included base
     base.include Mongoid::Document
-    base.validate :enforce_singleton, on: :create
+    base.validate :enforce_singleton
     def initialize *args
       enforce_singleton
       super
