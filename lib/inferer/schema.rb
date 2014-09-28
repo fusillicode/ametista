@@ -184,7 +184,7 @@ class Property
   include ReferencesLanguage
   include IsIdentifiableWithNameAndKlass
   include HasOneVariableVersion
-  field :type, type: String
+  field :type, type: Array
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
 end
 
