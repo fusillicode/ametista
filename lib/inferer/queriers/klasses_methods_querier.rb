@@ -11,7 +11,7 @@ class KlassesMethodsQuerier < Querier
   end
 
   def unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:name/scalar:string').text}"
+    "#{klass_unique_name(ast)}#{namespace_separator}#{ast.xpath('./subNode:name/scalar:string').text}"
   end
 
   def statements ast
