@@ -170,7 +170,7 @@ class GlobalVariable
   include HasOneVariableVersion
   belongs_to :global_scope, polymorphic: true
   after_initialize do
-    self.global_scope = Namespace.find_or_create_by(language.global_namespace)
+    self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
 end
 
