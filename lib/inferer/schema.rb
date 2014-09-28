@@ -58,8 +58,9 @@ module IsSingleton
   def self.included base
     base.include Mongoid::Document
     base.validate :enforce_singleton, on: :create
-    base.after_initialize do
+    def initialize *args
       enforce_singleton
+      super
     end
     def enforce_singleton
       raise "there can be only one #{self.class}." unless is_singleton?
