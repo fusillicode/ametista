@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'inferer/version'
+require 'ametista/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "inferer"
-  spec.version       = Inferer::VERSION
+  spec.name          = "ametista"
+  spec.version       = Ametista::VERSION
   spec.authors       = ["fusillicode"]
   spec.email         = ["fusillicode@gmail.com"]
   spec.summary       = %q{...}

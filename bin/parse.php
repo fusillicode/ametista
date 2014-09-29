@@ -2,10 +2,10 @@
 
 include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
-$redis_daemon = new Inferer\RedisDaemon();
-$channel = new Inferer\Channel();
-$parser = new Inferer\Parser();
-$dumper = new Inferer\Dumper();
+$redis_daemon = new Ametista\RedisDaemon();
+$channel = new Ametista\Channel();
+$parser = new Ametista\Parser();
+$dumper = new Ametista\Dumper();
 
 $redis_daemon->start();
 $channel->connect();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Inferer;
+namespace Ametista;
 
 trait Initializer
 {

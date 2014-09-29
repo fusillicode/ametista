@@ -10,7 +10,7 @@ development:
 test:
   sessions:
     default:
-      database: inferer-test
+      database: ametista-test
       hosts:
         - localhost: 27017
       options:

@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in inferer.gemspec
+# Specify your gem's dependencies in ametista.gemspec
 gemspec
