@@ -166,6 +166,11 @@ CustomType = Klass
 class KlassMethod
   include IsAProcedure
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  def default_unique_name
+    reference_language
+    unique_name || "#{klass.unique_name}#{language.namespace_separator}#{name}"
+  end
 end
 
 class Function
