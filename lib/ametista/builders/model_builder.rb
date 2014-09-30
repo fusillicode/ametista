@@ -68,7 +68,7 @@ class ModelBuilder
   end
 
   def just_tests
-    Property.instances_properties.each do |entity|
+    Parameter.each do |entity|
       ap "#{entity.name} #{entity.klass.name}"
       ap "#{entity.unique_name} #{entity.klass.unique_name}"
     end

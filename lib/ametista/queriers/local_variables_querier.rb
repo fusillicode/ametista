@@ -22,9 +22,10 @@ class LocalVariablesQuerier < Querier
     "#{namespace_unique_name(ast)}#{namespace_separator}#{function_name(ast)}"
   end
 
+  # TODO attenzione che qui concateno un namespaceseparator anche quando non ho un namespace dopo...
+  # vedere anche il caso delle classi e di tutto quello che posso trovare all'interno o meno del namespace globale
   def namespace_unique_name ast
     "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
-    exit
   end
 
   def function_name ast

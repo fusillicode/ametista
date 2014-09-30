@@ -12,7 +12,7 @@ class LocalVariablesBuilder < Builder
 
   def build ast
     @ast = ast
-    functions_local_variables
+    # functions_local_variables
   end
 
   def functions_local_variables
