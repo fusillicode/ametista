@@ -17,7 +17,6 @@ class KlassesMethodsBuilder < Builder
   def klasses_methods
     querier.klasses_methods(ast).each do |klass_method_ast|
       KlassMethod.find_or_create_by(
-        unique_name: querier.unique_name(klass_method_ast),
         name: querier.name(klass_method_ast),
         klass: klass(klass_method_ast),
         statements: querier.statements(klass_method_ast)
