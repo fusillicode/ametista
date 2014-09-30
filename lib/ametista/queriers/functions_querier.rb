@@ -11,7 +11,11 @@ class FunctionsQuerier < Querier
   end
 
   def unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{namespaced_name(ast)}"
+  end
+
+  def namespaced_name ast
+    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
   def statements(ast)
@@ -23,7 +27,11 @@ class FunctionsQuerier < Querier
   end
 
   def namespace_unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
+  end
+
+  def namespace_name_parts ast
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
   end
 
 end
