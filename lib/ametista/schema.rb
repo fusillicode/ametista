@@ -150,6 +150,10 @@ class Klass
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  def default_unique_name
+    unique_name || "#{namespace.unique_name}#{name}"
+  end
 end
 
 class PrimitiveType
