@@ -171,6 +171,10 @@ end
 class Function
   include IsAProcedure
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  def default_unique_name
+    "#{namespace.unique_name}#{name}"
+  end
 end
 
 class GlobalVariable

@@ -18,7 +18,6 @@ class FunctionsBuilder < Builder
   def functions
     querier.functions(ast).map_unique do |function_ast|
       Function.find_or_create_by(
-        unique_name: querier.unique_name(function_ast),
         name: querier.name(function_ast),
         namespace: namespace(function_ast),
         statements: querier.statements(function_ast)
