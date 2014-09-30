@@ -25,11 +25,10 @@ end
 module IsIdentifiableWithNameAndType
   def self.included base
     base.include IsIdentifiableWithNameAndUniqueName
-    base.field :unique_name, type: String, overwrite: true, default: ->{ unique_name }
     base.field :type, type: String, default: 'GLOBALS'
-    base.validates :unique_name, presence: false
+    base.field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   end
-  def unique_name
+  def default_unique_name
     reference_language
     "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
   end
@@ -39,8 +38,7 @@ module IsIdentifiableWithNameAndKlass
   def self.included base
     base.include IsIdentifiableWithNameAndUniqueName
     base.include ReferencesLanguage
-    base.field :unique_name, type: String, overwrite: true, default: ->{ unique_name }
-    base.validates :unique_name, presence: false
+    base.field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
     base.validate :enforce_uniqueness, if: ->{
       self.class.where(
         :_id.ne => self._id,
@@ -49,7 +47,7 @@ module IsIdentifiableWithNameAndKlass
       ).exists?
     }
   end
-  def unique_name
+  def default_unique_name
     reference_language
     "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
