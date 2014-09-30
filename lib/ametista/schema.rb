@@ -1,46 +1,45 @@
 require "mongoid"
 include EnforceAvailableLocales
 
-module IsIdentifiableWithNameAnd
+module IsIdentifiableWithNameAndUniqueName
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
     base.validates :name, presence: true, length: { allow_blank: false }
-    base.field :unique_name, type: String, default: ->{ unique_name }
+    base.field :unique_name, type: String
     base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
-    base.validate :enforce_uniqueness
-    # l'uniqueness si rompe per le proprietà visto che cozzano i self e i this. Il motivo è il type che non viene preso in considerazione dallo unique name delle proprietà ed allo stesso tempo il fatto che find_or_create tenta di creare una nuova proprietà visto che il tipo è diverso da quella già salvata.
-    def enforce_uniqueness
-      raise "merda #{self.class}." unless is_unique?
-    end
-    def is_unique?
-      not self.class.where(unique_name: self.unique_name).exists?
-    end
-  end
-end
-
-module IsIdentifiableWithNameAndUniqueName
-  def self.included base
-    base.include IsIdentifiableWithNameAnd
-    base.field :unique_name, type: String, overwrite: true
     base.validates :unique_name, presence: true, length: { allow_blank: false }
+    base.validate :enforce_uniqueness, if: ->{
+      self.class.where(unique_name: self.unique_name).exists?
+    }
+  end
+  def enforce_uniqueness
+    raise "A #{self.class} with unique_name #{self.unique_name} has already been registered."
   end
 end
 
 module IsIdentifiableWithNameAndType
   def self.included base
-    base.include IsIdentifiableWithNameAnd
+    base.include IsIdentifiableWithNameAndUniqueName
+    base.field :unique_name, type: String, overwrite: true, default: ->{ unique_name }
     base.field :type, type: String, default: 'GLOBALS'
+    base.validates :unique_name, presence: false
   end
   def unique_name
-    "#{type}[#{name}]"
+    reference_language
+    "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
   end
 end
 
 module IsIdentifiableWithNameAndKlass
   def self.included base
-    base.include IsIdentifiableWithNameAnd
+    base.include IsIdentifiableWithNameAndUniqueName
     base.include ReferencesLanguage
+    base.field :unique_name, type: String, overwrite: true, default: ->{ unique_name }
+    base.validates :unique_name, presence: false
+    base.validate :enforce_uniqueness, if: ->{
+      self.class.where(unique_name: self.unique_name, type: self.type).exists?
+    }
   end
   def unique_name
     reference_language
