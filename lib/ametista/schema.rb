@@ -105,25 +105,11 @@ module ContainsLocalVariables
   end
 end
 
-module HasOneVariableVersion
-  def self.included base
-    base.include Mongoid::Document
-    base.has_one :variable_version, as: :versionable
-  end
-end
-
-module HasManyVariableVersions
-  def self.included base
-    base.include Mongoid::Document
-    base.has_many :variable_versions, as: :versionable
-  end
-end
-
 module IsAType
   def self.included base
     base.include ReferencesLanguage
     base.include IsIdentifiableWithNameAndUniqueName
-    base.has_and_belongs_to_many :variables_versions, class_name: 'VariableVersion', inverse_of: :types
+    base.has_and_belongs_to_many :versions, class_name: 'Version', inverse_of: :types
   end
 end
 
@@ -188,7 +174,6 @@ end
 class GlobalVariable
   include ReferencesLanguage
   include IsIdentifiableWithNameAndType
-  include HasOneVariableVersion
   belongs_to :global_scope, polymorphic: true
   after_initialize do
     self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
@@ -198,13 +183,13 @@ end
 class LocalVariable
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
+  has_many :versions, class_name: 'Version', inverse_of: :local_variables
   belongs_to :local_scope, polymorphic: true
 end
 
 class Property
   include ReferencesLanguage
   include IsIdentifiableWithNameAndKlass
-  include HasOneVariableVersion
   field :type, type: String
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
   scope :instances_properties, ->{ where(type: language.instance_property) }
@@ -213,13 +198,12 @@ end
 class Parameter
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  include HasOneVariableVersion
   belongs_to :procedure, polymorphic: true
 end
 
-class VariableVersion
+class Version
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  belongs_to :versionable, polymorphic: true
-  has_many :types, class_name: 'Type', inverse_of: :variables_versions
+  belongs_to :local_variables, class_name: 'LocalVariable', inverse_of: :versions
+  has_many :types, class_name: 'Type', inverse_of: :versions
 end
