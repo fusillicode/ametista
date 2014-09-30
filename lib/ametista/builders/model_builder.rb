@@ -68,7 +68,7 @@ class ModelBuilder
   end
 
   def just_tests
-    Function.each do |entity|
+    Klass.each do |entity|
       ap "#{entity.name} #{entity.unique_name}"
     end
   end
