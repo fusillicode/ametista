@@ -10,7 +10,10 @@ module IsIdentifiableWithNameAndUniqueName
     base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
     base.validates :unique_name, presence: true, length: { allow_blank: false }
     base.validate :enforce_uniqueness, if: ->{
-      self.class.where(unique_name: self.unique_name).exists?
+      self.class.where(
+        :_id.ne => self._id,
+        unique_name: self.unique_name,
+      ).exists?
     }
   end
   def enforce_uniqueness
@@ -38,7 +41,11 @@ module IsIdentifiableWithNameAndKlass
     base.field :unique_name, type: String, overwrite: true, default: ->{ unique_name }
     base.validates :unique_name, presence: false
     base.validate :enforce_uniqueness, if: ->{
-      self.class.where(unique_name: self.unique_name, type: self.type).exists?
+      self.class.where(
+        :_id.ne => self._id,
+        unique_name: self.unique_name,
+        type: self.type
+      ).exists?
     }
   end
   def unique_name
