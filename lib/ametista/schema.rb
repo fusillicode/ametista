@@ -16,6 +16,7 @@ module IsIdentifiableWithNameAndUniqueName
       ).exists?
     }
   end
+  # TODO definire una specifica eccezione da sollevare...
   def enforce_uniqueness
     raise "A #{self.class} with unique_name #{self.unique_name} has already been registered."
   end

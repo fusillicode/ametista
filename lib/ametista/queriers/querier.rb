@@ -37,6 +37,14 @@ class Querier
     "#{an_instance_property} or #{a_self_property} or #{a_parent_property} or #{a_static_property}"
   end
 
+  def not_a_property
+    "not(#{an_instance_property} and #{a_self_property} and #{a_parent_property} and #{a_static_property})"
+  end
+
+  def a_local_variable
+    "#{not_a_superglobal} and #{not_a_property}"
+  end
+
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block
