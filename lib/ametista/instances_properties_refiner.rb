@@ -15,9 +15,16 @@ class InstancesPropertiesRefiner
 
   def assign_instances_properties_to_correct_klass
     Property.instances_properties.each do |property|
-      property.update_attributes(
-        klass: belonging_klass(property)
-      )
+      belonging_klass = belonging_klass(property)
+      Property.where({
+        :_id.ne => property._id,
+        name: property.name,
+        klass: belonging_klass,
+        type: property.type
+      }).delete
+      property.update_attributes({
+        klass: belonging_klass
+      })
     end
   end
 
