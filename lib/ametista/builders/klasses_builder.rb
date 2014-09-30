@@ -19,7 +19,6 @@ class KlassesBuilder < Builder
     querier.klasses(ast).map_unique do |klass_ast|
       Klass.find_or_create_by(
         name: querier.name(klass_ast),
-        unique_name: querier.unique_name(klass_ast),
         namespace: namespace(klass_ast),
         parent_klass: parent_klass(klass_ast)
       )
