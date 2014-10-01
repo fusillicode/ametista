@@ -68,7 +68,7 @@ class ModelBuilder
   end
 
   def just_tests
-    KlassMethod.each do |entity|
+    GlobalVariable.each do |entity|
       ap "#{entity.name} #{entity.unique_name}"
     end
   end
