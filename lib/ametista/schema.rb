@@ -22,37 +22,6 @@ module IsIdentifiableWithNameAndUniqueName
   end
 end
 
-module IsIdentifiableWithNameAndType
-  def self.included base
-    base.include IsIdentifiableWithNameAndUniqueName
-    base.field :type, type: String, default: 'GLOBALS'
-    base.field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
-  end
-  def default_unique_name
-    reference_language
-    "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
-  end
-end
-
-module IsIdentifiableWithNameAndKlass
-  def self.included base
-    base.include IsIdentifiableWithNameAndUniqueName
-    base.include ReferencesLanguage
-    base.field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
-    base.validate :enforce_uniqueness, if: ->{
-      self.class.where(
-        :_id.ne => self._id,
-        unique_name: self.unique_name,
-        type: self.type
-      ).exists?
-    }
-  end
-  def default_unique_name
-    reference_language
-    "#{klass.unique_name}#{language.namespace_separator}#{name}"
-  end
-end
-
 module ReferencesLanguage
   def self.included base
     base.include Mongoid::Document
@@ -178,14 +147,21 @@ class Function
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   def default_unique_name
-    unique_name || "#{namespace.unique_name}#{name}"
+    reference_language
+    unique_name || "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class GlobalVariable
   include ReferencesLanguage
-  include IsIdentifiableWithNameAndType
+  include IsIdentifiableWithNameAndUniqueName
   belongs_to :global_scope, polymorphic: true
+  field :type, type: String, default: 'GLOBALS'
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  def default_unique_name
+    reference_language
+    "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
+  end
   after_initialize do
     self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
@@ -196,13 +172,30 @@ class LocalVariable
   include IsIdentifiableWithNameAndUniqueName
   has_many :versions, class_name: 'Version', inverse_of: :local_variables
   belongs_to :local_scope, polymorphic: true
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  def default_unique_name
+    reference_language
+    unique_name || "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
+  end
 end
 
 class Property
   include ReferencesLanguage
-  include IsIdentifiableWithNameAndKlass
+  include IsIdentifiableWithNameAndUniqueName
   field :type, type: String
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
+  validate :enforce_uniqueness, if: ->{
+    self.class.where(
+      :_id.ne => self._id,
+      unique_name: self.unique_name,
+      type: self.type
+    ).exists?
+  }
+  def default_unique_name
+    reference_language
+    unique_name || "#{klass.unique_name}#{language.namespace_separator}#{name}"
+  end
   scope :instances_properties, ->{ where(type: language.instance_property) }
 end
 
@@ -210,6 +203,11 @@ class Parameter
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
   belongs_to :procedure, polymorphic: true
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  def default_unique_name
+    reference_language
+    unique_name || "#{procedure.unique_name}#{language.namespace_separator}#{name}"
+  end
 end
 
 class Version
