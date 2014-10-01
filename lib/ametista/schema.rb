@@ -5,9 +5,9 @@ module IsIdentifiableWithNameAndUniqueName
   def self.included base
     base.include Mongoid::Document
     base.field :name, type: String
-    base.validates :name, presence: true, length: { allow_blank: false }
     base.field :unique_name, type: String
     base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
+    base.validates :name, presence: true, length: { allow_blank: false }
     base.validates :unique_name, presence: true, length: { allow_blank: false }
     base.validate :enforce_uniqueness, if: ->{
       self.class.where(
@@ -114,12 +114,12 @@ end
 
 class Klass
   include IsAType
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   def default_unique_name
     unique_name || "#{namespace.unique_name}#{name}"
   end
@@ -134,8 +134,8 @@ CustomType = Klass
 
 class KlassMethod
   include IsAProcedure
-  belongs_to :klass, class_name: 'Klass', inverse_of: :methods
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  belongs_to :klass, class_name: 'Klass', inverse_of: :methods
   def default_unique_name
     reference_language
     unique_name || "#{klass.unique_name}#{language.namespace_separator}#{name}"
@@ -144,8 +144,8 @@ end
 
 class Function
   include IsAProcedure
-  belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
   def default_unique_name
     reference_language
     unique_name || "#{namespace.unique_name}#{language.namespace_separator}#{name}"
@@ -155,24 +155,24 @@ end
 class GlobalVariable
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  belongs_to :global_scope, polymorphic: true
   field :type, type: String, default: 'GLOBALS'
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  belongs_to :global_scope, polymorphic: true
+  after_initialize do
+    self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
+  end
   def default_unique_name
     reference_language
     "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
-  end
-  after_initialize do
-    self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
 end
 
 class LocalVariable
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  has_many :versions, class_name: 'Version', inverse_of: :local_variables
-  belongs_to :local_scope, polymorphic: true
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  belongs_to :local_scope, polymorphic: true
+  has_many :versions, class_name: 'Version', inverse_of: :local_variables
   def default_unique_name
     reference_language
     unique_name || "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
@@ -192,18 +192,18 @@ class Property
       type: self.type
     ).exists?
   }
+  scope :instances_properties, ->{ where(type: language.instance_property) }
   def default_unique_name
     reference_language
     unique_name || "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
-  scope :instances_properties, ->{ where(type: language.instance_property) }
 end
 
 class Parameter
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  belongs_to :procedure, polymorphic: true
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  belongs_to :procedure, polymorphic: true
   def default_unique_name
     reference_language
     unique_name || "#{procedure.unique_name}#{language.namespace_separator}#{name}"
