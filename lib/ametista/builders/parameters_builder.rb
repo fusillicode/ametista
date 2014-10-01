@@ -22,7 +22,6 @@ class ParametersBuilder < Builder
   def functions_parameters
     querier.functions_parameters(ast).map_unique do |function_parameter_ast|
       parameter = Parameter.find_or_create_by(
-        unique_name: querier.function_parameter_unique_name(function_parameter_ast),
         name: querier.function_parameter_name(function_parameter_ast),
         procedure: function(function_parameter_ast)
       )
@@ -32,7 +31,6 @@ class ParametersBuilder < Builder
   def klasses_methods_parameters
     querier.klasses_methods_parameters(ast).map_unique do |klass_method_parameter_ast|
       parameter = Parameter.find_or_create_by(
-        unique_name: querier.klass_method_parameter_unique_name(klass_method_parameter_ast),
         name: querier.klass_method_parameter_name(klass_method_parameter_ast),
         procedure: klass_method(klass_method_parameter_ast)
       )
