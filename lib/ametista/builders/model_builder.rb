@@ -68,7 +68,7 @@ class ModelBuilder
   end
 
   def just_tests
-    GlobalVariable.each do |entity|
+    LocalVariable.each do |entity|
       ap "#{entity.name} #{entity.unique_name}"
     end
   end
