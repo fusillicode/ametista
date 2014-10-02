@@ -69,7 +69,7 @@ class ModelBuilder
 
   def just_tests
     LocalVariable.each do |entity|
-      ap "#{entity.name} #{entity.unique_name}"
+      ap entity
     end
   end
 
