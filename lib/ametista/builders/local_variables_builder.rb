@@ -19,6 +19,8 @@ class LocalVariablesBuilder < Builder
     functions_local_variables << klasses_methods_local_variables
   end
 
+  # TODO vedere di ristrutturare il building delle variabili locali (come anche dei parametri) tirando fuori prima i loro parent evitando così di fare troppe query xpath relative ai parent (i.e. funzioni e metodi di classe).
+
   def functions_local_variables
     querier.functions_local_variables(ast).map_unique do |function_local_variable_ast|
       LocalVariable.find_or_create_by(
