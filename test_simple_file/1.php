@@ -1,10 +1,5 @@
 <?php
 
-namespace ciao;
-
-$c->a = 1;
-
-
 function ciao(){
   global $birba, $ciano;
   $c->a = 1;
