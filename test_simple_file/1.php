@@ -1,6 +1,10 @@
 <?php
 
 function ciao(){
+  global $birba, $ciano;
+  $c->a = 1;
+  global $b, $c;
+
   $a = 1;
   $a[1] = 1;
   $a[1][1] = 1;
@@ -183,6 +187,7 @@ class Sole {
 function prova($ella = __NAMESPACE__, A $peppa)
 {
 
+  global $b, $c;
   return $ciao;
   $a = 1;
   $a[1] = 1;

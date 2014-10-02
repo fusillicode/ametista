@@ -10,6 +10,10 @@ class LocalVariablesQuerier < Querier
     ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[ancestor::node:Stmt_ClassMethod[1] and subNode:name/scalar:string[#{a_local_variable}]]")
   end
 
+  def previous_global_variables_definitions_names ast
+    ast.xpath("./ancestor::node:Expr_Assign[1]/preceding-sibling::node:Stmt_Global/subNode:vars/scalar:array/node:Expr_Variable/subNode:name/scalar:string").map { |global_variable| global_variable.text }
+  end
+
   def function_local_variable_name ast
     ast.xpath('./subNode:name/scalar:string').text
   end
@@ -37,7 +41,7 @@ class LocalVariablesQuerier < Querier
   end
 
   def function_name ast
-    ast.xpath("./ancestor::node:Stmt_Function/subNode:name/scalar:string").text
+    ast.xpath("./ancestor::node:Stmt_Function[1]/subNode:name/scalar:string").text
   end
 
   def klass_method_local_variable_name ast
@@ -61,7 +65,7 @@ class LocalVariablesQuerier < Querier
   end
 
   def klass_method_name ast
-    ast.xpath("./ancestor::node:Stmt_ClassMethod/subNode:name/scalar:string").text
+    ast.xpath("./ancestor::node:Stmt_ClassMethod[1]/subNode:name/scalar:string").text
   end
 
 end
