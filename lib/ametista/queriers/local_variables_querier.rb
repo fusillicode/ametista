@@ -2,6 +2,10 @@ require_relative 'querier'
 
 class LocalVariablesQuerier < Querier
 
+  def namespaces_local_variables ast_root
+    ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[ancestor::node:Stmt_Namespace[1] and subNode:name/scalar:string[#{a_local_variable}]]")
+  end
+
   def functions_local_variables ast_root
     ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[ancestor::node:Stmt_Function[1] and subNode:name/scalar:string[#{a_local_variable}]]")
   end
@@ -34,6 +38,10 @@ class LocalVariablesQuerier < Querier
   # vedere anche il caso delle classi e di tutto quello che posso trovare all'interno o meno del namespace globale
   def namespace_unique_name ast
     "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
+  end
+
+  def namespace_name ast
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
   def namespace_name_parts ast
