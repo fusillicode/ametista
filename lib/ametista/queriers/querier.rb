@@ -17,7 +17,7 @@ class Querier
       Array.wrap(Language.first()[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
     end
     define_method "not_#{method}" do
-      "not(#{method})"
+      "not(#{public_send("#{method}")})"
     end
   end
 
