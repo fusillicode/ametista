@@ -16,7 +16,7 @@ class LocalVariablesBuilder < Builder
   end
 
   def local_variables
-    functions_local_variables # << klasses_methods_local_variables
+    functions_local_variables << klasses_methods_local_variables
   end
 
   def functions_local_variables
@@ -31,7 +31,7 @@ class LocalVariablesBuilder < Builder
   def klasses_methods_local_variables
     querier.klasses_methods_local_variables(ast).map_unique do |klass_method_local_variable_ast|
       LocalVariable.find_or_create_by(
-        name: querier.klass_method_local_variable_name(local_variable_ast),
+        name: querier.klass_method_local_variable_name(klass_method_local_variable_ast),
         local_scope: klass_method(klass_method_local_variable_ast)
       )
     end
