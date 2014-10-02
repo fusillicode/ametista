@@ -38,7 +38,7 @@ class Querier
   end
 
   def not_a_property
-    "not(#{an_instance_property} and #{a_self_property} and #{a_parent_property} and #{a_static_property})"
+    "not(#{an_instance_property} or #{a_self_property} or #{a_parent_property} or #{a_static_property})"
   end
 
   def a_local_variable
