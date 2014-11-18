@@ -35,17 +35,11 @@ class LocalVariablesBuilder < Builder
       # LocalVariable.where(
       #   unique_name: querier.function_local_variable_unique_name(function_local_variable_ast)
       # ).exists?
-      function_local_variable_name = querier.function_local_variable_name(function_local_variable_ast)
-      # next unless is_global_defined_variable(function_local_variable_name, function_local_variable_ast)
       LocalVariable.find_or_create_by(
-        name: function_local_variable_name,
+        name: querier.function_local_variable_name(function_local_variable_ast),
         local_scope: function(function_local_variable_ast)
       )
     end
-  end
-
-  def is_global_defined_variable variable_name, variable_ast
-    return variable_name if querier.previous_global_variables_definitions_names(variable_ast).include? variable_name
   end
 
   def klasses_methods_local_variables

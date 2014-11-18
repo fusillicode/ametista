@@ -6,8 +6,22 @@ class LocalVariablesQuerier < Querier
     ast_root.xpath(".//node:Stmt_Namespace/subNode:stmts/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{a_local_variable}]]")
   end
 
-  def functions_local_variables ast_root
+  def functions_variables ast_root
     ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[ancestor::node:Stmt_Function[1] and subNode:name/scalar:string[#{a_local_variable}]]")
+  end
+
+  def functions_local_variables ast_root
+    functions_variables(ast_root).map { |function_variable_ast|
+      next if is_global_defined_variable(
+        function_local_variable_name(function_variable_ast),
+        function_variable_ast
+      )
+      function_variable_ast
+    }.compact()
+  end
+
+  def is_global_defined_variable variable_name, variable_ast
+    return variable_name if previous_global_variables_definitions_names(variable_ast).include? variable_name
   end
 
   def klasses_methods_local_variables ast_root
