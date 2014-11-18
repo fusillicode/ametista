@@ -33,7 +33,7 @@ end
 
 module UniqueMapper
   def map_unique unique_id, &block
-    self.map(&block).uniq{ |x| x.send("#{unique_id}") }
+    self.map(&block).compact.uniq{ |x| x.send("#{unique_id}") }
   end
 end
 
