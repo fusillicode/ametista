@@ -32,21 +32,14 @@ class LocalVariablesBuilder < Builder
 
   def functions_local_variables
     querier.functions_local_variables(ast).map_unique('_id') do |function_local_variable_ast|
-      local_variable = LocalVariable.find_by(
-        unique_name: querier.function_local_variable_unique_name(
-          function_local_variable_ast
-        )
+      local_variable = LocalVariable.find_or_create_by(
+        name: querier.function_local_variable_name(function_local_variable_ast),
+        local_scope: function(function_local_variable_ast)
       )
-      if local_variable
-        Version.create(
-          local_variable: local_variable,
-        )
-      else
-        LocalVariable.create(
-          name: querier.function_local_variable_name(function_local_variable_ast),
-          local_scope: function(function_local_variable_ast)
-        )
-      end
+      Version.create(
+        local_variable: local_variable
+      )
+      local_variable
     end
   end
 

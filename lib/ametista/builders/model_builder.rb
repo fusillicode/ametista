@@ -71,6 +71,9 @@ class ModelBuilder
     LocalVariable.each do |entity|
       ap entity
     end
+    Version.each do |entity|
+      ap entity.local_variable.unique_name
+    end
   end
 
   def builders_loop ast
