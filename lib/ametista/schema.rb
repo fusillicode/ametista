@@ -72,14 +72,6 @@ module ContainsLocalVariables
   end
 end
 
-module IsAType
-  def self.included base
-    base.include ReferencesLanguage
-    base.include IsIdentifiableWithNameAndUniqueName
-    base.has_and_belongs_to_many :versions, class_name: 'Version', inverse_of: :types
-  end
-end
-
 module IsAProcedure
   def self.included base
     base.include ReferencesLanguage
@@ -88,6 +80,12 @@ module IsAProcedure
     base.field :statements, type: String
     base.has_many :parameters, as: :procedure
   end
+end
+
+class Type
+  include ReferencesLanguage
+  include IsIdentifiableWithNameAndUniqueName
+  has_and_belongs_to_many :versions, class_name: "Version", inverse_of: :types
 end
 
 ################################################################################
@@ -112,8 +110,7 @@ class Namespace
   end
 end
 
-class Klass
-  include IsAType
+class Klass < Type
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
@@ -125,8 +122,7 @@ class Klass
   end
 end
 
-class PrimitiveType
-  include IsAType
+class PrimitiveType < Type
 end
 
 # alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
@@ -215,7 +211,7 @@ class Version
   # include IsIdentifiableWithNameAndUniqueName
   # field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :local_variable, class_name: 'LocalVariable', inverse_of: :versions
-  # has_many :types, class_name: 'Type', inverse_of: :versions
+  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :versions
   # def default_unique_name
   #   reference_language
   #   unique_name || "#{local_variable.unique_name}#{language.namespace_separator}#{name}"
