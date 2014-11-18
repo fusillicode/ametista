@@ -20,7 +20,7 @@ class CustomTypesBuilder < Builder
   end
 
   def parameters_custom_types
-    querier.parameters_custom_types(ast).map_unique do |parameter_custom_type|
+    querier.parameters_custom_types(ast).map_unique('_id') do |parameter_custom_type|
       CustomType.find_or_create_by(
         unique_name: querier.parameter_custom_type_unique_name(parameter_custom_type),
         name: querier.parameter_custom_type_name(parameter_custom_type)
@@ -29,7 +29,7 @@ class CustomTypesBuilder < Builder
   end
 
   def klasses_custom_types
-    querier.klasses_custom_types(ast).map_unique do |klass_custom_type_ast|
+    querier.klasses_custom_types(ast).map_unique('_id') do |klass_custom_type_ast|
       CustomType.find_or_create_by(
         unique_name: querier.klass_custom_type_unique_name(klass_custom_type_ast),
         name: querier.klass_custom_type_name(klass_custom_type_ast)

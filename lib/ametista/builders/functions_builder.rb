@@ -16,7 +16,7 @@ class FunctionsBuilder < Builder
   end
 
   def functions
-    querier.functions(ast).map_unique do |function_ast|
+    querier.functions(ast).map_unique('_id') do |function_ast|
       Function.find_or_create_by(
         name: querier.name(function_ast),
         namespace: namespace(function_ast),

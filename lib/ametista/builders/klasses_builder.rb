@@ -16,7 +16,7 @@ class KlassesBuilder < Builder
   end
 
   def klasses
-    querier.klasses(ast).map_unique do |klass_ast|
+    querier.klasses(ast).map_unique('_id') do |klass_ast|
       Klass.find_or_create_by(
         name: querier.name(klass_ast),
         namespace: namespace(klass_ast),
