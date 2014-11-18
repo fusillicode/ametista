@@ -189,6 +189,7 @@ function prova($ella = __NAMESPACE__, A $peppa)
 
   global $b, $c;
   return $ciao;
+  $b = 1;
   $a = 1;
   $a[1] = 1;
   $a[1][1] = 1;
