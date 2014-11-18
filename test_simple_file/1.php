@@ -1,6 +1,60 @@
 <?php
 
 function ciao(){
+
+  // Stmt_Foreach
+  foreach ($variable as $key => $value) {
+    # code...
+  }
+  // Stmt_For
+  for ($i=0; $i < 10; $i++) {
+    # code...
+  }
+  // Stmt_While
+  while ($i <= 10) {
+    # code...
+  }
+  // Stmt_Do
+  do {
+
+    // Stmt_If
+  } while (true);
+  // Stmt_If
+  if (true) {
+    # code...
+  }
+  // Stmt_If
+  if (true) {
+    # code...
+    // Stmt_Else
+  } else {
+    # code...
+  }
+  // Stmt_If
+  if (true) {
+    # code...
+  // Stmt_Elseif
+  } elseif(null) {
+    # code...
+    // Stmt_Else
+  } else {
+    $GLOBALS['ciccio'] = 12;
+    # code...
+  }
+  // Expr_Ternary
+  $retVal = (true) ? a : b ;
+  // Stmt_Switch
+  switch (variable) {
+    // Stmt_Case
+    case 'value':
+      # code...
+      break;
+    // Stmt_Case
+    default:
+      # code...
+      break;
+  }
+
   global $birba, $ciano;
   $c->a = 1;
   global $b, $c;
