@@ -7,6 +7,9 @@ development:
       options:
         max_retries: 5
         retry_interval: 3
+  options:
+    raise_not_found_error: false
+
 test:
   sessions:
     default:
@@ -16,3 +19,5 @@ test:
       options:
         max_retries: 5
         retry_interval: 3
+  options:
+    raise_not_found_error: false
