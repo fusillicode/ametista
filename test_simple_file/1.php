@@ -1,5 +1,12 @@
 <?php
 
+namespace pizza;
+
+// Stmt_For
+for ($i=0; $i < 10; $i++) {
+  # code...
+}
+
 function ciao(){
 
   // Stmt_Foreach
@@ -57,7 +64,10 @@ function ciao(){
 
   global $birba, $ciano;
   $c->a = 1;
+
   global $b, $c;
+
+  $b = 1;
 
   $a = 1;
   $a[1] = 1;
