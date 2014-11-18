@@ -45,4 +45,3 @@ mv "$MONGODB" mongodb
 
 # Install required Gems
 bundle install
-

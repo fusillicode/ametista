@@ -5,14 +5,12 @@ class MongoDaemon
   extend Initializer
   initialize_with ({
     executable: './vendor/mongodb/bin/mongod',
-    database: './database',
-    port: 27017,
-    log: './database/mongod.log',
+    config_file: './mongodb.conf',
     pid: nil
   })
 
   def start
-    @pid = Process.spawn "#{executable} --fork --dbpath #{database} --logpath #{log} > /dev/null"
+    @pid = Process.spawn "#{executable} --config #{config_file} > /dev/null"
   end
 
   def stop
