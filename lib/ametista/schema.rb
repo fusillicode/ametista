@@ -104,7 +104,10 @@ class Namespace
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
   after_initialize do
-    extend (is_global_namespace? ? ContainsGlobalVariables : ContainsLocalVariables)
+    extend contains_variables
+  end
+  def contains_variables
+    is_global_namespace? ? ContainsGlobalVariables : ContainsLocalVariables
   end
   def is_global_namespace?
     unique_name.eql? language.global_namespace['unique_name']
