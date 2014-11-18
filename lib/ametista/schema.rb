@@ -122,7 +122,10 @@ class Klass < Type
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
   def default_unique_name
-    unique_name || "#{namespace.unique_name}#{name}"
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{namespace.unique_name}#{name}"
   end
 end
 
@@ -138,7 +141,10 @@ class KlassMethod
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
   def default_unique_name
     reference_language
-    unique_name || "#{klass.unique_name}#{language.namespace_separator}#{name}"
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
@@ -148,7 +154,10 @@ class Function
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
   def default_unique_name
     reference_language
-    unique_name || "#{namespace.unique_name}#{language.namespace_separator}#{name}"
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
@@ -163,6 +172,9 @@ class GlobalVariable
   end
   def default_unique_name
     reference_language
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
     "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
   end
 end
@@ -175,7 +187,10 @@ class LocalVariable
   has_many :versions, class_name: 'Version', inverse_of: :local_variables
   def default_unique_name
     reference_language
-    unique_name || "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
@@ -195,7 +210,10 @@ class Property
   scope :instances_properties, ->{ where(type: language.instance_property) }
   def default_unique_name
     reference_language
-    unique_name || "#{klass.unique_name}#{language.namespace_separator}#{name}"
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
@@ -206,7 +224,10 @@ class Parameter
   belongs_to :procedure, polymorphic: true
   def default_unique_name
     reference_language
-    unique_name || "#{procedure.unique_name}#{language.namespace_separator}#{name}"
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{procedure.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
