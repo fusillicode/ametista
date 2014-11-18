@@ -12,7 +12,7 @@ class LocalVariablesQuerier < Querier
 
   def functions_local_variables ast_root
     functions_variables(ast_root).map { |function_variable_ast|
-      next if is_global_defined_variable(
+      next if is_global_defined_variable?(
         function_local_variable_name(function_variable_ast),
         function_variable_ast
       )
@@ -20,7 +20,7 @@ class LocalVariablesQuerier < Querier
     }.compact()
   end
 
-  def is_global_defined_variable variable_name, variable_ast
+  def is_global_defined_variable? variable_name, variable_ast
     return variable_name if previous_global_variables_definitions_names(variable_ast).include? variable_name
   end
 
