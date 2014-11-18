@@ -82,6 +82,7 @@ module IsAProcedure
   end
 end
 
+# I need this "abstract" class to handle the n-n relation between a Versions and Types
 class Type
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
