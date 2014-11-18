@@ -32,8 +32,8 @@ module EnforceAvailableLocales
 end
 
 module UniqueMapper
-  def map_unique &block
-    self.map(&block).uniq{ |x| x._id }
+  def map_unique unique_id, &block
+    self.map(&block).uniq{ |x| x.send("#{unique_id}") }
   end
 end
 
