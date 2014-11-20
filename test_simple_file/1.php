@@ -10,11 +10,11 @@ for ($i=0; $i < 10; $i++) {
 function ciao(){
 
   // Stmt_Foreach
-  foreach ($variable as $key => $value) {
+  foreach ($asda as $key => $value) {
     # code...
   }
   // Stmt_For
-  for ($i=0; $i < 10; $i++) {
+  for ($cucco=0; $cucco < 10; $cucco++) {
     # code...
   }
   // Stmt_While

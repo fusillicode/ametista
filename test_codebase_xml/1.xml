@@ -183,7 +183,7 @@
             <scalar:int>13</scalar:int>
            </attribute:endLine>
            <subNode:name>
-            <scalar:string>variable</scalar:string>
+            <scalar:string>asda</scalar:string>
            </subNode:name>
           </node:Expr_Variable>
          </subNode:expr>
@@ -251,7 +251,7 @@
                <scalar:int>17</scalar:int>
               </attribute:endLine>
               <subNode:name>
-               <scalar:string>i</scalar:string>
+               <scalar:string>cucco</scalar:string>
               </subNode:name>
              </node:Expr_Variable>
             </subNode:var>
@@ -289,7 +289,7 @@
                <scalar:int>17</scalar:int>
               </attribute:endLine>
               <subNode:name>
-               <scalar:string>i</scalar:string>
+               <scalar:string>cucco</scalar:string>
               </subNode:name>
              </node:Expr_Variable>
             </subNode:left>
@@ -327,7 +327,7 @@
                <scalar:int>17</scalar:int>
               </attribute:endLine>
               <subNode:name>
-               <scalar:string>i</scalar:string>
+               <scalar:string>cucco</scalar:string>
               </subNode:name>
              </node:Expr_Variable>
             </subNode:var>
