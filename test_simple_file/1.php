@@ -13,6 +13,8 @@ function ciao(){
   foreach ($asda as $key => $value) {
     # code...
   }
+  global $asda;
+  $asda = 'asd';
   // Stmt_For
   for ($cucco=0; $cucco < 10; $cucco++) {
     # code...
