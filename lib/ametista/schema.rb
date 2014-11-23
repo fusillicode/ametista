@@ -233,12 +233,17 @@ end
 
 class Version
   include ReferencesLanguage
-  # include IsIdentifiableWithNameAndUniqueName
-  # field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  include IsIdentifiableWithNameAndUniqueName
+  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  field :name, type: String, overwrite: true, default: ->{ local_variable.unique_name }
+  field :position, type: Array
   belongs_to :local_variable, class_name: 'LocalVariable', inverse_of: :versions
   has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :versions
-  # def default_unique_name
-  #   reference_language
-  #   unique_name || "#{local_variable.unique_name}#{language.namespace_separator}#{name}"
-  # end
+  def default_unique_name
+    reference_language
+    unique_name || custom_unique_name
+  end
+  def custom_unique_name
+    "#{local_variable.unique_name}#{language.namespace_separator}#{position}"
+  end
 end
