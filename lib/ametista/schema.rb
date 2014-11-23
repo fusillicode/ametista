@@ -184,7 +184,7 @@ class LocalVariable
   include IsIdentifiableWithNameAndUniqueName
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :local_scope, polymorphic: true
-  has_many :versions, class_name: 'Version', inverse_of: :local_variables
+  has_many :versions, class_name: 'Version', inverse_of: :local_variable
   def default_unique_name
     reference_language
     unique_name || custom_unique_name
