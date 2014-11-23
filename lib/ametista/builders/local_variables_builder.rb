@@ -27,9 +27,6 @@ class LocalVariablesBuilder < Builder
         name: querier.namespace_local_variable_name(namespace_local_variable_ast),
         local_scope: namespace(namespace_local_variable_ast)
       )
-      Version.create(
-        local_variable: local_variable
-      )
       local_variable
     end
   end
@@ -41,7 +38,8 @@ class LocalVariablesBuilder < Builder
         local_scope: function(function_local_variable_ast)
       )
       Version.create(
-        local_variable: local_variable
+        local_variable: local_variable,
+        position: querier.position(function_local_variable_ast)
       )
       local_variable
     end

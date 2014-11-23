@@ -2,6 +2,12 @@ require_relative 'querier'
 
 class LocalVariablesQuerier < Querier
 
+  def position ast
+    [ast.parent.children.index(ast)].concat(ast.ancestors.map { |ancestor|
+      ancestor.parent.children.index(ancestor) + 1 rescue NoMethodError nil
+    }.compact).reverse
+  end
+
   def namespaces_local_variables ast_root
     ast_root.xpath(".//node:Stmt_Namespace/subNode:stmts/scalar:array/node:Expr_Assign/descendant::node:Expr_Variable[subNode:name/scalar:string[#{a_local_variable}]]")
   end
