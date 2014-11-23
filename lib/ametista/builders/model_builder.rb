@@ -71,8 +71,8 @@ class ModelBuilder
     # LocalVariable.each do |entity|
     #   ap entity
     # end
-    Version.each do |entity|
-      ap entity
+    LocalVariable.each do |entity|
+      ap entity.versions
     end
   end
 
