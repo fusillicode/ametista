@@ -45,6 +45,16 @@ class Querier
     "#{not_a_superglobal} and #{not_a_property}"
   end
 
+  def position node_ast
+    [index_of_node_in_parent(node_ast)].concat(node_ast.ancestors.map { |ancestor_ast|
+      index_of_node_in_parent(ancestor_ast) + 1 rescue NoMethodError nil
+    }.compact).reverse
+  end
+
+  def index_of_node_in_parent node_ast
+    node_ast.parent.children.index(node_ast)
+  end
+
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block
