@@ -2,7 +2,7 @@
 require_relative '../utilities'
 require_relative '../redis_data_source'
 require_relative '../xml_parser'
-require_relative '../instances_properties_refiner'
+require_relative '../refiners/instances_properties_refiner'
 require_relative 'language_builder'
 require_relative 'primitive_types_builder'
 require_relative 'namespaces_builder'

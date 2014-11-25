@@ -1,6 +1,6 @@
-require_relative 'utilities'
-require_relative 'schema'
-require_relative 'queriers/querier'
+require_relative '../utilities'
+require_relative '../schema'
+require_relative '../queriers/querier'
 
 class InstancesPropertiesRefiner
 
