@@ -38,7 +38,7 @@ class LocalVariablesBuilder < Builder
         name: querier.function_local_variable_name(function_local_variable_ast),
         local_scope: function(function_local_variable_ast)
       )
-      # TODO decoupling fra variabili locali e loro versioni
+      # TODO decoupling fra variabili locali e loro versioni creando magari un VersionsBuilder
       Version.create(
         local_variable: local_variable,
         position: querier.position(function_local_variable_ast)
