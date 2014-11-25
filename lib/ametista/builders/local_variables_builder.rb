@@ -22,13 +22,14 @@ class LocalVariablesBuilder < Builder
   # TODO vedere di ristrutturare il building delle variabili locali (come anche dei parametri) tirando fuori prima i loro parent evitando così di fare troppe query xpath relative ai parent (i.e. funzioni e metodi di classe).
 
   def namespaces_local_variables
-    querier.namespaces_local_variables(ast).map_unique('_id') do |namespace_local_variable_ast|
-      local_variable = LocalVariable.find_or_create_by(
-        name: querier.namespace_local_variable_name(namespace_local_variable_ast),
-        local_scope: namespace(namespace_local_variable_ast)
-      )
-      local_variable
-    end
+    # querier.namespaces_local_variables(ast).map_unique('_id') do |namespace_local_variable_ast|
+    #   local_variable = LocalVariable.find_or_create_by(
+    #     name: querier.namespace_local_variable_name(namespace_local_variable_ast),
+    #     local_scope: namespace(namespace_local_variable_ast)
+    #   )
+    #   local_variable
+    # end
+    []
   end
 
   def functions_local_variables
