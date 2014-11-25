@@ -1,7 +1,7 @@
 require_relative 'utilities'
 require 'redis'
 
-class RedisDataSource
+class RedisChannel
 
   extend Initializer
   initialize_with ({

@@ -4,7 +4,7 @@ namespace Ametista;
 
 use Predis\Client;
 
-class Channel
+class RedisChannel
 {
   use Initializer;
 

@@ -3,7 +3,7 @@
 include_once dirname(dirname(__FILE__)).'/vendor/autoload.php';
 
 $redis_daemon = new Ametista\RedisDaemon();
-$channel = new Ametista\Channel();
+$channel = new Ametista\RedisChannel();
 $parser = new Ametista\Parser();
 $dumper = new Ametista\Dumper();
 

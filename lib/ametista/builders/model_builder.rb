@@ -1,6 +1,6 @@
 # TODO come posso sistemare tutti questi require_relative?
 require_relative '../utilities'
-require_relative '../redis_data_source'
+require_relative '../redis_channel'
 require_relative '../xml_parser'
 require_relative '../refiners/instances_properties_refiner'
 require_relative 'language_builder'
@@ -21,7 +21,7 @@ class ModelBuilder
   extend Initializer
   initialize_with ({
     parser: XMLParser.new,
-    data_source: RedisDataSource.new,
+    channel: RedisChannel.new,
     init_builders: {
       language_builder: LanguageBuilder.new,
       primitive_types_builder: PrimitiveTypesBuilder.new
@@ -56,7 +56,7 @@ class ModelBuilder
   end
 
   def building_loop
-    while ast = data_source.read
+    while ast = channel.read
       builders_loop(parser.parse(ast))
     end
   end
