@@ -82,7 +82,8 @@ module IsAProcedure
   end
 end
 
-# I need this "abstract" class to handle the n-n relation between a Variables and Types
+# I need these "abstract" class to handle the n-n relation between them
+# (can't handle the relation with polymorfic)
 class Type
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
