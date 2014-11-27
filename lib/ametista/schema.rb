@@ -89,6 +89,13 @@ class Type
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
+class Variable
+  include ReferencesLanguage
+  include IsIdentifiableWithNameAndUniqueName
+  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
+  has_many :assignements, inverse_of: :variable
+end
+
 ################################################################################
 
 class Language
@@ -159,13 +166,6 @@ class Function
   def custom_unique_name
     "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
-end
-
-class Variable
-  include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
-  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
-  has_many :assignements, inverse_of: :variable
 end
 
 class GlobalVariable < Variable
