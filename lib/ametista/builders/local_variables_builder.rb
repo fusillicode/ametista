@@ -40,7 +40,7 @@ class LocalVariablesBuilder < Builder
       )
       # TODO decoupling fra variabili locali e loro versioni creando magari un VersionsBuilder
       Version.create(
-        local_variable: local_variable,
+        variable: local_variable,
         position: querier.position(function_local_variable_ast)
       )
       local_variable
