@@ -21,26 +21,41 @@ class GlobalVariablesBuilder < Builder
 
   def global_namespace_variables
     querier.global_namespace_variables(ast).map_unique('_id') do |global_namespace_variable_ast|
-      GlobalVariable.find_or_create_by(
+      global_variable = GlobalVariable.find_or_create_by(
         name: querier.global_namespace_variable_name(global_namespace_variable_ast),
       )
+      Version.create(
+        variable: global_variable,
+        position: querier.position(global_namespace_variable_ast)
+      )
+      global_variable
     end
   end
 
   def global_definitions
     querier.global_definitions(ast).map_unique('_id') do |global_definition_ast|
-      GlobalVariable.find_or_create_by(
+      global_variable = GlobalVariable.find_or_create_by(
         name: querier.global_definition_name(global_definition_ast)
       )
+      Version.create(
+        variable: global_variable,
+        position: querier.position(global_definition_ast)
+      )
+      global_variable
     end
   end
 
   def superglobals
     querier.superglobals(ast).map_unique('_id') do |superglobal_ast|
-      GlobalVariable.find_or_create_by(
+      global_variable = GlobalVariable.find_or_create_by(
         name: querier.superglobal_name(superglobal_ast),
         type: querier.superglobal_type(superglobal_ast)
       )
+      Version.create(
+        variable: global_variable,
+        position: querier.position(superglobal_ast)
+      )
+      global_variable
     end
   end
 
