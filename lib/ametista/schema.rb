@@ -167,6 +167,7 @@ class GlobalVariable
   field :type, type: String, default: 'GLOBALS'
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :global_scope, polymorphic: true
+  has_one :version, as: :variable
   after_initialize do
     self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
@@ -184,7 +185,7 @@ class LocalVariable
   include IsIdentifiableWithNameAndUniqueName
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :local_scope, polymorphic: true
-  has_many :versions, class_name: 'Version', inverse_of: :local_variable
+  has_many :versions, as: :variable
   def default_unique_name
     reference_language
     unique_name || custom_unique_name
@@ -235,15 +236,15 @@ class Version
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
-  field :name, type: String, overwrite: true, default: ->{ local_variable.unique_name }
+  field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
   field :position, type: Array
-  belongs_to :local_variable, class_name: 'LocalVariable', inverse_of: :versions
+  belongs_to :variable, polymorphic: true
   has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :versions
   def default_unique_name
     reference_language
     unique_name || custom_unique_name
   end
   def custom_unique_name
-    "#{local_variable.unique_name}#{language.namespace_separator}#{position}"
+    "#{variable.unique_name}#{language.namespace_separator}#{position}"
   end
 end
