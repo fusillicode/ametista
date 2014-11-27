@@ -1,6 +1,6 @@
-require_relative 'querier'
+require_relative 'assignement_querier'
 
-class ParametersQuerier < Querier
+class ParametersQuerier < AssignementQuerier
 
   def functions_parameters ast_root
     ast_root.xpath('.//node:Stmt_Function/subNode:params/scalar:array/node:Param')

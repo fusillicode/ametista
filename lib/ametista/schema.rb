@@ -236,6 +236,7 @@ class Assignement
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
   field :position, type: Array
+  field :rhs, type: String
   belongs_to :variable, polymorphic: true
   def default_unique_name
     reference_language
