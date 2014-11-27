@@ -68,18 +68,19 @@ class ModelBuilder
   end
 
   def just_tests
-    # LocalVariable.each do |entity|
-    #   ap entity
-    # end
-    Function.each do |entity|
-      ap entity.unique_name
-      entity.local_variables.each do |lc|
-        ap lc
-        lc.versions.each do |v|
-          ap v
-        end
-      end
+    GlobalVariable.each do |entity|
+      ap entity.version
     end
+
+    # Function.each do |entity|
+    #   ap entity.unique_name
+    #   entity.local_variables.each do |lc|
+    #     ap lc
+    #     lc.versions.each do |v|
+    #       ap v
+    #     end
+    #   end
+    # end
   end
 
   def builders_loop ast
