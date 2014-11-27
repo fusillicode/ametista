@@ -69,7 +69,7 @@ class ModelBuilder
 
   def just_tests
     GlobalVariable.each do |entity|
-      ap entity.version
+      ap entity.assignements
     end
 
     # Function.each do |entity|

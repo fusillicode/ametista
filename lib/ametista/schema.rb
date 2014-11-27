@@ -82,11 +82,11 @@ module IsAProcedure
   end
 end
 
-# I need this "abstract" class to handle the n-n relation between a Versions and Types
+# I need this "abstract" class to handle the n-n relation between a Variables and Types
 class Type
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  has_and_belongs_to_many :versions, class_name: "Version", inverse_of: :types
+  has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 ################################################################################
@@ -161,13 +161,17 @@ class Function
   end
 end
 
-class GlobalVariable
+class Variable
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
+  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
+  has_many :assignements, inverse_of: :variable
+end
+
+class GlobalVariable < Variable
   field :type, type: String, default: 'GLOBALS'
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :global_scope, polymorphic: true
-  has_one :version, as: :variable
   after_initialize do
     self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
@@ -180,12 +184,9 @@ class GlobalVariable
   end
 end
 
-class LocalVariable
-  include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
+class LocalVariable < Variable
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :local_scope, polymorphic: true
-  has_many :versions, as: :variable
   def default_unique_name
     reference_language
     unique_name || custom_unique_name
@@ -195,9 +196,7 @@ class LocalVariable
   end
 end
 
-class Property
-  include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
+class Property < Variable
   field :type, type: String
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
@@ -218,9 +217,7 @@ class Property
   end
 end
 
-class Parameter
-  include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
+class Parameter < Variable
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :procedure, polymorphic: true
   def default_unique_name
@@ -232,14 +229,13 @@ class Parameter
   end
 end
 
-class Version
+class Assignement
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
   field :position, type: Array
   belongs_to :variable, polymorphic: true
-  has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :versions
   def default_unique_name
     reference_language
     unique_name || custom_unique_name

@@ -24,7 +24,7 @@ class GlobalVariablesBuilder < Builder
       global_variable = GlobalVariable.find_or_create_by(
         name: querier.global_namespace_variable_name(global_namespace_variable_ast),
       )
-      Version.create(
+      Assignement.create(
         variable: global_variable,
         position: querier.position(global_namespace_variable_ast)
       )
@@ -37,7 +37,7 @@ class GlobalVariablesBuilder < Builder
       global_variable = GlobalVariable.find_or_create_by(
         name: querier.global_definition_name(global_definition_ast)
       )
-      Version.create(
+      Assignement.create(
         variable: global_variable,
         position: querier.position(global_definition_ast)
       )
@@ -51,7 +51,7 @@ class GlobalVariablesBuilder < Builder
         name: querier.superglobal_name(superglobal_ast),
         type: querier.superglobal_type(superglobal_ast)
       )
-      Version.create(
+      Assignement.create(
         variable: global_variable,
         position: querier.position(superglobal_ast)
       )
