@@ -31,7 +31,7 @@ class PropertiesQuerier < Querier
   end
 
   def containing_klass_unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)}"
   end
 
   def parent_klass_name ast
@@ -43,7 +43,7 @@ class PropertiesQuerier < Querier
   end
 
   def parent_klass_name_fully_qualified ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
   def klass_name ast
@@ -55,7 +55,7 @@ class PropertiesQuerier < Querier
   end
 
   def klass_name_fully_qualified ast
-    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
 end

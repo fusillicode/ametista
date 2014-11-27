@@ -59,7 +59,7 @@ class LocalVariablesQuerier < Querier
   end
 
   def namespace_name_parts ast
-    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
   def function_name ast
@@ -91,7 +91,7 @@ class LocalVariablesQuerier < Querier
   end
 
   def klass_namespaced_name ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
   def klass_method_name ast

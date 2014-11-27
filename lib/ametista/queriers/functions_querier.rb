@@ -15,7 +15,7 @@ class FunctionsQuerier < Querier
   end
 
   def namespaced_name ast
-    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
   def statements(ast)
@@ -31,7 +31,7 @@ class FunctionsQuerier < Querier
   end
 
   def namespace_name_parts ast
-    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join('\\')
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
 end
