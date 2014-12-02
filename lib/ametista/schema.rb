@@ -94,7 +94,8 @@ class Variable
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
   has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
-  has_many :assignements, inverse_of: :variable
+  has_many :assignements, class_name: 'Assignement', inverse_of: :variable
+  # has_many :methods_invocations, class_name: 'MethodInvocation', inverse_of: :variable
 end
 
 ################################################################################
@@ -147,6 +148,7 @@ class KlassMethod
   include IsAProcedure
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
+  # has_and_belongs_to_many :methods_invocations, class_name: 'MethodInvocation', inverse_of: :methods
   def default_unique_name
     reference_language
     unique_name || custom_unique_name
@@ -246,3 +248,36 @@ class Assignement
     "#{variable.unique_name}#{language.namespace_separator}#{position}"
   end
 end
+
+# class MethodInvocation
+#   include ReferencesLanguage
+#   include IsIdentifiableWithNameAndUniqueName
+#   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+#   field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
+#   field :position, type: Array
+#   belongs_to :variable, polymorphic: true
+#   has_and_belongs_to_many :methods, class_name: 'KlassMethod', inverse_of: :methods_invocations
+#   def default_unique_name
+#     reference_language
+#     unique_name || custom_unique_name
+#   end
+#   def custom_unique_name
+#     "#{variable.unique_name}#{language.namespace_separator}#{position}"
+#   end
+# end
+
+# class FunctionInvocation
+#   include ReferencesLanguage
+#   include IsIdentifiableWithNameAndUniqueName
+#   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+#   field :name, type: String, overwrite: true, default: ->{ function.unique_name }
+#   field :position, type: Array
+#   belongs_to :function, class_name: 'Function', inverse_of: :functions_invocations
+#   def default_unique_name
+#     reference_language
+#     unique_name || custom_unique_name
+#   end
+#   def custom_unique_name
+#     "#{function.unique_name}#{language.namespace_separator}#{position}"
+#   end
+# end
