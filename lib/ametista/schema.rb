@@ -9,17 +9,17 @@ module IsIdentifiableWithNameAndUniqueName
     base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
     base.validates :name, presence: true, length: { allow_blank: false }
     base.validates :unique_name, presence: true, length: { allow_blank: false }
-    base.validate :enforce_uniqueness, if: ->{
-      self.class.where(
-        :_id.ne => self._id,
-        unique_name: self.unique_name,
-      ).exists?
-    }
+    # base.validate :enforce_uniqueness, if: ->{
+    #   self.class.where(
+    #     :_id.ne => self._id,
+    #     unique_name: self.unique_name,
+    #   ).exists?
+    # }
   end
   # TODO definire una specifica eccezione da sollevare...
-  def enforce_uniqueness
-    raise "A #{self.class} with unique_name #{self.unique_name} has already been registered."
-  end
+  # def enforce_uniqueness
+  #   raise "A #{self.class} with unique_name #{self.unique_name} has already been registered."
+  # end
 end
 
 module ReferencesLanguage
@@ -203,13 +203,13 @@ class Property < Variable
   field :type, type: String
   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
-  validate :enforce_uniqueness, if: ->{
-    self.class.where(
-      :_id.ne => self._id,
-      unique_name: self.unique_name,
-      type: self.type
-    ).exists?
-  }
+  # validate :enforce_uniqueness, if: ->{
+  #   self.class.where(
+  #     :_id.ne => self._id,
+  #     unique_name: self.unique_name,
+  #     type: self.type
+  #   ).exists?
+  # }
   scope :instances_properties, ->{ where(type: language.instance_property) }
   def default_unique_name
     reference_language
