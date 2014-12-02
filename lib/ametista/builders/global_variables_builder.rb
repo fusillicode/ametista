@@ -26,7 +26,8 @@ class GlobalVariablesBuilder < Builder
       )
       Assignement.create(
         variable: global_variable,
-        position: querier.position(global_namespace_variable_ast)
+        position: querier.position(global_namespace_variable_ast),
+        rhs: querier.rhs(global_namespace_variable_ast)
       )
       global_variable
     end
@@ -39,7 +40,8 @@ class GlobalVariablesBuilder < Builder
       )
       Assignement.create(
         variable: global_variable,
-        position: querier.position(global_definition_ast)
+        position: querier.position(global_definition_ast),
+        rhs: querier.rhs(global_definition_ast)
       )
       global_variable
     end
@@ -53,7 +55,8 @@ class GlobalVariablesBuilder < Builder
       )
       Assignement.create(
         variable: global_variable,
-        position: querier.position(superglobal_ast)
+        position: querier.position(superglobal_ast),
+        rhs: querier.rhs(superglobal_ast)
       )
       global_variable
     end
