@@ -69,7 +69,9 @@ class ModelBuilder
 
   def just_tests
     GlobalVariable.each do |entity|
-      ap entity.assignements
+      entity.assignements.each do |ass|
+        ap ass
+      end
     end
 
     # Function.each do |entity|
