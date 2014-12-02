@@ -11,6 +11,7 @@ $redis_daemon->start();
 $channel->connect();
 $channel->clear();
 
+# TODO sistemare la parametrizzazione. Magari con qualche libreria già pronta
 $root_directory = $argv[1];
 $recursive_directory_iterator = new RecursiveDirectoryIterator($root_directory);
 foreach (new RecursiveIteratorIterator($recursive_directory_iterator) as $file_name => $file) {

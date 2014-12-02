@@ -15,6 +15,7 @@ function ciao(){
   }
   global $asda;
   $asda = 'asd';
+  $pointo = $asda[1][1]->cizza->pimpa();
   $pointo = $asda->cizza();
   $point = cizza();
   // Stmt_For
