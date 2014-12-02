@@ -29,9 +29,9 @@ module ReferencesLanguage
     base.after_initialize do
       reference_language
     end
-    base.extend ClassMethods
+    base.extend KlassMethods
   end
-  module ClassMethods
+  module KlassMethods
     def language
       @language ||= Language.first()
     end
