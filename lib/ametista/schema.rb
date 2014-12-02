@@ -61,14 +61,14 @@ end
 module ContainsGlobalVariables
   def self.included base
     base.include Mongoid::Document
-    base.has_many :global_variables, as: :global_scope
+    base.has_many :global_variables, class_name: 'GlobalVariable', as: :global_scope
   end
 end
 
 module ContainsLocalVariables
   def self.included base
     base.include Mongoid::Document
-    base.has_many :local_variables, as: :local_scope
+    base.has_many :local_variables, class_name: 'LocalVariable', as: :local_scope
   end
 end
 
@@ -78,7 +78,7 @@ module IsAProcedure
     base.include IsIdentifiableWithNameAndUniqueName
     base.include ContainsLocalVariables
     base.field :statements, type: String
-    base.has_many :parameters, as: :procedure
+    base.has_many :parameters, class_name: 'Parameter', as: :procedure
   end
 end
 
