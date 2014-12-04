@@ -24,7 +24,8 @@ class FunctionsQuerier < Querier
 
   # TODO se la funzione è nel namespace globale qui ottengo stringa vuota!
   def namespace_name ast
-    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
+    namespace_name = ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
+    # namespace_name == '' ? global_namespace_name : global_namespace_name
   end
 
   def namespace_unique_name ast
