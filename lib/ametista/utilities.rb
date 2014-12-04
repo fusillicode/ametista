@@ -19,8 +19,8 @@ module Initializer
         public_send("#{name}=", value)
       end
     end
-    def superclass method, rescue_value
-      self.class.superclass.instance_method(method).bind(self).call rescue rescue_value
+    def superclass method, default_return_value
+      self.class.superclass.instance_method(method).bind(self).call rescue default_return_value
     end
   end
 end
