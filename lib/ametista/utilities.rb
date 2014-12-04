@@ -8,15 +8,19 @@ module Initializer
   end
   module InstanceMethods
     def initialize args = {}
-      set_instance_variables(default_attributes.merge(args))
+      set_instance_variables(
+        superclass(:default_attributes, {})
+        .merge(default_attributes)
+        .merge(args)
+      )
     end
     def set_instance_variables attributes
       attributes.each do |name, value|
         public_send("#{name}=", value)
       end
     end
-    def default_attributes
-      {}
+    def superclass method, rescue_value
+      self.class.superclass.instance_method(method).bind(self).call rescue rescue_value
     end
   end
 end
