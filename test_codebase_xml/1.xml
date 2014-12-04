@@ -6819,15 +6819,15 @@
      <node:Stmt_Function>
       <attribute:comments>
        <scalar:array>
-        <comment isDocComment="false" line="254">// true, false, null, 1, 1.3, 'asd', array(1,2)
+        <comment isDocComment="false" line="255">// true, false, null, 1, 1.3, 'asd', array(1,2)
 </comment>
        </scalar:array>
       </attribute:comments>
       <attribute:startLine>
-       <scalar:int>256</scalar:int>
+       <scalar:int>257</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>346</scalar:int>
+       <scalar:int>347</scalar:int>
       </attribute:endLine>
       <subNode:byRef>
        <scalar:false/>
@@ -6839,10 +6839,10 @@
        <scalar:array>
         <node:Param>
          <attribute:startLine>
-          <scalar:int>256</scalar:int>
+          <scalar:int>257</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>256</scalar:int>
+          <scalar:int>257</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:null/>
@@ -6859,28 +6859,28 @@
          <subNode:default>
           <node:Scalar_MagicConst_Namespace>
            <attribute:startLine>
-            <scalar:int>256</scalar:int>
+            <scalar:int>257</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>256</scalar:int>
+            <scalar:int>257</scalar:int>
            </attribute:endLine>
           </node:Scalar_MagicConst_Namespace>
          </subNode:default>
         </node:Param>
         <node:Param>
          <attribute:startLine>
-          <scalar:int>256</scalar:int>
+          <scalar:int>257</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>256</scalar:int>
+          <scalar:int>257</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <node:Name_FullyQualified>
            <attribute:startLine>
-            <scalar:int>256</scalar:int>
+            <scalar:int>257</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>256</scalar:int>
+            <scalar:int>257</scalar:int>
            </attribute:endLine>
            <subNode:parts>
             <scalar:array>
@@ -6909,19 +6909,19 @@
        <scalar:array>
         <node:Stmt_Global>
          <attribute:startLine>
-          <scalar:int>259</scalar:int>
+          <scalar:int>260</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>259</scalar:int>
+          <scalar:int>260</scalar:int>
          </attribute:endLine>
          <subNode:vars>
           <scalar:array>
            <node:Expr_Variable>
             <attribute:startLine>
-             <scalar:int>259</scalar:int>
+             <scalar:int>260</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>259</scalar:int>
+             <scalar:int>260</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>b</scalar:string>
@@ -6929,10 +6929,10 @@
            </node:Expr_Variable>
            <node:Expr_Variable>
             <attribute:startLine>
-             <scalar:int>259</scalar:int>
+             <scalar:int>260</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>259</scalar:int>
+             <scalar:int>260</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>c</scalar:string>
@@ -6943,18 +6943,18 @@
         </node:Stmt_Global>
         <node:Stmt_Return>
          <attribute:startLine>
-          <scalar:int>260</scalar:int>
+          <scalar:int>261</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>260</scalar:int>
+          <scalar:int>261</scalar:int>
          </attribute:endLine>
          <subNode:expr>
           <node:Expr_Variable>
            <attribute:startLine>
-            <scalar:int>260</scalar:int>
+            <scalar:int>261</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>260</scalar:int>
+            <scalar:int>261</scalar:int>
            </attribute:endLine>
            <subNode:name>
             <scalar:string>ciao</scalar:string>
@@ -6964,18 +6964,18 @@
         </node:Stmt_Return>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>261</scalar:int>
+          <scalar:int>262</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>261</scalar:int>
+          <scalar:int>262</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_Variable>
            <attribute:startLine>
-            <scalar:int>261</scalar:int>
+            <scalar:int>262</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>261</scalar:int>
+            <scalar:int>262</scalar:int>
            </attribute:endLine>
            <subNode:name>
             <scalar:string>b</scalar:string>
@@ -6985,10 +6985,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>261</scalar:int>
+            <scalar:int>262</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>261</scalar:int>
+            <scalar:int>262</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -6998,18 +6998,18 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>262</scalar:int>
+          <scalar:int>263</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>262</scalar:int>
+          <scalar:int>263</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_Variable>
            <attribute:startLine>
-            <scalar:int>262</scalar:int>
+            <scalar:int>263</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>262</scalar:int>
+            <scalar:int>263</scalar:int>
            </attribute:endLine>
            <subNode:name>
             <scalar:string>a</scalar:string>
@@ -7019,10 +7019,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>262</scalar:int>
+            <scalar:int>263</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>262</scalar:int>
+            <scalar:int>263</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7032,26 +7032,26 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>263</scalar:int>
+          <scalar:int>264</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>263</scalar:int>
+          <scalar:int>264</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>263</scalar:int>
+            <scalar:int>264</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>263</scalar:int>
+            <scalar:int>264</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_Variable>
              <attribute:startLine>
-              <scalar:int>263</scalar:int>
+              <scalar:int>264</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>263</scalar:int>
+              <scalar:int>264</scalar:int>
              </attribute:endLine>
              <subNode:name>
               <scalar:string>a</scalar:string>
@@ -7061,10 +7061,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>263</scalar:int>
+              <scalar:int>264</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>263</scalar:int>
+              <scalar:int>264</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -7076,10 +7076,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>263</scalar:int>
+            <scalar:int>264</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>263</scalar:int>
+            <scalar:int>264</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7089,34 +7089,34 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>264</scalar:int>
+          <scalar:int>265</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>264</scalar:int>
+          <scalar:int>265</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>264</scalar:int>
+            <scalar:int>265</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>264</scalar:int>
+            <scalar:int>265</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>264</scalar:int>
+              <scalar:int>265</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>264</scalar:int>
+              <scalar:int>265</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_Variable>
                <attribute:startLine>
-                <scalar:int>264</scalar:int>
+                <scalar:int>265</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>264</scalar:int>
+                <scalar:int>265</scalar:int>
                </attribute:endLine>
                <subNode:name>
                 <scalar:string>a</scalar:string>
@@ -7126,10 +7126,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>264</scalar:int>
+                <scalar:int>265</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>264</scalar:int>
+                <scalar:int>265</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -7141,10 +7141,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>264</scalar:int>
+              <scalar:int>265</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>264</scalar:int>
+              <scalar:int>265</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -7156,10 +7156,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>264</scalar:int>
+            <scalar:int>265</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>264</scalar:int>
+            <scalar:int>265</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7169,26 +7169,26 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>266</scalar:int>
+          <scalar:int>267</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>266</scalar:int>
+          <scalar:int>267</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>266</scalar:int>
+            <scalar:int>267</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>266</scalar:int>
+            <scalar:int>267</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_Variable>
              <attribute:startLine>
-              <scalar:int>266</scalar:int>
+              <scalar:int>267</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>266</scalar:int>
+              <scalar:int>267</scalar:int>
              </attribute:endLine>
              <subNode:name>
               <scalar:string>c</scalar:string>
@@ -7203,10 +7203,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>266</scalar:int>
+            <scalar:int>267</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>266</scalar:int>
+            <scalar:int>267</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7216,34 +7216,34 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>267</scalar:int>
+          <scalar:int>268</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>267</scalar:int>
+          <scalar:int>268</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>267</scalar:int>
+            <scalar:int>268</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>267</scalar:int>
+            <scalar:int>268</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>267</scalar:int>
+              <scalar:int>268</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>267</scalar:int>
+              <scalar:int>268</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_Variable>
                <attribute:startLine>
-                <scalar:int>267</scalar:int>
+                <scalar:int>268</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>267</scalar:int>
+                <scalar:int>268</scalar:int>
                </attribute:endLine>
                <subNode:name>
                 <scalar:string>c</scalar:string>
@@ -7263,10 +7263,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>267</scalar:int>
+            <scalar:int>268</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>267</scalar:int>
+            <scalar:int>268</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7276,42 +7276,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>268</scalar:int>
+          <scalar:int>269</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>268</scalar:int>
+          <scalar:int>269</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>268</scalar:int>
+            <scalar:int>269</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>268</scalar:int>
+            <scalar:int>269</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>268</scalar:int>
+              <scalar:int>269</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>268</scalar:int>
+              <scalar:int>269</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_PropertyFetch>
                <attribute:startLine>
-                <scalar:int>268</scalar:int>
+                <scalar:int>269</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>268</scalar:int>
+                <scalar:int>269</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_Variable>
                  <attribute:startLine>
-                  <scalar:int>268</scalar:int>
+                  <scalar:int>269</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>268</scalar:int>
+                  <scalar:int>269</scalar:int>
                  </attribute:endLine>
                  <subNode:name>
                   <scalar:string>c</scalar:string>
@@ -7326,10 +7326,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>268</scalar:int>
+                <scalar:int>269</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>268</scalar:int>
+                <scalar:int>269</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -7346,10 +7346,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>268</scalar:int>
+            <scalar:int>269</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>268</scalar:int>
+            <scalar:int>269</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7359,42 +7359,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>269</scalar:int>
+          <scalar:int>270</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>269</scalar:int>
+          <scalar:int>270</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>269</scalar:int>
+            <scalar:int>270</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>269</scalar:int>
+            <scalar:int>270</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>269</scalar:int>
+              <scalar:int>270</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>269</scalar:int>
+              <scalar:int>270</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_PropertyFetch>
                <attribute:startLine>
-                <scalar:int>269</scalar:int>
+                <scalar:int>270</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>269</scalar:int>
+                <scalar:int>270</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_Variable>
                  <attribute:startLine>
-                  <scalar:int>269</scalar:int>
+                  <scalar:int>270</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>269</scalar:int>
+                  <scalar:int>270</scalar:int>
                  </attribute:endLine>
                  <subNode:name>
                   <scalar:string>c</scalar:string>
@@ -7414,10 +7414,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>269</scalar:int>
+              <scalar:int>270</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>269</scalar:int>
+              <scalar:int>270</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -7429,10 +7429,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>269</scalar:int>
+            <scalar:int>270</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>269</scalar:int>
+            <scalar:int>270</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7442,50 +7442,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>270</scalar:int>
+          <scalar:int>271</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>270</scalar:int>
+          <scalar:int>271</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>270</scalar:int>
+            <scalar:int>271</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>270</scalar:int>
+            <scalar:int>271</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>270</scalar:int>
+              <scalar:int>271</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>270</scalar:int>
+              <scalar:int>271</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>270</scalar:int>
+                <scalar:int>271</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>270</scalar:int>
+                <scalar:int>271</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_PropertyFetch>
                  <attribute:startLine>
-                  <scalar:int>270</scalar:int>
+                  <scalar:int>271</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>270</scalar:int>
+                  <scalar:int>271</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>270</scalar:int>
+                    <scalar:int>271</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>270</scalar:int>
+                    <scalar:int>271</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>c</scalar:string>
@@ -7500,10 +7500,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>270</scalar:int>
+                  <scalar:int>271</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>270</scalar:int>
+                  <scalar:int>271</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -7515,10 +7515,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>270</scalar:int>
+                <scalar:int>271</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>270</scalar:int>
+                <scalar:int>271</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -7535,10 +7535,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>270</scalar:int>
+            <scalar:int>271</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>270</scalar:int>
+            <scalar:int>271</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7548,50 +7548,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>271</scalar:int>
+          <scalar:int>272</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>271</scalar:int>
+          <scalar:int>272</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>271</scalar:int>
+            <scalar:int>272</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>271</scalar:int>
+            <scalar:int>272</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>271</scalar:int>
+              <scalar:int>272</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>271</scalar:int>
+              <scalar:int>272</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_PropertyFetch>
                <attribute:startLine>
-                <scalar:int>271</scalar:int>
+                <scalar:int>272</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>271</scalar:int>
+                <scalar:int>272</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_PropertyFetch>
                  <attribute:startLine>
-                  <scalar:int>271</scalar:int>
+                  <scalar:int>272</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>271</scalar:int>
+                  <scalar:int>272</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>271</scalar:int>
+                    <scalar:int>272</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>271</scalar:int>
+                    <scalar:int>272</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>c</scalar:string>
@@ -7611,10 +7611,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>271</scalar:int>
+                <scalar:int>272</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>271</scalar:int>
+                <scalar:int>272</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -7626,10 +7626,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>271</scalar:int>
+              <scalar:int>272</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>271</scalar:int>
+              <scalar:int>272</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -7641,10 +7641,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>271</scalar:int>
+            <scalar:int>272</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>271</scalar:int>
+            <scalar:int>272</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7654,50 +7654,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>272</scalar:int>
+          <scalar:int>273</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>272</scalar:int>
+          <scalar:int>273</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>272</scalar:int>
+            <scalar:int>273</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>272</scalar:int>
+            <scalar:int>273</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>272</scalar:int>
+              <scalar:int>273</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>272</scalar:int>
+              <scalar:int>273</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>272</scalar:int>
+                <scalar:int>273</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>272</scalar:int>
+                <scalar:int>273</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_PropertyFetch>
                  <attribute:startLine>
-                  <scalar:int>272</scalar:int>
+                  <scalar:int>273</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>272</scalar:int>
+                  <scalar:int>273</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>272</scalar:int>
+                    <scalar:int>273</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>272</scalar:int>
+                    <scalar:int>273</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>c</scalar:string>
@@ -7712,10 +7712,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>272</scalar:int>
+                  <scalar:int>273</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>272</scalar:int>
+                  <scalar:int>273</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -7732,10 +7732,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>272</scalar:int>
+              <scalar:int>273</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>272</scalar:int>
+              <scalar:int>273</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -7747,10 +7747,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>272</scalar:int>
+            <scalar:int>273</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>272</scalar:int>
+            <scalar:int>273</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7761,208 +7761,208 @@
         <node:Expr_Assign>
          <attribute:comments>
           <scalar:array>
-           <comment isDocComment="false" line="274">// USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
+           <comment isDocComment="false" line="275">// USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
 </comment>
-           <comment isDocComment="false" line="275">/*$this-&gt;a = 1;
+           <comment isDocComment="false" line="276">/*$this-&gt;a = 1;
   $this-&gt;a-&gt;b = 1;
   $this-&gt;a[1]-&gt;b = 1;
   $this-&gt;a-&gt;b[1] = 1;
   $this-&gt;a[1][1]-&gt;b = 1;
   $this-&gt;a-&gt;b[1][1] = 1;
   $this-&gt;a[1]-&gt;b[1] = 1;*/</comment>
-           <comment isDocComment="false" line="283">// USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
+           <comment isDocComment="false" line="284">// USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
 </comment>
-           <comment isDocComment="false" line="284">// self::$a = 1;
+           <comment isDocComment="false" line="285">// self::$a = 1;
 </comment>
-           <comment isDocComment="false" line="285">// self::$a-&gt;b = 1;
+           <comment isDocComment="false" line="286">// self::$a-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="286">// self::$a[1]-&gt;b = 1;
+           <comment isDocComment="false" line="287">// self::$a[1]-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="287">// self::$a-&gt;b[1] = 1;
+           <comment isDocComment="false" line="288">// self::$a-&gt;b[1] = 1;
 </comment>
-           <comment isDocComment="false" line="288">// self::$a[1][1]-&gt;b = 1;
+           <comment isDocComment="false" line="289">// self::$a[1][1]-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="289">// self::$a-&gt;b[1][1] = 1;
+           <comment isDocComment="false" line="290">// self::$a-&gt;b[1][1] = 1;
 </comment>
-           <comment isDocComment="false" line="290">// self::$a[1]-&gt;b[1] = 1;
-</comment>
-           <comment isDocComment="false" line="292">// static::$a = 1;
+           <comment isDocComment="false" line="291">// self::$a[1]-&gt;b[1] = 1;
 </comment>
            <comment isDocComment="false" line="293">// static::$a = 1;
 </comment>
-           <comment isDocComment="false" line="294">// static::$a-&gt;b = 1;
+           <comment isDocComment="false" line="294">// static::$a = 1;
 </comment>
-           <comment isDocComment="false" line="295">// static::$a[1]-&gt;b = 1;
+           <comment isDocComment="false" line="295">// static::$a-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="296">// static::$a-&gt;b[1] = 1;
+           <comment isDocComment="false" line="296">// static::$a[1]-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="297">// static::$a[1][1]-&gt;b = 1;
+           <comment isDocComment="false" line="297">// static::$a-&gt;b[1] = 1;
 </comment>
-           <comment isDocComment="false" line="298">// static::$a-&gt;b[1][1] = 1;
+           <comment isDocComment="false" line="298">// static::$a[1][1]-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="299">// static::$a[1]-&gt;b[1] = 1;
+           <comment isDocComment="false" line="299">// static::$a-&gt;b[1][1] = 1;
 </comment>
-           <comment isDocComment="false" line="301">// parent::$a = 1;
+           <comment isDocComment="false" line="300">// static::$a[1]-&gt;b[1] = 1;
 </comment>
            <comment isDocComment="false" line="302">// parent::$a = 1;
 </comment>
-           <comment isDocComment="false" line="303">// parent::$a-&gt;b = 1;
+           <comment isDocComment="false" line="303">// parent::$a = 1;
 </comment>
-           <comment isDocComment="false" line="304">// parent::$a[1]-&gt;b = 1;
+           <comment isDocComment="false" line="304">// parent::$a-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="305">// parent::$a-&gt;b[1] = 1;
+           <comment isDocComment="false" line="305">// parent::$a[1]-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="306">// parent::$a[1][1]-&gt;b = 1;
+           <comment isDocComment="false" line="306">// parent::$a-&gt;b[1] = 1;
 </comment>
-           <comment isDocComment="false" line="307">// parent::$a-&gt;b[1][1] = 1;
+           <comment isDocComment="false" line="307">// parent::$a[1][1]-&gt;b = 1;
 </comment>
-           <comment isDocComment="false" line="308">// parent::$a[1]-&gt;b[1] = 1;
+           <comment isDocComment="false" line="308">// parent::$a-&gt;b[1][1] = 1;
+</comment>
+           <comment isDocComment="false" line="309">// parent::$a[1]-&gt;b[1] = 1;
 </comment>
           </scalar:array>
          </attribute:comments>
          <attribute:startLine>
-          <scalar:int>310</scalar:int>
+          <scalar:int>311</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>310</scalar:int>
+          <scalar:int>311</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_StaticPropertyFetch>
            <attribute:comments>
             <scalar:array>
-             <comment isDocComment="false" line="274">// USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
+             <comment isDocComment="false" line="275">// USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
 </comment>
-             <comment isDocComment="false" line="275">/*$this-&gt;a = 1;
+             <comment isDocComment="false" line="276">/*$this-&gt;a = 1;
   $this-&gt;a-&gt;b = 1;
   $this-&gt;a[1]-&gt;b = 1;
   $this-&gt;a-&gt;b[1] = 1;
   $this-&gt;a[1][1]-&gt;b = 1;
   $this-&gt;a-&gt;b[1][1] = 1;
   $this-&gt;a[1]-&gt;b[1] = 1;*/</comment>
-             <comment isDocComment="false" line="283">// USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
+             <comment isDocComment="false" line="284">// USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
 </comment>
-             <comment isDocComment="false" line="284">// self::$a = 1;
+             <comment isDocComment="false" line="285">// self::$a = 1;
 </comment>
-             <comment isDocComment="false" line="285">// self::$a-&gt;b = 1;
+             <comment isDocComment="false" line="286">// self::$a-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="286">// self::$a[1]-&gt;b = 1;
+             <comment isDocComment="false" line="287">// self::$a[1]-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="287">// self::$a-&gt;b[1] = 1;
+             <comment isDocComment="false" line="288">// self::$a-&gt;b[1] = 1;
 </comment>
-             <comment isDocComment="false" line="288">// self::$a[1][1]-&gt;b = 1;
+             <comment isDocComment="false" line="289">// self::$a[1][1]-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="289">// self::$a-&gt;b[1][1] = 1;
+             <comment isDocComment="false" line="290">// self::$a-&gt;b[1][1] = 1;
 </comment>
-             <comment isDocComment="false" line="290">// self::$a[1]-&gt;b[1] = 1;
-</comment>
-             <comment isDocComment="false" line="292">// static::$a = 1;
+             <comment isDocComment="false" line="291">// self::$a[1]-&gt;b[1] = 1;
 </comment>
              <comment isDocComment="false" line="293">// static::$a = 1;
 </comment>
-             <comment isDocComment="false" line="294">// static::$a-&gt;b = 1;
+             <comment isDocComment="false" line="294">// static::$a = 1;
 </comment>
-             <comment isDocComment="false" line="295">// static::$a[1]-&gt;b = 1;
+             <comment isDocComment="false" line="295">// static::$a-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="296">// static::$a-&gt;b[1] = 1;
+             <comment isDocComment="false" line="296">// static::$a[1]-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="297">// static::$a[1][1]-&gt;b = 1;
+             <comment isDocComment="false" line="297">// static::$a-&gt;b[1] = 1;
 </comment>
-             <comment isDocComment="false" line="298">// static::$a-&gt;b[1][1] = 1;
+             <comment isDocComment="false" line="298">// static::$a[1][1]-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="299">// static::$a[1]-&gt;b[1] = 1;
+             <comment isDocComment="false" line="299">// static::$a-&gt;b[1][1] = 1;
 </comment>
-             <comment isDocComment="false" line="301">// parent::$a = 1;
+             <comment isDocComment="false" line="300">// static::$a[1]-&gt;b[1] = 1;
 </comment>
              <comment isDocComment="false" line="302">// parent::$a = 1;
 </comment>
-             <comment isDocComment="false" line="303">// parent::$a-&gt;b = 1;
+             <comment isDocComment="false" line="303">// parent::$a = 1;
 </comment>
-             <comment isDocComment="false" line="304">// parent::$a[1]-&gt;b = 1;
+             <comment isDocComment="false" line="304">// parent::$a-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="305">// parent::$a-&gt;b[1] = 1;
+             <comment isDocComment="false" line="305">// parent::$a[1]-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="306">// parent::$a[1][1]-&gt;b = 1;
+             <comment isDocComment="false" line="306">// parent::$a-&gt;b[1] = 1;
 </comment>
-             <comment isDocComment="false" line="307">// parent::$a-&gt;b[1][1] = 1;
+             <comment isDocComment="false" line="307">// parent::$a[1][1]-&gt;b = 1;
 </comment>
-             <comment isDocComment="false" line="308">// parent::$a[1]-&gt;b[1] = 1;
+             <comment isDocComment="false" line="308">// parent::$a-&gt;b[1][1] = 1;
+</comment>
+             <comment isDocComment="false" line="309">// parent::$a[1]-&gt;b[1] = 1;
 </comment>
             </scalar:array>
            </attribute:comments>
            <attribute:startLine>
-            <scalar:int>310</scalar:int>
+            <scalar:int>311</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>310</scalar:int>
+            <scalar:int>311</scalar:int>
            </attribute:endLine>
            <subNode:class>
             <node:Name_FullyQualified>
              <attribute:comments>
               <scalar:array>
-               <comment isDocComment="false" line="274">// USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
+               <comment isDocComment="false" line="275">// USARE $this IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nella funzione soleggia nella classe Sole)
 </comment>
-               <comment isDocComment="false" line="275">/*$this-&gt;a = 1;
+               <comment isDocComment="false" line="276">/*$this-&gt;a = 1;
   $this-&gt;a-&gt;b = 1;
   $this-&gt;a[1]-&gt;b = 1;
   $this-&gt;a-&gt;b[1] = 1;
   $this-&gt;a[1][1]-&gt;b = 1;
   $this-&gt;a-&gt;b[1][1] = 1;
   $this-&gt;a[1]-&gt;b[1] = 1;*/</comment>
-               <comment isDocComment="false" line="283">// USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
+               <comment isDocComment="false" line="284">// USARE self:: IN UN A FUNZIONE NON HA SENSO MA HO MESSO QUESTE COSE COME PROVA (il corretto utilizzo è quello nel metodo soleggia nella classe Sole)
 </comment>
-               <comment isDocComment="false" line="284">// self::$a = 1;
+               <comment isDocComment="false" line="285">// self::$a = 1;
 </comment>
-               <comment isDocComment="false" line="285">// self::$a-&gt;b = 1;
+               <comment isDocComment="false" line="286">// self::$a-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="286">// self::$a[1]-&gt;b = 1;
+               <comment isDocComment="false" line="287">// self::$a[1]-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="287">// self::$a-&gt;b[1] = 1;
+               <comment isDocComment="false" line="288">// self::$a-&gt;b[1] = 1;
 </comment>
-               <comment isDocComment="false" line="288">// self::$a[1][1]-&gt;b = 1;
+               <comment isDocComment="false" line="289">// self::$a[1][1]-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="289">// self::$a-&gt;b[1][1] = 1;
+               <comment isDocComment="false" line="290">// self::$a-&gt;b[1][1] = 1;
 </comment>
-               <comment isDocComment="false" line="290">// self::$a[1]-&gt;b[1] = 1;
-</comment>
-               <comment isDocComment="false" line="292">// static::$a = 1;
+               <comment isDocComment="false" line="291">// self::$a[1]-&gt;b[1] = 1;
 </comment>
                <comment isDocComment="false" line="293">// static::$a = 1;
 </comment>
-               <comment isDocComment="false" line="294">// static::$a-&gt;b = 1;
+               <comment isDocComment="false" line="294">// static::$a = 1;
 </comment>
-               <comment isDocComment="false" line="295">// static::$a[1]-&gt;b = 1;
+               <comment isDocComment="false" line="295">// static::$a-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="296">// static::$a-&gt;b[1] = 1;
+               <comment isDocComment="false" line="296">// static::$a[1]-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="297">// static::$a[1][1]-&gt;b = 1;
+               <comment isDocComment="false" line="297">// static::$a-&gt;b[1] = 1;
 </comment>
-               <comment isDocComment="false" line="298">// static::$a-&gt;b[1][1] = 1;
+               <comment isDocComment="false" line="298">// static::$a[1][1]-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="299">// static::$a[1]-&gt;b[1] = 1;
+               <comment isDocComment="false" line="299">// static::$a-&gt;b[1][1] = 1;
 </comment>
-               <comment isDocComment="false" line="301">// parent::$a = 1;
+               <comment isDocComment="false" line="300">// static::$a[1]-&gt;b[1] = 1;
 </comment>
                <comment isDocComment="false" line="302">// parent::$a = 1;
 </comment>
-               <comment isDocComment="false" line="303">// parent::$a-&gt;b = 1;
+               <comment isDocComment="false" line="303">// parent::$a = 1;
 </comment>
-               <comment isDocComment="false" line="304">// parent::$a[1]-&gt;b = 1;
+               <comment isDocComment="false" line="304">// parent::$a-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="305">// parent::$a-&gt;b[1] = 1;
+               <comment isDocComment="false" line="305">// parent::$a[1]-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="306">// parent::$a[1][1]-&gt;b = 1;
+               <comment isDocComment="false" line="306">// parent::$a-&gt;b[1] = 1;
 </comment>
-               <comment isDocComment="false" line="307">// parent::$a-&gt;b[1][1] = 1;
+               <comment isDocComment="false" line="307">// parent::$a[1][1]-&gt;b = 1;
 </comment>
-               <comment isDocComment="false" line="308">// parent::$a[1]-&gt;b[1] = 1;
+               <comment isDocComment="false" line="308">// parent::$a-&gt;b[1][1] = 1;
+</comment>
+               <comment isDocComment="false" line="309">// parent::$a[1]-&gt;b[1] = 1;
 </comment>
               </scalar:array>
              </attribute:comments>
              <attribute:startLine>
-              <scalar:int>310</scalar:int>
+              <scalar:int>311</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>310</scalar:int>
+              <scalar:int>311</scalar:int>
              </attribute:endLine>
              <subNode:parts>
               <scalar:array>
@@ -7980,10 +7980,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>310</scalar:int>
+            <scalar:int>311</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>310</scalar:int>
+            <scalar:int>311</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -7993,26 +7993,26 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>311</scalar:int>
+          <scalar:int>312</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>311</scalar:int>
+          <scalar:int>312</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_StaticPropertyFetch>
            <attribute:startLine>
-            <scalar:int>311</scalar:int>
+            <scalar:int>312</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>311</scalar:int>
+            <scalar:int>312</scalar:int>
            </attribute:endLine>
            <subNode:class>
             <node:Name_FullyQualified>
              <attribute:startLine>
-              <scalar:int>311</scalar:int>
+              <scalar:int>312</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>311</scalar:int>
+              <scalar:int>312</scalar:int>
              </attribute:endLine>
              <subNode:parts>
               <scalar:array>
@@ -8030,10 +8030,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>311</scalar:int>
+            <scalar:int>312</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>311</scalar:int>
+            <scalar:int>312</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8043,34 +8043,34 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>312</scalar:int>
+          <scalar:int>313</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>312</scalar:int>
+          <scalar:int>313</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>312</scalar:int>
+            <scalar:int>313</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>312</scalar:int>
+            <scalar:int>313</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_StaticPropertyFetch>
              <attribute:startLine>
-              <scalar:int>312</scalar:int>
+              <scalar:int>313</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>312</scalar:int>
+              <scalar:int>313</scalar:int>
              </attribute:endLine>
              <subNode:class>
               <node:Name_FullyQualified>
                <attribute:startLine>
-                <scalar:int>312</scalar:int>
+                <scalar:int>313</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>312</scalar:int>
+                <scalar:int>313</scalar:int>
                </attribute:endLine>
                <subNode:parts>
                 <scalar:array>
@@ -8093,10 +8093,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>312</scalar:int>
+            <scalar:int>313</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>312</scalar:int>
+            <scalar:int>313</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8106,42 +8106,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>313</scalar:int>
+          <scalar:int>314</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>313</scalar:int>
+          <scalar:int>314</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>313</scalar:int>
+            <scalar:int>314</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>313</scalar:int>
+            <scalar:int>314</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>313</scalar:int>
+              <scalar:int>314</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>313</scalar:int>
+              <scalar:int>314</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_StaticPropertyFetch>
                <attribute:startLine>
-                <scalar:int>313</scalar:int>
+                <scalar:int>314</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>313</scalar:int>
+                <scalar:int>314</scalar:int>
                </attribute:endLine>
                <subNode:class>
                 <node:Name_FullyQualified>
                  <attribute:startLine>
-                  <scalar:int>313</scalar:int>
+                  <scalar:int>314</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>313</scalar:int>
+                  <scalar:int>314</scalar:int>
                  </attribute:endLine>
                  <subNode:parts>
                   <scalar:array>
@@ -8159,10 +8159,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>313</scalar:int>
+                <scalar:int>314</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>313</scalar:int>
+                <scalar:int>314</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -8179,10 +8179,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>313</scalar:int>
+            <scalar:int>314</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>313</scalar:int>
+            <scalar:int>314</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8192,42 +8192,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>314</scalar:int>
+          <scalar:int>315</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>314</scalar:int>
+          <scalar:int>315</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>314</scalar:int>
+            <scalar:int>315</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>314</scalar:int>
+            <scalar:int>315</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>314</scalar:int>
+              <scalar:int>315</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>314</scalar:int>
+              <scalar:int>315</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_StaticPropertyFetch>
                <attribute:startLine>
-                <scalar:int>314</scalar:int>
+                <scalar:int>315</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>314</scalar:int>
+                <scalar:int>315</scalar:int>
                </attribute:endLine>
                <subNode:class>
                 <node:Name_FullyQualified>
                  <attribute:startLine>
-                  <scalar:int>314</scalar:int>
+                  <scalar:int>315</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>314</scalar:int>
+                  <scalar:int>315</scalar:int>
                  </attribute:endLine>
                  <subNode:parts>
                   <scalar:array>
@@ -8250,10 +8250,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>314</scalar:int>
+              <scalar:int>315</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>314</scalar:int>
+              <scalar:int>315</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -8265,10 +8265,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>314</scalar:int>
+            <scalar:int>315</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>314</scalar:int>
+            <scalar:int>315</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8278,50 +8278,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>315</scalar:int>
+          <scalar:int>316</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>315</scalar:int>
+          <scalar:int>316</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>315</scalar:int>
+            <scalar:int>316</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>315</scalar:int>
+            <scalar:int>316</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>315</scalar:int>
+              <scalar:int>316</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>315</scalar:int>
+              <scalar:int>316</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>315</scalar:int>
+                <scalar:int>316</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>315</scalar:int>
+                <scalar:int>316</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_StaticPropertyFetch>
                  <attribute:startLine>
-                  <scalar:int>315</scalar:int>
+                  <scalar:int>316</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>315</scalar:int>
+                  <scalar:int>316</scalar:int>
                  </attribute:endLine>
                  <subNode:class>
                   <node:Name_FullyQualified>
                    <attribute:startLine>
-                    <scalar:int>315</scalar:int>
+                    <scalar:int>316</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>315</scalar:int>
+                    <scalar:int>316</scalar:int>
                    </attribute:endLine>
                    <subNode:parts>
                     <scalar:array>
@@ -8339,10 +8339,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>315</scalar:int>
+                  <scalar:int>316</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>315</scalar:int>
+                  <scalar:int>316</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -8354,10 +8354,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>315</scalar:int>
+                <scalar:int>316</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>315</scalar:int>
+                <scalar:int>316</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -8374,10 +8374,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>315</scalar:int>
+            <scalar:int>316</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>315</scalar:int>
+            <scalar:int>316</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8387,50 +8387,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>316</scalar:int>
+          <scalar:int>317</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>316</scalar:int>
+          <scalar:int>317</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>316</scalar:int>
+            <scalar:int>317</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>316</scalar:int>
+            <scalar:int>317</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>316</scalar:int>
+              <scalar:int>317</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>316</scalar:int>
+              <scalar:int>317</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_PropertyFetch>
                <attribute:startLine>
-                <scalar:int>316</scalar:int>
+                <scalar:int>317</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>316</scalar:int>
+                <scalar:int>317</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_StaticPropertyFetch>
                  <attribute:startLine>
-                  <scalar:int>316</scalar:int>
+                  <scalar:int>317</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>316</scalar:int>
+                  <scalar:int>317</scalar:int>
                  </attribute:endLine>
                  <subNode:class>
                   <node:Name_FullyQualified>
                    <attribute:startLine>
-                    <scalar:int>316</scalar:int>
+                    <scalar:int>317</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>316</scalar:int>
+                    <scalar:int>317</scalar:int>
                    </attribute:endLine>
                    <subNode:parts>
                     <scalar:array>
@@ -8453,10 +8453,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>316</scalar:int>
+                <scalar:int>317</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>316</scalar:int>
+                <scalar:int>317</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -8468,10 +8468,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>316</scalar:int>
+              <scalar:int>317</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>316</scalar:int>
+              <scalar:int>317</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -8483,10 +8483,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>316</scalar:int>
+            <scalar:int>317</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>316</scalar:int>
+            <scalar:int>317</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8496,50 +8496,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>317</scalar:int>
+          <scalar:int>318</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>317</scalar:int>
+          <scalar:int>318</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>317</scalar:int>
+            <scalar:int>318</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>317</scalar:int>
+            <scalar:int>318</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>317</scalar:int>
+              <scalar:int>318</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>317</scalar:int>
+              <scalar:int>318</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>317</scalar:int>
+                <scalar:int>318</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>317</scalar:int>
+                <scalar:int>318</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_StaticPropertyFetch>
                  <attribute:startLine>
-                  <scalar:int>317</scalar:int>
+                  <scalar:int>318</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>317</scalar:int>
+                  <scalar:int>318</scalar:int>
                  </attribute:endLine>
                  <subNode:class>
                   <node:Name_FullyQualified>
                    <attribute:startLine>
-                    <scalar:int>317</scalar:int>
+                    <scalar:int>318</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>317</scalar:int>
+                    <scalar:int>318</scalar:int>
                    </attribute:endLine>
                    <subNode:parts>
                     <scalar:array>
@@ -8557,10 +8557,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>317</scalar:int>
+                  <scalar:int>318</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>317</scalar:int>
+                  <scalar:int>318</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -8577,10 +8577,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>317</scalar:int>
+              <scalar:int>318</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>317</scalar:int>
+              <scalar:int>318</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -8592,10 +8592,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>317</scalar:int>
+            <scalar:int>318</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>317</scalar:int>
+            <scalar:int>318</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8605,26 +8605,26 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>319</scalar:int>
+          <scalar:int>320</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>319</scalar:int>
+          <scalar:int>320</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>319</scalar:int>
+            <scalar:int>320</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>319</scalar:int>
+            <scalar:int>320</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_Variable>
              <attribute:startLine>
-              <scalar:int>319</scalar:int>
+              <scalar:int>320</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>319</scalar:int>
+              <scalar:int>320</scalar:int>
              </attribute:endLine>
              <subNode:name>
               <scalar:string>GLOBALS</scalar:string>
@@ -8634,10 +8634,10 @@
            <subNode:dim>
             <node:Scalar_String>
              <attribute:startLine>
-              <scalar:int>319</scalar:int>
+              <scalar:int>320</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>319</scalar:int>
+              <scalar:int>320</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:string>a</scalar:string>
@@ -8649,10 +8649,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>319</scalar:int>
+            <scalar:int>320</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>319</scalar:int>
+            <scalar:int>320</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8662,34 +8662,34 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>320</scalar:int>
+          <scalar:int>321</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>320</scalar:int>
+          <scalar:int>321</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>320</scalar:int>
+            <scalar:int>321</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>320</scalar:int>
+            <scalar:int>321</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>320</scalar:int>
+              <scalar:int>321</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>320</scalar:int>
+              <scalar:int>321</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_Variable>
                <attribute:startLine>
-                <scalar:int>320</scalar:int>
+                <scalar:int>321</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>320</scalar:int>
+                <scalar:int>321</scalar:int>
                </attribute:endLine>
                <subNode:name>
                 <scalar:string>GLOBALS</scalar:string>
@@ -8699,10 +8699,10 @@
              <subNode:dim>
               <node:Scalar_String>
                <attribute:startLine>
-                <scalar:int>320</scalar:int>
+                <scalar:int>321</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>320</scalar:int>
+                <scalar:int>321</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:string>a</scalar:string>
@@ -8719,10 +8719,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>320</scalar:int>
+            <scalar:int>321</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>320</scalar:int>
+            <scalar:int>321</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8732,42 +8732,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>321</scalar:int>
+          <scalar:int>322</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>321</scalar:int>
+          <scalar:int>322</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>321</scalar:int>
+            <scalar:int>322</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>321</scalar:int>
+            <scalar:int>322</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>321</scalar:int>
+              <scalar:int>322</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>321</scalar:int>
+              <scalar:int>322</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>321</scalar:int>
+                <scalar:int>322</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>321</scalar:int>
+                <scalar:int>322</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_Variable>
                  <attribute:startLine>
-                  <scalar:int>321</scalar:int>
+                  <scalar:int>322</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>321</scalar:int>
+                  <scalar:int>322</scalar:int>
                  </attribute:endLine>
                  <subNode:name>
                   <scalar:string>GLOBALS</scalar:string>
@@ -8777,10 +8777,10 @@
                <subNode:dim>
                 <node:Scalar_String>
                  <attribute:startLine>
-                  <scalar:int>321</scalar:int>
+                  <scalar:int>322</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>321</scalar:int>
+                  <scalar:int>322</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:string>a</scalar:string>
@@ -8797,10 +8797,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>321</scalar:int>
+              <scalar:int>322</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>321</scalar:int>
+              <scalar:int>322</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -8812,10 +8812,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>321</scalar:int>
+            <scalar:int>322</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>321</scalar:int>
+            <scalar:int>322</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8825,50 +8825,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>322</scalar:int>
+          <scalar:int>323</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>322</scalar:int>
+          <scalar:int>323</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>322</scalar:int>
+            <scalar:int>323</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>322</scalar:int>
+            <scalar:int>323</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>322</scalar:int>
+              <scalar:int>323</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>322</scalar:int>
+              <scalar:int>323</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_PropertyFetch>
                <attribute:startLine>
-                <scalar:int>322</scalar:int>
+                <scalar:int>323</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>322</scalar:int>
+                <scalar:int>323</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_ArrayDimFetch>
                  <attribute:startLine>
-                  <scalar:int>322</scalar:int>
+                  <scalar:int>323</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>322</scalar:int>
+                  <scalar:int>323</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>322</scalar:int>
+                    <scalar:int>323</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>322</scalar:int>
+                    <scalar:int>323</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>GLOBALS</scalar:string>
@@ -8878,10 +8878,10 @@
                  <subNode:dim>
                   <node:Scalar_String>
                    <attribute:startLine>
-                    <scalar:int>322</scalar:int>
+                    <scalar:int>323</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>322</scalar:int>
+                    <scalar:int>323</scalar:int>
                    </attribute:endLine>
                    <subNode:value>
                     <scalar:string>a</scalar:string>
@@ -8898,10 +8898,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>322</scalar:int>
+                <scalar:int>323</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>322</scalar:int>
+                <scalar:int>323</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -8913,10 +8913,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>322</scalar:int>
+              <scalar:int>323</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>322</scalar:int>
+              <scalar:int>323</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -8928,10 +8928,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>322</scalar:int>
+            <scalar:int>323</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>322</scalar:int>
+            <scalar:int>323</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -8941,42 +8941,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>323</scalar:int>
+          <scalar:int>324</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>323</scalar:int>
+          <scalar:int>324</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>323</scalar:int>
+            <scalar:int>324</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>323</scalar:int>
+            <scalar:int>324</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>323</scalar:int>
+              <scalar:int>324</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>323</scalar:int>
+              <scalar:int>324</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>323</scalar:int>
+                <scalar:int>324</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>323</scalar:int>
+                <scalar:int>324</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_Variable>
                  <attribute:startLine>
-                  <scalar:int>323</scalar:int>
+                  <scalar:int>324</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>323</scalar:int>
+                  <scalar:int>324</scalar:int>
                  </attribute:endLine>
                  <subNode:name>
                   <scalar:string>GLOBALS</scalar:string>
@@ -8986,10 +8986,10 @@
                <subNode:dim>
                 <node:Scalar_String>
                  <attribute:startLine>
-                  <scalar:int>323</scalar:int>
+                  <scalar:int>324</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>323</scalar:int>
+                  <scalar:int>324</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:string>a</scalar:string>
@@ -9001,10 +9001,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>323</scalar:int>
+                <scalar:int>324</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>323</scalar:int>
+                <scalar:int>324</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -9021,10 +9021,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>323</scalar:int>
+            <scalar:int>324</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>323</scalar:int>
+            <scalar:int>324</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9034,50 +9034,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>324</scalar:int>
+          <scalar:int>325</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>324</scalar:int>
+          <scalar:int>325</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>324</scalar:int>
+            <scalar:int>325</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>324</scalar:int>
+            <scalar:int>325</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>324</scalar:int>
+              <scalar:int>325</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>324</scalar:int>
+              <scalar:int>325</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>324</scalar:int>
+                <scalar:int>325</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>324</scalar:int>
+                <scalar:int>325</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_ArrayDimFetch>
                  <attribute:startLine>
-                  <scalar:int>324</scalar:int>
+                  <scalar:int>325</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>324</scalar:int>
+                  <scalar:int>325</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>324</scalar:int>
+                    <scalar:int>325</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>324</scalar:int>
+                    <scalar:int>325</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>GLOBALS</scalar:string>
@@ -9087,10 +9087,10 @@
                  <subNode:dim>
                   <node:Scalar_String>
                    <attribute:startLine>
-                    <scalar:int>324</scalar:int>
+                    <scalar:int>325</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>324</scalar:int>
+                    <scalar:int>325</scalar:int>
                    </attribute:endLine>
                    <subNode:value>
                     <scalar:string>a</scalar:string>
@@ -9102,10 +9102,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>324</scalar:int>
+                  <scalar:int>325</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>324</scalar:int>
+                  <scalar:int>325</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -9117,10 +9117,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>324</scalar:int>
+                <scalar:int>325</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>324</scalar:int>
+                <scalar:int>325</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -9137,10 +9137,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>324</scalar:int>
+            <scalar:int>325</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>324</scalar:int>
+            <scalar:int>325</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9150,50 +9150,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>325</scalar:int>
+          <scalar:int>326</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>325</scalar:int>
+          <scalar:int>326</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>325</scalar:int>
+            <scalar:int>326</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>325</scalar:int>
+            <scalar:int>326</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>325</scalar:int>
+              <scalar:int>326</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>325</scalar:int>
+              <scalar:int>326</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>325</scalar:int>
+                <scalar:int>326</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>325</scalar:int>
+                <scalar:int>326</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_ArrayDimFetch>
                  <attribute:startLine>
-                  <scalar:int>325</scalar:int>
+                  <scalar:int>326</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>325</scalar:int>
+                  <scalar:int>326</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>325</scalar:int>
+                    <scalar:int>326</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>325</scalar:int>
+                    <scalar:int>326</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>GLOBALS</scalar:string>
@@ -9203,10 +9203,10 @@
                  <subNode:dim>
                   <node:Scalar_String>
                    <attribute:startLine>
-                    <scalar:int>325</scalar:int>
+                    <scalar:int>326</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>325</scalar:int>
+                    <scalar:int>326</scalar:int>
                    </attribute:endLine>
                    <subNode:value>
                     <scalar:string>b</scalar:string>
@@ -9218,10 +9218,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>325</scalar:int>
+                  <scalar:int>326</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>325</scalar:int>
+                  <scalar:int>326</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -9238,10 +9238,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>325</scalar:int>
+              <scalar:int>326</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>325</scalar:int>
+              <scalar:int>326</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -9253,10 +9253,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>325</scalar:int>
+            <scalar:int>326</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>325</scalar:int>
+            <scalar:int>326</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9266,26 +9266,26 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>327</scalar:int>
+          <scalar:int>328</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>327</scalar:int>
+          <scalar:int>328</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>327</scalar:int>
+            <scalar:int>328</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>327</scalar:int>
+            <scalar:int>328</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_Variable>
              <attribute:startLine>
-              <scalar:int>327</scalar:int>
+              <scalar:int>328</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>327</scalar:int>
+              <scalar:int>328</scalar:int>
              </attribute:endLine>
              <subNode:name>
               <scalar:string>_POST</scalar:string>
@@ -9295,10 +9295,10 @@
            <subNode:dim>
             <node:Scalar_String>
              <attribute:startLine>
-              <scalar:int>327</scalar:int>
+              <scalar:int>328</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>327</scalar:int>
+              <scalar:int>328</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:string>a</scalar:string>
@@ -9310,10 +9310,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>327</scalar:int>
+            <scalar:int>328</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>327</scalar:int>
+            <scalar:int>328</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9323,34 +9323,34 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>328</scalar:int>
+          <scalar:int>329</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>328</scalar:int>
+          <scalar:int>329</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>328</scalar:int>
+            <scalar:int>329</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>328</scalar:int>
+            <scalar:int>329</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>328</scalar:int>
+              <scalar:int>329</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>328</scalar:int>
+              <scalar:int>329</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_Variable>
                <attribute:startLine>
-                <scalar:int>328</scalar:int>
+                <scalar:int>329</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>328</scalar:int>
+                <scalar:int>329</scalar:int>
                </attribute:endLine>
                <subNode:name>
                 <scalar:string>_POST</scalar:string>
@@ -9360,10 +9360,10 @@
              <subNode:dim>
               <node:Scalar_String>
                <attribute:startLine>
-                <scalar:int>328</scalar:int>
+                <scalar:int>329</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>328</scalar:int>
+                <scalar:int>329</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:string>a</scalar:string>
@@ -9380,10 +9380,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>328</scalar:int>
+            <scalar:int>329</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>328</scalar:int>
+            <scalar:int>329</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9393,42 +9393,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>329</scalar:int>
+          <scalar:int>330</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>329</scalar:int>
+          <scalar:int>330</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>329</scalar:int>
+            <scalar:int>330</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>329</scalar:int>
+            <scalar:int>330</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>329</scalar:int>
+              <scalar:int>330</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>329</scalar:int>
+              <scalar:int>330</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>329</scalar:int>
+                <scalar:int>330</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>329</scalar:int>
+                <scalar:int>330</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_Variable>
                  <attribute:startLine>
-                  <scalar:int>329</scalar:int>
+                  <scalar:int>330</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>329</scalar:int>
+                  <scalar:int>330</scalar:int>
                  </attribute:endLine>
                  <subNode:name>
                   <scalar:string>_POST</scalar:string>
@@ -9438,10 +9438,10 @@
                <subNode:dim>
                 <node:Scalar_String>
                  <attribute:startLine>
-                  <scalar:int>329</scalar:int>
+                  <scalar:int>330</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>329</scalar:int>
+                  <scalar:int>330</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:string>a</scalar:string>
@@ -9458,10 +9458,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>329</scalar:int>
+              <scalar:int>330</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>329</scalar:int>
+              <scalar:int>330</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -9473,10 +9473,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>329</scalar:int>
+            <scalar:int>330</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>329</scalar:int>
+            <scalar:int>330</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9486,50 +9486,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>330</scalar:int>
+          <scalar:int>331</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>330</scalar:int>
+          <scalar:int>331</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>330</scalar:int>
+            <scalar:int>331</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>330</scalar:int>
+            <scalar:int>331</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>330</scalar:int>
+              <scalar:int>331</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>330</scalar:int>
+              <scalar:int>331</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_PropertyFetch>
                <attribute:startLine>
-                <scalar:int>330</scalar:int>
+                <scalar:int>331</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>330</scalar:int>
+                <scalar:int>331</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_ArrayDimFetch>
                  <attribute:startLine>
-                  <scalar:int>330</scalar:int>
+                  <scalar:int>331</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>330</scalar:int>
+                  <scalar:int>331</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>330</scalar:int>
+                    <scalar:int>331</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>330</scalar:int>
+                    <scalar:int>331</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>_POST</scalar:string>
@@ -9539,10 +9539,10 @@
                  <subNode:dim>
                   <node:Scalar_String>
                    <attribute:startLine>
-                    <scalar:int>330</scalar:int>
+                    <scalar:int>331</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>330</scalar:int>
+                    <scalar:int>331</scalar:int>
                    </attribute:endLine>
                    <subNode:value>
                     <scalar:string>a</scalar:string>
@@ -9559,10 +9559,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>330</scalar:int>
+                <scalar:int>331</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>330</scalar:int>
+                <scalar:int>331</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -9574,10 +9574,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>330</scalar:int>
+              <scalar:int>331</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>330</scalar:int>
+              <scalar:int>331</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -9589,10 +9589,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>330</scalar:int>
+            <scalar:int>331</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>330</scalar:int>
+            <scalar:int>331</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9602,42 +9602,42 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>331</scalar:int>
+          <scalar:int>332</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>331</scalar:int>
+          <scalar:int>332</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>331</scalar:int>
+            <scalar:int>332</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>331</scalar:int>
+            <scalar:int>332</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>331</scalar:int>
+              <scalar:int>332</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>331</scalar:int>
+              <scalar:int>332</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>331</scalar:int>
+                <scalar:int>332</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>331</scalar:int>
+                <scalar:int>332</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_Variable>
                  <attribute:startLine>
-                  <scalar:int>331</scalar:int>
+                  <scalar:int>332</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>331</scalar:int>
+                  <scalar:int>332</scalar:int>
                  </attribute:endLine>
                  <subNode:name>
                   <scalar:string>_POST</scalar:string>
@@ -9647,10 +9647,10 @@
                <subNode:dim>
                 <node:Scalar_String>
                  <attribute:startLine>
-                  <scalar:int>331</scalar:int>
+                  <scalar:int>332</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>331</scalar:int>
+                  <scalar:int>332</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:string>a</scalar:string>
@@ -9662,10 +9662,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>331</scalar:int>
+                <scalar:int>332</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>331</scalar:int>
+                <scalar:int>332</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -9682,10 +9682,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>331</scalar:int>
+            <scalar:int>332</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>331</scalar:int>
+            <scalar:int>332</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9695,50 +9695,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>332</scalar:int>
+          <scalar:int>333</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>332</scalar:int>
+          <scalar:int>333</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_PropertyFetch>
            <attribute:startLine>
-            <scalar:int>332</scalar:int>
+            <scalar:int>333</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>332</scalar:int>
+            <scalar:int>333</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_ArrayDimFetch>
              <attribute:startLine>
-              <scalar:int>332</scalar:int>
+              <scalar:int>333</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>332</scalar:int>
+              <scalar:int>333</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>332</scalar:int>
+                <scalar:int>333</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>332</scalar:int>
+                <scalar:int>333</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_ArrayDimFetch>
                  <attribute:startLine>
-                  <scalar:int>332</scalar:int>
+                  <scalar:int>333</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>332</scalar:int>
+                  <scalar:int>333</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>332</scalar:int>
+                    <scalar:int>333</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>332</scalar:int>
+                    <scalar:int>333</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>_POST</scalar:string>
@@ -9748,10 +9748,10 @@
                  <subNode:dim>
                   <node:Scalar_String>
                    <attribute:startLine>
-                    <scalar:int>332</scalar:int>
+                    <scalar:int>333</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>332</scalar:int>
+                    <scalar:int>333</scalar:int>
                    </attribute:endLine>
                    <subNode:value>
                     <scalar:string>a</scalar:string>
@@ -9763,10 +9763,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>332</scalar:int>
+                  <scalar:int>333</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>332</scalar:int>
+                  <scalar:int>333</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -9778,10 +9778,10 @@
              <subNode:dim>
               <node:Scalar_LNumber>
                <attribute:startLine>
-                <scalar:int>332</scalar:int>
+                <scalar:int>333</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>332</scalar:int>
+                <scalar:int>333</scalar:int>
                </attribute:endLine>
                <subNode:value>
                 <scalar:int>1</scalar:int>
@@ -9798,10 +9798,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>332</scalar:int>
+            <scalar:int>333</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>332</scalar:int>
+            <scalar:int>333</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9811,50 +9811,50 @@
         </node:Expr_Assign>
         <node:Expr_Assign>
          <attribute:startLine>
-          <scalar:int>333</scalar:int>
+          <scalar:int>334</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>333</scalar:int>
+          <scalar:int>334</scalar:int>
          </attribute:endLine>
          <subNode:var>
           <node:Expr_ArrayDimFetch>
            <attribute:startLine>
-            <scalar:int>333</scalar:int>
+            <scalar:int>334</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>333</scalar:int>
+            <scalar:int>334</scalar:int>
            </attribute:endLine>
            <subNode:var>
             <node:Expr_PropertyFetch>
              <attribute:startLine>
-              <scalar:int>333</scalar:int>
+              <scalar:int>334</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>333</scalar:int>
+              <scalar:int>334</scalar:int>
              </attribute:endLine>
              <subNode:var>
               <node:Expr_ArrayDimFetch>
                <attribute:startLine>
-                <scalar:int>333</scalar:int>
+                <scalar:int>334</scalar:int>
                </attribute:startLine>
                <attribute:endLine>
-                <scalar:int>333</scalar:int>
+                <scalar:int>334</scalar:int>
                </attribute:endLine>
                <subNode:var>
                 <node:Expr_ArrayDimFetch>
                  <attribute:startLine>
-                  <scalar:int>333</scalar:int>
+                  <scalar:int>334</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>333</scalar:int>
+                  <scalar:int>334</scalar:int>
                  </attribute:endLine>
                  <subNode:var>
                   <node:Expr_Variable>
                    <attribute:startLine>
-                    <scalar:int>333</scalar:int>
+                    <scalar:int>334</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>333</scalar:int>
+                    <scalar:int>334</scalar:int>
                    </attribute:endLine>
                    <subNode:name>
                     <scalar:string>_POST</scalar:string>
@@ -9864,10 +9864,10 @@
                  <subNode:dim>
                   <node:Scalar_String>
                    <attribute:startLine>
-                    <scalar:int>333</scalar:int>
+                    <scalar:int>334</scalar:int>
                    </attribute:startLine>
                    <attribute:endLine>
-                    <scalar:int>333</scalar:int>
+                    <scalar:int>334</scalar:int>
                    </attribute:endLine>
                    <subNode:value>
                     <scalar:string>b</scalar:string>
@@ -9879,10 +9879,10 @@
                <subNode:dim>
                 <node:Scalar_LNumber>
                  <attribute:startLine>
-                  <scalar:int>333</scalar:int>
+                  <scalar:int>334</scalar:int>
                  </attribute:startLine>
                  <attribute:endLine>
-                  <scalar:int>333</scalar:int>
+                  <scalar:int>334</scalar:int>
                  </attribute:endLine>
                  <subNode:value>
                   <scalar:int>1</scalar:int>
@@ -9899,10 +9899,10 @@
            <subNode:dim>
             <node:Scalar_LNumber>
              <attribute:startLine>
-              <scalar:int>333</scalar:int>
+              <scalar:int>334</scalar:int>
              </attribute:startLine>
              <attribute:endLine>
-              <scalar:int>333</scalar:int>
+              <scalar:int>334</scalar:int>
              </attribute:endLine>
              <subNode:value>
               <scalar:int>1</scalar:int>
@@ -9914,10 +9914,10 @@
          <subNode:expr>
           <node:Scalar_LNumber>
            <attribute:startLine>
-            <scalar:int>333</scalar:int>
+            <scalar:int>334</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>333</scalar:int>
+            <scalar:int>334</scalar:int>
            </attribute:endLine>
            <subNode:value>
             <scalar:int>1</scalar:int>
@@ -9927,18 +9927,18 @@
         </node:Expr_Assign>
         <node:Stmt_Return>
          <attribute:startLine>
-          <scalar:int>335</scalar:int>
+          <scalar:int>336</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>335</scalar:int>
+          <scalar:int>336</scalar:int>
          </attribute:endLine>
          <subNode:expr>
           <node:Expr_Variable>
            <attribute:startLine>
-            <scalar:int>335</scalar:int>
+            <scalar:int>336</scalar:int>
            </attribute:startLine>
            <attribute:endLine>
-            <scalar:int>335</scalar:int>
+            <scalar:int>336</scalar:int>
            </attribute:endLine>
            <subNode:name>
             <scalar:string>ciao</scalar:string>
@@ -9949,24 +9949,24 @@
         <node:Stmt_Global>
          <attribute:comments>
           <scalar:array>
-           <comment isDocComment="false" line="337">/////////////////////////////////////////
+           <comment isDocComment="false" line="338">/////////////////////////////////////////
 </comment>
           </scalar:array>
          </attribute:comments>
          <attribute:startLine>
-          <scalar:int>338</scalar:int>
+          <scalar:int>339</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>338</scalar:int>
+          <scalar:int>339</scalar:int>
          </attribute:endLine>
          <subNode:vars>
           <scalar:array>
            <node:Expr_Variable>
             <attribute:startLine>
-             <scalar:int>338</scalar:int>
+             <scalar:int>339</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>338</scalar:int>
+             <scalar:int>339</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>a</scalar:string>
@@ -9977,19 +9977,19 @@
         </node:Stmt_Global>
         <node:Stmt_Global>
          <attribute:startLine>
-          <scalar:int>339</scalar:int>
+          <scalar:int>340</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>339</scalar:int>
+          <scalar:int>340</scalar:int>
          </attribute:endLine>
          <subNode:vars>
           <scalar:array>
            <node:Expr_Variable>
             <attribute:startLine>
-             <scalar:int>339</scalar:int>
+             <scalar:int>340</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>339</scalar:int>
+             <scalar:int>340</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>b</scalar:string>
@@ -9997,10 +9997,10 @@
            </node:Expr_Variable>
            <node:Expr_Variable>
             <attribute:startLine>
-             <scalar:int>339</scalar:int>
+             <scalar:int>340</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>339</scalar:int>
+             <scalar:int>340</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>c</scalar:string>
@@ -10030,10 +10030,10 @@
      </node:Stmt_Function>
      <node:Stmt_Class>
       <attribute:startLine>
-       <scalar:int>348</scalar:int>
+       <scalar:int>349</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>364</scalar:int>
+       <scalar:int>365</scalar:int>
       </attribute:endLine>
       <subNode:type>
        <scalar:int>0</scalar:int>
@@ -10044,10 +10044,10 @@
       <subNode:extends>
        <node:Name_FullyQualified>
         <attribute:startLine>
-         <scalar:int>348</scalar:int>
+         <scalar:int>349</scalar:int>
         </attribute:startLine>
         <attribute:endLine>
-         <scalar:int>348</scalar:int>
+         <scalar:int>349</scalar:int>
         </attribute:endLine>
         <subNode:parts>
          <scalar:array>
@@ -10064,10 +10064,10 @@
        <scalar:array>
         <node:Stmt_Property>
          <attribute:startLine>
-          <scalar:int>350</scalar:int>
+          <scalar:int>351</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>350</scalar:int>
+          <scalar:int>351</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>9</scalar:int>
@@ -10076,10 +10076,10 @@
           <scalar:array>
            <node:Stmt_PropertyProperty>
             <attribute:startLine>
-             <scalar:int>350</scalar:int>
+             <scalar:int>351</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>350</scalar:int>
+             <scalar:int>351</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>a</scalar:string>
@@ -10087,10 +10087,10 @@
             <subNode:default>
              <node:Scalar_String>
               <attribute:startLine>
-               <scalar:int>350</scalar:int>
+               <scalar:int>351</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
-               <scalar:int>350</scalar:int>
+               <scalar:int>351</scalar:int>
               </attribute:endLine>
               <subNode:value>
                <scalar:string>12</scalar:string>
@@ -10103,10 +10103,10 @@
         </node:Stmt_Property>
         <node:Stmt_Property>
          <attribute:startLine>
-          <scalar:int>351</scalar:int>
+          <scalar:int>352</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>351</scalar:int>
+          <scalar:int>352</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>4</scalar:int>
@@ -10115,10 +10115,10 @@
           <scalar:array>
            <node:Stmt_PropertyProperty>
             <attribute:startLine>
-             <scalar:int>351</scalar:int>
+             <scalar:int>352</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>351</scalar:int>
+             <scalar:int>352</scalar:int>
             </attribute:endLine>
             <subNode:name>
              <scalar:string>b</scalar:string>
@@ -10126,10 +10126,10 @@
             <subNode:default>
              <node:Scalar_String>
               <attribute:startLine>
-               <scalar:int>351</scalar:int>
+               <scalar:int>352</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
-               <scalar:int>351</scalar:int>
+               <scalar:int>352</scalar:int>
               </attribute:endLine>
               <subNode:value>
                <scalar:string>asd</scalar:string>
@@ -10142,10 +10142,10 @@
         </node:Stmt_Property>
         <node:Stmt_ClassMethod>
          <attribute:startLine>
-          <scalar:int>353</scalar:int>
+          <scalar:int>354</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>355</scalar:int>
+          <scalar:int>356</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>4</scalar:int>
@@ -10160,18 +10160,18 @@
           <scalar:array>
            <node:Param>
             <attribute:startLine>
-             <scalar:int>353</scalar:int>
+             <scalar:int>354</scalar:int>
             </attribute:startLine>
             <attribute:endLine>
-             <scalar:int>353</scalar:int>
+             <scalar:int>354</scalar:int>
             </attribute:endLine>
             <subNode:type>
              <node:Name_FullyQualified>
               <attribute:startLine>
-               <scalar:int>353</scalar:int>
+               <scalar:int>354</scalar:int>
               </attribute:startLine>
               <attribute:endLine>
-               <scalar:int>353</scalar:int>
+               <scalar:int>354</scalar:int>
               </attribute:endLine>
               <subNode:parts>
                <scalar:array>
@@ -10202,10 +10202,10 @@
         </node:Stmt_ClassMethod>
         <node:Stmt_ClassMethod>
          <attribute:startLine>
-          <scalar:int>357</scalar:int>
+          <scalar:int>358</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>359</scalar:int>
+          <scalar:int>360</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>4</scalar:int>
@@ -10225,10 +10225,10 @@
         </node:Stmt_ClassMethod>
         <node:Stmt_ClassMethod>
          <attribute:startLine>
-          <scalar:int>361</scalar:int>
+          <scalar:int>362</scalar:int>
          </attribute:startLine>
          <attribute:endLine>
-          <scalar:int>363</scalar:int>
+          <scalar:int>364</scalar:int>
          </attribute:endLine>
          <subNode:type>
           <scalar:int>1</scalar:int>
@@ -10267,10 +10267,10 @@
      </node:Stmt_Class>
      <node:Stmt_Function>
       <attribute:startLine>
-       <scalar:int>366</scalar:int>
+       <scalar:int>367</scalar:int>
       </attribute:startLine>
       <attribute:endLine>
-       <scalar:int>368</scalar:int>
+       <scalar:int>369</scalar:int>
       </attribute:endLine>
       <subNode:byRef>
        <scalar:false/>
