@@ -22,6 +22,7 @@ class FunctionsQuerier < Querier
     ast.xpath('./subNode:stmts/scalar:array')
   end
 
+  # TODO se la funzione è nel namespace globale qui ottengo stringa vuota!
   def namespace_name ast
     ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
   end
@@ -30,6 +31,7 @@ class FunctionsQuerier < Querier
     "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
   end
 
+  # TODO se la funzione è nel namespace globale qui ottengo stringa vuota!
   def namespace_name_parts ast
     ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
