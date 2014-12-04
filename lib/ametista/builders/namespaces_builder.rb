@@ -16,22 +16,23 @@ class NamespacesBuilder < Builder
   end
 
   def global_namespace
-    [ Namespace.find_or_create_by(
-        unique_name: querier.global_namespace_unique_name,
-        name: querier.global_namespace_name,
-        statements: querier.global_namespace_statements(ast)
-    ) ]
+    namespace = Namespace.find_or_create_by(
+      unique_name: querier.global_namespace_unique_name,
+      name: querier.global_namespace_name
+    )
+    namespace[:statements] = querier.global_namespace_statements(ast)
+    [ namespace ]
   end
 
   def namespaces
     querier.namespaces(ast).map_unique('_id') do |namespace_ast|
-      Namespace.find_or_create_by(
+      namespace = Namespace.find_or_create_by(
         unique_name: querier.unique_name(namespace_ast),
-        name: querier.name(namespace_ast),
-        statements: querier.statements(namespace_ast)
+        name: querier.name(namespace_ast)
       )
+      namespace[:statements] = querier.statements(namespace_ast)
+      namespace
     end
   end
-
 end
 
