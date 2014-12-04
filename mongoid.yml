@@ -9,15 +9,3 @@ development:
         retry_interval: 3
   options:
     raise_not_found_error: false
-
-test:
-  sessions:
-    default:
-      database: ametista-test
-      hosts:
-        - localhost:27017
-      options:
-        max_retries: 5
-        retry_interval: 3
-  options:
-    raise_not_found_error: false
