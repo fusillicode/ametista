@@ -1,14 +1,32 @@
 require_relative '../schema'
-require_relative '../queriers/querier'
+require_relative 'analyzer'
+require_relative '../queriers/usage_querier'
 
-class UsageAnalyzer
+class UsageAnalyzer < Analyzer
 
   extend Initializer
   initialize_with ({
-    querier: Querier.new
+    querier: UsageQuerier.new
   })
 
   def analyze
+    analyze_namespaces_statements
+  end
+
+  def analyze_namespaces_statements
+    Namespace.each do |namespace|
+      ap namespace
+      # exit
+      # querier.methods_calls().each do |method_call|
+      # end
+    end
+  end
+
+  def analyze_functions_statements
+
+  end
+
+  def analyze_methods_statements
 
   end
 
