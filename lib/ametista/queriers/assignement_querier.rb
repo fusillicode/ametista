@@ -1,3 +1,4 @@
+# TODO valutare se eliminare AssignementQuerier e collassare rhs in Querier
 class AssignementQuerier < Querier
 
   def rhs ast
