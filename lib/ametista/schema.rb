@@ -109,7 +109,7 @@ end
 class Namespace
   include ReferencesLanguage
   include IsIdentifiableWithNameAndUniqueName
-  field :statements, type: String
+  field :statements, type: Array
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
   after_initialize do
