@@ -19,11 +19,11 @@ class NamespacesQuerier < Querier
   end
 
   def statements ast
-    ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]')
+    ast.xpath('./subNode:stmts/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]').to_s
   end
 
   def global_namespace_statements ast_root
-    ast_root.xpath('/AST/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class" and name() != "node:Stmt_Namespace"]')
+    ast_root.xpath('/AST/scalar:array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class" and name() != "node:Stmt_Namespace"]').to_s
   end
 
 end
