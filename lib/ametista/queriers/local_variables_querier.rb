@@ -48,10 +48,11 @@ class LocalVariablesQuerier < AssignementQuerier
     "#{namespace_unique_name(ast)}#{namespace_separator}#{function_name(ast)}"
   end
 
-  # TODO attenzione che qui concateno un namespaceseparator anche quando non ho un namespace dopo...
-  # vedere anche il caso delle classi e di tutto quello che posso trovare all'interno o meno del namespace globale
   def namespace_unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
+    namespace_name_parts = namespace_name_parts(ast)
+    namespace_name_parts.empty? ?
+      global_namespace_unique_name :
+      "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
   end
 
   def namespace_name ast
