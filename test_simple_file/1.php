@@ -1,7 +1,5 @@
 <?php
 
-namespace pizza;
-
 // Stmt_For
 for ($i=0; $i < 10; $i++) {
   # code...
