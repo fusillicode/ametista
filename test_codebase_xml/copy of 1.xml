@@ -10179,7 +10179,31 @@
     <scalar:array/>
    </subNode:params>
    <subNode:stmts>
-    <scalar:array/>
+    <scalar:array>
+     <node:Stmt_Echo>
+      <attribute:startLine>
+       <scalar:int>364</scalar:int>
+      </attribute:startLine>
+      <attribute:endLine>
+       <scalar:int>364</scalar:int>
+      </attribute:endLine>
+      <subNode:exprs>
+       <scalar:array>
+        <node:Scalar_String>
+         <attribute:startLine>
+          <scalar:int>364</scalar:int>
+         </attribute:startLine>
+         <attribute:endLine>
+          <scalar:int>364</scalar:int>
+         </attribute:endLine>
+         <subNode:value>
+          <scalar:string>asd</scalar:string>
+         </subNode:value>
+        </node:Scalar_String>
+       </scalar:array>
+      </subNode:exprs>
+     </node:Stmt_Echo>
+    </scalar:array>
    </subNode:stmts>
    <subNode:namespacedName>
     <node:Name>

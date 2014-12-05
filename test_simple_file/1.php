@@ -363,7 +363,7 @@ class mondo extends pippo {
 }
 
 function cizza() {
-
+  echo "asd";
 }
 
 
