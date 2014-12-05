@@ -18,7 +18,7 @@ class FunctionsQuerier < Querier
     ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
   end
 
-  def statements(ast)
+  def statements ast
     ast.xpath('./subNode:stmts/scalar:array')
   end
 
