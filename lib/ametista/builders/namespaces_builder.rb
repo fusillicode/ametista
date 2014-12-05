@@ -20,7 +20,7 @@ class NamespacesBuilder < Builder
       unique_name: querier.global_namespace_unique_name,
       name: querier.global_namespace_name
     )
-    namespace[:statements] = querier.global_namespace_statements(ast)
+    namespace.push statements: querier.global_namespace_statements(ast)
     [ namespace ]
   end
 
@@ -30,7 +30,7 @@ class NamespacesBuilder < Builder
         unique_name: querier.unique_name(namespace_ast),
         name: querier.name(namespace_ast)
       )
-      namespace[:statements] = querier.statements(namespace_ast)
+      namespace.push statements: querier.statements(namespace_ast)
       namespace
     end
   end
