@@ -30,6 +30,10 @@ class KlassesQuerier < Querier
     parent_klass_fully_qualified_name_parts(ast)[0..-1].to_a.join(namespace_separator)
   end
 
+  def parent_klass_fully_qualified_name_parts ast
+    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
+  end
+
   # prendo tutto tranne l'ultimo elemento dell parent_klass_fully_qualified_name e ci aggiungo i namespace_separator
   # = se ho un solo elemento in parent_klass_fully_qualified_name allora il parent_klass_namespace è quello globale
   # = se non ho nessun elemento in parent_klass_fully_qualified_name allora non ho una parent_klass (questa condizione la verifico comunque
@@ -39,15 +43,11 @@ class KlassesQuerier < Querier
     case parent_klass_fully_qualified_name_parts.size
     when 0
       nil
-    when
+    when 1
       global_namespace_name
     else
-      parent_klass_fully_qualified_name[0..-2].to_a.join(namespace_separator)
+      parent_klass_fully_qualified_name_parts[0..-2].join(namespace_separator).to_s
     end
-  end
-
-  def parent_klass_fully_qualified_name_parts ast
-    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
 
   def parent_klass_namespace_unique_name ast

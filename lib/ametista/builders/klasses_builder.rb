@@ -34,11 +34,12 @@ class KlassesBuilder < Builder
 
   def parent_klass klass_ast
     parent_klass_name = querier.parent_klass_name(klass_ast)
-    Klass.find_or_create_by(
-      name: parent_klass_name,
-      unique_name: querier.parent_klass_unique_name(klass_ast),
-      # namespace: parent_klass_namespace(klass_ast)
-    ) unless parent_klass_name.empty?
+    unless parent_klass_name.empty?
+      Klass.find_or_create_by(
+        name: parent_klass_name,
+        namespace: parent_klass_namespace(klass_ast),
+      )
+    end
   end
 
   def parent_klass_namespace klass_ast
