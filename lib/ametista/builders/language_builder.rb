@@ -9,8 +9,7 @@ class LanguageBuilder < Builder
       unique_name: 'PHP',
       name: 'PHP',
       global_namespace: {
-        unique_name: '\\',
-        name: '\\'
+        unique_name: '\\'
       },
       namespace_separator: '\\',
       superglobals: [

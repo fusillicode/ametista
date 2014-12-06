@@ -74,7 +74,6 @@ class LocalVariablesBuilder < Builder
   def namespace namespace_local_variable_ast
     Namespace.find_or_create_by(
       unique_name: querier.namespace_unique_name(namespace_local_variable_ast),
-      name: querier.namespace_name(namespace_local_variable_ast)
     )
   end
 

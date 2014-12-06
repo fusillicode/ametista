@@ -1,14 +1,21 @@
 require "mongoid"
 include EnforceAvailableLocales
 
+module IsIdentifiableWithUniqueName
+  def self.included base
+    base.include Mongoid::Document
+    base.field :unique_name, type: String
+    base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
+    base.validates :unique_name, presence: true, length: { allow_blank: false }
+  end
+end
+
 module IsIdentifiableWithNameAndUniqueName
   def self.included base
     base.include Mongoid::Document
+    base.include IsIdentifiableWithUniqueName
     base.field :name, type: String
-    base.field :unique_name, type: String
-    base.index({ unique_name: 1 }, { unique: true, drop_dups: true })
     base.validates :name, presence: true, length: { allow_blank: false }
-    base.validates :unique_name, presence: true, length: { allow_blank: false }
     # base.validate :enforce_uniqueness, if: ->{
     #   self.class.where(
     #     :_id.ne => self._id,
@@ -108,7 +115,7 @@ end
 
 class Namespace
   include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
+  include IsIdentifiableWithUniqueName
   field :statements, type: Array
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace

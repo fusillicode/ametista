@@ -17,8 +17,7 @@ class NamespacesBuilder < Builder
 
   def global_namespace
     namespace = Namespace.find_or_create_by(
-      unique_name: querier.global_namespace_unique_name,
-      name: querier.global_namespace_name
+      unique_name: querier.global_namespace_unique_name
     )
     namespace.push statements: querier.global_namespace_statements(ast)
     [ namespace ]
@@ -28,7 +27,6 @@ class NamespacesBuilder < Builder
     querier.namespaces(ast).map_unique('_id') do |namespace_ast|
       namespace = Namespace.find_or_create_by(
         unique_name: querier.unique_name(namespace_ast),
-        name: querier.name(namespace_ast)
       )
       namespace.push statements: querier.statements(namespace_ast)
       namespace

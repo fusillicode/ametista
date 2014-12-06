@@ -27,8 +27,7 @@ class FunctionsBuilder < Builder
 
   def namespace function_ast
     Namespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name(function_ast),
-      name: querier.namespace_name(function_ast)
+      unique_name: querier.namespace_unique_name(function_ast)
     )
   end
 

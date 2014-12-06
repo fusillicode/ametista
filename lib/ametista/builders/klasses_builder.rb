@@ -27,7 +27,6 @@ class KlassesBuilder < Builder
 
   def namespace klass_ast
     Namespace.find_or_create_by(
-      name: querier.namespace_name(klass_ast),
       unique_name: querier.namespace_unique_name(klass_ast),
     )
   end
@@ -44,7 +43,6 @@ class KlassesBuilder < Builder
 
   def parent_klass_namespace klass_ast
     Namespace.find_or_create_by(
-      name: querier.parent_klass_namespace_name(klass_ast),
       unique_name: querier.parent_klass_namespace_unique_name(klass_ast),
     )
   end
