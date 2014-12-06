@@ -131,10 +131,11 @@ class Klass < Type
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
   def default_unique_name
+    reference_language
     unique_name || custom_unique_name
   end
   def custom_unique_name
-    "#{namespace.unique_name}#{name}"
+    "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
