@@ -22,8 +22,8 @@ class CustomTypesBuilder < Builder
   def parameters_custom_types
     querier.parameters_custom_types(ast).map_unique('_id') do |parameter_custom_type|
       CustomType.find_or_create_by(
-        unique_name: querier.parameter_custom_type_unique_name(parameter_custom_type),
-        name: querier.parameter_custom_type_name(parameter_custom_type)
+        name: querier.parameter_custom_type_name(parameter_custom_type),
+        namespace: namespace(parameter_custom_type)
       )
     end
   end
@@ -31,10 +31,17 @@ class CustomTypesBuilder < Builder
   def klasses_custom_types
     querier.klasses_custom_types(ast).map_unique('_id') do |klass_custom_type_ast|
       CustomType.find_or_create_by(
-        unique_name: querier.klass_custom_type_unique_name(klass_custom_type_ast),
-        name: querier.klass_custom_type_name(klass_custom_type_ast)
+        name: querier.klass_custom_type_name(klass_custom_type_ast),
+        namespace: namespace(klass_custom_type_ast)
       )
     end
+  end
+
+  # TODO qui bisogna sistemare il namespace che deve essere quello dedotto dal fully qualified name
+  def namespace ast
+    Namespace.find_or_create_by(
+      unique_name: querier.namespace_unique_name(ast),
+    )
   end
 
 end
