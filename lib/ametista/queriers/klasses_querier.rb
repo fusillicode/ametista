@@ -11,21 +11,35 @@ class KlassesQuerier < Querier
   end
 
   def unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{namespaced_name(ast)}"
   end
 
-
-
-
-
-
+  def namespaced_name ast
+    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
+  end
 
   def parent_klass_name ast
     ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
   def parent_klass_unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)}"
+    "#{global_namespace_unique_name}#{namespace_separator}#{parent_klass_fully_qualified_name(ast)}"
+  end
+
+  def parent_klass_fully_qualified_name ast
+    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
+  end
+
+  # prendo tutto tranne l'ultimo elemento dell parent_klass_fully_qualified_name e ci aggiungo i namespace_separator
+  # = se ho un solo elemento in parent_klass_fully_qualified_name allora il parent_klass_namespace è quello globale
+  # = se non ho nessun elemento in parent_klass_fully_qualified_name allora non ho una parent_klass (questa condizione la verifico comunque
+  #   prima di creare la parent_klass)
+  def parent_klass_namespace_name ast
+
+  end
+
+  def parent_klass_namespace_unique_name ast
+    "#{global_namespace_unique_name}#{namespace_separator}#{parent_klass_namespace_name(ast)}"
   end
 
 end
