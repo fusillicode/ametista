@@ -11,3 +11,5 @@ static: becco la classe in cui sono e associo a quella...
 = modellazione dell'istruzione use
 
 = nessun controllo sulla definizione di stesse funzioni e/o classi all'interno di file differenti
+
+= creazione dei namespace delle classi parent di quelle che analizzo
