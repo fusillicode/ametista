@@ -9,3 +9,5 @@ parent: devo beccare il parent della classe corrente ed associare a quella
 static: becco la classe in cui sono e associo a quella...
 
 = modellazione dell'istruzione use
+
+= nessun controllo sulla definizione di stesse funzioni e/o classi all'interno di file differenti
