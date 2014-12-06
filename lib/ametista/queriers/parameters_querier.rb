@@ -26,16 +26,9 @@ class ParametersQuerier < AssignementQuerier
     "#{namespace_unique_name(ast)}#{namespace_separator}#{function_name(ast)}"
   end
 
-  def namespace_unique_name ast
-    namespace_name_parts = namespace_name_parts(ast)
-    namespace_name_parts.empty? ?
-      global_namespace_unique_name :
-      "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
-  end
 
-  def namespace_name_parts ast
-    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
-  end
+
+
 
   def function_name ast
     ast.xpath("./ancestor::node:Stmt_Function/subNode:name/scalar:string").text
