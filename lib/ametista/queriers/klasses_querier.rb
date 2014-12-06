@@ -27,7 +27,7 @@ class KlassesQuerier < Querier
   end
 
   def parent_klass_fully_qualified_name ast
-    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
+    parent_klass_fully_qualified_name_parts(ast)[0..-1].to_a.join(namespace_separator)
   end
 
   # prendo tutto tranne l'ultimo elemento dell parent_klass_fully_qualified_name e ci aggiungo i namespace_separator
@@ -35,7 +35,19 @@ class KlassesQuerier < Querier
   # = se non ho nessun elemento in parent_klass_fully_qualified_name allora non ho una parent_klass (questa condizione la verifico comunque
   #   prima di creare la parent_klass)
   def parent_klass_namespace_name ast
+    parent_klass_fully_qualified_name_parts = parent_klass_fully_qualified_name_parts(ast)
+    case parent_klass_fully_qualified_name_parts.size
+    when 0
+      nil
+    when
+      global_namespace_name
+    else
+      parent_klass_fully_qualified_name[0..-2].to_a.join(namespace_separator)
+    end
+  end
 
+  def parent_klass_fully_qualified_name_parts ast
+    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
 
   def parent_klass_namespace_unique_name ast
