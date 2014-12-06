@@ -32,10 +32,10 @@ class ModelBuilder
       klasses_builder: KlassesBuilder.new,
       klasses_methods_builder: KlassesMethodsBuilder.new,
       custom_types_builder: CustomTypesBuilder.new,
-      parameters_builder: ParametersBuilder.new,
-      global_variables_builder: GlobalVariablesBuilder.new,
-      local_variables_builder: LocalVariablesBuilder.new,
-      properties_builder: PropertiesBuilder.new
+      # parameters_builder: ParametersBuilder.new,
+      # global_variables_builder: GlobalVariablesBuilder.new,
+      # local_variables_builder: LocalVariablesBuilder.new,
+      # properties_builder: PropertiesBuilder.new
     },
     refiners: {
       instances_properties_refiner: InstancesPropertiesRefiner.new
