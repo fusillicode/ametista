@@ -26,8 +26,16 @@ class KlassesMethodsBuilder < Builder
 
   def klass klass_method_ast
     Klass.find_or_create_by(
-      unique_name: querier.klass_unique_name(klass_method_ast),
-      name: querier.klass_name(klass_method_ast)
+      name: querier.klass_name(klass_method_ast),
+      namespace: namespace(
+        querier.klass_namespaced_name_parts(klass_method_ast)
+      )
+    )
+  end
+
+  def namespace name_parts
+    Namespace.find_or_create_by(
+      unique_name: querier.namespace_unique_name(name_parts)
     )
   end
 
