@@ -21,12 +21,6 @@ class UsageAnalyzer < Analyzer
       # querier.methods_calls().each do |method_call|
       # end
     end
-    KlassMethod.each do |element|
-      ap element
-      # exit
-      # querier.methods_calls().each do |method_call|
-      # end
-    end
   end
 
   def analyze_functions_statements
