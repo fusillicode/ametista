@@ -10,44 +10,31 @@ class KlassesQuerier < Querier
     ast.xpath("./subNode:name/scalar:string").text
   end
 
-  def unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{namespaced_name(ast)}"
+  def klass_namespaced_name_parts ast
+    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')
   end
 
-  def namespaced_name ast
-    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')[0..-1].to_a.join(namespace_separator)
-  end
-
-  def parent_klass_name ast
-    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
-  end
-
-  def parent_klass_unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{parent_klass_fully_qualified_name(ast)}"
-  end
-
-  def parent_klass_fully_qualified_name ast
-    parent_klass_fully_qualified_name_parts(ast)[0..-1].to_a.join(namespace_separator)
-  end
-
-  def parent_klass_fully_qualified_name_parts ast
-    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
-  end
-
-  def parent_klass_namespace_unique_name ast
-    name_parts = parent_klass_fully_qualified_name_parts(ast)
+  def namespace_unique_name name_parts
     case name_parts.size
     when 0
       nil
     when 1
       global_namespace_unique_name
     else
-      "#{global_namespace_unique_name}#{namespace_separator}#{parent_klass_namespace_fully_qualified_name(name_parts)}"
+      "#{global_namespace_unique_name}#{namespace_separator}#{namespace_fully_qualified_name(name_parts)}"
     end
   end
 
-  def parent_klass_namespace_fully_qualified_name name_parts
+  def namespace_fully_qualified_name name_parts
     name_parts[0..-2].to_a.join(namespace_separator).to_s
+  end
+
+  def parent_klass_name ast
+    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
+  end
+
+  def parent_klass_fully_qualified_name_parts ast
+    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
 
 end

@@ -15,7 +15,8 @@ class UsageAnalyzer < Analyzer
 
   def analyze_namespaces_statements
     Klass.each do |element|
-      ap "#{element.unique_name} #{element.namespace}"
+      ap element
+      ap element.namespace.unique_name
       # exit
       # querier.methods_calls().each do |method_call|
       # end

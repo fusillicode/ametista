@@ -19,15 +19,17 @@ class KlassesBuilder < Builder
     querier.klasses(ast).map_unique('_id') do |klass_ast|
       Klass.find_or_create_by(
         name: querier.name(klass_ast),
-        namespace: namespace(klass_ast),
+        namespace: namespace(
+          querier.klass_namespaced_name_parts(klass_ast)
+        ),
         parent_klass: parent_klass(klass_ast)
       )
     end
   end
 
-  def namespace klass_ast
+  def namespace name_parts
     Namespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name(klass_ast),
+      unique_name: querier.namespace_unique_name(name_parts)
     )
   end
 
@@ -36,15 +38,11 @@ class KlassesBuilder < Builder
     unless parent_klass_name.empty?
       Klass.find_or_create_by(
         name: parent_klass_name,
-        namespace: parent_klass_namespace(klass_ast),
+        namespace: namespace(
+          querier.parent_klass_fully_qualified_name_parts(klass_ast)
+        ),
       )
     end
-  end
-
-  def parent_klass_namespace klass_ast
-    Namespace.find_or_create_by(
-      unique_name: querier.parent_klass_namespace_unique_name(klass_ast),
-    )
   end
 
 end
