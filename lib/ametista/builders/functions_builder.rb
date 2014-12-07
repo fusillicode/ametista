@@ -25,6 +25,7 @@ class FunctionsBuilder < Builder
     end
   end
 
+  # TODO sfruttare anche qui il namesapced name
   def namespace function_ast
     Namespace.find_or_create_by(
       unique_name: querier.namespace_unique_name(function_ast)
