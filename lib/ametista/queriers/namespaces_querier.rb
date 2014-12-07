@@ -6,10 +6,6 @@ class NamespacesQuerier < Querier
     ast_root.xpath('.//node:Stmt_Namespace')
   end
 
-  def name ast
-    ast.xpath('./subNode:name/node:Name/subNode:parts/scalar:array/scalar:string[last()]').text
-  end
-
   def unique_name ast
     "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
   end
