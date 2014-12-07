@@ -35,19 +35,19 @@ class KlassesQuerier < Querier
   end
 
   def parent_klass_namespace_unique_name ast
-    parent_klass_fully_qualified_name_parts = parent_klass_fully_qualified_name_parts(ast)
-    case parent_klass_fully_qualified_name_parts.size
+    name_parts = parent_klass_fully_qualified_name_parts(ast)
+    case name_parts.size
     when 0
       nil
     when 1
       global_namespace_unique_name
     else
-      "#{global_namespace_unique_name}#{namespace_separator}#{parent_klass_namespace_fully_qualified_name}"
+      "#{global_namespace_unique_name}#{namespace_separator}#{parent_klass_namespace_fully_qualified_name(name_parts)}"
     end
   end
 
-  def parent_klass_namespace_fully_qualified_name
-    parent_klass_fully_qualified_name_parts[0..-2].join(namespace_separator).to_s
+  def parent_klass_namespace_fully_qualified_name name_parts
+    name_parts[0..-2].to_a.join(namespace_separator).to_s
   end
 
 end

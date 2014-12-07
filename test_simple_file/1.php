@@ -1,5 +1,7 @@
 <?php
 
+namespace merda;
+
 // Stmt_For
 for ($i=0; $i < 10; $i++) {
   # code...
@@ -150,7 +152,6 @@ $_POST['a'] = 1;
 // $GLOBALS['a'][1]->b = 1;
 // $GLOBALS['a'][1][1]->b = 1;
 // $GLOBALS['b'][1]->b[1] = 1;
-
 
 class Sole {
 
