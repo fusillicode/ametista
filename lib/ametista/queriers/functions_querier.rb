@@ -22,10 +22,4 @@ class FunctionsQuerier < Querier
     ast.xpath('./subNode:stmts/scalar:array')
   end
 
-
-
-
-
-
-
 end
