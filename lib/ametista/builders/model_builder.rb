@@ -46,7 +46,6 @@ class ModelBuilder
     init_build
     building_loop
     refine_model
-    just_tests
   end
 
   def init_build
@@ -65,10 +64,6 @@ class ModelBuilder
     refiners.each do |key, refiner|
       refiner.refine
     end
-  end
-
-  def just_tests
-
   end
 
   def builders_loop ast
