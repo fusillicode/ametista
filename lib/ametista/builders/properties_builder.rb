@@ -64,17 +64,28 @@ class PropertiesBuilder < Builder
     end
   end
 
+  # Qui FORSE si può usare il parent_klass del klasses_builder
   def parent_klass property_ast
     Klass.find_or_create_by(
-      unique_name: querier.parent_klass_unique_name(property_ast),
-      name: querier.parent_klass_name(property_ast)
+      name: querier.parent_klass_name(property_ast),
+      namespace: namespace(
+        querier.parent_klass_fully_qualified_name_parts(property_ast)
+      ),
     )
   end
 
   def klass property_ast
     Klass.find_or_create_by(
-      unique_name: querier.klass_unique_name(property_ast),
-      name: querier.klass_name(property_ast)
+      name: querier.klass_name(property_ast),
+      namespace: namespace(
+        querier.klass_fully_qualified_name_parts(property_ast)
+      ),
+    )
+  end
+
+  def namespace name_parts
+    Namespace.find_or_create_by(
+      unique_name: querier.namespace_unique_name(name_parts)
     )
   end
 

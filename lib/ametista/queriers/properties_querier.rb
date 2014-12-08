@@ -29,6 +29,28 @@ class PropertiesQuerier < AssignementQuerier
   def klass ast
     ast.xpath('./ancestor::node:Stmt_Class')
   end
+
+  def namespace_unique_name name_parts
+    case name_parts.size
+    when 0
+      nil
+    when 1
+      global_namespace_unique_name
+    else
+      "#{global_namespace_unique_name}#{namespace_separator}#{namespace_fully_qualified_name(name_parts)}"
+    end
+  end
+
+  def namespace_fully_qualified_name name_parts
+    name_parts[0..-2].to_a.join(namespace_separator).to_s
+  end
+
+  def parent_klass_fully_qualified_name_parts ast
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array')
+  end
+
+  def klass_fully_qualified_name_parts ast
+    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array')
   end
 
   def containing_klass_unique_name ast

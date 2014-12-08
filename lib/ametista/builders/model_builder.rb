@@ -35,7 +35,7 @@ class ModelBuilder
       parameters_builder: ParametersBuilder.new,
       # global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
-      # properties_builder: PropertiesBuilder.new
+      properties_builder: PropertiesBuilder.new
     },
     refiners: {
       instances_properties_refiner: InstancesPropertiesRefiner.new
