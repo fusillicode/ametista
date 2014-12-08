@@ -30,11 +30,9 @@ class NamespacesBuilder < Builder
   end
 
   def namespace namespace_ast
-    namespace = Namespace.find_or_create_by(
+    Namespace.find_or_create_by(
       unique_name: querier.unique_name(namespace_ast),
-    )
-    namespace.push statements: querier.statements(namespace_ast)
-    namespace
+    ).push statements: querier.statements(namespace_ast)
   end
 
 end
