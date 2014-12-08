@@ -22,14 +22,18 @@ class CustomTypesBuilder < Builder
   end
 
   def parameters_custom_types
-    querier.parameters_custom_types(ast).map_unique('_id') do |parameter_custom_type|
-      CustomType.find_or_create_by(
-        name: querier.parameter_custom_type_name(parameter_custom_type),
-        namespace: namespace(
-          querier.parameter_custom_type_name_parts(parameter_custom_type)
-        ),
-      )
+    querier.parameters_custom_types(ast).map_unique('_id') do |parameter_custom_type_ast|
+      custom_type(parameter_custom_type_ast)
     end
+  end
+
+  def custom_type custom_type_ast
+    CustomType.find_or_create_by(
+      name: querier.name(custom_type_ast),
+      namespace: namespace(
+        querier.name_parts(custom_type_ast)
+      )
+    )
   end
 
   def namespace name_parts

@@ -6,11 +6,11 @@ class CustomTypesQuerier < Querier
     ast_root.xpath(".//node:Param[subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()][#{not_a_primitive_type}]]")
   end
 
-  def parameter_custom_type_name ast
+  def name ast
     ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
   end
 
-  def parameter_custom_type_name_parts ast
+  def name_parts ast
     ast.xpath('./subNode:type/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
 
