@@ -10,11 +10,7 @@ class ParametersQuerier < AssignementQuerier
     ast_root.xpath('.//node:Stmt_ClassMethod/subNode:params/scalar:array/node:Param')
   end
 
-  def function_parameter_name ast
-    ast.xpath('./subNode:name/scalar:string').text
-  end
-
-  def klass_method_parameter_name ast
+  def name ast
     ast.xpath('./subNode:name/scalar:string').text
   end
 
