@@ -22,12 +22,13 @@ class PropertiesQuerier < AssignementQuerier
   #   ast_root.xpath(".//node:Expr_StaticPropertyFetch[subNode:class[last()]/node:Expr_Variable/subNode:name/scalar:string[#{a_static_property}]]")
   # end
 
-  def property_name ast
+  def name ast
     ast.xpath('./subNode:name/scalar:string').text
   end
 
-  def containing_klass_name ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:name/scalar:string').text
+  def klass ast
+    ast.xpath('./ancestor::node:Stmt_Class')
+  end
   end
 
   def containing_klass_unique_name ast
