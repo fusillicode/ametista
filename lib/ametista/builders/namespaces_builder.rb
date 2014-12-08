@@ -25,12 +25,17 @@ class NamespacesBuilder < Builder
 
   def namespaces
     querier.namespaces(ast).map_unique('_id') do |namespace_ast|
-      namespace = Namespace.find_or_create_by(
-        unique_name: querier.unique_name(namespace_ast),
-      )
-      namespace.push statements: querier.statements(namespace_ast)
-      namespace
+      namespace(namespace_ast)
     end
   end
+
+  def namespace namespace_ast
+    namespace = Namespace.find_or_create_by(
+      unique_name: querier.unique_name(namespace_ast),
+    )
+    namespace.push statements: querier.statements(namespace_ast)
+    namespace
+  end
+
 end
 
