@@ -2,12 +2,16 @@ require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/parameters_querier'
+require_relative 'functions_builder'
+require_relative 'klasses_methods_builder'
 
 class ParametersBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: ParametersQuerier.new
+    querier: ParametersQuerier.new,
+    functions_builder: FunctionsBuilder.new,
+    klasses_methods_builder: KlassesMethodsBuilder.new
   })
 
   def build ast
@@ -23,7 +27,9 @@ class ParametersBuilder < Builder
     querier.functions_parameters(ast).map_unique('_id') do |function_parameter_ast|
       Parameter.find_or_create_by(
         name: querier.name(function_parameter_ast),
-        procedure: function(function_parameter_ast)
+        procedure: functions_builder.function(
+          querier.function(function_parameter_ast)
+        )
       )
     end
   end
@@ -32,23 +38,11 @@ class ParametersBuilder < Builder
     querier.klasses_methods_parameters(ast).map_unique('_id') do |klass_method_parameter_ast|
       Parameter.find_or_create_by(
         name: querier.name(klass_method_parameter_ast),
-        procedure: klass_method(klass_method_parameter_ast)
+        procedure: klasses_methods_builder.klass_method(
+          querier.klass_method(klass_method_parameter_ast)
+        )
       )
     end
-  end
-
-  def function function_parameter_ast
-    Function.find_or_create_by(
-      unique_name: querier.function_unique_name(function_parameter_ast),
-      name: querier.function_name(function_parameter_ast)
-    )
-  end
-
-  def klass_method klass_method_parameter_ast
-    KlassMethod.find_or_create_by(
-      unique_name: querier.klass_method_unique_name(klass_method_parameter_ast),
-      name: querier.klass_method_name(klass_method_parameter_ast)
-    )
   end
 
 end
