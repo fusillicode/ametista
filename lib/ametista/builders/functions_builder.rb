@@ -31,7 +31,6 @@ class FunctionsBuilder < Builder
     )
   end
 
-  # TODO sfruttare anche qui il namesapced name
   def namespace name_parts
     Namespace.find_or_create_by(
       unique_name: querier.namespace_unique_name(name_parts)
