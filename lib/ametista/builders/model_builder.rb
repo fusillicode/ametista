@@ -29,9 +29,9 @@ class ModelBuilder
     builders: {
       namespaces_builder: NamespacesBuilder.new,
       functions_builder: FunctionsBuilder.new,
-      klasses_builder: KlassesBuilder.new,
-      klasses_methods_builder: KlassesMethodsBuilder.new,
-      custom_types_builder: CustomTypesBuilder.new,
+      # klasses_builder: KlassesBuilder.new,
+      # klasses_methods_builder: KlassesMethodsBuilder.new,
+      # custom_types_builder: CustomTypesBuilder.new,
       # parameters_builder: ParametersBuilder.new,
       # global_variables_builder: GlobalVariablesBuilder.new,
       # local_variables_builder: LocalVariablesBuilder.new,
