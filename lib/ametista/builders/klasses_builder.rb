@@ -17,14 +17,18 @@ class KlassesBuilder < Builder
 
   def klasses
     querier.klasses(ast).map_unique('_id') do |klass_ast|
-      Klass.find_or_create_by(
-        name: querier.name(klass_ast),
-        namespace: namespace(
-          querier.klass_namespaced_name_parts(klass_ast)
-        ),
-        parent_klass: parent_klass(klass_ast)
-      )
+      klass(klass_ast)
     end
+  end
+
+  def klass klass_ast
+    Klass.find_or_create_by(
+      name: querier.name(klass_ast),
+      namespace: namespace(
+        querier.klass_namespaced_name_parts(klass_ast)
+      ),
+      parent_klass: parent_klass(klass_ast)
+    )
   end
 
   def namespace name_parts
