@@ -17,14 +17,18 @@ class FunctionsBuilder < Builder
 
   def functions
     querier.functions(ast).map_unique('_id') do |function_ast|
-      Function.find_or_create_by(
-        name: querier.name(function_ast),
-        namespace: namespace(
-          querier.function_namespaced_name_parts(function_ast)
-        ),
-        statements: querier.statements(function_ast)
-      )
+      function(function_ast)
     end
+  end
+
+  def function function_ast
+    Function.find_or_create_by(
+      name: querier.name(function_ast),
+      namespace: namespace(
+        querier.function_namespaced_name_parts(function_ast)
+      ),
+      statements: querier.statements(function_ast)
+    )
   end
 
   # TODO sfruttare anche qui il namesapced name
