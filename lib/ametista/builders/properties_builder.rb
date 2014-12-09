@@ -66,6 +66,8 @@ class PropertiesBuilder < Builder
     end
   end
 
+  # Non posso usare KlassesBuilder.klass al posto di questo metodo perchè il namespace
+  # viene costruito diversamente nei due casi...
   def klass klass_property_ast
     Klass.find_or_create_by(
       name: querier.klass_name(klass_property_ast),
