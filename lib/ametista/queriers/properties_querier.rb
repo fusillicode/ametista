@@ -46,11 +46,11 @@ class PropertiesQuerier < AssignementQuerier
   end
 
   def parent_klass_fully_qualified_name_parts ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array')
+    ast.xpath('./ancestor::node:Stmt_Class[1]/subNode:extends/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
 
   def klass_fully_qualified_name_parts ast
-    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array')
+    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
 
   def containing_klass_unique_name ast
