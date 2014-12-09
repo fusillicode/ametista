@@ -107,7 +107,7 @@ class Complessissimo extends ExtraComplesso {
 class Complesso extends Complessissimo {
 
   public function palla() {
-    $this->html = 'hola';
+    $this->html = 'holaa';
     $this->ruby = 'mello';
   }
 }
