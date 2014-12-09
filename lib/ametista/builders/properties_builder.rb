@@ -49,7 +49,9 @@ class PropertiesBuilder < Builder
     querier.parent_properties(ast).map_unique('_id') do |parent_property_ast|
       Property.find_or_create_by(
         name: querier.name(parent_property_ast),
-        klass: parent_klass(parent_property_ast),
+        klass: klasses_builder.parent_klass(
+          querier.klass(parent_property_ast)
+        ),
         type: querier.parent_property
       )
     end
@@ -64,28 +66,12 @@ class PropertiesBuilder < Builder
     end
   end
 
-  # Qui FORSE si può usare il parent_klass del klasses_builder
-  def parent_klass property_ast
+  def klass klass_property_ast
     Klass.find_or_create_by(
-      name: querier.parent_klass_name(property_ast),
-      namespace: namespace(
-        querier.parent_klass_fully_qualified_name_parts(property_ast)
-      ),
-    )
-  end
-
-  def klass property_ast
-    Klass.find_or_create_by(
-      name: querier.klass_name(property_ast),
-      namespace: namespace(
-        querier.klass_fully_qualified_name_parts(property_ast)
-      ),
-    )
-  end
-
-  def namespace name_parts
-    Namespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name(name_parts)
+      name: querier.klass_name(klass_property_ast),
+      namespace: klasses_builder.namespace(
+        querier.klass_fully_qualified_name_parts(klass_property_ast)
+      )
     )
   end
 
