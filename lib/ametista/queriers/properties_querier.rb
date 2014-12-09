@@ -45,6 +45,10 @@ class PropertiesQuerier < AssignementQuerier
     name_parts[0..-2].to_a.join(namespace_separator).to_s
   end
 
+  def klass_name ast
+    ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string[last()]').text
+  end
+
   def klass_fully_qualified_name_parts ast
     ast.xpath('./subNode:class/node:Name_FullyQualified/subNode:parts/scalar:array/scalar:string')
   end
