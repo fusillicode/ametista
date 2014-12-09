@@ -9,24 +9,24 @@ class InstancesPropertiesRefiner
 
   def assign_instances_properties_to_correct_klass
     Property.instances_properties.each do |property|
-      belonging_klass = belonging_klass(property)
-      remove_duplicates(property, belonging_klass)
+      correct_klass = correct_klass(property)
+      remove_duplicates(property, correct_klass)
       property.update_attributes({
-        klass: belonging_klass
+        klass: correct_klass
       })
     end
   end
 
-  def remove_duplicates property, belonging_klass
+  def remove_duplicates property, correct_klass
     Property.where({
       :_id.ne => property._id,
       name: property.name,
-      klass: belonging_klass,
+      klass: correct_klass,
       type: property.type
     }).delete
   end
 
-  def belonging_klass property
+  def correct_klass property
     @property_name = property.name
     find_in_klass_hierarchy(property.klass)
   end
