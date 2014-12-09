@@ -7,11 +7,11 @@ class MethodsCallsQuerier < Querier
   end
 
   def variable ast
-    ast.xpath('./subNode:var')
+    ast.xpath('./var')
   end
 
   def method ast
-    ast.xpath('./subNode:name')
+    ast.xpath('./name')
   end
 
 end

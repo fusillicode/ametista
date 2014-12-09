@@ -11,11 +11,11 @@ class NamespacesQuerier < Querier
   end
 
   def namespace_name_parts ast
-    ast.xpath('./subNode:name/node:Name/subNode:parts/array/string')[0..-1].to_a.join(namespace_separator)
+    ast.xpath('./name/node:Name/parts/array/string')[0..-1].to_a.join(namespace_separator)
   end
 
   def statements ast
-    ast.xpath('./subNode:stmts/array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]').to_s
+    ast.xpath('./stmts/array/*[name() != "node:Stmt_Function" and name() != "node:Stmt_Class"]').to_s
   end
 
   def global_namespace_statements ast_root

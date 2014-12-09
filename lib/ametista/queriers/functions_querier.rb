@@ -7,15 +7,15 @@ class FunctionsQuerier < Querier
   end
 
   def name ast
-    ast.xpath('./subNode:name/string').text
+    ast.xpath('./name/string').text
   end
 
   def function_namespaced_name_parts ast
-    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/array/string')
+    ast.xpath('./namespacedName/node:Name/parts/array/string')
   end
 
   def statements ast
-    ast.xpath('./subNode:stmts/array')
+    ast.xpath('./stmts/array')
   end
 
   def namespace_unique_name name_parts

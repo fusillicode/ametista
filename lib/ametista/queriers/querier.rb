@@ -63,7 +63,7 @@ class Querier
   end
 
   def namespace_name_parts ast
-    ast.xpath('./ancestor::node:Stmt_Namespace[1]/subNode:name/node:Name/subNode:parts/array/string')[0..-1].to_a.join(namespace_separator)
+    ast.xpath('./ancestor::node:Stmt_Namespace[1]/name/node:Name/parts/array/string')[0..-1].to_a.join(namespace_separator)
   end
 
   def method_missing method_name, *args, &block

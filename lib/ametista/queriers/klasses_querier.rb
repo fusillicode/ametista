@@ -7,11 +7,11 @@ class KlassesQuerier < Querier
   end
 
   def name ast
-    ast.xpath("./subNode:name/string").text
+    ast.xpath("./name/string").text
   end
 
   def klass_namespaced_name_parts ast
-    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/array/string')
+    ast.xpath('./namespacedName/node:Name/parts/array/string')
   end
 
   def namespace_unique_name name_parts
@@ -30,11 +30,11 @@ class KlassesQuerier < Querier
   end
 
   def parent_klass_name ast
-    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/array/string[last()]').text
+    ast.xpath('./extends/node:Name_FullyQualified/parts/array/string[last()]').text
   end
 
   def parent_klass_fully_qualified_name_parts ast
-    ast.xpath('./subNode:extends/node:Name_FullyQualified/subNode:parts/array/string')
+    ast.xpath('./extends/node:Name_FullyQualified/parts/array/string')
   end
 
 end

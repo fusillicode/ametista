@@ -7,11 +7,11 @@ class KlassesMethodsQuerier < Querier
   end
 
   def name ast
-    ast.xpath('./subNode:name/string').text
+    ast.xpath('./name/string').text
   end
 
   def statements ast
-    ast.xpath('./subNode:stmts/array')
+    ast.xpath('./stmts/array')
   end
 
   def klass ast
