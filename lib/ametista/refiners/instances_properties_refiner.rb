@@ -1,13 +1,7 @@
 require_relative '../utilities'
 require_relative '../schema'
-require_relative '../queriers/querier'
 
 class InstancesPropertiesRefiner
-
-  extend Initializer
-  initialize_with ({
-    querier: Querier.new
-  })
 
   def refine
     assign_instances_properties_to_correct_klass
