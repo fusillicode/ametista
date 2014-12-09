@@ -1,13 +1,13 @@
 # TODO come posso sistemare tutti questi require_relative?
 require_relative '../utilities'
-require_relative 'usage_analyzer'
+require_relative 'methods_calls_analyzer'
 
 class ModelAnalyzer
 
   extend Initializer
   initialize_with ({
     analyzers: {
-      usage_analyzer: UsageAnalyzer.new
+      methods_calls_analyzer: MethodsCallsAnalyzer.new
     }
   })
 

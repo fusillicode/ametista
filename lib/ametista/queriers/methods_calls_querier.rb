@@ -1,6 +1,6 @@
 require_relative 'querier'
 
-class UsageQuerier < Querier
+class MethodsCallsQuerier < Querier
 
   def methods_calls ast
     ast.xpath('./node:Expr_MethodCall')
