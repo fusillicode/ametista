@@ -174,13 +174,6 @@ end
 class Property < Variable
   field :type, type: String
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
-  # validate :enforce_uniqueness, if: ->{
-  #   self.class.where(
-  #     :_id.ne => self._id,
-  #     unique_name: self.unique_name,
-  #     type: self.type
-  #   ).exists?
-  # }
   scope :instances_properties, ->{ where(type: language.instance_property) }
   def unique_name
     "#{klass.unique_name}#{language.namespace_separator}#{name}"
