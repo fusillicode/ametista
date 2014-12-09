@@ -3,23 +3,23 @@ require_relative 'assignement_querier'
 class PropertiesQuerier < AssignementQuerier
 
   def instances_properties ast_root
-    ast_root.xpath(".//node:Expr_PropertyFetch[var[last()]/node:Expr_Variable/name/string[#{an_instance_property}]]")
+    ast_root.xpath(".//Expr_PropertyFetch[var[last()]/Expr_Variable/name/string[#{an_instance_property}]]")
   end
 
   def self_properties ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch[class[last()]/node:Name/parts/array/string[last()][#{a_self_property}]]")
+    ast_root.xpath(".//Expr_StaticPropertyFetch[class[last()]/Name/parts/array/string[last()][#{a_self_property}]]")
   end
 
   def parent_properties ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch[class[last()]/node:Name/parts/array/string[last()][#{a_parent_property}]]")
+    ast_root.xpath(".//Expr_StaticPropertyFetch[class[last()]/Name/parts/array/string[last()][#{a_parent_property}]]")
   end
 
   def klass_properties ast_root
-    ast_root.xpath(".//node:Expr_StaticPropertyFetch[class[last()]/node:Name_FullyQualified/parts/array/string[last()][#{a_klass_property}]]")
+    ast_root.xpath(".//Expr_StaticPropertyFetch[class[last()]/Name_FullyQualified/parts/array/string[last()][#{a_klass_property}]]")
   end
 
   # def static_property ast_root
-  #   ast_root.xpath(".//node:Expr_StaticPropertyFetch[class[last()]/node:Expr_Variable/name/string[#{a_static_property}]]")
+  #   ast_root.xpath(".//Expr_StaticPropertyFetch[class[last()]/Expr_Variable/name/string[#{a_static_property}]]")
   # end
 
   def name ast
@@ -27,7 +27,7 @@ class PropertiesQuerier < AssignementQuerier
   end
 
   def klass ast
-    ast.xpath('./ancestor::node:Stmt_Class')
+    ast.xpath('./ancestor::Stmt_Class')
   end
 
   def namespace_unique_name name_parts
@@ -46,11 +46,11 @@ class PropertiesQuerier < AssignementQuerier
   end
 
   def klass_name ast
-    ast.xpath('./class/node:Name_FullyQualified/parts/array/string[last()]').text
+    ast.xpath('./class/Name_FullyQualified/parts/array/string[last()]').text
   end
 
   def klass_fully_qualified_name_parts ast
-    ast.xpath('./class/node:Name_FullyQualified/parts/array/string')
+    ast.xpath('./class/Name_FullyQualified/parts/array/string')
   end
 
 end

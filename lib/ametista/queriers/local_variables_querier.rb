@@ -3,11 +3,11 @@ require_relative 'assignement_querier'
 class LocalVariablesQuerier < AssignementQuerier
 
   def namespaces_local_variables ast_root
-    ast_root.xpath(".//node:Stmt_Namespace/stmts/array/node:Expr_Assign/descendant::node:Expr_Variable[name/string[#{a_local_variable}]]")
+    ast_root.xpath(".//Stmt_Namespace/stmts/array/Expr_Assign/descendant::Expr_Variable[name/string[#{a_local_variable}]]")
   end
 
   def functions_variables ast_root
-    ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[ancestor::node:Stmt_Function[1] and name/string[#{a_local_variable}]]")
+    ast_root.xpath(".//Expr_Assign/descendant::Expr_Variable[ancestor::Stmt_Function[1] and name/string[#{a_local_variable}]]")
   end
 
   def functions_local_variables ast_root
@@ -25,11 +25,11 @@ class LocalVariablesQuerier < AssignementQuerier
   end
 
   def klasses_methods_local_variables ast_root
-    ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_Variable[ancestor::node:Stmt_ClassMethod[1] and name/string[#{a_local_variable}]]")
+    ast_root.xpath(".//Expr_Assign/descendant::Expr_Variable[ancestor::Stmt_ClassMethod[1] and name/string[#{a_local_variable}]]")
   end
 
   def previous_global_variables_definitions_names ast
-    ast.xpath("./ancestor::node:Expr_Assign[1]/preceding-sibling::node:Stmt_Global/vars/array/node:Expr_Variable/name/string").map { |global_variable| global_variable.text }
+    ast.xpath("./ancestor::Expr_Assign[1]/preceding-sibling::Stmt_Global/vars/array/Expr_Variable/name/string").map { |global_variable| global_variable.text }
   end
 
   def function_local_variable_name ast
@@ -41,11 +41,11 @@ class LocalVariablesQuerier < AssignementQuerier
   end
 
   def function ast
-    ast.xpath("./ancestor::node:Stmt_Function[1]")
+    ast.xpath("./ancestor::Stmt_Function[1]")
   end
 
   def klass_method ast
-    ast.xpath("./ancestor::node:Stmt_ClassMethod[1]")
+    ast.xpath("./ancestor::Stmt_ClassMethod[1]")
   end
 
 end

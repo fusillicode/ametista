@@ -3,11 +3,11 @@ require_relative 'assignement_querier'
 class ParametersQuerier < AssignementQuerier
 
   def functions_parameters ast_root
-    ast_root.xpath('.//node:Stmt_Function/params/array/node:Param')
+    ast_root.xpath('.//Stmt_Function/params/array/Param')
   end
 
   def klasses_methods_parameters ast_root
-    ast_root.xpath('.//node:Stmt_ClassMethod/params/array/node:Param')
+    ast_root.xpath('.//Stmt_ClassMethod/params/array/Param')
   end
 
   def name ast
@@ -15,11 +15,11 @@ class ParametersQuerier < AssignementQuerier
   end
 
   def klass_method ast
-    ast.xpath("./ancestor::node:Stmt_ClassMethod")
+    ast.xpath("./ancestor::Stmt_ClassMethod")
   end
 
   def function ast
-    ast.xpath("./ancestor::node:Stmt_Function")
+    ast.xpath("./ancestor::Stmt_Function")
   end
 
 end

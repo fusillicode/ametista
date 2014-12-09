@@ -3,7 +3,7 @@ require_relative 'querier'
 class FunctionsQuerier < Querier
 
   def functions ast_root
-    ast_root.xpath('.//array/node:Stmt_Function')
+    ast_root.xpath('.//array/Stmt_Function')
   end
 
   def name ast
@@ -11,7 +11,7 @@ class FunctionsQuerier < Querier
   end
 
   def function_namespaced_name_parts ast
-    ast.xpath('./namespacedName/node:Name/parts/array/string')
+    ast.xpath('./namespacedName/Name/parts/array/string')
   end
 
   def statements ast

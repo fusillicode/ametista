@@ -3,7 +3,7 @@ require_relative 'querier'
 class KlassesQuerier < Querier
 
   def klasses ast_root
-    ast_root.xpath(".//node:Stmt_Class")
+    ast_root.xpath(".//Stmt_Class")
   end
 
   def name ast
@@ -11,7 +11,7 @@ class KlassesQuerier < Querier
   end
 
   def klass_namespaced_name_parts ast
-    ast.xpath('./namespacedName/node:Name/parts/array/string')
+    ast.xpath('./namespacedName/Name/parts/array/string')
   end
 
   def namespace_unique_name name_parts
@@ -30,11 +30,11 @@ class KlassesQuerier < Querier
   end
 
   def parent_klass_name ast
-    ast.xpath('./extends/node:Name_FullyQualified/parts/array/string[last()]').text
+    ast.xpath('./extends/Name_FullyQualified/parts/array/string[last()]').text
   end
 
   def parent_klass_fully_qualified_name_parts ast
-    ast.xpath('./extends/node:Name_FullyQualified/parts/array/string')
+    ast.xpath('./extends/Name_FullyQualified/parts/array/string')
   end
 
 end

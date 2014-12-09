@@ -3,15 +3,15 @@ require_relative 'assignement_querier'
 class GlobalVariablesQuerier < AssignementQuerier
 
   def global_namespace_variables ast_root
-    ast_root.xpath("/AST/array/node:Expr_Assign/descendant::node:Expr_Variable[name/string[#{not_a_superglobal}]]")
+    ast_root.xpath("/AST/array/Expr_Assign/descendant::Expr_Variable[name/string[#{not_a_superglobal}]]")
   end
 
   def global_definitions ast_root
-    ast_root.xpath(".//node:Stmt_Global/vars/array/descendant::node:Expr_Variable[name/string[#{not_a_superglobal}]]")
+    ast_root.xpath(".//Stmt_Global/vars/array/descendant::Expr_Variable[name/string[#{not_a_superglobal}]]")
   end
 
   def superglobals ast_root
-    ast_root.xpath(".//node:Expr_Assign/descendant::node:Expr_ArrayDimFetch[last()][var/node:Expr_Variable[name/string[#{a_superglobal}]]]")
+    ast_root.xpath(".//Expr_Assign/descendant::Expr_ArrayDimFetch[last()][var/Expr_Variable[name/string[#{a_superglobal}]]]")
   end
 
   def global_namespace_variable_name ast
@@ -23,18 +23,18 @@ class GlobalVariablesQuerier < AssignementQuerier
   end
 
   def superglobal_type ast
-    ast.xpath('./var/node:Expr_Variable/name/string').text
+    ast.xpath('./var/Expr_Variable/name/string').text
   end
 
   def superglobal_name ast
-    ast.xpath('./dim/node:Scalar_String/value/string').text
+    ast.xpath('./dim/Scalar_String/value/string').text
   end
 
   # def variable_unique_name
-  #   p 'namespace: ' << ast.xpath('./ancestor::node:Stmt_Namespace[1]/name/string').text
-  #   p 'function: ' << ast.xpath('./ancestor::node:Stmt_Function[1]/name/string').text
-  #   p 'class: ' << ast.xpath('./ancestor::node:Stmt_Class[1]/name/string').text
-  #   p 'method: ' << ast.xpath('./ancestor::node:Stmt_ClassMethod[1]/name/string').text
+  #   p 'namespace: ' << ast.xpath('./ancestor::Stmt_Namespace[1]/name/string').text
+  #   p 'function: ' << ast.xpath('./ancestor::Stmt_Function[1]/name/string').text
+  #   p 'class: ' << ast.xpath('./ancestor::Stmt_Class[1]/name/string').text
+  #   p 'method: ' << ast.xpath('./ancestor::Stmt_ClassMethod[1]/name/string').text
   #   p '###########################'
   # end
 
@@ -58,7 +58,7 @@ class GlobalVariablesQuerier < AssignementQuerier
   #   when 'Expr_ArrayDimFetch'
   #     # non tratto indici di array dinamici
   #     return var if !var = variable_name(node.xpath('./var'))
-  #     dim = node.xpath('./dim/*[name() = "node:Scalar_String" or name() = "node:Scalar_LNumber"]/value/*').text
+  #     dim = node.xpath('./dim/*[name() = "Scalar_String" or name() = "Scalar_LNumber"]/value/*').text
   #     return false if dim.nil? or dim.empty?
   #     var << '[' << dim << ']'
   #   when 'string'

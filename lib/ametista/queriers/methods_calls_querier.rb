@@ -3,7 +3,7 @@ require_relative 'querier'
 class MethodsCallsQuerier < Querier
 
   def methods_calls ast
-    ast.xpath('./node:Expr_MethodCall')
+    ast.xpath('./Expr_MethodCall')
   end
 
   def variable ast

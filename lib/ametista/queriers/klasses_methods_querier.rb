@@ -3,7 +3,7 @@ require_relative 'querier'
 class KlassesMethodsQuerier < Querier
 
   def klasses_methods ast_root
-    ast_root.xpath('.//array/node:Stmt_ClassMethod')
+    ast_root.xpath('.//array/Stmt_ClassMethod')
   end
 
   def name ast
@@ -15,7 +15,7 @@ class KlassesMethodsQuerier < Querier
   end
 
   def klass ast
-    ast.xpath('./ancestor::node:Stmt_Class[1]')
+    ast.xpath('./ancestor::Stmt_Class[1]')
   end
 
 end
