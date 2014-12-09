@@ -3,19 +3,19 @@ require_relative 'querier'
 class FunctionsQuerier < Querier
 
   def functions ast_root
-    ast_root.xpath('.//scalar:array/node:Stmt_Function')
+    ast_root.xpath('.//array/node:Stmt_Function')
   end
 
   def name ast
-    ast.xpath('./subNode:name/scalar:string').text
+    ast.xpath('./subNode:name/string').text
   end
 
   def function_namespaced_name_parts ast
-    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/scalar:array/scalar:string')
+    ast.xpath('./subNode:namespacedName/node:Name/subNode:parts/array/string')
   end
 
   def statements ast
-    ast.xpath('./subNode:stmts/scalar:array')
+    ast.xpath('./subNode:stmts/array')
   end
 
   def namespace_unique_name name_parts
