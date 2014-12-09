@@ -17,7 +17,7 @@ class KlassesBuilder < Builder
 
   def klasses
     querier.klasses(ast).map_unique('_id') do |klass_ast|
-      add_parent_klass(klass(klass_ast), parent_klass(klass_ast))
+      klass(klass_ast)
     end
   end
 
@@ -26,13 +26,9 @@ class KlassesBuilder < Builder
       name: querier.name(klass_ast),
       namespace: namespace(
         querier.klass_namespaced_name_parts(klass_ast)
-      )
+      ),
+      parent_klass: parent_klass(klass_ast)
     )
-  end
-
-  def add_parent_klass klass, parent_klass
-    klass.parent_klass = parent_klass
-    klass
   end
 
   def namespace name_parts
