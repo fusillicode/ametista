@@ -1,7 +1,7 @@
 require "mongoid"
 include EnforceAvailableLocales
 
-module IsIdentifiableWithUniqueName
+module HasAUniqueName
   def self.included base
     base.include Mongoid::Document
     base.field :unique_name, type: String
@@ -10,23 +10,12 @@ module IsIdentifiableWithUniqueName
   end
 end
 
-module IsIdentifiableWithNameAndUniqueName
+module HasAName
   def self.included base
     base.include Mongoid::Document
-    base.include IsIdentifiableWithUniqueName
     base.field :name, type: String
     base.validates :name, presence: true, length: { allow_blank: false }
-    # base.validate :enforce_uniqueness, if: ->{
-    #   self.class.where(
-    #     :_id.ne => self._id,
-    #     unique_name: self.unique_name,
-    #   ).exists?
-    # }
   end
-  # # TODO definire una specifica eccezione da sollevare...
-  # def enforce_uniqueness
-  #   raise "A #{self.class} with unique_name #{self.unique_name} has already been registered."
-  # end
 end
 
 module ReferencesLanguage
@@ -82,7 +71,7 @@ end
 module IsAProcedure
   def self.included base
     base.include ReferencesLanguage
-    base.include IsIdentifiableWithNameAndUniqueName
+    base.include HasAName
     base.include ContainsLocalVariables
     base.field :statements, type: String
     base.has_many :parameters, class_name: 'Parameter', as: :procedure
@@ -93,13 +82,13 @@ end
 # (can't handle the relation with polymorfic)
 class Type
   include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
+  include HasAName
   has_and_belongs_to_many :variables, class_name: 'Variable', inverse_of: :types
 end
 
 class Variable
   include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
+  include HasAName
   has_and_belongs_to_many :types, class_name: 'Type', inverse_of: :variables
   has_many :assignements, class_name: 'Assignement', inverse_of: :variable
   # has_many :methods_invocations, class_name: 'MethodInvocation', inverse_of: :variable
@@ -109,13 +98,13 @@ end
 
 class Language
   include IsSingleton
-  include IsIdentifiableWithNameAndUniqueName
+  include HasAName
   include Mongoid::Attributes::Dynamic
 end
 
 class Namespace
   include ReferencesLanguage
-  include IsIdentifiableWithUniqueName
+  include HasAUniqueName
   field :statements, type: Array
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
@@ -131,17 +120,12 @@ class Namespace
 end
 
 class Klass < Type
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :klasses
   belongs_to :parent_klass, class_name: 'Klass', inverse_of: :child_klasses
   has_many :child_klasses, class_name: 'Klass', inverse_of: :parent_klass
   has_many :methods, class_name: 'KlassMethod', inverse_of: :klass
   has_many :properties, class_name: 'Property', inverse_of: :klass
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
@@ -154,62 +138,41 @@ CustomType = Klass
 
 class KlassMethod
   include IsAProcedure
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :klass, class_name: 'Klass', inverse_of: :methods
   # has_and_belongs_to_many :methods_invocations, class_name: 'MethodInvocation', inverse_of: :methods
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Function
   include IsAProcedure
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :namespace, class_name: 'Namespace', inverse_of: :functions
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class GlobalVariable < Variable
   field :type, type: String, default: 'GLOBALS'
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :global_scope, polymorphic: true
   after_initialize do
     self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
   end
 end
 
 class LocalVariable < Variable
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :local_scope, polymorphic: true
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Property < Variable
   field :type, type: String
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :klass, class_name: 'Klass', inverse_of: :properties
   # validate :enforce_uniqueness, if: ->{
   #   self.class.where(
@@ -219,73 +182,49 @@ class Property < Variable
   #   ).exists?
   # }
   scope :instances_properties, ->{ where(type: language.instance_property) }
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Parameter < Variable
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
   belongs_to :procedure, polymorphic: true
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{procedure.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Assignement
   include ReferencesLanguage
-  include IsIdentifiableWithNameAndUniqueName
-  field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+  include HasAName
   field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
   field :position, type: Array
   field :rhs, type: String
   belongs_to :variable, polymorphic: true
-  def default_unique_name
-    reference_language
-    unique_name || custom_unique_name
-  end
-  def custom_unique_name
+  def unique_name
     "#{variable.unique_name}#{language.namespace_separator}#{position}"
   end
 end
 
 # class MethodInvocation
 #   include ReferencesLanguage
-#   include IsIdentifiableWithNameAndUniqueName
-#   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+#   include HasAName
 #   field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
 #   field :position, type: Array
 #   belongs_to :variable, polymorphic: true
 #   has_and_belongs_to_many :methods, class_name: 'KlassMethod', inverse_of: :methods_invocations
-#   def default_unique_name
-#     reference_language
-#     unique_name || custom_unique_name
-#   end
-#   def custom_unique_name
+#   def unique_name
 #     "#{variable.unique_name}#{language.namespace_separator}#{position}"
 #   end
 # end
 
 # class FunctionInvocation
 #   include ReferencesLanguage
-#   include IsIdentifiableWithNameAndUniqueName
-#   field :unique_name, type: String, overwrite: true, default: ->{ default_unique_name }
+#   include HasAName
 #   field :name, type: String, overwrite: true, default: ->{ function.unique_name }
 #   field :position, type: Array
 #   belongs_to :function, class_name: 'Function', inverse_of: :functions_invocations
-#   def default_unique_name
-#     reference_language
-#     unique_name || custom_unique_name
-#   end
-#   def custom_unique_name
+#   def unique_name
 #     "#{function.unique_name}#{language.namespace_separator}#{position}"
 #   end
 # end

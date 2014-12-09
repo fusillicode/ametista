@@ -6,7 +6,6 @@ class LanguageBuilder < Builder
   extend Initializer
   initialize_with ({
     lang: {
-      unique_name: 'PHP',
       name: 'PHP',
       global_namespace: {
         unique_name: '\\'

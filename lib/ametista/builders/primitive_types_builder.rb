@@ -11,7 +11,6 @@ class PrimitiveTypesBuilder < Builder
   def primitive_types
     querier.primitive_types.map_unique('_id') do |primitive_type|
       PrimitiveType.create(
-        unique_name: primitive_type,
         name: primitive_type
       )
     end
