@@ -56,7 +56,7 @@ class ModelBuilder
 
   def building_loop
     while ast = channel.read
-      builders_loop(parser.parse(ast))
+      builders_loop(parser.parse(ast).remove_namespaces!)
     end
   end
 
