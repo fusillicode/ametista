@@ -8,8 +8,8 @@ self: associo alla classe parente se c'è opprue a quella in cui sono se non tro
 parent: devo beccare il parent della classe corrente ed associare a quella
 static: becco la classe in cui sono e associo a quella...
 
-= modellazione dell'istruzione use
+= modellazione dell'istruzione use IL PARSER MI AIUTA E IO DOVREI AVER COSTRUITO LE ENTITÀ SULLA BASE DI QUELLO CHE MI FORNISCE IL PARSER
 
 = nessun controllo sulla definizione di stesse funzioni e/o classi all'interno di file differenti
 
-= creazione dei namespace delle classi parent di quelle che analizzo
+= creazione dei namespace delle classi parent di quelle che analizzo DOVREBBE ESSERE RISOLTO
