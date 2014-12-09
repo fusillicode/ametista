@@ -101,7 +101,10 @@ class ExtraComplesso extends BellaCiao {
 }
 
 class Complessissimo extends ExtraComplesso {
-
+  public function ponte() {
+    $this->html = 'holaa';
+    $this->ruby = 'mello';
+  }
 }
 
 class Complesso extends Complessissimo {
