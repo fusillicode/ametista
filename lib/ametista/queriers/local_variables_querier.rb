@@ -48,12 +48,6 @@ class LocalVariablesQuerier < AssignementQuerier
     "#{namespace_unique_name(ast)}#{namespace_separator}#{function_name(ast)}"
   end
 
-
-
-
-
-
-
   def function_name ast
     ast.xpath("./ancestor::node:Stmt_Function[1]/subNode:name/scalar:string").text
   end
