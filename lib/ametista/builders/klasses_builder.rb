@@ -44,7 +44,7 @@ class KlassesBuilder < Builder
         name: parent_klass_name,
         namespace: namespace(
           querier.parent_klass_fully_qualified_name_parts(klass_ast)
-        ),
+        )
       )
     end
   end
