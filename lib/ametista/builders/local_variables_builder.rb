@@ -41,7 +41,6 @@ class LocalVariablesBuilder < Builder
     querier.functions_local_variables(ast).map_unique('_id') do |function_local_variable_ast|
       local_variable = LocalVariable.find_or_create_by(
         name: querier.function_local_variable_name(function_local_variable_ast),
-        # local_scope: function(function_local_variable_ast),
         local_scope: functions_builder.function(
           querier.function(function_local_variable_ast)
         )
