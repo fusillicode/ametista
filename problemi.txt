@@ -3,9 +3,9 @@ le interfacce sono contenitori di metodi solo astratti che devono essere sempre 
 le classi astratte sono come delle interfacce che però contengono anche delle funzionalità e non
 solo delle signature.
 
-= this: devo trattare il caso delle istanze o associo alla classe?
-self: associo alla classe parente se c'è opprue a quella in cui sono se non trovo una parent
-parent: devo beccare il parent della classe corrente ed associare a quella
+= this: devo trattare il caso delle istanze o associo alla classe? DOVREBBE ESSERE FATTO
+self: associo alla classe parente se c'è opprue a quella in cui sono se non trovo una parent DOVREBBE ESSERE FATTO
+parent: devo beccare il parent della classe corrente ed associare a quella DOVREBBE ESSERE FATTO
 static: becco la classe in cui sono e associo a quella...
 
 = modellazione dell'istruzione use IL PARSER MI AIUTA E IO DOVREI AVER COSTRUITO LE ENTITÀ SULLA BASE DI QUELLO CHE MI FORNISCE IL PARSER
@@ -13,3 +13,7 @@ static: becco la classe in cui sono e associo a quella...
 = nessun controllo sulla definizione di stesse funzioni e/o classi all'interno di file differenti
 
 = creazione dei namespace delle classi parent di quelle che analizzo DOVREBBE ESSERE RISOLTO
+
+= dove metto il parser delle stringhe xml memorizzate all'interno del modello?
+chiamo esplicitamente parser.parse all'interno degli analyzer?
+credo dei querier particolari (after_querier?) e demando a loro il parsing?
