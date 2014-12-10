@@ -17,3 +17,4 @@ static: becco la classe in cui sono e associo a quella...
 = dove metto il parser delle stringhe xml memorizzate all'interno del modello?
 chiamo esplicitamente parser.parse all'interno degli analyzer?
 credo dei querier particolari (after_querier?) e demando a loro il parsing?
+converto xml in json e salvo quelli all'interno del modello
