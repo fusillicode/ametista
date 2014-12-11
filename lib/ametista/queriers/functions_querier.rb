@@ -15,7 +15,7 @@ class FunctionsQuerier < Querier
   end
 
   def statements ast
-    ast.xpath('./stmts/array')
+    ast.xpath('./stmts/array').to_s
   end
 
   def namespace_unique_name name_parts

@@ -11,7 +11,7 @@ class KlassesMethodsQuerier < Querier
   end
 
   def statements ast
-    ast.xpath('./stmts/array')
+    ast.xpath('./stmts/array').to_s
   end
 
   def klass ast
