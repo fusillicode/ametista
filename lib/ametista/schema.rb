@@ -73,7 +73,7 @@ module IsAProcedure
     base.include ReferencesLanguage
     base.include HasAName
     base.include ContainsLocalVariables
-    base.embeds_one :content, class_name: 'Content', as: :container
+    base.field :statements, type: Hash
     base.has_many :parameters, class_name: 'Parameter', as: :procedure
   end
 end
@@ -102,15 +102,10 @@ class Language
   include Mongoid::Attributes::Dynamic
 end
 
-class Content
-  include Mongoid::Document
-  embedded_in :container, polymorphic: :true
-end
-
 class Namespace
   include ReferencesLanguage
   include HasAUniqueName
-  embeds_many :contents, class_name: 'Content', as: :container
+  field :statements, type: Hash
   has_many :functions, class_name: 'Function', inverse_of: :namespace
   has_many :klasses, class_name: 'Klass', inverse_of: :namespace
   after_initialize do
