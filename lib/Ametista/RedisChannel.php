@@ -65,6 +65,8 @@ class RedisChannel
 
   public function push($data)
   {
+    // Per rimuovere a monte gli spazi e gli a capo dall'XML generato dal parser
+    // $data = preg_replace('/>(\s*?|\n*?)(.*?)(\s*?|\n*?)</', ">$2<", $data);
     $this->client->lpush($this->channel, $data);
   }
 
