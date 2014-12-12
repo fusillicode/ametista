@@ -19,9 +19,14 @@ class MethodsCallsAnalyzer < Analyzer
 
   def analyze_functions_statements
     Function.each do |function|
-      querier.methods_calls(parser.parse(function.statements)).each do |method_call|
-        p method_call
+      ap function.statements
+      function.statements.find({  }).each do |a|
+        ap a
       end
+      exit
+      # querier.methods_calls(parser.parse(function.statements)).each do |method_call|
+      #   p method_call
+      # end
     end
   end
 
