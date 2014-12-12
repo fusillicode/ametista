@@ -21,3 +21,4 @@ redis-*
 vendor/*
 *.rdb
 database/*
+db/*
