@@ -198,26 +198,3 @@ class Assignement
     "#{variable.unique_name}#{language.namespace_separator}#{position}"
   end
 end
-
-# class MethodInvocation
-#   include ReferencesLanguage
-#   include HasAName
-#   field :name, type: String, overwrite: true, default: ->{ variable.unique_name }
-#   field :position, type: Array
-#   belongs_to :variable, polymorphic: true
-#   has_and_belongs_to_many :methods, class_name: 'KlassMethod', inverse_of: :methods_invocations
-#   def unique_name
-#     "#{variable.unique_name}#{language.namespace_separator}#{position}"
-#   end
-# end
-
-# class FunctionInvocation
-#   include ReferencesLanguage
-#   include HasAName
-#   field :name, type: String, overwrite: true, default: ->{ function.unique_name }
-#   field :position, type: Array
-#   belongs_to :function, class_name: 'Function', inverse_of: :functions_invocations
-#   def unique_name
-#     "#{function.unique_name}#{language.namespace_separator}#{position}"
-#   end
-# end
