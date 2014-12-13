@@ -9,9 +9,9 @@ class RedisDaemon
   private function defaults()
   {
     return $this->defaults = array(
-      'server_path' => 'vendor/redis/src/',
+      'server_path'       => 'vendor/redis/src/',
       'server_executable' => 'redis-server',
-      'port' => 6379
+      'port'              => 6379
     );
   }
 
