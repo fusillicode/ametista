@@ -33,4 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "standalone_migrations"
   spec.add_runtime_dependency "postgres"
   spec.add_runtime_dependency "awesome_print"
+  spec.add_runtime_dependency "configatron"
+  spec.add_runtime_dependency "thor"
 end
