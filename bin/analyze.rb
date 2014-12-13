@@ -1,6 +1,6 @@
 if __FILE__ == $0
-  require 'mongoid'
+  require 'active_record'
+  require 'yaml'
   require_relative '../lib/ametista/analyzers/model_analyzer'
-  Mongoid.load!('./mongoid.yml', :development)
   model_analyzer = ModelAnalyzer.new.analyze
 end
