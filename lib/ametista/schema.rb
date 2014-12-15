@@ -1,56 +1,62 @@
 module HasUniqueName
-  def self.included base
-    base.field :unique_name, type: String
-    base.validates :unique_name, presence: true, length: { allow_blank: false }
-  end
-end
-
-module HasNameAndUniqueName
-  def self.included base
-    base.include DerivedUniqueName
-    base.field :name, type: String
-    base.validates :name, presence: true, length: { allow_blank: false }
+  extend ActiveSupport::Concern
+  included do
+    field :unique_name, type: :string
+    validates :unique_name, presence: true, length: { allow_blank: false }
   end
 end
 
 module DerivedUniqueName
-  def self.included base
-    base.field :unique_name, type: String
-    base.after_initialize :init
+  extend ActiveSupport::Concern
+  included do
+    field :unique_name, type: :string
+    after_initialize :init
   end
   def init
     self.unique_name = derived_unique_name
   end
 end
 
+module HasNameAndUniqueName
+  extend ActiveSupport::Concern
+  include DerivedUniqueName
+  included do
+    field :name, type: :string
+    validates :name, presence: true, length: { allow_blank: false }
+  end
+end
+
 module IsGlobalScope
-  def self.included base
-    base.has_many :global_variables, as: :global_scope
+  extend ActiveSupport::Concern
+  included do
+    has_many :global_variables, as: :global_scope
   end
 end
 
 module IsLocalScope
-  def self.included base
-    base.has_many :local_variables, as: :local_scope
+  extend ActiveSupport::Concern
+  included do
+    has_many :local_variables, as: :local_scope
   end
 end
 
 module IsProcedure
-  def self.included base
-    base.include HasNameAndUniqueName
-    base.include IsLocalScope
-    base.field :statements, type: xml
-    base.has_many :parameters, as: :procedure
+  extend ActiveSupport::Concern
+  include HasNameAndUniqueName
+  include IsLocalScope
+  included do
+    field :statements, type: xml
+    has_many :parameters, as: :procedure
   end
 end
 
-class Variable
+class Variable < ActiveRecord::Base
   include HasNameAndUniqueName
   has_many :types, as: :variable, through: :variable_types
   has_many :assignements, as: :variable
 end
 
-class Type
+class Type < ActiveRecord::Base
   include HasNameAndUniqueName
   has_many :variables, as: :type, through: :variable_types
 end
@@ -111,7 +117,7 @@ class Function < ActiveRecord::Base
 end
 
 class GlobalVariable < Variable
-  field :type, type: String, default: 'GLOBALS'
+  field :type, type: :string, default: 'GLOBALS'
   belongs_to :global_scope, polymorphic: true
   after_initialize do
     self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
@@ -129,7 +135,7 @@ class LocalVariable < Variable
 end
 
 class Property < Variable
-  field :type, type: String
+  field :type, type: :string
   belongs_to :klass
   scope :instances_properties, ->{ where(type: language.instance_property) }
   def derived_unique_name
