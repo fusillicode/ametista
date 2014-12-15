@@ -44,19 +44,15 @@ module IsProcedure
   end
 end
 
-module IsVariable
-  def self.included base
-    base.include HasNameAndUniqueName
-    base.has_many :types, through: :variable_types
-    base.has_many :assignements, as: :variable
-  end
+class Variable
+  include HasNameAndUniqueName
+  has_many :types, as: :variable, through: :variable_types
+  has_many :assignements, as: :variable
 end
 
-module IsType
-  def self.included base
-    base.include HasNameAndUniqueName
-    base.has_many :variables, through: :variable_types
-  end
+class Type
+  include HasNameAndUniqueName
+  has_many :variables, as: :type, through: :variable_types
 end
 
 ################################################################################
@@ -75,8 +71,7 @@ class Namespace < ActiveRecord::Base
   end
 end
 
-class Klass < ActiveRecord::Base
-  include IsType
+class Klass < Type
   belongs_to :namespace, inverse_of: :klasses
   belongs_to :parent_klass, class_name: 'Klass'
   has_many :child_klasses, class_name: 'Klass', foreign_key: 'parent_klass_id'
@@ -88,13 +83,12 @@ class Klass < ActiveRecord::Base
   end
 end
 
-class PrimitiveType < ActiveRecord::Base
-  include IsType
+class PrimitiveType < Type
 end
 
 class VariableType < ActiveRecord::Base
-  belongs_to :variable
-  belongs_to :type
+  belongs_to :variable, polymorphic: true
+  belongs_to :type, polymorphic: true
 end
 
 # alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
@@ -116,8 +110,7 @@ class Function < ActiveRecord::Base
   end
 end
 
-class GlobalVariable < ActiveRecord::Base
-  include IsVariable
+class GlobalVariable < Variable
   field :type, type: String, default: 'GLOBALS'
   belongs_to :global_scope, polymorphic: true
   after_initialize do
@@ -128,16 +121,14 @@ class GlobalVariable < ActiveRecord::Base
   end
 end
 
-class LocalVariable < ActiveRecord::Base
-  include IsVariable
+class LocalVariable < Variable
   belongs_to :local_scope, polymorphic: true
   def derived_unique_name
     "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
-class Property < ActiveRecord::Base
-  include IsVariable
+class Property < Variable
   field :type, type: String
   belongs_to :klass
   scope :instances_properties, ->{ where(type: language.instance_property) }
@@ -146,8 +137,7 @@ class Property < ActiveRecord::Base
   end
 end
 
-class Parameter < ActiveRecord::Base
-  include IsVariable
+class Parameter < Variable
   belongs_to :procedure, polymorphic: true
   def derived_unique_name
     "#{procedure.unique_name}#{language.namespace_separator}#{name}"
