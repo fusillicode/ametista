@@ -24,9 +24,9 @@ class ModelBuilder
   extend Initializer
   initialize_with ({
     config_files: {
-      language: File.join Dir.pwd, 'db', 'language.yml',
-      db: File.join Dir.pwd, 'db', 'config.yml'
-    }
+      language: File.join(Dir.pwd, 'db', 'language.yml'),
+      db: File.join(Dir.pwd, 'db', 'config.yml')
+    },
     parser: XMLParser.new,
     channel: RedisChannel.new,
     init_builders: {
