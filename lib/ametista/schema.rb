@@ -24,6 +24,9 @@ module HasNameAndUniqueName
     field :name, type: :string
     validates :name, presence: true, length: { allow_blank: false }
   end
+  def derived_unique_name
+    name
+  end
 end
 
 module IsGlobalScope
