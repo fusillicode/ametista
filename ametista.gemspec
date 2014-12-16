@@ -28,10 +28,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-stack_explorer"
 
   spec.add_runtime_dependency "redis"
+  spec.add_runtime_dependency "pg"
   spec.add_runtime_dependency "nokogiri"
   spec.add_runtime_dependency "activerecord"
   spec.add_runtime_dependency "standalone_migrations"
-  spec.add_runtime_dependency "postgres"
   spec.add_runtime_dependency "awesome_print"
   spec.add_runtime_dependency "configatron"
   spec.add_runtime_dependency "thor"
