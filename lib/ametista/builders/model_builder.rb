@@ -17,7 +17,6 @@ require_relative 'local_variables_builder'
 require_relative 'properties_builder'
 require_relative 'klasses_builder'
 require_relative 'klasses_methods_builder'
-include PatchedAwesomePrint
 
 class ModelBuilder
 
