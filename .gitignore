@@ -21,4 +21,4 @@ redis-*
 vendor/*
 *.rdb
 database/*
-db/*
+db/config.yml
