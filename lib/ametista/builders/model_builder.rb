@@ -1,7 +1,7 @@
 # TODO come posso sistemare tutti questi require_relative?
 require 'active_record'
 require 'yaml'
-require 'configatron/core'
+require 'configatron'
 require_relative '../utilities'
 require_relative '../redis_channel'
 require_relative '../xml_parser'
@@ -23,8 +23,8 @@ class ModelBuilder
   extend Initializer
   initialize_with ({
     config_files: {
-      language: File.join(Dir.pwd, 'db', 'language.yml'),
-      db: File.join(Dir.pwd, 'db', 'config.yml')
+      language: File.join(Dir.pwd, 'language.yml'),
+      db: File.join(Dir.pwd, 'db', 'database.yml')
     },
     parser: XMLParser.new,
     channel: RedisChannel.new,
@@ -54,14 +54,13 @@ class ModelBuilder
   end
 
   def load_config
-    config = Configatron::RootStore.new
-    config_files.each do |config, file|
-      config.configure_from_hash YAML::load(File.open file)
+    config_files.each do |key, file|
+      configatron[key].configure_from_hash YAML::load(File.open file)
     end
   end
 
-  def connect_to_db environment = 'development'
-    ActiveRecord::Base.establish_connection environment
+  def connect_to_db environment = :development
+    ActiveRecord::Base.establish_connection configatron.db[environment].to_hash
   end
 
   def build
