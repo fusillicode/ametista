@@ -56,8 +56,8 @@ class ModelBuilder
 
   def load_config
     config = Configatron::RootStore.new
-    config_files.each do |config_files|
-      config.configure_from_hash YAML::load(File.open config_file)
+    config_files.each do |config, file|
+      config.configure_from_hash YAML::load(File.open file)
     end
   end
 
