@@ -48,7 +48,8 @@ class ModelBuilder
     }
   })
 
-  def initialize
+  def initialize args = {}
+    super args
     load_config
     connect_to_db
   end
