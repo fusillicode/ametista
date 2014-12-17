@@ -1,30 +1,19 @@
 module HasUniqueName
   extend ActiveSupport::Concern
   included do
-    field :unique_name, type: :string
     validates :unique_name, presence: true, length: { allow_blank: false }
-  end
-end
-
-module DerivedUniqueName
-  extend ActiveSupport::Concern
-  included do
-    field :unique_name, type: :string
-    after_initialize :init
-  end
-  def init
-    self.unique_name = derived_unique_name
   end
 end
 
 module HasNameAndUniqueName
   extend ActiveSupport::Concern
-  include DerivedUniqueName
   included do
-    field :name, type: :string
     validates :name, presence: true, length: { allow_blank: false }
+    after_initialize do
+      self.unique_name = inferred_unique_name
+    end
   end
-  def derived_unique_name
+  def inferred_unique_name
     name
   end
 end
@@ -32,14 +21,14 @@ end
 module IsGlobalScope
   extend ActiveSupport::Concern
   included do
-    has_many :global_variables, as: :global_scope
+    has_many :global_variables, as: :scope
   end
 end
 
 module IsLocalScope
   extend ActiveSupport::Concern
   included do
-    has_many :local_variables, as: :local_scope
+    has_many :local_variables, as: :scope
   end
 end
 
@@ -48,13 +37,11 @@ module IsProcedure
   include HasNameAndUniqueName
   include IsLocalScope
   included do
-    field :statements, type: xml
     has_many :parameters, as: :procedure
   end
 end
 
 class Variable < ActiveRecord::Base
-  include HasNameAndUniqueName
   has_many :types, as: :variable, through: :variable_types
   has_many :assignements, as: :variable
 end
@@ -68,7 +55,6 @@ end
 
 class Namespace < ActiveRecord::Base
   include HasUniqueName
-  field :statements, type: xml
   has_many :functions, inverse_of: :namespace
   has_many :klasses, inverse_of: :namespace
   after_initialize { extend define_scope_type }
@@ -86,8 +72,7 @@ class Klass < Type
   has_many :child_klasses, class_name: 'Klass', foreign_key: 'parent_klass_id'
   has_many :klass_methods, inverse_of: :klass
   has_many :properties, inverse_of: :klass
-  has_many :variables, through: :variables_types
-  def derived_unique_name
+  def inferred_unique_name
     "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
@@ -106,7 +91,7 @@ CustomType = Klass
 class KlassMethod < ActiveRecord::Base
   include IsProcedure
   belongs_to :klass, inverse_of: :klass_methods
-  def derived_unique_name
+  def inferred_unique_name
     "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
 end
@@ -114,51 +99,48 @@ end
 class Function < ActiveRecord::Base
   include IsProcedure
   belongs_to :namespace, inverse_of: :functions
-  def derived_unique_name
+  def inferred_unique_name
     "#{namespace.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class GlobalVariable < Variable
-  field :type, type: :string, default: 'GLOBALS'
-  belongs_to :global_scope, polymorphic: true
+  belongs_to :scope, inverse_of: :global_variables
   after_initialize do
-    self.global_scope ||= Namespace.find_or_create_by(language.global_namespace)
+    self.unique_name ||= 'GLOBALS'
+    self.scope ||= Namespace.find_or_create_by(language.global_namespace)
   end
-  def derived_unique_name
+  def inferred_unique_name
     "#{language.global_namespace['unique_name']}#{language.namespace_separator}#{type}[#{name}]"
   end
 end
 
 class LocalVariable < Variable
-  belongs_to :local_scope, polymorphic: true
-  def derived_unique_name
-    "#{local_scope.unique_name}#{language.namespace_separator}#{name}"
+  belongs_to :scope, polymorphic: true
+  def inferred_unique_name
+    "#{scope.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Property < Variable
-  field :type, type: :string
-  belongs_to :klass
+  belongs_to :klass, inverse_of: :properties
   scope :instances_properties, ->{ where(type: language.instance_property) }
-  def derived_unique_name
+  def inferred_unique_name
     "#{klass.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Parameter < Variable
-  belongs_to :procedure, polymorphic: true
-  def derived_unique_name
+  belongs_to :procedure, inverse_of: :parameters
+  def inferred_unique_name
     "#{procedure.unique_name}#{language.namespace_separator}#{name}"
   end
 end
 
 class Assignement < ActiveRecord::Base
   include HasNameAndUniqueName
-  field :position, type: Array
-  field :rhs, type: xml
   belongs_to :variable, polymorphic: true
-  def derived_unique_name
+  def inferred_unique_name
     "#{variable.unique_name}#{language.namespace_separator}#{position}"
   end
 end
