@@ -32,13 +32,20 @@ module IsLocalScope
   end
 end
 
+module ContainsStatements
+  extend ActiveSupport::Concern
+  included do
+    has_many :contents, as: :container
+  end
+end
+
 module IsProcedure
   extend ActiveSupport::Concern
   include HasNameAndUniqueName
   include IsLocalScope
+  include ContainsStatements
   included do
     has_many :parameters, as: :procedure
-    has_one :content, as: :container
   end
 end
 
@@ -60,9 +67,9 @@ end
 
 class Namespace < ActiveRecord::Base
   include HasUniqueName
+  include ContainsStatements
   has_many :functions, inverse_of: :namespace
   has_many :klasses, inverse_of: :namespace
-  has_many :contents, as: :container
   after_initialize { extend define_scope_type }
   def define_scope_type
     is_global_namespace? ? IsGlobalScope : IsLocalScope
