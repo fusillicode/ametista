@@ -37,7 +37,7 @@ development:
       - __TRAIT__
       - __METHOD__
       - __NAMESPACE__
-    instance_property: this,
-    self_property: self,
-    parent_property: parent,
+    instance_property: this
+    self_property: self
+    parent_property: parent
     static_property: static
