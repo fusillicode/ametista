@@ -4,8 +4,8 @@ development:
     file_extensions:
       - php
     global_namespace:
-      unique_name: \\
-    namespace_separator: \\
+      unique_name: \
+    namespace_separator: \
     superglobals:
       - GLOBALS
       - _POST
