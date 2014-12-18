@@ -3,7 +3,7 @@ module HasNameAndUniqueName
   included do
     validates :name, presence: true, length: { allow_blank: false }
     after_initialize do
-      self.unique_name ||= unique_name
+      @unique_name ||= unique_name
     end
     def unique_name
       name
@@ -60,7 +60,7 @@ end
 ################################################################################
 
 class Namespace < ActiveRecord::Base
-  include HasNameUniqueName
+  include HasNameAndUniqueName
   include ContainsStatements
   has_many :functions, inverse_of: :namespace
   has_many :klasses, inverse_of: :namespace
@@ -116,7 +116,7 @@ class GlobalVariable < Variable
   after_initialize do
     self.unique_name ||= 'GLOBALS'
     self.scope ||= Namespace.find_or_create_by(
-      unique_name: Global.lang.php.global_namespace.name
+      name: Global.lang.php.global_namespace.name
     )
   end
   def unique_name

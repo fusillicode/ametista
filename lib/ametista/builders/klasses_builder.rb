@@ -34,7 +34,7 @@ class KlassesBuilder < Builder
   # Stessa roba delle funzionie?
   def namespace name_parts
     Namespace.find_or_create_by(
-      unique_name: querier.namespace_unique_name(name_parts)
+      name: querier.namespace_name(name_parts)
     )
   end
 

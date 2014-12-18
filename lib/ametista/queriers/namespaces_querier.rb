@@ -6,8 +6,8 @@ class NamespacesQuerier < Querier
     ast_root.xpath('.//Stmt_Namespace')
   end
 
-  def unique_name ast
-    "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts(ast)}"
+  def name ast
+    "#{global_namespace_name}#{namespace_separator}#{namespace_name_parts(ast)}"
   end
 
   def namespace_name_parts ast

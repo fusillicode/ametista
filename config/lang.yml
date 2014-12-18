@@ -4,7 +4,7 @@ development:
     file_extensions:
       - php
     global_namespace:
-      unique_name: \
+      name: \
     namespace_separator: \
     superglobals:
       - GLOBALS

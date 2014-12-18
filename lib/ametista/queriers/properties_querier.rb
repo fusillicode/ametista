@@ -30,14 +30,14 @@ class PropertiesQuerier < AssignementQuerier
     ast.xpath('./ancestor::Stmt_Class')
   end
 
-  def namespace_unique_name name_parts
+  def namespace_name name_parts
     case name_parts.size
     when 0
       nil
     when 1
-      global_namespace_unique_name
+      global_namespace_name
     else
-      "#{global_namespace_unique_name}#{namespace_separator}#{namespace_fully_qualified_name(name_parts)}"
+      "#{global_namespace_name}#{namespace_separator}#{namespace_fully_qualified_name(name_parts)}"
     end
   end
 

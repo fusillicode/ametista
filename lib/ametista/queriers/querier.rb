@@ -21,8 +21,8 @@ class Querier
     end
   end
 
-  def global_namespace_unique_name
-    Global.lang.php.global_namespace.unique_name
+  def global_namespace_name
+    Global.lang.php.global_namespace.name
   end
 
   def a_klass_property
@@ -51,11 +51,11 @@ class Querier
     ast.parent.children.index(ast)
   end
 
-  def namespace_unique_name ast
+  def namespace_name ast
     namespace_name_parts = namespace_name_parts(ast)
     namespace_name_parts.empty? ?
-      global_namespace_unique_name :
-      "#{global_namespace_unique_name}#{namespace_separator}#{namespace_name_parts}"
+      global_namespace_name :
+      "#{global_namespace_name}#{namespace_separator}#{namespace_name_parts}"
   end
 
   def namespace_name_parts ast

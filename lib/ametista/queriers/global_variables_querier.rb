@@ -30,7 +30,7 @@ class GlobalVariablesQuerier < AssignementQuerier
     ast.xpath('./dim/Scalar_String/value/string').text
   end
 
-  # def variable_unique_name
+  # def variable_name
   #   p 'namespace: ' << ast.xpath('./ancestor::Stmt_Namespace[1]/name/string').text
   #   p 'function: ' << ast.xpath('./ancestor::Stmt_Function[1]/name/string').text
   #   p 'class: ' << ast.xpath('./ancestor::Stmt_Class[1]/name/string').text
