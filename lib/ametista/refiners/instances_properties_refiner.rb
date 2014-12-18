@@ -33,7 +33,7 @@ class InstancesPropertiesRefiner
 
   def find_in_klass_hierarchy klass
     @klass = klass if is_property_in?(klass)
-    find_in_klass_hierarchy(klass.parent_klass) if klass.has_parent_klass?
+    find_in_klass_hierarchy(klass.parent_klass) if klass.parent_klass
     @klass
   end
 
