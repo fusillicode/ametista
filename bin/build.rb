@@ -1,6 +1,9 @@
 if __FILE__ == $0
+  require 'global'
   require 'active_record'
-  require 'yaml'
   require_relative '../lib/ametista/builders/model_builder'
+  Global.environment = 'development'
+  Global.config_directory = File.join(Dir.pwd, 'config')
+  ActiveRecord::Base.establish_connection Global.db.to_hash
   model_builder = ModelBuilder.new.build
 end
