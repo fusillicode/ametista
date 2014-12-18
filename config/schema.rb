@@ -2,7 +2,6 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "assignements", :force => true do |t|
     t.string :name, null: false
-    t.string :unique_name
     t.string :position, array: true, default: []
     t.xml :rhs
     t.references :variable, polymorphic: true
@@ -15,23 +14,20 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "functions", :force => true do |t|
     t.string :name, null: false
-    t.string :unique_name
     t.integer :namespace_id
   end
 
   create_table "klass_methods", :force => true do |t|
     t.string :name, null: false
-    t.string :unique_name
     t.integer :klass_id
   end
 
   create_table "namespaces", :force => true do |t|
-    t.string :unique_name, null: false
+    t.string :name, null: false
   end
 
   create_table "types", :force => true do |t|
     t.string :name, null: false
-    t.string :unique_name
     t.integer :namespace_id
     t.references :parent_klass
     t.string :type
@@ -44,7 +40,6 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "variables", :force => true do |t|
     t.string :name, null: false
-    t.string :unique_name
     t.string :kind
     t.references :scope, polymorphic: true
     t.integer :klass_id

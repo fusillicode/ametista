@@ -1,18 +1,11 @@
-module HasUniqueName
-  extend ActiveSupport::Concern
-  included do
-    validates :unique_name, presence: true, length: { allow_blank: false }
-  end
-end
-
 module HasNameAndUniqueName
   extend ActiveSupport::Concern
   included do
     validates :name, presence: true, length: { allow_blank: false }
     after_initialize do
-      self.unique_name ||= inferred_unique_name
+      self.unique_name ||= unique_name
     end
-    def inferred_unique_name
+    def unique_name
       name
     end
   end
@@ -67,7 +60,7 @@ end
 ################################################################################
 
 class Namespace < ActiveRecord::Base
-  include HasUniqueName
+  include HasNameUniqueName
   include ContainsStatements
   has_many :functions, inverse_of: :namespace
   has_many :klasses, inverse_of: :namespace
@@ -76,7 +69,7 @@ class Namespace < ActiveRecord::Base
     is_global_namespace? ? IsGlobalScope : IsLocalScope
   end
   def is_global_namespace?
-    unique_name.eql? Global.lang.php.global_namespace['unique_name']
+    unique_name.eql? Global.lang.php.global_namespace.name
   end
 end
 
@@ -86,7 +79,7 @@ class Klass < Type
   has_many :child_klasses, class_name: 'Klass', foreign_key: 'parent_klass_id'
   has_many :klass_methods, inverse_of: :klass
   has_many :properties, inverse_of: :klass
-  def inferred_unique_name
+  def unique_name
     "#{namespace.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
@@ -105,7 +98,7 @@ CustomType = Klass
 class KlassMethod < ActiveRecord::Base
   include IsProcedure
   belongs_to :klass, inverse_of: :klass_methods
-  def inferred_unique_name
+  def unique_name
     "#{klass.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
@@ -113,7 +106,7 @@ end
 class Function < ActiveRecord::Base
   include IsProcedure
   belongs_to :namespace, inverse_of: :functions
-  def inferred_unique_name
+  def unique_name
     "#{namespace.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
@@ -123,17 +116,17 @@ class GlobalVariable < Variable
   after_initialize do
     self.unique_name ||= 'GLOBALS'
     self.scope ||= Namespace.find_or_create_by(
-      unique_name: Global.lang.php.global_namespace.unique_name
+      unique_name: Global.lang.php.global_namespace.name
     )
   end
-  def inferred_unique_name
-    "#{Global.lang.php.global_namespace.unique_name}#{Global.lang.php.namespace_separator}#{type}[#{name}]"
+  def unique_name
+    "#{Global.lang.php.global_namespace.name}#{Global.lang.php.namespace_separator}#{type}[#{name}]"
   end
 end
 
 class LocalVariable < Variable
   belongs_to :scope, polymorphic: true
-  def inferred_unique_name
+  def unique_name
     "#{scope.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
@@ -141,14 +134,14 @@ end
 class Property < Variable
   belongs_to :klass, inverse_of: :properties
   scope :instances_properties, ->{ where(kind: Global.lang.php.instance_property) }
-  def inferred_unique_name
+  def unique_name
     "#{klass.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
 
 class Parameter < Variable
   belongs_to :procedure, polymorphic: true
-  def inferred_unique_name
+  def unique_name
     "#{procedure.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
@@ -156,7 +149,7 @@ end
 class Assignement < ActiveRecord::Base
   include HasNameAndUniqueName
   belongs_to :variable, polymorphic: true
-  def inferred_unique_name
+  def unique_name
     "#{variable.unique_name}#{Global.lang.php.namespace_separator}#{position}"
   end
 end
