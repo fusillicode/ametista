@@ -16,7 +16,7 @@ class KlassesBuilder < Builder
   end
 
   def klasses
-    querier.klasses(ast).map_unique('_id') do |klass_ast|
+    querier.klasses(ast).map_unique('id') do |klass_ast|
       klass(klass_ast)
     end
   end
@@ -31,6 +31,7 @@ class KlassesBuilder < Builder
     )
   end
 
+  # Stessa roba delle funzionie?
   def namespace name_parts
     Namespace.find_or_create_by(
       unique_name: querier.namespace_unique_name(name_parts)
