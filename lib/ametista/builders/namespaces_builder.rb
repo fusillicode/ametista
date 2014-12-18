@@ -16,25 +16,29 @@ class NamespacesBuilder < Builder
   end
 
   def global_namespace
-    Namespace.find_or_create_by(
+    namespace = Namespace.find_or_create_by(
       unique_name: querier.global_namespace_unique_name
-    ).push(
-      statements: querier.global_namespace_statements(ast)
-    )
+    ).contents << content(querier.global_namespace_statements(ast))
+    namespace
+  end
+
+  # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
+  # di stringhe vuote per il campo xml
+  def content statements
+    Content.new({ statements: (statements.empty? ? ' ' : statements) })
   end
 
   def namespaces
-    querier.namespaces(ast).map_unique('_id') do |namespace_ast|
+    querier.namespaces(ast).map_unique('id') do |namespace_ast|
       namespace(namespace_ast)
     end
   end
 
   def namespace namespace_ast
-    Namespace.find_or_create_by(
+    namespace = Namespace.find_or_create_by(
       unique_name: querier.unique_name(namespace_ast),
-    ).push(
-      statements: querier.statements(namespace_ast)
-    )
+    ).contents << content(querier.statements(namespace_ast))
+    namespace
   end
 
 end
