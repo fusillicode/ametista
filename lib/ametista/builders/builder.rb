@@ -10,6 +10,6 @@ class Builder
   # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
   # di stringhe vuote per il campo xml
   def content statements
-    Content.new({ statements: (statements.empty? ? ' ' : statements) })
+    Content.new(statements: (statements.empty? ? ' ' : statements))
   end
 end
