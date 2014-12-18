@@ -27,10 +27,9 @@ class ParametersBuilder < Builder
     querier.functions_parameters(ast).map_unique('id') do |function_parameter_ast|
       Parameter.find_or_create_by(
         name: querier.name(function_parameter_ast),
-        procedure_id: functions_builder.function(
+        procedure: functions_builder.function(
           querier.function(function_parameter_ast)
-        ).id,
-        procedure_type: 'function'
+        )
       )
     end
   end
@@ -39,10 +38,9 @@ class ParametersBuilder < Builder
     querier.klasses_methods_parameters(ast).map_unique('id') do |klass_method_parameter_ast|
       Parameter.find_or_create_by(
         name: querier.name(klass_method_parameter_ast),
-        procedure_id: klasses_methods_builder.klass_method(
+        procedure: klasses_methods_builder.klass_method(
           querier.klass_method(klass_method_parameter_ast)
-        ).id,
-        procedure_type: 'klass_method'
+        )
       )
     end
   end

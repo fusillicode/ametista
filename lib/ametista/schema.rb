@@ -146,7 +146,7 @@ class Property < Variable
 end
 
 class Parameter < Variable
-  belongs_to :procedure, inverse_of: :parameters
+  belongs_to :procedure, polymorphic: true
   def inferred_unique_name
     "#{procedure.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
