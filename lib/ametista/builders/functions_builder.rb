@@ -38,6 +38,8 @@ class FunctionsBuilder < Builder
     Content.new({ statements: (statements.empty? ? ' ' : statements) })
   end
 
+  # Qui non posso usare il NamespacesBuilder passando l'ast del parent della funzione
+  # perchè la funzione potrebbe essere definita in un namespace diverso tramite PHP use
   def namespace name_parts
     Namespace.find_or_create_by(
       unique_name: querier.namespace_unique_name(name_parts)
