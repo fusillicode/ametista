@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "variables", :force => true do |t|
     t.string :name, null: false
     t.string :unique_name
-    t.string :type
+    t.string :kind
     t.references :scope, polymorphic: true
     t.integer :klass_id
     t.references :procedure, polymorphic: true

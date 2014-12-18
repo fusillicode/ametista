@@ -51,7 +51,7 @@ class GlobalVariablesBuilder < Builder
     querier.superglobals(ast).map_unique('id') do |superglobal_ast|
       global_variable = GlobalVariable.find_or_create_by(
         name: querier.superglobal_name(superglobal_ast),
-        type: querier.superglobal_type(superglobal_ast)
+        kind: querier.superglobal_type(superglobal_ast)
       )
       Assignement.create(
         variable: global_variable,
