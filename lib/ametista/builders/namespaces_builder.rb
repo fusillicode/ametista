@@ -18,7 +18,8 @@ class NamespacesBuilder < Builder
   def global_namespace
     namespace = Namespace.find_or_create_by(
       unique_name: querier.global_namespace_unique_name
-    ).contents << content(querier.global_namespace_statements(ast))
+    )
+    namespace.contents << content(querier.global_namespace_statements(ast))
     namespace
   end
 
@@ -37,7 +38,8 @@ class NamespacesBuilder < Builder
   def namespace namespace_ast
     namespace = Namespace.find_or_create_by(
       unique_name: querier.unique_name(namespace_ast),
-    ).contents << content(querier.statements(namespace_ast))
+    )
+    namespace.contents << content(querier.statements(namespace_ast))
     namespace
   end
 
