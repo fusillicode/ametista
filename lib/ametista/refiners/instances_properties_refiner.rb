@@ -18,12 +18,12 @@ class InstancesPropertiesRefiner
   end
 
   def remove_duplicates property, correct_klass
-    Property.where({
-      :_id.ne => property._id,
-      name: property.name,
-      klass: correct_klass,
-      type: property.type
-    }).delete
+    Property.delete_all(['id != ? AND name = ? AND klass_id = ? AND type = ?',
+      property.id,
+      property.name,
+      correct_klass,
+      property.type
+    ])
   end
 
   def correct_klass property
