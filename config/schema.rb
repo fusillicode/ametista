@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string :type
     t.references :scope, polymorphic: true
     t.integer :klass_id
-    t.integer :procedure_id
+    t.references :procedure, polymorphic: true
   end
 
 end
