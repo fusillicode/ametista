@@ -1,0 +1,4 @@
+db:
+  schema: config/schema.rb
+config:
+  database: config/db.yml
