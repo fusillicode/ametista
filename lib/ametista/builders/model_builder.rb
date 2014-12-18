@@ -26,14 +26,14 @@ class ModelBuilder
     },
     builders: {
       namespaces_builder: NamespacesBuilder.new,
-      functions_builder: FunctionsBuilder.new,
-      klasses_builder: KlassesBuilder.new,
-      klasses_methods_builder: KlassesMethodsBuilder.new,
-      custom_types_builder: CustomTypesBuilder.new,
-      parameters_builder: ParametersBuilder.new,
-      global_variables_builder: GlobalVariablesBuilder.new,
-      local_variables_builder: LocalVariablesBuilder.new,
-      properties_builder: PropertiesBuilder.new
+      # functions_builder: FunctionsBuilder.new,
+      # klasses_builder: KlassesBuilder.new,
+      # klasses_methods_builder: KlassesMethodsBuilder.new,
+      # custom_types_builder: CustomTypesBuilder.new,
+      # parameters_builder: ParametersBuilder.new,
+      # global_variables_builder: GlobalVariablesBuilder.new,
+      # local_variables_builder: LocalVariablesBuilder.new,
+      # properties_builder: PropertiesBuilder.new
     },
     refiners: {
       instances_properties_refiner: InstancesPropertiesRefiner.new
@@ -44,6 +44,13 @@ class ModelBuilder
     init_build
     building_loop
     refine_model
+    test
+  end
+
+  def test
+    Namespace.all.each do |element|
+      ap element
+    end
   end
 
   def init_build
