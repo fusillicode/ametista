@@ -32,12 +32,6 @@ class FunctionsBuilder < Builder
     function
   end
 
-  # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
-  # di stringhe vuote per il campo xml
-  def content statements
-    Content.new({ statements: (statements.empty? ? ' ' : statements) })
-  end
-
   # Qui non posso usare il NamespacesBuilder passando l'ast del parent della funzione
   # perchè la funzione potrebbe essere definita in un namespace diverso tramite PHP use
   def namespace name_parts

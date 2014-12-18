@@ -23,12 +23,6 @@ class NamespacesBuilder < Builder
     namespace
   end
 
-  # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
-  # di stringhe vuote per il campo xml
-  def content statements
-    Content.new({ statements: (statements.empty? ? ' ' : statements) })
-  end
-
   def namespaces
     querier.namespaces(ast).map_unique('id') do |namespace_ast|
       namespace(namespace_ast)
