@@ -1,7 +1,5 @@
 <?php
 
-namespace venere;
-
 class Figura {
 
 }
