@@ -28,7 +28,7 @@ class PropertiesBuilder < Builder
         klass: klasses_builder.klass(
           querier.klass(instance_property_ast)
         ),
-        type: querier.instance_property
+        kind: querier.instance_property
       )
     end
   end
@@ -40,7 +40,7 @@ class PropertiesBuilder < Builder
         klass: klasses_builder.klass(
           querier.klass(self_property_ast)
         ),
-        type: querier.self_property
+        kind: querier.self_property
       )
     end
   end
@@ -52,7 +52,7 @@ class PropertiesBuilder < Builder
         klass: klasses_builder.parent_klass(
           querier.klass(parent_property_ast)
         ),
-        type: querier.parent_property
+        kind: querier.parent_property
       )
     end
   end
