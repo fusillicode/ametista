@@ -14,7 +14,7 @@ class Querier
     static_property: :a_static_property
   }.each do |property, method|
     define_method method do
-      Array.wrap(Language.first()[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
+      Array.wrap(Global.lang.php[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
     end
     define_method "not_#{method}" do
       "not(#{public_send("#{method}")})"
@@ -22,11 +22,7 @@ class Querier
   end
 
   def global_namespace_unique_name
-    Language.first().global_namespace[:name]
-  end
-
-  def global_namespace_unique_name
-    Language.first().global_namespace[:unique_name]
+    Global.lang.php.global_namespace.unique_name
   end
 
   def a_klass_property
@@ -69,8 +65,8 @@ class Querier
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block
-    elsif Language.first().respond_to? method_name
-      Language.first().public_send method_name, *args, &block
+    elsif Global.lang.php[method_name]
+      Global.lang.php[method_name]
     end
   end
 
