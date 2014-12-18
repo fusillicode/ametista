@@ -22,7 +22,7 @@ class PropertiesBuilder < Builder
   end
 
   def instances_properties
-    querier.instances_properties(ast).map_unique('_id') do |instance_property_ast|
+    querier.instances_properties(ast).map_unique('id') do |instance_property_ast|
       Property.find_or_create_by(
         name: querier.name(instance_property_ast),
         klass: klasses_builder.klass(
@@ -34,7 +34,7 @@ class PropertiesBuilder < Builder
   end
 
   def self_properties
-    querier.self_properties(ast).map_unique('_id') do |self_property_ast|
+    querier.self_properties(ast).map_unique('id') do |self_property_ast|
       Property.find_or_create_by(
         name: querier.name(self_property_ast),
         klass: klasses_builder.klass(
@@ -46,7 +46,7 @@ class PropertiesBuilder < Builder
   end
 
   def parent_properties
-    querier.parent_properties(ast).map_unique('_id') do |parent_property_ast|
+    querier.parent_properties(ast).map_unique('id') do |parent_property_ast|
       Property.find_or_create_by(
         name: querier.name(parent_property_ast),
         klass: klasses_builder.parent_klass(
@@ -58,7 +58,7 @@ class PropertiesBuilder < Builder
   end
 
   def klass_properties
-    querier.klass_properties(ast).map_unique('_id') do |klass_property_ast|
+    querier.klass_properties(ast).map_unique('id') do |klass_property_ast|
       Property.find_or_create_by(
         name: querier.name(klass_property_ast),
         klass: klass(klass_property_ast)
