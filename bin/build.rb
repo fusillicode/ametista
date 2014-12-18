@@ -6,6 +6,7 @@ if __FILE__ == $0
   Global.config_directory = File.join(Dir.pwd, 'config')
   ActiveRecord::Base.establish_connection Global.db.to_hash
   # Per pulire il db
-  `rake db:reset`
+  # `rake db:reset`
+  `rake db:drop && rake db:create`
   model_builder = ModelBuilder.new.build
 end
