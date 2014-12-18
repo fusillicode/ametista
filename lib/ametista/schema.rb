@@ -10,11 +10,11 @@ module HasNameAndUniqueName
   included do
     validates :name, presence: true, length: { allow_blank: false }
     after_initialize do
-      self.unique_name = inferred_unique_name
+      self.unique_name ||= inferred_unique_name
     end
-  end
-  def inferred_unique_name
-    name
+    def inferred_unique_name
+      name
+    end
   end
 end
 
@@ -50,6 +50,7 @@ module IsProcedure
 end
 
 class Variable < ActiveRecord::Base
+  include HasNameAndUniqueName
   has_many :types, as: :variable, through: :variable_types
   has_many :assignements, as: :variable
 end
@@ -139,7 +140,7 @@ end
 
 class Property < Variable
   belongs_to :klass, inverse_of: :properties
-  scope :instances_properties, ->{ where(type: Global.lang.php.instance_property) }
+  scope :instances_properties, ->{ where(kind: Global.lang.php.instance_property) }
   def inferred_unique_name
     "#{klass.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
