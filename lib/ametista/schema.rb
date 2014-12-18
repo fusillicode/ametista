@@ -121,10 +121,12 @@ class GlobalVariable < Variable
   belongs_to :scope, polymorphic: true
   after_initialize do
     self.unique_name ||= 'GLOBALS'
-    self.scope ||= Namespace.find_or_create_by(Global.lang.php.global_namespace)
+    self.scope ||= Namespace.find_or_create_by(
+      unique_name: Global.lang.php.global_namespace.unique_name
+    )
   end
   def inferred_unique_name
-    "#{Global.lang.php.global_namespace['unique_name']}#{Global.lang.php.namespace_separator}#{type}[#{name}]"
+    "#{Global.lang.php.global_namespace.unique_name}#{Global.lang.php.namespace_separator}#{type}[#{name}]"
   end
 end
 
