@@ -22,7 +22,7 @@ class CustomTypesBuilder < Builder
   end
 
   def parameters_custom_types
-    querier.parameters_custom_types(ast).map_unique('_id') do |parameter_custom_type_ast|
+    querier.parameters_custom_types(ast).map_unique('id') do |parameter_custom_type_ast|
       custom_type(parameter_custom_type_ast)
     end
   end

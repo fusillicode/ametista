@@ -17,7 +17,7 @@ class KlassesMethodsBuilder < Builder
   end
 
   def klasses_methods
-    querier.klasses_methods(ast).each do |klass_method_ast|
+    querier.klasses_methods(ast).map_unique('id') do |klass_method_ast|
       klass_method(klass_method_ast)
     end
   end
