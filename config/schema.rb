@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string :unique_name
     t.integer :namespace_id
     t.references :parent_klass
+    t.string :type
   end
 
   create_table "variable_types", :force => true do |t|
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.references :scope, polymorphic: true
     t.integer :klass_id
     t.references :procedure, polymorphic: true
+    t.string :type
   end
 
 end
