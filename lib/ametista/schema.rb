@@ -38,6 +38,7 @@ module IsProcedure
   include IsLocalScope
   included do
     has_many :parameters, as: :procedure
+    has_one :content, as: :container
   end
 end
 
@@ -51,12 +52,17 @@ class Type < ActiveRecord::Base
   has_many :variables, as: :type, through: :variable_types
 end
 
+class Content < ActiveRecord::Base
+  belongs_to :container, polymorphic: true
+end
+
 ################################################################################
 
 class Namespace < ActiveRecord::Base
   include HasUniqueName
   has_many :functions, inverse_of: :namespace
   has_many :klasses, inverse_of: :namespace
+  has_many :contents, as: :container
   after_initialize { extend define_scope_type }
   def define_scope_type
     is_global_namespace? ? IsGlobalScope : IsLocalScope
