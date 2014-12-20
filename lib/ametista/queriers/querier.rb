@@ -14,6 +14,8 @@ class Querier
     static_property: :a_static_property
   }.each do |property, method|
     define_method method do
+      # TODO qui si fa ongi volta molta roba per costruire la stringa da utilizzare nella query XPath
+      # Si potrebbe cercare di salvare le stringhe in variabili d'istanza (magari con l'Initializer)
       Array.wrap(Global.lang.php[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
     end
     define_method "not_#{method}" do
