@@ -1,9 +1,5 @@
 require_relative '../schema'
 
-# TODO Language.first() potrebbe essere storata come proprietà locale in modo
-# da evitare continue query sul db...ma in che momento la storo? devo essere sicuro
-# che i dati siano stati prima effettivamente inseriti per il linguaggio
-
 class Querier
 
   { superglobals: :a_superglobal,
