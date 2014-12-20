@@ -29,7 +29,7 @@ class LocalVariablesQuerier < AssignementQuerier
   end
 
   def previous_global_variables_definitions_names ast
-    ast.xpath("./ancestor::Expr_Assign[1]/preceding-sibling::Stmt_Global/vars/array/Expr_Variable/name/string").map { |global_variable| global_variable.text }
+    ast.xpath('./ancestor::Expr_Assign[1]/preceding-sibling::Stmt_Global/vars/array/Expr_Variable/name/string').map { |global_variable| global_variable.text }
   end
 
   def function_local_variable_name ast
