@@ -53,6 +53,14 @@ class Querier
     ast.parent.children.index(ast)
   end
 
+  def name ast
+    ast.xpath('./name/string').text
+  end
+
+  def statements ast
+    ast.xpath('./stmts/array').to_s
+  end
+
   def namespace_name name_parts
     case name_parts.size
     when 0
@@ -66,14 +74,6 @@ class Querier
 
   def namespace_fully_qualified_name name_parts
     name_parts[0..-2].to_a.join(namespace_separator).to_s
-  end
-
-  def statements ast
-    ast.xpath('./stmts/array').to_s
-  end
-
-  def name ast
-    ast.xpath('./name/string').text
   end
 
   def procedure_namespaced_name_parts ast
