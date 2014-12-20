@@ -40,7 +40,7 @@ class LocalVariablesBuilder < Builder
   def functions_local_variables
     querier.functions_local_variables(ast).map_unique('id') do |function_local_variable_ast|
       local_variable = LocalVariable.find_or_create_by(
-        name: querier.function_local_variable_name(function_local_variable_ast),
+        name: querier.name(function_local_variable_ast),
         scope: functions_builder.function(
           querier.function(function_local_variable_ast)
         )
@@ -58,7 +58,7 @@ class LocalVariablesBuilder < Builder
   def klasses_methods_local_variables
     querier.klasses_methods_local_variables(ast).map_unique('id') do |klass_method_local_variable_ast|
       LocalVariable.find_or_create_by(
-        name: querier.klass_method_local_variable_name(klass_method_local_variable_ast),
+        name: querier.name(klass_method_local_variable_ast),
         scope: klasses_methods_builder.klass_method(
           querier.klass_method(klass_method_local_variable_ast)
         )

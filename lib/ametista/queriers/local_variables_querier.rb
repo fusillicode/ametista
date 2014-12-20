@@ -13,7 +13,7 @@ class LocalVariablesQuerier < AssignementQuerier
   def functions_local_variables ast_root
     functions_variables(ast_root).map { |function_variable_ast|
       next if is_global_defined_variable?(
-        function_local_variable_name(function_variable_ast),
+        name(function_variable_ast),
         function_variable_ast
       )
       function_variable_ast
@@ -30,14 +30,6 @@ class LocalVariablesQuerier < AssignementQuerier
 
   def previous_global_variables_definitions_names ast
     ast.xpath('./ancestor::Expr_Assign[1]/preceding-sibling::Stmt_Global/vars/array/Expr_Variable/name/string').map { |global_variable| global_variable.text }
-  end
-
-  def function_local_variable_name ast
-    ast.xpath('./name/string').text
-  end
-
-  def klass_method_local_variable_name ast
-    ast.xpath('./name/string').text
   end
 
 end
