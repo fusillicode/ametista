@@ -25,7 +25,7 @@ class KlassesBuilder < Builder
     Klass.find_or_create_by(
       name: querier.name(klass_ast),
       namespace: namespace(
-        querier.klass_namespaced_name_parts(klass_ast)
+        querier.procedure_namespaced_name_parts(klass_ast)
       ),
       parent_klass: parent_klass(klass_ast)
     )

@@ -25,7 +25,7 @@ class FunctionsBuilder < Builder
     function = Function.find_or_create_by(
       name: querier.name(function_ast),
       namespace: namespace(
-        querier.function_namespaced_name_parts(function_ast)
+        querier.procedure_namespaced_name_parts(function_ast)
       )
     )
     function.contents << content(querier.statements(function_ast))

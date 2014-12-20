@@ -10,10 +10,6 @@ class KlassesQuerier < Querier
     ast.xpath("./name/string").text
   end
 
-  def klass_namespaced_name_parts ast
-    ast.xpath('./namespacedName/Name/parts/array/string')
-  end
-
   def parent_klass_name ast
     ast.xpath('./extends/Name_FullyQualified/parts/array/string[last()]').text
   end

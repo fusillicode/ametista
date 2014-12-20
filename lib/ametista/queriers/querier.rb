@@ -76,6 +76,10 @@ class Querier
     ast.xpath('./name/string').text
   end
 
+  def procedure_namespaced_name_parts ast
+    ast.xpath('./namespacedName/Name/parts/array/string')
+  end
+
   # def namespace_name ast
   #   exit
   #   namespace_name_parts = namespace_name_parts(ast)
