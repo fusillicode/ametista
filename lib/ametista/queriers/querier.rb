@@ -53,16 +53,33 @@ class Querier
     ast.parent.children.index(ast)
   end
 
-  def namespace_name ast
-    namespace_name_parts = namespace_name_parts(ast)
-    namespace_name_parts.empty? ?
-      global_namespace_name :
-      "#{global_namespace_name}#{namespace_separator}#{namespace_name_parts}"
+  def namespace_name name_parts
+    case name_parts.size
+    when 0
+      nil
+    when 1
+      global_namespace_name
+    else
+      "#{global_namespace_name}#{namespace_separator}#{namespace_fully_qualified_name(name_parts)}"
+    end
   end
 
-  def namespace_name_parts ast
-    ast.xpath('./ancestor::Stmt_Namespace[1]/name/Name/parts/array/string')[0..-1].to_a.join(namespace_separator)
+  def namespace_fully_qualified_name name_parts
+    name_parts[0..-2].to_a.join(namespace_separator).to_s
   end
+
+  # def namespace_name ast
+  #   exit
+  #   namespace_name_parts = namespace_name_parts(ast)
+  #   namespace_name_parts.empty? ?
+  #     global_namespace_name :
+  #     "#{global_namespace_name}#{namespace_separator}#{namespace_name_parts}"
+  # end
+
+  # def namespace_name_parts ast
+  #   exit
+  #   ast.xpath('./ancestor::Stmt_Namespace[1]/name/Name/parts/array/string')[0..-1].to_a.join(namespace_separator)
+  # end
 
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
