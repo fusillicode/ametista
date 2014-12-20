@@ -10,13 +10,15 @@ static: becco la classe in cui sono e associo a quella...
 
 = modellazione dell'istruzione use IL PARSER MI AIUTA E IO DOVREI AVER COSTRUITO LE ENTITÀ SULLA BASE DI QUELLO CHE MI FORNISCE IL PARSER
 
-= nessun controllo sulla definizione di stesse funzioni e/o classi all'interno di file differenti
+= nessun controllo sulla definizione di stesse funzioni e/o classi all'interno di file differenti POTREBBERO ESSERE AGGIUNTE DELLE OPPORTUNE VALIDAZIONI (ACTIVERECORD FORNISCE DA MOLTE FUNZIONALIÀ IN MERITO)
 
 = creazione dei namespace delle classi parent di quelle che analizzo DOVREBBE ESSERE RISOLTO
 
 = dove metto il parser delle stringhe xml memorizzate all'interno del modello?
 chiamo esplicitamente parser.parse all'interno degli analyzer?
 credo dei querier particolari (after_querier?) e demando a loro il parsing?
-converto xml in json e salvo quelli all'interno del modello
+converto xml in json e salvo quelli all'interno del modello TUTTE QUESTE DOMANDE DOVREBBERO ESSERE RISOLTE UTILIZZANDO POSTGRES
 
-= passare da nokogiri ad ox per il parsing dell'xml
+= passare da nokogiri ad ox per il parsing dell'xml NON SERVE ED IL LOCALTE DI OX NON IMPLEMENTA ALLA LETTERA LE SPECIFICHE XPATH
+
+= dockerizzare postgres. Per installare docker si può usare https://github.com/boot2docker/boot2docker
