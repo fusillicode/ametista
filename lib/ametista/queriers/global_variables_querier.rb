@@ -14,14 +14,6 @@ class GlobalVariablesQuerier < AssignementQuerier
     ast_root.xpath(".//Expr_Assign/descendant::Expr_ArrayDimFetch[last()][var/Expr_Variable[name/string[#{a_superglobal}]]]")
   end
 
-  def global_namespace_variable_name ast
-    ast.xpath("./name/string").text
-  end
-
-  def global_definition_name ast
-    ast.xpath("./name/string").text
-  end
-
   def superglobal_type ast
     ast.xpath('./var/Expr_Variable/name/string').text
   end

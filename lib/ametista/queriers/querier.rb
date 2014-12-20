@@ -80,6 +80,14 @@ class Querier
     ast.xpath('./namespacedName/Name/parts/array/string')
   end
 
+  def function ast
+    ast.xpath('./ancestor::Stmt_Function[1]')
+  end
+
+  def klass_method ast
+    ast.xpath('./ancestor::Stmt_ClassMethod[1]')
+  end
+
   # def namespace_name ast
   #   exit
   #   namespace_name_parts = namespace_name_parts(ast)

@@ -40,12 +40,4 @@ class LocalVariablesQuerier < AssignementQuerier
     ast.xpath('./name/string').text
   end
 
-  def function ast
-    ast.xpath("./ancestor::Stmt_Function[1]")
-  end
-
-  def klass_method ast
-    ast.xpath("./ancestor::Stmt_ClassMethod[1]")
-  end
-
 end
