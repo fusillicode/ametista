@@ -2,20 +2,54 @@ require_relative '../schema'
 
 class Querier
 
-  { superglobals: :a_superglobal,
-    primitive_types: :a_primitive_type,
-    instance_property: :an_instance_property,
-    self_property: :a_self_property,
-    parent_property: :a_parent_property,
-    static_property: :a_static_property
-  }.each do |property, method|
-    define_method method do
-      # TODO qui si fa ongi volta molta roba per costruire la stringa da utilizzare nella query XPath
-      # Si potrebbe cercare di salvare le stringhe in variabili d'istanza (magari con l'Initializer)
-      Array.wrap(Global.lang.php[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
+  # { superglobals: :a_superglobal,
+  #   primitive_types: :a_primitive_type,
+  #   instance_property: :an_instance_property,
+  #   self_property: :a_self_property,
+  #   parent_property: :a_parent_property,
+  #   static_property: :a_static_property
+  # }.each do |property, method|
+  #   define_method method do
+  #     # TODO qui si fa ongi volta molta roba per costruire la stringa da utilizzare nella query XPath
+  #     # Si potrebbe cercare di salvare le stringhe in variabili d'istanza (magari con l'Initializer)
+  #     Array.wrap(Global.lang.php[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
+  #   end
+  #   define_method "not_#{method}" do
+  #     "not(#{public_send("#{method}")})"
+  #   end
+  # end
+
+  extend Initializer
+  initialize_with ({
+    a_superglobal: 'superglobals',
+    a_primitive_type: 'primitive_types',
+    an_instance_property: 'instance_property',
+    a_self_property: 'self_property',
+    a_parent_property: 'parent_property',
+    a_static_property: 'static_property'
+  })
+
+  def initialize
+    super
+    set_query_strings
+    set_negated_query_strings
+  end
+
+  def query_string language_entity
+    Array.wrap(Global.lang.php[language_entity]).map{ |value| "text() = '#{value}'" }.join(" or ")
+  end
+
+  def set_query_strings
+    default_attributes.each do |instance_attribute, language_entity|
+      instance_variable_set("@#{instance_attribute}", query_string(language_entity))
     end
-    define_method "not_#{method}" do
-      "not(#{public_send("#{method}")})"
+  end
+
+  def set_negated_query_strings
+    default_attributes.each do |instance_attribute, language_entity|
+      self.class.send(:define_method, "not_#{instance_attribute}") do
+        "not(#{instance_variable_get("@#{instance_attribute}")})"
+      end
     end
   end
 
@@ -82,6 +116,10 @@ class Querier
 
   def klass_method ast
     ast.xpath('./ancestor::Stmt_ClassMethod[1]')
+  end
+
+  def rhs ast
+    ast.xpath('./ancestor::var/following-sibling::expr[1]')
   end
 
   # def namespace_name ast
