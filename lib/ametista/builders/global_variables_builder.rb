@@ -22,7 +22,7 @@ class GlobalVariablesBuilder < Builder
   def global_namespace_variables
     querier.global_namespace_variables(ast).map_unique('id') do |global_namespace_variable_ast|
       global_variable = GlobalVariable.find_or_create_by(
-        name: querier.global_namespace_variable_name(global_namespace_variable_ast),
+        name: querier.name(global_namespace_variable_ast),
       )
       Assignement.create(
         variable: global_variable,
@@ -36,7 +36,7 @@ class GlobalVariablesBuilder < Builder
   def global_definitions
     querier.global_definitions(ast).map_unique('id') do |global_definition_ast|
       global_variable = GlobalVariable.find_or_create_by(
-        name: querier.global_definition_name(global_definition_ast)
+        name: querier.name(global_definition_ast)
       )
       Assignement.create(
         variable: global_variable,
