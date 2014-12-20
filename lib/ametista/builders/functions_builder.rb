@@ -32,12 +32,4 @@ class FunctionsBuilder < Builder
     function
   end
 
-  # Qui non posso usare il NamespacesBuilder passando l'ast del parent della funzione
-  # perchè la funzione potrebbe essere definita in un namespace diverso tramite PHP use
-  def namespace name_parts
-    Namespace.find_or_create_by(
-      name: querier.namespace_name(name_parts)
-    )
-  end
-
 end

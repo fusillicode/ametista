@@ -12,4 +12,10 @@ class Builder
   def content statements
     Content.new(statements: (statements.empty? ? ' ' : statements))
   end
+
+  def namespace name_parts
+    Namespace.find_or_create_by(
+      name: querier.namespace_name(name_parts)
+    )
+  end
 end

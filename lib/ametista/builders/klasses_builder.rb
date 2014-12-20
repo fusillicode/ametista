@@ -31,13 +31,6 @@ class KlassesBuilder < Builder
     )
   end
 
-  # Stessa roba delle funzionie?
-  def namespace name_parts
-    Namespace.find_or_create_by(
-      name: querier.namespace_name(name_parts)
-    )
-  end
-
   def parent_klass klass_ast
     parent_klass_name = querier.parent_klass_name(klass_ast)
     unless parent_klass_name.empty?
