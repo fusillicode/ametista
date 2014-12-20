@@ -22,10 +22,6 @@ class PropertiesQuerier < AssignementQuerier
   #   ast_root.xpath(".//Expr_StaticPropertyFetch[class[last()]/Expr_Variable/name/string[#{a_static_property}]]")
   # end
 
-  def name ast
-    ast.xpath('./name/string').text
-  end
-
   def klass ast
     ast.xpath('./ancestor::Stmt_Class')
   end

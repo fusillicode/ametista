@@ -68,6 +68,14 @@ class Querier
     name_parts[0..-2].to_a.join(namespace_separator).to_s
   end
 
+  def statements ast
+    ast.xpath('./stmts/array').to_s
+  end
+
+  def name ast
+    ast.xpath('./name/string').text
+  end
+
   # def namespace_name ast
   #   exit
   #   namespace_name_parts = namespace_name_parts(ast)
