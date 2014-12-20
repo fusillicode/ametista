@@ -6,10 +6,6 @@ class KlassesQuerier < Querier
     ast_root.xpath(".//Stmt_Class")
   end
 
-  def name ast
-    ast.xpath("./name/string").text
-  end
-
   def parent_klass_name ast
     ast.xpath('./extends/Name_FullyQualified/parts/array/string[last()]').text
   end
