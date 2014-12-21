@@ -93,6 +93,10 @@ class Querier
     ast.xpath('./namespacedName/Name/parts/array/string')
   end
 
+  def klass ast
+    ast.xpath('./ancestor::Stmt_Class[1]')
+  end
+
   def function ast
     ast.xpath('./ancestor::Stmt_Function[1]')
   end
