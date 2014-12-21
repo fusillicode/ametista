@@ -2,23 +2,6 @@ require_relative '../schema'
 
 class Querier
 
-  # { superglobals: :a_superglobal,
-  #   primitive_types: :a_primitive_type,
-  #   instance_property: :an_instance_property,
-  #   self_property: :a_self_property,
-  #   parent_property: :a_parent_property,
-  #   static_property: :a_static_property
-  # }.each do |property, method|
-  #   define_method method do
-  #     # TODO qui si fa ongi volta molta roba per costruire la stringa da utilizzare nella query XPath
-  #     # Si potrebbe cercare di salvare le stringhe in variabili d'istanza (magari con l'Initializer)
-  #     Array.wrap(Global.lang.php[property]).map{ |value| "text() = '#{value}'" }.join(" or ")
-  #   end
-  #   define_method "not_#{method}" do
-  #     "not(#{public_send("#{method}")})"
-  #   end
-  # end
-
   extend Initializer
   initialize_with ({
     a_superglobal: 'superglobals',
