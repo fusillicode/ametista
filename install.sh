@@ -22,26 +22,5 @@ cd ..
 mv "$REDIS" redis
 cd ..
 
-# Install MongoDB in vendor subdirectory
-cd vendor
-case `uname -s` in
-  Linux*)
-    PLATFORM="linux"
-    ;;
-  Darwin*)
-    PLATFORM="osx"
-    ;;
-  *)
-    echo "unknown: $OSTYPE"
-    exit 1
-    ;;
-esac
-MONGODB_VERSION="2.6.4"
-MONGODB="mongodb-$PLATFORM-x86_64-$MONGODB_VERSION"
-MONGODB_PACKAGE="$MONGODB.tgz"
-curl -O "http://downloads.mongodb.org/$PLATFORM/$MONGODB_PACKAGE"
-tar -zxvf "$MONGODB_PACKAGE"
-mv "$MONGODB" mongodb
-
 # Install required Gems
 bundle install
