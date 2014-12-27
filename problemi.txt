@@ -22,3 +22,5 @@ converto xml in json e salvo quelli all'interno del modello TUTTE QUESTE DOMANDE
 = passare da nokogiri ad ox per il parsing dell'xml NON SERVE ED IL LOCALTE DI OX NON IMPLEMENTA ALLA LETTERA LE SPECIFICHE XPATH
 
 = dockerizzare postgres. Per installare docker si può usare https://github.com/boot2docker/boot2docker
+
+= gestire versionamento dei contenuti del database ad ogni applicazione di regola
