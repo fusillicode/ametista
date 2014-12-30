@@ -19,7 +19,8 @@ class MethodsCallsAnalyzer < Analyzer
 
   def analyze_functions_statements
     Function.all.each do |function|
-      ap function
+      ap ActiveRecord::Base.connection.execute("select xpath('.//Stmt_Foreach', '#{function.contents.first.statements}')").first
+      exit
     end
     # Function.each do |function|
     #   ap function.statements
