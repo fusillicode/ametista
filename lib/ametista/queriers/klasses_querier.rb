@@ -3,7 +3,7 @@ require_relative 'querier'
 class KlassesQuerier < Querier
 
   def klasses ast_root
-    ast_root.xpath(".//Stmt_Class")
+    ast_root.xpath('.//Stmt_Class')
   end
 
   def parent_klass_name ast
