@@ -19,7 +19,10 @@ class MethodsCallsAnalyzer < Analyzer
 
   def analyze_functions_statements
     Function.all.each do |function|
-      ap ActiveRecord::Base.connection.execute("select xpath('.//Stmt_Foreach', '#{function.contents.first.statements}')").first
+      ap function.namespace
+      ActiveRecord::Base.connection.execute("select unnest(xpath('.//Expr_Assign', '#{function.contents.first.statements}'))").each do |res|
+        ap res
+      end
       exit
     end
     # Function.each do |function|
