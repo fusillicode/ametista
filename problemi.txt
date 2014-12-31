@@ -23,4 +23,4 @@ converto xml in json e salvo quelli all'interno del modello TUTTE QUESTE DOMANDE
 
 = dockerizzare postgres. Per installare docker si può usare https://github.com/boot2docker/boot2docker
 
-= gestire versionamento dei contenuti del database ad ogni applicazione di regola
+= gestire versionamento dei contenuti del database ad ogni applicazione di regola (rake tasks)
