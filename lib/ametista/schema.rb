@@ -44,6 +44,7 @@ end
 
 class Variable < ActiveRecord::Base
   include HasNameAndUniqueName
+  # i tipi devono essere legati alle variabili o agli assegnamenti?
   has_many :types, as: :variable, through: :variable_types
   has_many :assignements, as: :variable
 end
