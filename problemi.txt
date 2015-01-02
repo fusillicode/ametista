@@ -29,3 +29,5 @@ converto xml in json e salvo quelli all'interno del modello TUTTE QUESTE DOMANDE
 
 = mi sono perso il tipo di ritorno delle procedure...come lo modello?:
   - aggiungo un field alle procedure. Il field è una specializzazione di Variable in modo da potervi associare dei tipi.
+
+= in generale mi sono perso il tipo del'RHS degli assegnamenti
