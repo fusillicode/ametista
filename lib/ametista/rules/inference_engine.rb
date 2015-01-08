@@ -10,7 +10,7 @@ class InferenceEngine
     rules: {
       methods_calls_rule: MethodsCallsRule.new
     },
-    model_modified: false,
+    model_modified: true,
     total_iterations: 7,
     current_iteration: 1
   })
@@ -26,7 +26,7 @@ class InferenceEngine
   end
 
   def apply_rules
-    current_iteration += 1
+    @current_iteration += 1
     model_modified = rules_application_result
   end
 
