@@ -1,4 +1,4 @@
-
+require_relative 'querier'
 
 class GlobalVariablesQuerier < Querier
 
