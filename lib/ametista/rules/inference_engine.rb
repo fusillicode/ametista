@@ -27,10 +27,10 @@ class InferenceEngine
 
   def apply_rules
     @current_iteration += 1
-    model_modified = rules_application_result
+    model_modified = result_of_rules_application
   end
 
-  def rules_application_result
+  def result_of_rules_application
     rules_application.reduce :&
   end
 
