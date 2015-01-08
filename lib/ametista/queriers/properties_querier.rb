@@ -1,6 +1,6 @@
-require_relative 'assignement_querier'
+require_relative 'querier'
 
-class PropertiesQuerier < AssignementQuerier
+class PropertiesQuerier < Querier
 
   def instances_properties ast_root
     ast_root.xpath(".//Expr_PropertyFetch[var[last()]/Expr_Variable/name/string[#{an_instance_property}]]")

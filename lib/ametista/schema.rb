@@ -47,7 +47,7 @@ class Variable < ActiveRecord::Base
   # i tipi devono essere legati alle variabili o agli assegnamenti? Forse si può legarli ad entrambe
   # creando una classe Typeable
   has_many :types, as: :typeable, through: :type_associations
-  has_many :assignements, as: :variable
+  has_many :versions, as: :variable
 end
 
 class Type < ActiveRecord::Base
@@ -148,16 +148,11 @@ class Parameter < Variable
   end
 end
 
-class Assignement < ActiveRecord::Base
+class Version < ActiveRecord::Base
   include HasNameAndUniqueName
   belongs_to :variable, polymorphic: true
-  has_one :rhs, inverse_of: :assignement
   def unique_name
     "#{variable.unique_name}#{Global.lang.php.namespace_separator}#{position}"
   end
 end
 
-class RightHandSide < ActiveRecord::Base
-  belongs_to :assignement, inverse_of: :rhs
-  has_many :types, as: :typeable, through: :type_associations
-end

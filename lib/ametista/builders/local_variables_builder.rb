@@ -46,10 +46,9 @@ class LocalVariablesBuilder < Builder
         )
       )
       # TODO decoupling fra variabili locali e i loro assegnamenti creando magari un AssignementBuilder
-      Assignement.create(
+      Version.create(
         variable: local_variable,
-        position: querier.position(function_local_variable_ast),
-        rhs: querier.rhs(function_local_variable_ast)
+        position: querier.position(function_local_variable_ast)
       )
       local_variable
     end

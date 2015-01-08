@@ -1,6 +1,6 @@
-require_relative 'assignement_querier'
 
-class GlobalVariablesQuerier < AssignementQuerier
+
+class GlobalVariablesQuerier < Querier
 
   def global_namespace_variables ast_root
     ast_root.xpath("/AST/array/Expr_Assign/descendant::Expr_Variable[name/string[#{not_a_superglobal}]]")
