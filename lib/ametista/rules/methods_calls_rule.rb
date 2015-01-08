@@ -1,15 +1,14 @@
 require_relative '../schema'
-require_relative 'analyzer'
-require_relative '../queriers/methods_calls_querier'
+require_relative 'rule'
 
-class MethodsCallsAnalyzer < Analyzer
+class MethodsCallsRule < Rule
 
   extend Initializer
   initialize_with ({
-    querier: MethodsCallsQuerier.new
+
   })
 
-  def analyze
+  def apply
     analyze_functions_statements
   end
 
