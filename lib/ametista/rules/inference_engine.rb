@@ -18,23 +18,23 @@ class InferenceEngine
   alias_method :model_modified?, :model_modified
 
   def infer
-    apply_rules while continue?
+    iterate_rules_application while continue?
   end
 
   def continue?
     model_modified? and current_iteration <= total_iterations
   end
 
-  def apply_rules
+  def iterate_rules_application
     @current_iteration += 1
     model_modified = result_of_rules_application
   end
 
   def result_of_rules_application
-    rules_application.reduce :&
+    apply_rules.reduce :&
   end
 
-  def rules_application
+  def apply_rules
     rules.map do |key, rule|
       rule.apply
     end
