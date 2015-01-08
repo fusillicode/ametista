@@ -2,12 +2,14 @@ require_relative 'builder'
 require_relative '../utilities'
 require_relative '../schema'
 require_relative '../queriers/global_variables_querier'
+require_relative 'versions_builder'
 
 class GlobalVariablesBuilder < Builder
 
   extend Initializer
   initialize_with ({
-    querier: GlobalVariablesQuerier.new
+    querier: GlobalVariablesQuerier.new,
+    version_builder: VersionsBuilder.new
   })
 
   def build ast
@@ -24,9 +26,9 @@ class GlobalVariablesBuilder < Builder
       global_variable = GlobalVariable.find_or_create_by(
         name: querier.name(global_namespace_variable_ast),
       )
-      Version.create(
-        variable: global_variable,
-        position: querier.position(global_namespace_variable_ast)
+      version_builder.version(
+        global_variable,
+        global_namespace_variable_ast
       )
       global_variable
     end
@@ -37,9 +39,9 @@ class GlobalVariablesBuilder < Builder
       global_variable = GlobalVariable.find_or_create_by(
         name: querier.name(global_definition_ast)
       )
-      Version.create(
-        variable: global_variable,
-        position: querier.position(global_definition_ast)
+      version_builder.version(
+        global_variable,
+        global_definition_ast
       )
       global_variable
     end
@@ -51,9 +53,9 @@ class GlobalVariablesBuilder < Builder
         name: querier.superglobal_name(superglobal_ast),
         kind: querier.superglobal_type(superglobal_ast)
       )
-      Version.create(
-        variable: global_variable,
-        position: querier.position(superglobal_ast)
+      version_builder.version(
+        global_variable,
+        superglobal_ast
       )
       global_variable
     end

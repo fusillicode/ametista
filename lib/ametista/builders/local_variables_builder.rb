@@ -5,6 +5,7 @@ require_relative '../queriers/local_variables_querier'
 require_relative 'namespaces_builder'
 require_relative 'functions_builder'
 require_relative 'klasses_methods_builder'
+require_relative 'versions_builder'
 
 class LocalVariablesBuilder < Builder
 
@@ -13,7 +14,8 @@ class LocalVariablesBuilder < Builder
     querier: LocalVariablesQuerier.new,
     namespaces_builder: NamespacesBuilder.new,
     functions_builder: FunctionsBuilder.new,
-    klasses_methods_builder: KlassesMethodsBuilder.new
+    klasses_methods_builder: KlassesMethodsBuilder.new,
+    version_builder: VersionsBuilder.new
   })
 
   def build ast
@@ -46,9 +48,9 @@ class LocalVariablesBuilder < Builder
         )
       )
       # TODO decoupling fra variabili locali e i loro assegnamenti creando magari un AssignementBuilder
-      Version.create(
-        variable: local_variable,
-        position: querier.position(function_local_variable_ast)
+      version_builder.version(
+        local_variable,
+        function_local_variable_ast
       )
       local_variable
     end
