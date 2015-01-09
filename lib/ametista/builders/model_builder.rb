@@ -42,15 +42,8 @@ class ModelBuilder
 
   def build
     init_build
-    building_loop
+    build
     refine_model
-    test
-  end
-
-  def test
-    Property.instances_properties.each do |element|
-      ap element.unique_name
-    end
   end
 
   def init_build
@@ -59,7 +52,7 @@ class ModelBuilder
     end
   end
 
-  def building_loop
+  def build
     while ast = channel.read
       builders_loop(parser.parse(ast))
     end
@@ -73,7 +66,6 @@ class ModelBuilder
 
   def builders_loop ast
     builders.each do |key, builder|
-      ap "#{builder.class} loop"
       builder.build(ast)
     end
   end
