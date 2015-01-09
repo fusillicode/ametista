@@ -23,14 +23,12 @@ class KlassesMethodsBuilder < Builder
   end
 
   def klass_method klass_method_ast
-    klass_method = KlassMethod.find_or_create_by(
+    KlassMethod.find_or_create_by(
       name: querier.name(klass_method_ast),
       klass: klasses_builder.klass(
         querier.klass(klass_method_ast)
       )
-    )
-    klass_method.contents << content(querier.statements(klass_method_ast))
-    klass_method
+    ).tap { |o| o.contents << content(querier.statements(klass_method_ast)) }
   end
 
 end

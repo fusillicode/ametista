@@ -22,14 +22,12 @@ class FunctionsBuilder < Builder
   end
 
   def function function_ast
-    function = Function.find_or_create_by(
+    Function.find_or_create_by(
       name: querier.name(function_ast),
       namespace: namespace(
         querier.procedure_namespaced_name_parts(function_ast)
       )
-    )
-    function.contents << content(querier.statements(function_ast))
-    function
+    ).tap { |o| o.contents << content(querier.statements(function_ast)) }
   end
 
 end

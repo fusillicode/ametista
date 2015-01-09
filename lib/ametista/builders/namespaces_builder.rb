@@ -16,11 +16,9 @@ class NamespacesBuilder < Builder
   end
 
   def global_namespace
-    namespace = Namespace.find_or_create_by(
+    Namespace.find_or_create_by(
       name: querier.global_namespace_name
-    )
-    namespace.contents << content(querier.global_namespace_statements(ast))
-    namespace
+    ).tap { |o| o.contents << content(querier.global_namespace_statements(ast)) }
   end
 
   def namespaces
@@ -30,11 +28,9 @@ class NamespacesBuilder < Builder
   end
 
   def namespace namespace_ast
-    namespace = Namespace.find_or_create_by(
+    Namespace.find_or_create_by(
       name: querier.name(namespace_ast),
-    )
-    namespace.contents << content(querier.statements(namespace_ast))
-    namespace
+    ).tap { |o| o.contents << content(querier.statements(namespace_ast)) }
   end
 
 end

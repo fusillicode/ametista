@@ -31,28 +31,21 @@ class LocalVariablesBuilder < Builder
 
   def namespaces_local_variables
     querier.namespaces_local_variables(ast).map_unique('id') do |namespace_local_variable_ast|
-      local_variable = LocalVariable.find_or_create_by(
+      LocalVariable.find_or_create_by(
         name: querier.namespace_local_variable_name(namespace_local_variable_ast),
         scope: namespace(namespace_local_variable_ast)
-      )
-      local_variable
+      ).tap { |o| version_builder.version(o, namespace_local_variable_ast) }
     end
   end
 
   def functions_local_variables
     querier.functions_local_variables(ast).map_unique('id') do |function_local_variable_ast|
-      local_variable = LocalVariable.find_or_create_by(
+      LocalVariable.find_or_create_by(
         name: querier.name(function_local_variable_ast),
         scope: functions_builder.function(
           querier.function(function_local_variable_ast)
         )
-      )
-      # TODO decoupling fra variabili locali e i loro assegnamenti creando magari un AssignementBuilder
-      version_builder.version(
-        local_variable,
-        function_local_variable_ast
-      )
-      local_variable
+      ).tap { |o| version_builder.version(o, function_local_variable_ast) }
     end
   end
 
@@ -63,7 +56,7 @@ class LocalVariablesBuilder < Builder
         scope: klasses_methods_builder.klass_method(
           querier.klass_method(klass_method_local_variable_ast)
         )
-      )
+      ).tap { |o| version_builder.version(o, klass_method_local_variable_ast) }
     end
   end
 
