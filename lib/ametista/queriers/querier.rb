@@ -109,19 +109,6 @@ class Querier
     ast.xpath('./ancestor::var/following-sibling::expr[1]')
   end
 
-  # def namespace_name ast
-  #   exit
-  #   namespace_name_parts = namespace_name_parts(ast)
-  #   namespace_name_parts.empty? ?
-  #     global_namespace_name :
-  #     "#{global_namespace_name}#{namespace_separator}#{namespace_name_parts}"
-  # end
-
-  # def namespace_name_parts ast
-  #   exit
-  #   ast.xpath('./ancestor::Stmt_Namespace[1]/name/Name/parts/array/string')[0..-1].to_a.join(namespace_separator)
-  # end
-
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block
