@@ -19,7 +19,7 @@ class ModelBuilder
 
   extend Initializer
   initialize_with ({
-    parser: XMLParser.new,
+    parser: XmlParser.new,
     channel: RedisChannel.new,
     init_builders: {
       primitive_types_builder: PrimitiveTypesBuilder.new

@@ -1,6 +1,6 @@
-require_relative 'ast_querier'
+require_relative 'querier'
 
-class CustomTypesQuerier < AstQuerier
+class CustomTypesQuerier < Querier
 
   def parameters_custom_types ast_root
     ast_root.xpath(".//Param[type/Name_FullyQualified/parts/array/string[last()][#{not_a_primitive_type}]]")

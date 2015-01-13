@@ -1,6 +1,6 @@
-require_relative 'ast_querier'
+require_relative 'querier'
 
-class NamespacesQuerier < AstQuerier
+class NamespacesQuerier < Querier
 
   def namespaces ast_root
     ast_root.xpath('.//Stmt_Namespace')

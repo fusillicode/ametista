@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-class XMLParser
+class XmlParser
 
   def parse ast
     Nokogiri::XML(ast) { |config|

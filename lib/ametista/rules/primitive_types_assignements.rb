@@ -18,11 +18,7 @@ class PrimitiveTypesAssignements < Rule
 
   def apply_on_functions_statements
     Function.all.each do |function|
-      ap function.namespace
-      querier.xpath('.//Expr_Assign', function.contents.first.statements).each do |res|
-        ap res
-      end
-      exit
+      function.contents.first.statements
     end
     # Function.each do |function|
     #   ap function.statements

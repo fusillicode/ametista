@@ -1,6 +1,6 @@
-require_relative 'ast_querier'
+require_relative 'querier'
 
-class KlassesQuerier < AstQuerier
+class KlassesQuerier < Querier
 
   def klasses ast_root
     ast_root.xpath('.//Stmt_Class')
