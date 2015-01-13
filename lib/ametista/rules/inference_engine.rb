@@ -1,7 +1,7 @@
 # TODO come posso sistemare tutti questi require_relative?
 require 'awesome_print'
 require_relative '../utilities'
-require_relative 'methods_calls_rule'
+require_relative 'primitive_types_assignements'
 
 class InferenceEngine
 
