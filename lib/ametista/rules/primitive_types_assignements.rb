@@ -9,10 +9,17 @@ class PrimitiveTypesAssignements < Rule
   })
 
   def apply
-    apply_on_namespaces_statements # << apply_on_functions_statements << apply_on_klasses_methods_statements
+    apply_on_functions_statements # << apply_on_namespaces_statements << apply_on_klasses_methods_statements
   end
 
   def apply_on_namespaces_statements
+  end
+
+  def xpath query, xml
+    ActiveRecord::Base.connection.execute("select unnest(xpath('#{query}', '#{xml}'))")
+  end
+
+  def apply_on_functions_statements
     Function.all.each do |function|
       ap function.namespace
       ActiveRecord::Base.connection.execute("select unnest(xpath('.//Expr_Assign', '#{function.contents.first.statements}'))").each do |res|
@@ -30,13 +37,6 @@ class PrimitiveTypesAssignements < Rule
     #   #   p method_call
     #   # end
     # end
-  end
-
-  def xpath query, xml
-    ActiveRecord::Base.connection.execute("select unnest(xpath('#{query}', '#{xml}'))")
-  end
-
-  def apply_on_functions_statements
   end
 
   def apply_on_klasses_methods_statements

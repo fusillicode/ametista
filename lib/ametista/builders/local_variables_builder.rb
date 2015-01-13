@@ -24,7 +24,7 @@ class LocalVariablesBuilder < Builder
   end
 
   def local_variables
-    namespaces_local_variables  # << functions_local_variables << klasses_methods_local_variables
+    functions_local_variables # << namespaces_local_variables << klasses_methods_local_variables
   end
 
   # TODO vedere di ristrutturare il building delle variabili locali (come anche dei parametri) tirando fuori prima i loro parent evitando così di fare troppe query xpath relative ai parent (i.e. funzioni e metodi di classe).
