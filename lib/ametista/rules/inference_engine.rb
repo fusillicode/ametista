@@ -8,7 +8,7 @@ class InferenceEngine
   extend Initializer
   initialize_with ({
     rules: {
-      methods_calls_rule: MethodsCallsRule.new
+      primitive_types_assignements: PrimitiveTypesAssignements.new
     },
     model_modified: true,
     total_iterations: 7,
@@ -18,14 +18,14 @@ class InferenceEngine
   alias_method :model_modified?, :model_modified
 
   def infer
-    iterate_rules_application while continue?
+    iterate_on_rules while continue?
   end
 
   def continue?
     model_modified? and current_iteration <= total_iterations
   end
 
-  def iterate_rules_application
+  def iterate_on_rules
     @current_iteration += 1
     model_modified = result_of_rules_application
   end
