@@ -1,7 +1,7 @@
 require_relative '../schema'
 require_relative 'language_querier'
 
-class Querier
+class AstQuerier
 
   extend Initializer
   initialize_with ({

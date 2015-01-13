@@ -1,6 +1,6 @@
 require_relative 'builder'
 require_relative '../utilities'
-require_relative '../queriers/querier'
+require_relative '../queriers/ast_querier'
 
 class PrimitiveTypesBuilder < Builder
 

@@ -1,6 +1,6 @@
-require_relative 'querier'
+require_relative 'ast_querier'
 
-class LocalVariablesQuerier < Querier
+class LocalVariablesQuerier < AstQuerier
 
   def namespaces_local_variables ast_root
     ast_root.xpath(".//Stmt_Namespace/stmts/array/Expr_Assign/descendant::Expr_Variable[name/string[#{a_local_variable}]]")

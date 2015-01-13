@@ -1,10 +1,10 @@
 require_relative '../schema.rb'
-require_relative '../queriers/querier'
+require_relative '../queriers/ast_querier'
 
 class Builder
   extend Initializer
   initialize_with ({
-    querier: Querier.new,
+    querier: AstQuerier.new,
     ast: nil
   })
   # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
