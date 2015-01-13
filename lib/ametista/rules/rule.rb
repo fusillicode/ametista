@@ -1,8 +1,8 @@
-require_relative '../queriers/ast_querier'
+require_relative '../queriers/model_querier'
 
 class Rule
   extend Initializer
   initialize_with ({
-    querier: AstQuerier.new
+    querier: ModelQuerier.new
   })
 end
