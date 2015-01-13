@@ -1,5 +1,9 @@
 <?php
 
+namespace venere;
+
+$ciao = '';
+
 class Figura {
 
 }

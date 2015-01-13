@@ -32,8 +32,10 @@ class LocalVariablesBuilder < Builder
   def namespaces_local_variables
     querier.namespaces_local_variables(ast).map_unique('id') do |namespace_local_variable_ast|
       LocalVariable.find_or_create_by(
-        name: querier.namespace_local_variable_name(namespace_local_variable_ast),
-        scope: namespaces_builder.namespace(namespace_local_variable_ast)
+        name: querier.name(namespace_local_variable_ast),
+        scope: namespaces_builder.namespace(
+          querier.namespace(namespace_local_variable_ast)
+        )
       ).tap { |o| version_builder.version(o, namespace_local_variable_ast) }
     end
   end
