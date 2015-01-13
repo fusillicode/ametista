@@ -56,8 +56,4 @@ class AstQuerier < Querier
     ast.xpath('./ancestor::Stmt_ClassMethod[1]')
   end
 
-  def rhs ast
-    ast.xpath('./ancestor::var/following-sibling::expr[1]')
-  end
-
 end
