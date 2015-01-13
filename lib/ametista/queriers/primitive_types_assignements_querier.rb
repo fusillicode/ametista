@@ -1,6 +1,6 @@
 require_relative '../schema'
-require_relative 'model_querier'
+require_relative 'querier'
 
-class PrimitiveTypesAssignementsQuerier < ModelQuerier
+class PrimitiveTypesAssignementsQuerier < Querier
 
 end
