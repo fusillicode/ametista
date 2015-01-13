@@ -1,12 +1,7 @@
 require_relative '../schema'
-require_relative 'language_querier'
+require_relative 'querier'
 
-class AstQuerier
-
-  extend Initializer
-  initialize_with ({
-    language_querier: LanguageQuerier.new,
-  })
+class AstQuerier < Querier
 
   def position ast
     [index_of_node_in_parent(ast)].concat(ast.ancestors.map { |ancestor_ast|
@@ -63,14 +58,6 @@ class AstQuerier
 
   def rhs ast
     ast.xpath('./ancestor::var/following-sibling::expr[1]')
-  end
-
-  def method_missing method_name, *args, &block
-    if self.respond_to? method_name
-      self.public_send method_name, *args, &block
-    elsif language_querier.respond_to? method_name
-      language_querier.public_send method_name, *args, &block
-    end
   end
 
 end
