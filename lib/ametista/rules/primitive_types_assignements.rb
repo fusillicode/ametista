@@ -1,11 +1,12 @@
 require_relative '../schema'
 require_relative 'rule'
+require_relative '../queriers/primitive_types_assignements_querier'
 
 class PrimitiveTypesAssignements < Rule
 
   extend Initializer
   initialize_with ({
-
+    querier: PrimitiveTypesAssignementsQuerier.new
   })
 
   def apply
