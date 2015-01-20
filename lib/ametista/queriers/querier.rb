@@ -61,6 +61,10 @@ class Querier
     ast.xpath('./ancestor::Stmt_ClassMethod[1]')
   end
 
+  def rhs ast
+    ast.xpath('./ancestor::var/following-sibling::expr[1]').to_s
+  end
+
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block
