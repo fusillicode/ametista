@@ -1,14 +1,14 @@
 # TODO come posso sistemare tutti questi require_relative?
 require 'awesome_print'
 require_relative '../utilities'
-require_relative 'primitive_types_assignements'
+require_relative 'assignements_rule'
 
 class InferenceEngine
 
   extend Initializer
   initialize_with ({
     rules: {
-      primitive_types_assignements: PrimitiveTypesAssignements.new
+      assignements_rule: AssignementsRule.new
     },
     model_modified: true,
     total_iterations: 7,
