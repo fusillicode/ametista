@@ -1,8 +1,8 @@
 ActiveRecord::Schema.define(:version => 0) do
 
   create_table "versions", :force => true do |t|
-    t.string :name, null: false
-    t.string :position, array: true, default: []
+    t.integer :position, array: true, default: '{}'
+    t.xml :rhs
     t.references :variable, polymorphic: true
   end
 

@@ -149,10 +149,8 @@ class Parameter < Variable
 end
 
 class Version < ActiveRecord::Base
-  include HasNameAndUniqueName
   belongs_to :variable, polymorphic: true
   def unique_name
     "#{variable.unique_name}#{Global.lang.php.namespace_separator}#{position}"
   end
 end
-
