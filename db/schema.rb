@@ -1,5 +1,11 @@
 ActiveRecord::Schema.define(:version => 0) do
 
+  create_table "assignements", :force => true do |t|
+    t.integer :position, array: true, default: '{}'
+    t.xml :rhs
+    t.references :variable, polymorphic: true
+  end
+
   create_table "versions", :force => true do |t|
     t.integer :position, array: true, default: '{}'
     t.xml :rhs
