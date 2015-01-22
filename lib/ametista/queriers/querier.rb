@@ -65,6 +65,14 @@ class Querier
     ast.xpath('./ancestor::var/following-sibling::expr[1]').to_s
   end
 
+  def end_line ast
+    ast.xpath('./endLine/int').text
+  end
+
+  def scope ast
+    ast.xpath('./ancestor::*[self::Stmt_Function or self::Stmt_ClassMethod or self::Stmt_Namespace][1]')
+  end
+
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block

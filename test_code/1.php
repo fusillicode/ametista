@@ -19,7 +19,7 @@ function bing(){
   foreach ($asda as $key => $value) {
     # code...
   }
-  $asda = 'asd'; global $asda;
+  $asda = 'asd'; $asda = 'asd'; global $asda; $asda = 'asd'; $aasda = 'asd';
   $asda = 'asd';
   $asda = 'asd';
   $asda = 'asd';
