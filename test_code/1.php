@@ -13,13 +13,16 @@ for ($i=0; $i < 10; $i++) {
   # code...
 }
 
-function ciao(){
+function bing(){
 
   // Stmt_Foreach
   foreach ($asda as $key => $value) {
     # code...
   }
-  global $asda;
+  $asda = 'asd'; global $asda;
+  $asda = 'asd';
+  $asda = 'asd';
+  $asda = 'asd';
   $asda = 'asd';
   $pointo = $asda[1][1]->cizza->pimpa();
   $pointo = $asda->cizza();

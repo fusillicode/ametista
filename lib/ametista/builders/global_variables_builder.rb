@@ -33,7 +33,7 @@ class GlobalVariablesBuilder < Builder
     querier.global_definitions(ast).map_unique('id') do |global_definition_ast|
       GlobalVariable.find_or_create_by(
         name: querier.name(global_definition_ast)
-      ).tap { |o| version_builder.version(o, global_definition_ast) }
+      ).tap { |o| version_builder.global_definition_versions(o, global_definition_ast) }
     end
   end
 
