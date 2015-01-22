@@ -9,9 +9,6 @@ class VersionsBuilder < Builder
     querier: VersionsQuerier.new
   })
 
-  # ap ancestor.xpath(".//Expr_Assign[endLine/int > #{global_definition_line} and var/Expr_Variable/name/string[text() = '#{global_variable.name}']]").count
-  # ap ancestor.xpath(".//Expr_Assign[endLine/int = #{global_definition_line} and preceding-sibling::*[self::Stmt_Global] and var/Expr_Variable/name/string[text() = '#{global_variable.name}']]").count
-
   def global_definition_versions global_variable, global_definition_ast
     querier.global_definition_versions(
       global_variable.name,
