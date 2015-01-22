@@ -378,7 +378,18 @@
              <scalar:int>22</scalar:int>
             </attribute:endLine>
             <subNode:name>
-             <scalar:string>asda</scalar:string>
+             <scalar:string>perla</scalar:string>
+            </subNode:name>
+           </node:Expr_Variable>
+           <node:Expr_Variable>
+            <attribute:startLine>
+             <scalar:int>22</scalar:int>
+            </attribute:startLine>
+            <attribute:endLine>
+             <scalar:int>22</scalar:int>
+            </attribute:endLine>
+            <subNode:name>
+             <scalar:string>merla</scalar:string>
             </subNode:name>
            </node:Expr_Variable>
           </scalar:array>
