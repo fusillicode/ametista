@@ -62,7 +62,7 @@ class Querier
   end
 
   def rhs ast
-    ast.xpath('./ancestor::var/following-sibling::expr[1]').to_s
+    ast.xpath('./ancestor-or-self::*[self::Expr_Assign][1]/expr[1]').to_s
   end
 
   def end_line ast
