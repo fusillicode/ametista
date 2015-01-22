@@ -10,7 +10,7 @@ php composer.phar install
 php composer.phar update
 
 # Install Redis in vendor subdirectory
-REDIS_VERSION="2.8.17"
+REDIS_VERSION="2.8.19"
 REDIS="redis-$REDIS_VERSION"
 REDIS_PACKAGE="$REDIS.tar.gz"
 cd vendor
