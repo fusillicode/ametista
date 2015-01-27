@@ -35,12 +35,4 @@ class VersionsQuerier < Querier
     'preceding-sibling::*[self::Stmt_Global]'
   end
 
-  def defined_constant_rhs ast
-    ast.xpath('./args/array/Arg[2]/value/*[1]')
-  end
-
-  # def defined_constant_rhs ast
-  #   ast.xpath('./args/array/*Arg[3]/value')
-  # end
-
 end

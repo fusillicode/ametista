@@ -18,7 +18,7 @@ class GlobalVariablesBuilder < Builder
   end
 
   def global_variables
-    global_namespace_variables << global_definitions << superglobals << defined_constants << klass_constants
+    global_namespace_variables << global_definitions << superglobals
   end
 
   def global_namespace_variables
@@ -44,19 +44,6 @@ class GlobalVariablesBuilder < Builder
         kind: querier.superglobal_type(superglobal_ast)
       ).tap { |o| version_builder.version(o, superglobal_ast) }
     end
-  end
-
-  def defined_constants
-    querier.defined_constants(ast).map_unique('id') do |defined_constant_ast|
-      GlobalVariable.find_or_create_by(
-        name: querier.defined_constant_name(defined_constant_ast),
-        kind: 'CONSTANT'
-      ).tap { |o| version_builder.defined_constant_version(o, defined_constant_ast) }
-    end
-  end
-
-  def klass_constants
-
   end
 
 end

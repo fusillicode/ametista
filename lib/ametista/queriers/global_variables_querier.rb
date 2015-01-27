@@ -30,8 +30,4 @@ class GlobalVariablesQuerier < Querier
     ast.xpath('./dim/Scalar_String/value/string').text
   end
 
-  def defined_constant_name ast
-    ast.xpath('./args/array/*[1]/value/Expr_ConstFetch/name/Name/parts/array/string').text
-  end
-
 end
