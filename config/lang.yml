@@ -18,8 +18,12 @@ development:
       - _COOKIE
     primitive_types:
       - bool
+      - boolean
       - int
+      - integer
       - float
+      - double
+      - real
       - string
       - array
       - object
