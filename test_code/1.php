@@ -1,4 +1,5 @@
 <?php
+$w = $a = $w->pippo() + 2;
 $w = $w->pippo() + 2;
 $w = $w->pippo() && '';
 $w = $w->pippo() . '';
