@@ -19,12 +19,23 @@ class VersionsBuilder < Builder
   end
 
   def version variable, ast
-    # TODO rimuovere il check sul rhs quando Postgres consentirà l'inserimento
-    # di stringhe vuote per il campo xml
     rhs = querier.rhs(ast)
     Version.create(
       variable: variable,
       position: querier.position(ast),
+      # TODO rimuovere il check sul rhs quando Postgres consentirà l'inserimento
+      # di stringhe vuote per il campo xml
+      rhs: (rhs.empty? ? ' ' : rhs)
+    )
+  end
+
+  def defined_constant_version variable, ast
+    rhs = querier.defined_constant_rhs(ast)
+    Version.create(
+      variable: variable,
+      position: querier.position(ast),
+      # TODO rimuovere il check sul rhs quando Postgres consentirà l'inserimento
+      # di stringhe vuote per il campo xml
       rhs: (rhs.empty? ? ' ' : rhs)
     )
   end
