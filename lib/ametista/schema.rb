@@ -2,9 +2,6 @@ module HasNameAndUniqueName
   extend ActiveSupport::Concern
   included do
     validates :name, presence: true, length: { allow_blank: false }
-    after_initialize do
-      @unique_name ||= unique_name
-    end
     def unique_name
       name
     end
@@ -116,7 +113,6 @@ end
 class GlobalVariable < Variable
   belongs_to :scope, polymorphic: true
   after_initialize do
-    self.unique_name ||= 'GLOBALS'
     self.scope ||= Namespace.find_or_create_by(
       name: Global.lang.php.global_namespace.name
     )
