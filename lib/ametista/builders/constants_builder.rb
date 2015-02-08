@@ -21,10 +21,9 @@ class ConstantsBuilder < Builder
 
   def defined_constants
     querier.defined_constants(ast).map_unique('id') do |defined_constant_ast|
-      GlobalVariable.find_or_create_by(
+      Constant.find_or_create_by(
         name: querier.defined_constant_name(defined_constant_ast),
-        kind: 'CONSTANT'
-      ).tap { |o| version_builder.defined_constant_version(o, defined_constant_ast) }
+      )#.tap { |o| version_builder.defined_constant_version(o, defined_constant_ast) }
     end
   end
 

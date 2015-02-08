@@ -10,6 +10,7 @@ require_relative 'functions_builder'
 require_relative 'custom_types_builder'
 require_relative 'parameters_builder'
 require_relative 'global_variables_builder'
+require_relative 'constants_builder'
 require_relative 'local_variables_builder'
 require_relative 'properties_builder'
 require_relative 'klasses_builder'
@@ -32,6 +33,7 @@ class ModelBuilder
       custom_types_builder: CustomTypesBuilder.new,
       parameters_builder: ParametersBuilder.new,
       global_variables_builder: GlobalVariablesBuilder.new,
+      constants_builder: ConstantsBuilder.new,
       local_variables_builder: LocalVariablesBuilder.new,
       properties_builder: PropertiesBuilder.new
     },
