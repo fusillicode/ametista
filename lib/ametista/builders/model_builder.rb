@@ -42,7 +42,7 @@ class ModelBuilder
 
   def build
     init_build
-    build
+    build_for_each_ast
     refine_model
   end
 
@@ -52,7 +52,7 @@ class ModelBuilder
     end
   end
 
-  def build
+  def build_for_each_ast
     while ast = channel.read
       builders_loop(parser.parse(ast))
     end
