@@ -1,4 +1,10 @@
 <?php
+
+define('definisco', $a->b, true);
+
+$w = NULL;
+$w = 1 + 2;
+$w = definisco;
 $w = $a = $w->pippo() + 2;
 $w = $w->pippo() + 2;
 $w = $w->pippo() && '';
@@ -31,9 +37,11 @@ $w = function (int $asd) {
   echo $asd;
 };
 
-// class Figura {
+class Figura {
 
-// }
+  const asda = 'asdaaaa', aaaaaa = 1;
+
+}
 
 // // Stmt_For
 // for ($i=0; $i < 10; $i++) {
