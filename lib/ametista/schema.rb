@@ -63,6 +63,7 @@ class Namespace < ActiveRecord::Base
   include ContainsStatements
   has_many :functions, inverse_of: :namespace
   has_many :klasses, inverse_of: :namespace
+  has_many :constants, inverse_of: :scope
   after_initialize { extend define_scope_type }
   def define_scope_type
     is_global_namespace? ? IsGlobalScope : IsLocalScope
@@ -78,6 +79,7 @@ class Klass < Type
   has_many :child_klasses, class_name: 'Klass', foreign_key: 'parent_klass_id'
   has_many :klass_methods, inverse_of: :klass
   has_many :properties, inverse_of: :klass
+  has_many :constants, inverse_of: :scope
   def unique_name
     "#{namespace.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
@@ -107,6 +109,19 @@ class Function < ActiveRecord::Base
   belongs_to :namespace, inverse_of: :functions
   def unique_name
     "#{namespace.unique_name}#{Global.lang.php.namespace_separator}#{name}"
+  end
+end
+
+class Constant < ActiveRecord::Base
+  include HasNameAndUniqueName
+  belongs_to :scope, polymorphic: true
+  after_initialize do
+    self.scope ||= Namespace.find_or_create_by(
+      name: Global.lang.php.global_namespace.name
+    )
+  end
+  def unique_name
+    "#{scope.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
 end
 

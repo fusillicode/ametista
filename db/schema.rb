@@ -46,4 +46,9 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string :type
   end
 
+  create_table "constants", :force => true do |t|
+    t.string :name, null: false
+    t.references :scope, polymorphic: true
+  end
+
 end
