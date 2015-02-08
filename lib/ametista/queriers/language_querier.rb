@@ -61,7 +61,7 @@ class LanguageQuerier
   def method_missing method_name, *args, &block
     if self.respond_to? method_name
       self.public_send method_name, *args, &block
-    elsif Global.lang.php[method_name]
+    else
       Global.lang.php[method_name]
     end
   end
