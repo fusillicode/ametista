@@ -21,11 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "pry-coolline"
-  spec.add_development_dependency "pry-exception_explorer"
-  spec.add_development_dependency "pry-stack_explorer"
 
   spec.add_runtime_dependency "redis"
   spec.add_runtime_dependency "pg"
