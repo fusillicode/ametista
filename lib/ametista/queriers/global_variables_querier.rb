@@ -14,14 +14,6 @@ class GlobalVariablesQuerier < Querier
     ast_root.xpath(".//Expr_Assign/descendant::Expr_ArrayDimFetch[last()][var/Expr_Variable[name/string[#{a_superglobal}]]]")
   end
 
-  def defined_constants ast_root
-    ast_root.xpath(".//Expr_FuncCall[name/Name/parts/array/string[text() = 'define']]")
-  end
-
-  def klass_constants ast_root
-    ast_root.xpath(".//Expr_FuncCall/name/Name/parts/array/string/define")
-  end
-
   def superglobal_type ast
     ast.xpath('./var/Expr_Variable/name/string').text
   end
