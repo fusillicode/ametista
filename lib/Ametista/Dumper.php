@@ -9,7 +9,7 @@ class Dumper
   private function defaults()
   {
     return $this->defaults = array(
-      'location' => './test_code_xml/',
+      'location'      => './test_code_xml/',
       'new_extension' => 'xml'
     );
   }

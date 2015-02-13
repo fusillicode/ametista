@@ -11,7 +11,7 @@ class RedisChannel
   private function defaults()
   {
     return $this->defaults = array(
-      'client' => new Client([
+      'client'   => new Client([
         'scheme' => 'tcp',
         'host'   => 'localhost',
         'port'   => 6379

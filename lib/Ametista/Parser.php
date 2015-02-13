@@ -11,10 +11,10 @@ class Parser
   private function defaults()
   {
     $this->defaults = array(
-      'lexer' => new PhpParser\Lexer\Emulative(),
-      'traverser' => new PhpParser\NodeTraverser(),
-      'visitors' => array(new PhpParser\NodeVisitor\NameResolver()),
-      'serializer' => new PhpParser\Serializer\XML(),
+      'lexer'        => new PhpParser\Lexer\Emulative(),
+      'traverser'    => new PhpParser\NodeTraverser(),
+      'visitors'     => array(new PhpParser\NodeVisitor\NameResolver()),
+      'serializer'   => new PhpParser\Serializer\XML(),
       // with 128M or 256M the call to the token_get_all() function inside the lexer throws an error during the analysis of files greater than 30000 LOC
       'memory_limit' => '512M'
     );
