@@ -10,8 +10,8 @@ filetype: pdf
 indirect: true
 inheritance: true
 markup: true
-notation: simple
-orientation: horizontal
+notation: bachman
+orientation: vertical
 polymorphism: true
 warn: true
 title: sample title
