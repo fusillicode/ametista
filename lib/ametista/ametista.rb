@@ -14,7 +14,7 @@ module Ametista
       require 'global'
       require 'active_record'
       Global.environment = 'development'
-      Global.config_directory = File.join(Dir.pwd, 'config')
+      Global.config_directory = File.join Dir.pwd, 'config'
       ActiveRecord::Base.establish_connection Global.db.to_hash
       # Per pulire il db
       `rake db:reset`
@@ -29,7 +29,7 @@ module Ametista
       require 'global'
       require 'active_record'
       Global.environment = 'development'
-      Global.config_directory = File.join(Dir.pwd, 'config')
+      Global.config_directory = File.join Dir.pwd, 'config'
       ActiveRecord::Base.establish_connection Global.db.to_hash
       require_relative '../lib/ametista/rules/inference_engine'
       inference_engine = InferenceEngine.new.infer
