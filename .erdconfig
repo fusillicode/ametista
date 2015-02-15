@@ -1,0 +1,17 @@
+attributes:
+  - foreign_keys
+  - primary_keys
+  - timestamps
+  - inheritance
+  - content
+disconnected: true
+filename: erd
+filetype: pdf
+indirect: true
+inheritance: true
+markup: true
+notation: simple
+orientation: horizontal
+polymorphism: true
+warn: true
+title: sample title
