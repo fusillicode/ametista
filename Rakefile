@@ -4,3 +4,4 @@ ActiveRecordMigrations.configure do |c|
 end
 ActiveRecordMigrations.load_tasks
 
+Dir['./lib/tasks/*.rake'].sort.each { |task| import task }
