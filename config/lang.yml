@@ -17,21 +17,23 @@ development:
       - _ENV
       - _COOKIE
     primitive_types:
-      - bool
       - boolean
-      - int
+      - bool
       - integer
+      - int
       - float
       - double
-      - real
       - string
       - array
       - object
       - resource
       - NULL
+      - null
       - mixed
       - number
       - callback
+      - callable
+      - void
     magic_constants:
       - __LINE__
       - __FILE__
