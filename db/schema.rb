@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string :type
   end
 
-  create_table "variable_types", :force => true do |t|
+  create_table "variables_types", :force => true do |t|
     t.integer :variable_id
     t.integer :type_id
   end
