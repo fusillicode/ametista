@@ -43,13 +43,13 @@ class Variable < ActiveRecord::Base
   include HasNameAndUniqueName
   # i tipi devono essere legati alle variabili o agli assegnamenti? Forse si può legarli ad entrambe
   # creando una classe Typeable
-  has_many :types, as: :typeable, through: :type_associations
+  has_and_belongs_to_many :types, :join_table => :variables_types
   has_many :versions, as: :variable
 end
 
 class Type < ActiveRecord::Base
   include HasNameAndUniqueName
-  has_many :variables, as: :type, through: :type_associations
+  has_and_belongs_to_many :variables, :join_table => :variables_types
 end
 
 class Content < ActiveRecord::Base
@@ -86,11 +86,6 @@ class Klass < Type
 end
 
 class PrimitiveType < Type
-end
-
-class TypeAssociation < ActiveRecord::Base
-  belongs_to :typeable, polymorphic: true
-  belongs_to :type, polymorphic: true
 end
 
 # alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
