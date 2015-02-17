@@ -29,7 +29,7 @@ class Parser
     return $this;
   }
 
-  public function set_memory_limit()
+  public function setMemoryLimit()
   {
     ini_set('memory_limit', (int)$this->memory_limit.'M');
   }
