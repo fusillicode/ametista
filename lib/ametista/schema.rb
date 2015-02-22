@@ -126,9 +126,10 @@ class GlobalVariable < Variable
     self.scope ||= Namespace.find_or_create_by(
       name: Global.lang.php.global_namespace.name
     )
+    self.kind ||= Global.lang.php.superglobals.first
   end
   def unique_name
-    "#{Global.lang.php.global_namespace.name}#{Global.lang.php.namespace_separator}#{type}[#{name}]"
+    "#{scope.unique_name}#{Global.lang.php.namespace_separator}#{kind}[#{name}]"
   end
 end
 
