@@ -143,6 +143,8 @@ end
 class Property < Variable
   belongs_to :klass, inverse_of: :properties
   scope :instances_properties, ->{ where(kind: Global.lang.php.instance_property) }
+  scope :self_property, ->{ where(kind: Global.lang.php.self_property) }
+  scope :parent_property, ->{ where(kind: Global.lang.php.parent_property) }
   def unique_name
     "#{klass.unique_name}#{Global.lang.php.namespace_separator}#{name}"
   end
