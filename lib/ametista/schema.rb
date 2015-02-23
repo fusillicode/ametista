@@ -54,6 +54,9 @@ end
 
 class Content < ActiveRecord::Base
   belongs_to :container, polymorphic: true
+  scope :namespaces_contents, ->{ where(container_type: 'Namespace') }
+  scope :functions_contents, ->{ where(container_type: 'Function') }
+  scope :klasses_methods_contents, ->{ where(container_type: 'KlassMethod') }
 end
 
 ################################################################################
