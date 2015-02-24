@@ -16,11 +16,11 @@ class GlobalVariablesAssignementsRule < RulesCollection
 
   def versions_type global_variable
     global_variable.versions.all.map do |version|
-      version_type version
+      version_types version
     end
   end
 
-  def version_type version
+  def version_types version
     rhs = parser.parse version.rhs
     rhs_kind = querier.rhs_kind(rhs)
     apply_rule rhs_kind, rhs
