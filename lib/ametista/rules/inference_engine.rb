@@ -2,13 +2,15 @@
 require 'awesome_print'
 require_relative '../utilities'
 require_relative 'global_variables_assignements_rule'
+require_relative 'global_variables_uses_rule'
 require 'virtus'
 
 class InferenceEngine
 
   include Virtus.model
   attribute :rules, Hash, default: {
-    global_variables_assignements_rule: GlobalVariablesAssignementsRule.new
+    global_variables_assignements_rule: GlobalVariablesAssignementsRule.new,
+    global_variables_uses_rule: GlobalVariablesUsesRule.new
   }
   attribute :model_modified, Axiom::Types::Boolean, default: true
   attribute :total_iterations, Integer, default: 7
