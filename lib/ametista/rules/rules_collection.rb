@@ -1,7 +1,8 @@
 require 'virtus'
 require_relative 'rule'
 
-class RulesCollection
+class RulesCollection < Rule
+
   include Virtus.model
   attribute :rules, Hash, default: {
     'Expr_AssignOp_ShiftLeft'      => 'int',
@@ -36,26 +37,23 @@ class RulesCollection
   }
 
   def initialize args = {}
-    super
+    super args
     init_rules
   end
 
   def init_rules
     @rules = rules.each_with_object({}) do |(rule_name, logic), hash|
       hash[rule_name] = Rule.new({logic: logic})
-      exit
     end
-    exit
-    @rules.default = Rule.new
   end
 
-  def apply rule_name, ast
+  def apply_rule rule_name, ast
     @rules[rule_name].apply ast
   end
 
-  def apply_all
+  def apply_all_rules *args
     @rules.map do |rule|
-      rule.apply
+      rule.apply *args
     end
   end
 

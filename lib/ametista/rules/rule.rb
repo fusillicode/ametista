@@ -1,5 +1,4 @@
 require_relative '../xml_parser'
-require_relative 'rules_collection'
 require 'virtus'
 
 # una regola la posso costruire con :
@@ -15,17 +14,16 @@ class Rule
   include Virtus.model
   attribute :parser, XmlParser, default: XmlParser.new
   attribute :querier, Querier, default: Querier.new
-  attribute :rules_collection, RulesCollection, default: RulesCollection.new
   attribute :logic
 
   # args può essere una proc, una lamda, un hash come quello di initialize_with e un qualunque oggetto
-  def initialize
+  def initialize args = nil, &block
     super
-    @logic = args[:logic] || args || block
+    @logic = block || args[:logic] || args
   end
 
   def apply *args
-    @logic && @logic.call(*args)
+    @logic || @logic.call(*args)
   end
 
   def call *args

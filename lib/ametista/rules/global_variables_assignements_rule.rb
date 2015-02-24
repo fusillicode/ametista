@@ -3,7 +3,7 @@ require_relative '../queriers/assignements_querier'
 require_relative 'rule'
 require_relative 'rules_collection'
 
-class GlobalVariablesAssignementsRule < Rule
+class GlobalVariablesAssignementsRule < RulesCollection
 
   include Virtus.model
   attribute :querier, AssignementsQuerier, default: AssignementsQuerier.new
@@ -13,9 +13,7 @@ class GlobalVariablesAssignementsRule < Rule
       global_variable.versions.all.map do |version|
         rhs = parser.parse version.rhs
         rhs_kind = querier.rhs_kind(rhs)
-        ap rules_collection
-        exit
-        rules_collection.apply rhs_kind, rhs
+        ap apply_rule rhs_kind, rhs
       end
     end
   end
