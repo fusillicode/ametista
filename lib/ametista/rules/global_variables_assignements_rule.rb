@@ -5,15 +5,17 @@ require_relative 'rules_collection'
 
 class GlobalVariablesAssignementsRule < Rule
 
-  extend Initializer
-  initialize_with ({
-    querier: AssignementsQuerier.new,
-  })
+  include Virtus.model
+  attribute :querier, AssignementsQuerier, default: AssignementsQuerier.new
 
   def apply
     GlobalVariable.all.each do |global_variable|
-      variable.versions.all.map do |version|
-        ap rules_collection[expression_type].apply
+      global_variable.versions.all.map do |version|
+        rhs = parser.parse version.rhs
+        rhs_kind = querier.rhs_kind(rhs)
+        ap rules_collection
+        exit
+        rules_collection.apply rhs_kind, rhs
       end
     end
   end

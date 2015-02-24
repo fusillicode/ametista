@@ -1,5 +1,6 @@
 require_relative '../xml_parser'
 require_relative 'rules_collection'
+require 'virtus'
 
 # una regola la posso costruire con :
 # - un blocco => apply chiama il blocco
@@ -11,16 +12,14 @@ require_relative 'rules_collection'
 
 class Rule
 
-  extend Initializer
-  initialize_with ({
-    parser: XmlParser.new,
-    querier: Querier.new,
-    rules_collection: RulesCollection.new,
-    logic: nil
-  })
+  include Virtus.model
+  attribute :parser, XmlParser, default: XmlParser.new
+  attribute :querier, Querier, default: Querier.new
+  attribute :rules_collection, RulesCollection, default: RulesCollection.new
+  attribute :logic
 
   # args può essere una proc, una lamda, un hash come quello di initialize_with e un qualunque oggetto
-  def initialize args = {}, &block
+  def initialize
     super
     @logic = args[:logic] || args || block
   end

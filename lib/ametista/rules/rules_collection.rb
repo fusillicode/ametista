@@ -37,20 +37,24 @@ class RulesCollection
 
   def initialize args = {}
     super
-    ap rules
-    exit
-    rules.each do |rule_name, logic|
-      rules[rule_name] = Rule.new logic
-    end
-    exit
+    init_rules
   end
 
-  def apply rule #, args = nil
-    rules[rule].apply args
+  def init_rules
+    @rules = rules.each_with_object({}) do |(rule_name, logic), hash|
+      hash[rule_name] = Rule.new({logic: logic})
+      exit
+    end
+    exit
+    @rules.default = Rule.new
+  end
+
+  def apply rule_name, ast
+    @rules[rule_name].apply ast
   end
 
   def apply_all
-    rules.map do |rule|
+    @rules.map do |rule|
       rule.apply
     end
   end
