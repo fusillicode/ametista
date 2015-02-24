@@ -12,14 +12,15 @@ require 'virtus'
 class Rule
 
   include Virtus.model
+  attribute :name, String
   attribute :parser, XmlParser, default: XmlParser.new
   attribute :querier, Querier, default: Querier.new
   attribute :logic
 
   # args può essere una proc, una lamda, un hash come quello di initialize_with e un qualunque oggetto
-  def initialize args = nil, &block
+  def initialize args = {}, &block
     super
-    @logic = block || args[:logic] || args
+    @logic = args[:logic] || block || args
   end
 
   def apply *args

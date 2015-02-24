@@ -23,18 +23,19 @@ class RulesCollection < Rule
     'Expr_BinaryOp_SmallerOrEqual' => 'bool',
     'Expr_BinaryOp_ShiftLeft'      => 'int',
     'Expr_BinaryOp_ShiftRight'     => 'int',
-    'Expr_Closure'                 => 'function',
+    'Expr_Closure'                 => 'callback',
     'Expr_Cast_Array'              => 'array',
     'Expr_Cast_Bool'               => 'bool',
     'Expr_Cast_Double'             => 'float',
     'Expr_Cast_Int'                => 'int',
     'Expr_Cast_Object'             => 'object',
     'Expr_Cast_String'             => 'string',
-    'Expr_Cast_Unset'              => 'null',
+    'Expr_Cast_Unset'              => 'NULL',
     'Expr_InstanceOf'              => 'bool',
     'Scalar_DNumber'               => 'float',
     'Scalar_LNumber'               => 'int'
   }
+  attribute :default_rule, Rule, default: Rule.new
 
   def initialize args = {}
     super args
@@ -43,12 +44,13 @@ class RulesCollection < Rule
 
   def init_rules
     @rules = rules.each_with_object({}) do |(rule_name, logic), hash|
-      hash[rule_name] = Rule.new({logic: logic})
+      hash[rule_name] = Rule.new(name: rule_name, logic: logic)
     end
+    @rules.default = default_rule
   end
 
-  def apply_rule rule_name, ast
-    @rules[rule_name].apply ast
+  def apply_rule rule_name, args
+    @rules[rule_name].apply args
   end
 
   def apply_all_rules *args
