@@ -1,4 +1,5 @@
 module Initializer
+  require 'active_support'
   def initialize_with default_attributes
     attr_accessor *default_attributes.keys
     define_method :default_attributes do
@@ -10,8 +11,8 @@ module Initializer
     def initialize args = {}
       set_instance_variables(
         superclass(:default_attributes, {})
-        .merge(default_attributes)
-        .merge(args)
+        .deep_merge(default_attributes)
+        .deep_merge(args)
       )
     end
     def set_instance_variables attributes
