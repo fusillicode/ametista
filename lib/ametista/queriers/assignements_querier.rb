@@ -15,4 +15,8 @@ class AssignementsQuerier < Querier
     ast.xpath('./ancestor::var/following-sibling::expr[1]')
   end
 
+  def rhs_kind ast
+    ast.xpath('name(./*[1])')
+  end
+
 end
