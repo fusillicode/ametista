@@ -28,24 +28,20 @@ class GlobalVariablesUsesRule < RulesCollection
 
   def global_variables_uses content
     GlobalVariable.find_each do |global_variable|
-      klass_methods_calls(content, global_variable.name)
+      ap klass_methods_calls(content, global_variable.name)
     end
   end
 
   def klass_methods_calls content, name
     querier.klass_methods_calls(content, name).map do |klass_method_call|
-      klasses_unique_names klass_method_call
-    end
+      types klass_method_call
+    end.flatten
   end
 
-  def klasses_unique_names klass_method_call
+  def types klass_method_call
     KlassMethod.where(name: querier.name(klass_method_call)).map do |klass_method|
-      klass_method.klass.unique_name
+      klass_method.klass
     end
-  end
-
-  def types types_names
-    Type.where unique_name: types_names
   end
 
 end
