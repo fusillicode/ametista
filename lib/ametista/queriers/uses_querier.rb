@@ -3,7 +3,7 @@ require_relative 'querier'
 
 class UsesQuerier < Querier
 
-  def methods_calls ast_root, varible_name
+  def klass_methods_calls ast_root, varible_name
     ast_root.xpath(".//Expr_MethodCall[var/Expr_Variable/name/string[text() = '#{varible_name}']]")
   end
 

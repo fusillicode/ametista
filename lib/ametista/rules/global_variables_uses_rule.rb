@@ -2,31 +2,46 @@ require_relative '../schema'
 require_relative 'rule'
 require_relative '../queriers/uses_querier.rb'
 
+# StaticCall
+# MethodCall
+# FuncCall
+# PropertyFetch
+# StaticPropertyFetch
+# ConstFetch
+# ArrayDimFetch
+
 class GlobalVariablesUsesRule < RulesCollection
 
   include Virtus.model
-  attribute :querier, UsesQuerier, default: UsesQuerier.new
+  attribute :querier, Querier, default: UsesQuerier.new
 
   def apply
+    apply_on_namespaces_contents
+  end
+
+  def apply_on_namespaces_contents
+    Content.namespaces_contents.find_each do |content|
+      content = parser.parse content.statements
+      global_variables_uses content
+    end
+  end
+
+  def global_variables_uses content
     GlobalVariable.find_each do |global_variable|
-      global_variable.types << types(versions_type(global_variable))
+      klass_methods_calls(content, global_variable.name)
     end
   end
 
-  def versions_type global_variable
-    global_variable.versions.all.map do |version|
-      version_type version
+  def klass_methods_calls content, name
+    querier.klass_methods_calls(content, name).map do |klass_method_call|
+      KlassMethod.where(name: querier.name(klass_method_call)).map do |klass_method|
+        ap klass_method.unique_name
+      end
     end
-  end
-
-  def version_type version
-    rhs = parser.parse version.rhs
-    rhs_kind = querier.rhs_kind(rhs)
-    apply_rule rhs_kind, rhs
   end
 
   def types types_names
-    Type.where :name => types_names
+    Type.where name: types_names
   end
 
 end

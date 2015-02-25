@@ -10,11 +10,11 @@ class GlobalVariablesAssignementsRule < RulesCollection
 
   def apply
     GlobalVariable.find_each do |global_variable|
-      global_variable.types << types(versions_type(global_variable))
+      global_variable.types << types(versions_types(global_variable))
     end
   end
 
-  def versions_type global_variable
+  def versions_types global_variable
     global_variable.versions.all.map do |version|
       version_types version
     end
@@ -27,7 +27,7 @@ class GlobalVariablesAssignementsRule < RulesCollection
   end
 
   def types types_names
-    Type.where :name => types_names
+    Type.where name: types_names
   end
 
 end
