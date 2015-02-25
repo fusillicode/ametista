@@ -6,7 +6,7 @@ require_relative 'rules_collection'
 class GlobalVariablesAssignementsRule < RulesCollection
 
   include Virtus.model
-  attribute :querier, AssignementsQuerier, default: AssignementsQuerier.new
+  attribute :querier, Querier, default: AssignementsQuerier.new
 
   def apply
     GlobalVariable.find_each do |global_variable|
