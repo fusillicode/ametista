@@ -49,14 +49,14 @@ class RulesCollection < Rule
     @rules.default = default_rule
   end
 
-  def apply_rule rule_name, args
-    @rules[rule_name].apply args
-  end
-
-  def apply_all_rules *args
+  def apply *args
     @rules.map do |rule|
       rule.apply *args
     end
+  end
+
+  def apply_rule rule_name, args
+    @rules[rule_name].apply args
   end
 
 end
