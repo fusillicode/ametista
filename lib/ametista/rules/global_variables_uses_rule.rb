@@ -28,11 +28,11 @@ class GlobalVariablesUsesRule < RulesCollection
 
   def global_variables_uses content
     GlobalVariable.find_each do |global_variable|
-      ap klass_methods_calls(content, global_variable.name)
+      ap types_for_klass_methods_calls(content, global_variable.name) | global_variable.types
     end
   end
 
-  def klass_methods_calls content, name
+  def types_for_klass_methods_calls content, name
     querier.klass_methods_calls(content, name).map do |klass_method_call|
       types klass_method_call
     end.flatten
