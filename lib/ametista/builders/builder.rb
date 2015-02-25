@@ -7,12 +7,18 @@ class Builder
     querier: Querier.new,
     ast: nil
   })
-  # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
-  # di stringhe vuote per il campo xml
+
   def content xml
     Content.create(
-      statements: (xml.empty? ? ' ' : xml)
+      statements: wrap_content(xml)
     )
+  end
+
+  # Necessario per assicurarsi che gli xml ritornati siano parsabili da Nokogiri
+  # TODO rimuovere il check sui statements quando Postgres consentirà l'inserimento
+  # di stringhe vuote per il campo xml
+  def wrap_content xml
+    xml.empty? ? ' ' : "<dummy_wrap>#{xml}</dummy_wrap>"
   end
 
   def namespace name_parts
