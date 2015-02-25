@@ -3,9 +3,9 @@ require 'nokogiri'
 class XmlParser
 
   def parse ast
-    Nokogiri::XML(ast) { |config|
+    Nokogiri::XML(ast) do |config|
       config.noblanks
-    }.remove_namespaces!
+    end.remove_namespaces!#.tap { |o| ap o.errors }
   end
 
 end
