@@ -1,10 +1,44 @@
 <?php
 
+namespace elrond;
+
 define('definisco', $a->b, true);
+
+function ciao()
+{
+  $GLOBALS['a'][1][1]->b = 1;
+  $GLOBALS['a'] = 1;
+  $GLOBALS['a']->b = 1;
+  $GLOBALS['a']->b[1] = 1;
+  $GLOBALS['a']->b[1][1] = 1;
+  $GLOBALS['a'][1]->b = 1;
+  $GLOBALS['a'][1][1]->b = 1;
+  $GLOBALS['b'][1]->b[1] = 1;
+}
+
+$GLOBALS['a'][1][1]->b = 1;
+$GLOBALS['a'] = 1;
+$GLOBALS['a']->b = 1;
+$GLOBALS['a']->b[1] = 1;
+$GLOBALS['a']->b[1][1] = 1;
+$GLOBALS['a'][1]->b = 1;
+$GLOBALS['a'][1][1]->b = 1;
+$GLOBALS['b'][1]->b[1] = 1;
+
+class ciaociao
+{
+  function pippo()
+  {
+
+  }
+}
 
 $w = NULL;
 $w = 1 + 2;
 $w = definisco;
+$w->pippo()->ciccio();
+$w::pippo()->ciccio();
+$w->pippo();
 $w = $a = $w->pippo() + 2;
 $w = $w->pippo() + 2;
 $w = $w->pippo() && '';
