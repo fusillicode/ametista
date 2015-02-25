@@ -18,7 +18,7 @@ class CustomTypesBuilder < Builder
   end
 
   def custom_types
-    parameters_custom_types << klasses_builder.build(ast)
+    parameters_custom_types | klasses_builder.build(ast)
   end
 
   def parameters_custom_types

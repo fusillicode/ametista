@@ -20,7 +20,7 @@ class ParametersBuilder < Builder
   end
 
   def parameters
-    functions_parameters << klasses_methods_parameters
+    functions_parameters | klasses_methods_parameters
   end
 
   def functions_parameters

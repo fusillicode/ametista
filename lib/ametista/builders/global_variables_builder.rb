@@ -18,7 +18,7 @@ class GlobalVariablesBuilder < Builder
   end
 
   def global_variables
-    global_namespace_variables << global_definitions << superglobals
+    global_namespace_variables | global_definitions | superglobals
   end
 
   def global_namespace_variables

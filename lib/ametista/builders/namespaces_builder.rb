@@ -12,7 +12,7 @@ class NamespacesBuilder < Builder
 
   def build ast
     @ast = ast
-    [global_namespace] << namespaces
+    [global_namespace] | namespaces
   end
 
   def global_namespace

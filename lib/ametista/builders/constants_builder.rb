@@ -16,7 +16,7 @@ class ConstantsBuilder < Builder
   end
 
   def constants
-    defined_constants << klass_constants
+    defined_constants | klass_constants
   end
 
   def defined_constants
@@ -28,7 +28,7 @@ class ConstantsBuilder < Builder
   end
 
   def klass_constants
-
+    []
   end
 
   def defined_constant_version variable, ast
