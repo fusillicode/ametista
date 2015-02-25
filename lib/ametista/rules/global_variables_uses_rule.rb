@@ -34,14 +34,18 @@ class GlobalVariablesUsesRule < RulesCollection
 
   def klass_methods_calls content, name
     querier.klass_methods_calls(content, name).map do |klass_method_call|
-      KlassMethod.where(name: querier.name(klass_method_call)).map do |klass_method|
-        ap klass_method.unique_name
-      end
+      klasses_unique_names klass_method_call
+    end
+  end
+
+  def klasses_unique_names klass_method_call
+    KlassMethod.where(name: querier.name(klass_method_call)).map do |klass_method|
+      klass_method.klass.unique_name
     end
   end
 
   def types types_names
-    Type.where name: types_names
+    Type.where unique_name: types_names
   end
 
 end
