@@ -15,7 +15,7 @@ class GlobalVariablesAssignementsRule < RulesCollection
   end
 
   def versions_types global_variable
-    global_variable.versions.all.map do |version|
+    global_variable.versions.find_each.map do |version|
       version_types version
     end
   end
