@@ -36,7 +36,7 @@ class Rule
 
   def initialize args = {}, &block
     super
-    @logic = args[:logic] || block || args
+    @logic = args[:logic] || block
   end
 
   def apply *args

@@ -1,10 +1,8 @@
-require 'virtus'
 require_relative 'rule'
 
 class RulesCollection < Rule
 
-  include Virtus.model
-  attribute :default_rule, Rule, default: Rule.new
+  attribute :default_rule, Rule
   attribute :rules, Hash, default: {
     'Expr_AssignOp_ShiftLeft'      => 'int',
     'Expr_AssignOp_ShiftRight'     => 'int',
@@ -37,8 +35,9 @@ class RulesCollection < Rule
     'Scalar_LNumber'               => 'int'
   }
 
-  def initialize args = {}
+  def initialize args = {}, &block
     super
+    @default_rule = args[:default_rule] || Rule.new
     init_rules
   end
 
