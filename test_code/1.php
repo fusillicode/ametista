@@ -25,13 +25,34 @@ $GLOBALS['a'][1]->b = 1;
 $GLOBALS['a'][1][1]->b = 1;
 $GLOBALS['b'][1]->b[1] = 1;
 
-class ciaociao
+class P
 {
   function pippo()
   {
 
   }
 }
+
+class C1 extends P
+{
+
+}
+
+class C21 extends C1
+{
+
+}
+
+class C31 extends C21
+{
+
+}
+
+class C32 extends C21
+{
+
+}
+
 
 $w = NULL;
 $w = 1 + 2;
