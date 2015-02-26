@@ -22,11 +22,11 @@ class GlobalVariablesUsesRule < RulesCollection
   def apply_on_namespaces_contents
     Content.namespaces_contents.find_each do |content|
       content = parser.parse content.statements
-      global_variables_uses content
+      types_for_global_variables_uses content
     end
   end
 
-  def global_variables_uses content
+  def types_for_global_variables_uses content
     GlobalVariable.find_each do |global_variable|
       ap types_for_klass_methods_calls(content, global_variable.name) | global_variable.types
     end
