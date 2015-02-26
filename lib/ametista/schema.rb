@@ -1,3 +1,5 @@
+require 'ancestry'
+
 module HasNameAndUniqueName
   extend ActiveSupport::Concern
   included do
@@ -77,9 +79,8 @@ class Namespace < ActiveRecord::Base
 end
 
 class Klass < Type
+  has_ancestry
   belongs_to :namespace, inverse_of: :klasses
-  belongs_to :parent_klass, class_name: 'Klass'
-  has_many :child_klasses, class_name: 'Klass', foreign_key: 'parent_klass_id'
   has_many :klass_methods, inverse_of: :klass
   has_many :properties, inverse_of: :klass
   has_many :constants, inverse_of: :scope

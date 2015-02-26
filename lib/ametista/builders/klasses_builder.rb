@@ -27,7 +27,7 @@ class KlassesBuilder < Builder
       namespace: namespace(
         querier.procedure_namespaced_name_parts(klass_ast)
       ),
-      parent_klass: parent_klass(klass_ast)
+      parent: parent_klass(klass_ast)
     )
   end
 

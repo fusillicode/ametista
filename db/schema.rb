@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "types", :force => true do |t|
     t.string :name, null: false
     t.integer :namespace_id
-    t.references :parent_klass
+    t.string :ancestry
+    t.integer :parent
     t.string :type
   end
 

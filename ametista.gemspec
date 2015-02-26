@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "global"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "virtus"
+  spec.add_runtime_dependency "ancestry"
 end
