@@ -3,6 +3,7 @@ require_relative 'rule'
 class RulesCollection < Rule
 
   attribute :default_rule, Rule
+  attribute :override_rules, Axiom::Types::Boolean, default: false
   attribute :rules, Hash, default: {
     'Expr_AssignOp_ShiftLeft'      => 'int',
     'Expr_AssignOp_ShiftRight'     => 'int',
@@ -43,7 +44,7 @@ class RulesCollection < Rule
 
   def init_rules
     @rules = rules.each_with_object({}) do |(rule_name, logic), hash|
-      hash[rule_name] = Rule.new(name: rule_name, logic: logic)
+      hash[rule_name] = Rule.new name: rule_name, logic: logic
     end
     @rules.default = default_rule
   end
@@ -56,6 +57,13 @@ class RulesCollection < Rule
 
   def apply_rule rule_name, args
     @rules[rule_name].apply args
+  end
+
+  def add_rule args = {}, &block
+    if not(override_rules) && @rules.has_key?(args[:name])
+      raise "There is already a rule rule '#{args[:name]}'"
+    end
+    @rules[args[:name]] = Rule.new args, &block
   end
 
 end
