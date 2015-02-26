@@ -50,7 +50,7 @@ class RulesCollection < Rule
   end
 
   def apply *args
-    @rules.map do |rule|
+    @rules.map do |rule_name, rule|
       rule.apply *args
     end
   end
