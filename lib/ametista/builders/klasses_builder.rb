@@ -26,9 +26,8 @@ class KlassesBuilder < Builder
       name: querier.name(klass_ast),
       namespace: namespace(
         querier.procedure_namespaced_name_parts(klass_ast)
-      ),
-      parent: parent_klass(klass_ast)
-    )
+      )
+    ).tap { |o| o.parent = parent_klass(klass_ast); o.save! }
   end
 
   def parent_klass klass_ast
