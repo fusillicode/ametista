@@ -56,6 +56,7 @@ class ModelBuilder
 
   def build_for_each_ast
     while ast = channel.read
+      ap '...'
       builders_loop(parser.parse(ast))
     end
   end
@@ -68,6 +69,7 @@ class ModelBuilder
 
   def builders_loop ast
     builders.each do |key, builder|
+      ap key
       builder.build(ast)
     end
   end
