@@ -5,7 +5,7 @@ require_relative 'global_variables_assignements_rule'
 require_relative 'global_variables_uses_rule'
 require 'virtus'
 
-class InferenceEngine
+class InferenceEngine < RulesCollection
 
   include Virtus.model
   attribute :rules, Hash, default: {

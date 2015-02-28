@@ -28,7 +28,7 @@ class GlobalVariablesUsesRule < RulesCollection
 
   def types_for_global_variables_uses content
     GlobalVariable.find_each do |global_variable|
-      types_for_klass_methods_calls content, global_variable.name
+      ap types_for_klass_methods_calls content, global_variable
     end
   end
 

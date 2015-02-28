@@ -48,3 +48,10 @@ class Rule
   end
 
 end
+
+class RuleApplicationResult
+
+  include Virtus.model
+  attribute :model_modified, Axiom::Types::Boolean, default: true
+
+end
