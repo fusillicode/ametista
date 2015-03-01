@@ -55,13 +55,13 @@ class RulesCollection < Rule
     end
   end
 
-  def apply_rule rule_name, args
-    @rules[rule_name].apply args
+  def apply_rule rule_name, *args
+    @rules[rule_name].apply *args
   end
 
   def add_rule args = {}, &block
     if not(override_rules) && @rules.has_key?(args[:name])
-      raise "There is already a rule rule '#{args[:name]}'"
+      raise "There is already a rule named '#{args[:name]}'"
     end
     @rules[args[:name]] = Rule.new args, &block
   end
