@@ -71,9 +71,7 @@ class RulesCollection < Rule
   end
 
   def check_rule_override key
-    if not(override_rules) && @rules.has_key?(key)
-      raise "There is already a rule identified by the key '#{key}'"
-    end
+    raise "There is already a rule identified by the key '#{key}'" if not(override_rules) && @rules.has_key?(key)
   end
 
   def []= key, value
