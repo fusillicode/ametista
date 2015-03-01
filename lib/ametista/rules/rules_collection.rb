@@ -60,10 +60,23 @@ class RulesCollection < Rule
   end
 
   def add_rule args = {}, &block
-    if not(override_rules) && @rules.has_key?(args[:name])
-      raise "There is already a rule named '#{args[:name]}'"
+    key = args[:key] || args[:name]
+    if not(override_rules) && @rules.has_key? key
+      raise "There is already a rule identified by the key '#{key}'"
     end
-    @rules[args[:name]] = Rule.new args, &block
+    @rules[key] = Rule.new args, &block
+  end
+
+  def []= key, value
+    add_rule key: key, logic: value
+  end
+
+  def method_missing method_name, *args, &block
+    if self.respond_to? method_name
+      self.public_send method_name, *args, &block
+    else
+      rules.public_send method_name, *args, &block
+    end
   end
 
 end
