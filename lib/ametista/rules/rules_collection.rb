@@ -60,13 +60,8 @@ class RulesCollection < Rule
   def add_rule key = nil, rule = {}, &block
     key = key || rule[:name]
     check_rule_override key
-    if rule.respond_to? :[]
-      name = rule[:name] rescue key
-      logic = rule[:logic] rescue rule
-    else
-      name = key
-      logic = rule
-    end
+    name = rule[:name] rescue key
+    logic = rule[:logic] rescue rule
     @rules[key] = rule.is_a?(Rule) ? rule : Rule.new(name: name, logic: logic, &block)
   end
 
