@@ -43,20 +43,20 @@ class RulesCollection < Rule
   end
 
   def init_rules
-    @rules = rules.each_with_object({}) do |(rule_name, logic), hash|
-      hash[rule_name] = Rule.new name: rule_name, logic: logic
+    @rules = rules.each_with_object({}) do |(name, logic), hash|
+      hash[name] = Rule.new name: name, logic: logic
     end
     @rules.default = default_rule
   end
 
   def apply *args
-    @rules.map do |rule_name, rule|
+    @rules.map do |name, rule|
       rule.apply *args
     end
   end
 
-  def apply_rule rule_name, *args
-    @rules[rule_name].apply *args
+  def apply_rule name, *args
+    @rules[name].apply *args
   end
 
   def add_rule args = {}, &block
@@ -65,6 +65,10 @@ class RulesCollection < Rule
       raise "There is already a rule identified by the key '#{key}'"
     end
     @rules[key] = Rule.new args, &block
+  end
+
+  def remove_rule name
+    @rules.delete_key name
   end
 
   def []= key, value
