@@ -32,13 +32,7 @@ class InferenceEngine < RulesCollection
   end
 
   def result_of_rules_application
-    apply_rules.reduce :&
-  end
-
-  def apply_rules
-    rules.map do |key, rule|
-      rule.apply
-    end
+    apply.reduce :&
   end
 
 end
