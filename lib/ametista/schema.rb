@@ -52,6 +52,7 @@ end
 class Type < ActiveRecord::Base
   include HasNameAndUniqueName
   has_and_belongs_to_many :variables, :join_table => :variables_types
+  has_many :constants
 end
 
 class Content < ActiveRecord::Base
@@ -114,6 +115,8 @@ end
 class Constant < ActiveRecord::Base
   include HasNameAndUniqueName
   belongs_to :scope, polymorphic: true
+  has_one :version, as: :versionable
+  belongs_to :type
   after_initialize do
     self.scope ||= Namespace.find_or_create_by(
       name: Global.lang.php.global_namespace.name
