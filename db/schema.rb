@@ -3,7 +3,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "versions", :force => true do |t|
     t.integer :position, array: true, default: '{}'
     t.xml :rhs
-    t.references :variable, polymorphic: true
+    t.references :versionable, polymorphic: true
   end
 
   create_table "contents", :force => true do |t|
