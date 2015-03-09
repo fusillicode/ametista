@@ -28,7 +28,7 @@ class InferenceEngine < RulesCollection
 
   def iterate_on_rules
     @current_iteration += 1
-    model_modified = result_of_rules_application
+    @model_modified = result_of_rules_application
   end
 
   def result_of_rules_application

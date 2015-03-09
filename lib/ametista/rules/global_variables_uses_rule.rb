@@ -14,6 +14,7 @@ class GlobalVariablesUsesRule < RulesCollection
 
   include Virtus.model
   attribute :querier, Querier, default: UsesQuerier.new
+  attribute :last_application, Hash, default: Hash.new
 
   def apply
     apply_on_namespaces_contents
@@ -28,20 +29,15 @@ class GlobalVariablesUsesRule < RulesCollection
 
   def types_for_global_variables_uses content
     GlobalVariable.find_each do |global_variable|
-      ap types_for_klass_methods_calls content, global_variable
+      current_types = global_variable.types
+      new_types = types_for_klass_methods_calls content, global_variable
+      if model_modified = last_application[global_variable.id] != new_types
+        global_variable.types = new_types
+      end
+      last_application[global_variable.id] = new_types
+      model_modified
     end
   end
-
-  # def types_for_global_variable_uses content, global_variable
-  #   inferred_types = types_for_klass_methods_calls content, global_variable.name
-  #   current_types = global_variable.types
-  #   return inferred_types if current_types.empty?
-  #   intersection_of_types = current_types & inferred_types
-  #   return intersection_of_types if intersection_of_types.empty?
-  #   global_variable.types
-  #     types_for_klass_methods_calls(content, global_variable.name) | global_variable.types
-  #   end
-  # end
 
   def types_for_klass_methods_calls content, global_variable
     querier.klass_methods_calls(content, global_variable.name).map do |klass_method_call|
