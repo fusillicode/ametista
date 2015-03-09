@@ -42,9 +42,7 @@ class RulesCollection < Rule
   end
 
   def apply *args
-    @rules.map do |name, rule|
-      rule.apply *args
-    end
+    @rules.map { |name, rule| rule.apply *args }.flatten
   end
 
   def apply_rule name, *args
