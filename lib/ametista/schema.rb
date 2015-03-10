@@ -115,7 +115,7 @@ end
 class Constant < ActiveRecord::Base
   include HasNameAndUniqueName
   belongs_to :scope, polymorphic: true
-  belongs_to :type
+  belongs_to :type, class_name: 'PrimitiveType'
   has_one :version, as: :versionable
   after_initialize do
     self.scope ||= Namespace.find_or_create_by(
