@@ -52,7 +52,6 @@ end
 class Type < ActiveRecord::Base
   include HasNameAndUniqueName
   has_and_belongs_to_many :variables, :join_table => :variables_types
-  has_many :constants
 end
 
 class Content < ActiveRecord::Base
@@ -91,6 +90,7 @@ class Klass < Type
 end
 
 class PrimitiveType < Type
+  has_many :constants
 end
 
 # alias in modo da poter chiamare CustomType e Klass in maniera indifferenziata
