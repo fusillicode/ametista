@@ -4,6 +4,7 @@ class RulesCollection < Rule
 
   attribute :override_rules, Axiom::Types::Boolean, default: false
   attribute :rules, Hash, default: {}
+  attribute :last_application, Hash, default: Hash.new
 
   def initialize args = {}, &block
     super

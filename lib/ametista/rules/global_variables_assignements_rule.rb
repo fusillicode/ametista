@@ -6,7 +6,6 @@ require_relative 'rules_collection'
 class GlobalVariablesAssignementsRule < RulesCollection
 
   attribute :querier, Querier, default: AssignementsQuerier.new
-  attribute :last_application, Hash, default: Hash.new
 
   def apply
     GlobalVariable.all.map do |global_variable|

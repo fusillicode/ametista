@@ -14,7 +14,6 @@ class GlobalVariablesUsesRule < RulesCollection
 
   include Virtus.model
   attribute :querier, Querier, default: UsesQuerier.new
-  attribute :last_application, Hash, default: Hash.new
 
   def apply
     apply_on_namespaces_contents
