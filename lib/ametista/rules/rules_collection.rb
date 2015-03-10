@@ -4,7 +4,7 @@ class RulesCollection < Rule
 
   attribute :override_rules, Axiom::Types::Boolean, default: false
   attribute :rules, Hash, default: {}
-  attribute :last_application, Hash, default: Hash.new
+  attribute :last_application, Hash, default: {}
 
   def initialize args = {}, &block
     super
@@ -43,7 +43,7 @@ class RulesCollection < Rule
   end
 
   def apply *args
-    @rules.map { |name, rule| rule.apply *args }.flatten
+    @rules.map { |name, rule| rule.apply *args }.flatten.reduce :&
   end
 
   def apply_rule name, *args
