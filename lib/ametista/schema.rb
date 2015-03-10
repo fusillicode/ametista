@@ -115,8 +115,8 @@ end
 class Constant < ActiveRecord::Base
   include HasNameAndUniqueName
   belongs_to :scope, polymorphic: true
-  has_one :version, as: :versionable
   belongs_to :type
+  has_one :version, as: :versionable
   after_initialize do
     self.scope ||= Namespace.find_or_create_by(
       name: Global.lang.php.global_namespace.name
