@@ -1,0 +1,77 @@
+# TODO come posso sistemare tutti questi require_relative?
+require 'awesome_print'
+require_relative '../utilities'
+require_relative '../redis_channel'
+require_relative '../xml_parser'
+require_relative '../refiners/instances_properties_refiner'
+require_relative 'primitive_types_builder'
+require_relative 'namespaces_builder'
+require_relative 'functions_builder'
+require_relative 'custom_types_builder'
+require_relative 'parameters_builder'
+require_relative 'global_variables_builder'
+require_relative 'constants_builder'
+require_relative 'local_variables_builder'
+require_relative 'properties_builder'
+require_relative 'klasses_builder'
+require_relative 'klasses_methods_builder'
+
+class ModelBuilder
+
+  extend Initializer
+  initialize_with ({
+    channel: RedisChannel.new,
+    parser: XmlParser.new,
+    init_builders: {
+      primitive_types_builder: PrimitiveTypesBuilder.new
+    },
+    builders: {
+      namespaces_builder: NamespacesBuilder.new,
+      functions_builder: FunctionsBuilder.new,
+      klasses_builder: KlassesBuilder.new,
+      klasses_methods_builder: KlassesMethodsBuilder.new,
+      custom_types_builder: CustomTypesBuilder.new,
+      parameters_builder: ParametersBuilder.new,
+      global_variables_builder: GlobalVariablesBuilder.new,
+      constants_builder: ConstantsBuilder.new,
+      local_variables_builder: LocalVariablesBuilder.new,
+      properties_builder: PropertiesBuilder.new
+    },
+    refiners: {
+      instances_properties_refiner: InstancesPropertiesRefiner.new
+    }
+  })
+
+  def build
+    init_build
+    build_for_each_ast
+    refine_model
+  end
+
+  def init_build
+    init_builders.each do |key, init_builder|
+      init_builder.build
+    end
+  end
+
+  def build_for_each_ast
+    while ast = channel.read
+      ap '...'
+      builders_loop(parser.parse(ast))
+    end
+  end
+
+  def refine_model
+    refiners.each do |key, refiner|
+      refiner.refine
+    end
+  end
+
+  def builders_loop ast
+    builders.each do |key, builder|
+      ap key
+      builder.build(ast)
+    end
+  end
+
+end
